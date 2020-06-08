@@ -1,0 +1,29 @@
+gfx/X/sky		1080x360
+gfx/X/floor		128x128
+gfx/X/wall		128x128
+gfx/X/stairu		128x128
+gfx/X/staird		128x128
+gfx/X/door		128x128
+gfx/X/warp		128x128
+gfx/X/battlebg		1080x720
+
+*HUD*
+gfx/hud/btlmenu		221x312
+gfx/hud/btlsel		221x312
+gfx/hud/enemyhp		94x40
+gfx/hud/notifdown	441x57
+gfx/hud/notifup		441x57
+gfx/hud/pcsel		354x95
+gfx/hud/pcturn		354x95
+gfx/hud/score		314x57
+
+*FOE*
+gfx/hud/foe0		519x300	dragon
+gfx/hud/foe1		270x375	stalker
+gfx/hud/foe2		138x288	deer
+gfx/hud/foe3		564x396	wyvern**
+gfx/hud/foe4		504x342	bird
+gfx/hud/foe5		516x342	manta
+gfx/hud/foe6		448x340 drake
+gfx/hud/foe7		345x280	brute
+gfx/hud/foe8		300x348	hunter
