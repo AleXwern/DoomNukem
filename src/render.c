@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/08 15:17:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/08 16:37:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	render(t_wolf *wlf)
 			rc_init(wlf);
 			
 			wlf->lineh = (int)(WINY / wlf->walldist);
+			if (wlf->side == 2)
+				wlf->lineh = (int)(WINX / wlf->walldist);
 			wlf->start = -wlf->lineh / 2 + WINY / 2;
 			if (wlf->start < 0)
 				wlf->start = 0;
@@ -128,7 +130,10 @@ void	render(t_wolf *wlf)
 				wlf->testcolor = 0xb01cff;
 			else
 				wlf->testcolor = 0xF0330A;
-			wall_stripe(wlf);
+			if (wlf->side == 2)
+				wlf->testcolor = 0xF0330A;
+			else
+				wall_stripe(wlf);
 		}
 	}
 	mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->img.img, 0, 0);

@@ -6,19 +6,21 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/08 15:17:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/08 15:44:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf.h"
 #include "../includes/value.h"
 
+#include <stdio.h>
+
 void	wolf_default(t_wolf *wlf)
 {
 	wlf->flr = 0;
 	wlf->posx = 2.5;
 	wlf->posy = 2.5;
-	wlf->posz = 1.5;
+	wlf->posz = 2.5;
 	wlf->dirx = 1.0;
 	wlf->diry = 0.0;
 	wlf->planex = 0.0;
@@ -72,7 +74,7 @@ void	free_memory(char **arr)
 void	setup(t_wolf *wolf)
 {
 	wolf_default(wolf);
-	if (wolf->map[1][(int)wolf->posy][(int)wolf->posx] != 1)
+	if (wolf->map[(int)wolf->posz][(int)wolf->posy][(int)wolf->posx] != 1)
 		error_out(SPW_ERROR, wolf);
 	mlx_hook(wolf->win, 2, 0, key_hold, wolf);
 	mlx_hook(wolf->win, 3, 0, key_release, wolf);

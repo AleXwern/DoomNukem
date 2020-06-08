@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/06/08 14:16:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/08 15:49:03 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 void	lab_move(t_wolf *wlf, int obj)
 {
-	if (obj == 3 && wlf->flr < wlf->mxflr && wlf->map[(int)wlf->posz +
+	if (obj == 3 && (int)wlf->posz < wlf->mxflr && wlf->map[(int)wlf->posz +
 			1][(int)wlf->posy][(int)wlf->posx] == 1)
-		wlf->flr++;
-	else if (obj == 4 && wlf->flr > 0 && wlf->map[(int)wlf->posz -
+		wlf->posz++;
+	else if (obj == 4 && (int)wlf->posz > 0 && wlf->map[(int)wlf->posz -
 			1][(int)wlf->posy][(int)wlf->posx] == 1)
-		wlf->flr--;
-	else if ((obj == 3 && wlf->flr == wlf->mxflr) ||
+		wlf->posz--;
+	else if ((obj == 3 && (int)wlf->posz == wlf->mxflr) ||
 			(obj == 4 && wlf->flr == 0))
 		error_out(LAB_OUT, wlf);
 	wlf->dirx *= -1.0;

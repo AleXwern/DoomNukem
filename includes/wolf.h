@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/08 13:19:01 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/08 16:15:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,10 @@ typedef struct	s_wolf
 	int			sbox;
 	int			cellx;
 	int			celly;
+	int			cellz;
 	int			tx;
 	int			ty;
+	int			tz;
 	double		posx;
 	double		posy;
 	double		posz;
@@ -161,8 +163,10 @@ typedef struct	s_wolf
 	double		raydz;
 	double		raydx0;
 	double		raydy0;
+	double		raydz0;
 	double		raydx1;
 	double		raydy1;
+	double		raydz1;
 	double		sidedx;
 	double		sidedy;
 	double		sidedz;
@@ -173,8 +177,10 @@ typedef struct	s_wolf
 	double		rowdist;
 	double		flstepx;
 	double		flstepy;
+	double		flstepz;
 	double		floorx;
 	double		floory;
+	double		floorz;
 	double		movsp;
 	double		rotsp;
 	double		step;
@@ -223,7 +229,7 @@ void			health_check(t_wolf *wlf, int pc, int thp);
 void			lab_move(t_wolf *wlf, int obj);
 void			place_pc(t_wolf *wlf, int pc);
 void			render(t_wolf *wlf);
-void			render_floor(t_wolf *wlf, int y);
+void			render_floor(t_wolf *wlf);
 void			wall_stripe(t_wolf *wlf);
 
 #endif
