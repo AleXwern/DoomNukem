@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/08 16:15:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/09 14:01:03 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct	s_wolf
 	double		posx;
 	double		posy;
 	double		posz;
+	double		poszz;
 	double		dirx;
 	double		diry;
 	double		dirz;
@@ -191,6 +192,8 @@ typedef struct	s_wolf
 	int			keyright;
 	int			keyup;
 	int			keydown;
+	int			keyplus;
+	int			keyminus;
 }				t_wolf;
 
 t_gfx			init_image(t_wolf *wolf, int x, int y);

@@ -6,18 +6,22 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/08 16:37:59 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/09 14:16:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf.h"
 #include "../includes/value.h"
 
+#include <stdio.h>
+
 void	dda_sys(t_wolf *wlf)
 {
+	//ft_putendl("dud");
 	wlf->hit = 0;
 	while (wlf->hit == 0)
 	{
+		//printf("--before--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", wlf->hit, wlf->mapz, wlf->mapy, wlf->mapx, wlf->sidedz, wlf->sidedy, wlf->sidedx);
 		if (wlf->sidedx < wlf->sidedy && wlf->sidedx < wlf->sidedz)
 		{
 			wlf->sidedx += wlf->deltadx;
@@ -36,9 +40,11 @@ void	dda_sys(t_wolf *wlf)
 			wlf->mapz += wlf->stepz;
 			wlf->side = 2;
 		}
+		//printf("--after--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", wlf->hit, wlf->mapz, wlf->mapy, wlf->mapx, wlf->sidedz, wlf->sidedy, wlf->sidedx);
 		if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 1)
 			wlf->hit = 1;
 	}
+	//ft_putendl("exit");
 }
 
 void	dda_prep(t_wolf *wlf)
@@ -88,6 +94,7 @@ void	rc_init(t_wolf *wlf)
 	wlf->mapx = (int)wlf->posx;
 	wlf->mapy = (int)wlf->posy;
 	wlf->mapz = (int)wlf->posz;
+	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %d %d %d\n", wlf->camx, wlf->camy, wlf->raydz, wlf->raydy, wlf->raydx, wlf->mapz, wlf->mapy, wlf->mapx);
 	dda_prep(wlf);
 	dda_sys(wlf);
 	if (wlf->side == 0)
@@ -113,8 +120,8 @@ void	render(t_wolf *wlf)
 		while (++wlf->y < WINY)
 		{
 			rc_init(wlf);
-			
 			wlf->lineh = (int)(WINY / wlf->walldist);
+			/*
 			if (wlf->side == 2)
 				wlf->lineh = (int)(WINX / wlf->walldist);
 			wlf->start = -wlf->lineh / 2 + WINY / 2;
@@ -123,7 +130,7 @@ void	render(t_wolf *wlf)
 			wlf->end = wlf->lineh / 2 + WINY / 2;
 			if (wlf->end >= WINY)
 				wlf->end = WINY - 1;
-			
+			*/
 			if (wlf->side == 1)
 				wlf->testcolor = 0x3679ff;
 			else if (wlf->side == 2)
@@ -131,7 +138,7 @@ void	render(t_wolf *wlf)
 			else
 				wlf->testcolor = 0xF0330A;
 			if (wlf->side == 2)
-				wlf->testcolor = 0xF0330A;
+				render_floor(wlf);
 			else
 				wall_stripe(wlf);
 		}

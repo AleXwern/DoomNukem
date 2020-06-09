@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/08 14:49:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/09 15:16:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_stripe(t_wolf *wlf)
 {
 	if (wlf->texbool)
 	{
-		wlf->texy = abs((((wlf->y * 256 - WINY * 128 + wlf->lineh
+		wlf->texy = fabs((((wlf->y * 256 - WINY * 128 + wlf->lineh
 				* 128) * 128)
 					/ wlf->lineh) / 256);
 		wlf->testcolor = wlf->gfx[wlf->texnum].data[wlf->texy % 128 *
@@ -52,17 +52,13 @@ void	wall_stripe(t_wolf *wlf)
 		wlf->texnum = wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
 		if (wlf->side == 0)
 			wlf->wallx = wlf->posy + wlf->walldist * wlf->raydy;
-		else if (wlf->side == 1)
-			wlf->wallx = wlf->posx + wlf->walldist * wlf->raydx;
 		else
-			wlf->wallx = wlf->posz + wlf->walldist * wlf->raydz;
+			wlf->wallx = wlf->posx + wlf->walldist * wlf->raydx;
 		wlf->wallx -= floor(wlf->wallx);
 		wlf->texx = (int)(wlf->wallx * 128.0);
 		if (wlf->side == 0 && wlf->raydx > 0)
 			wlf->texx = 128 - wlf->texx - 1;
 		if (wlf->side == 1 && wlf->raydy < 0)
-			wlf->texx = 128 - wlf->texx - 1;
-		if (wlf->side == 2 && wlf->raydz > 0)
 			wlf->texx = 128 - wlf->texx - 1;
 	}
 	else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] != 2)

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/08 15:44:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/09 14:09:05 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	wolf_default(t_wolf *wlf)
 	wlf->posz = 2.5;
 	wlf->dirx = 1.0;
 	wlf->diry = 0.0;
+	wlf->dirz = 0.0;
 	wlf->planex = 0.0;
-	wlf->planey = 0.66;
+	wlf->planey = 0.5;
 	wlf->planez = 0.5;
 	wlf->rotsp = 0.05;
 	wlf->movsp = 0.06;
@@ -37,6 +38,8 @@ void	wolf_default(t_wolf *wlf)
 	wlf->sel = -1;
 	wlf->plr = 0;
 	wlf->plrck = 0;
+	wlf->keyminus = 0;
+	wlf->keyplus = 0;
 	wlf->cycle = &render;
 }
 

@@ -6,14 +6,14 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/06/08 16:33:18 by anystrom         ###   ########.fr        #
+#    Updated: 2020/06/09 13:31:21 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = doomdemo
 FLG =
-SRCFILE = wolf.c fileformat.c gfx.c key_input.c render.c draw.c move.c interact.c util.c
+SRCFILE = wolf.c fileformat.c gfx.c key_input.c render.c draw.c move.c interact.c util.c floor.c
 TESTFILE = testkey.c
 SRC = $(addprefix ./src/,$(SRCFILE))
 LIBFT = ./obj/libft.a
