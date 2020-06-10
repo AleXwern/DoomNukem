@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/09 15:07:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/10 15:14:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int				key_hold(int key, t_wolf *wlf)
 {
+	//ft_putnbrln(key);
 	if (key == ESC)
 		error_out(FINE, wlf);
 	if (key == LEFT)
@@ -29,6 +30,14 @@ int				key_hold(int key, t_wolf *wlf)
 		wlf->keyplus = 1;
 	if (key == 78)
 		wlf->keyminus = 1;
+	if (key == KEY_W)
+		wlf->keyw = 1;
+	if (key == KEY_S)
+		wlf->keys = 1;
+	if (key == KEY_A)
+		wlf->keya = 1;
+	if (key == KEY_D)
+		wlf->keyd = 1;
 	return (0);
 }
 
@@ -52,6 +61,14 @@ int				key_release(int key, t_wolf *wlf)
 		wlf->keyplus = 0;
 	if (key == 78)
 		wlf->keyminus = 0;
+	if (key == KEY_W)
+		wlf->keyw = 0;
+	if (key == KEY_S)
+		wlf->keys = 0;
+	if (key == KEY_A)
+		wlf->keya = 0;
+	if (key == KEY_D)
+		wlf->keyd = 0;
 	return (0);
 }
 
@@ -67,14 +84,14 @@ void			move_z(t_wolf *wlf)
 	{
 		if (wlf->map[(int)(wlf->posz + wlf->movsp)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 		{
-			wlf->posz -= wlf->movsp;
+			wlf->posz -= 0.1;
 		}
 	}
 	if (wlf->keyplus)
 	{
 		if (wlf->map[(int)(wlf->posz - wlf->movsp)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 		{
-			wlf->posz += wlf->movsp;
+			wlf->posz += 0.1;
 		}
 	}
 }
@@ -87,6 +104,8 @@ int				move(t_wolf *wlf)
 		move_lr(wlf);
 	if (wlf->keyplus || wlf->keyminus)
 		move_z(wlf);
+	if (wlf->keyw || wlf->keys || wlf->keya || wlf->keyd)
+		cam_udy(wlf, 0.0, 0.0);
 	wlf->cycle(wlf);
 	return (0);
 }

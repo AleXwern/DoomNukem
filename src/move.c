@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/08 15:17:58 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/10 15:13:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,62 @@
 #include "../includes/wolf.h"
 
 #include <stdio.h>
+
+void	cam_udy(t_wolf *wlf, double olddiry, double oldplaney)
+{
+	double		olddirx;
+	double		oldplanex;
+	
+	if (wlf->keyw)
+	{
+		olddiry = wlf->diry;
+		wlf->diry = wlf->diry * cos(wlf->rotsp) - wlf->dirz * sin(wlf->rotsp);
+		wlf->dirz = olddiry * sin(wlf->rotsp) + wlf->dirz * cos(wlf->rotsp);
+		oldplaney = wlf->planey;
+		wlf->planey = wlf->planey * cos(wlf->rotsp) - wlf->planez *
+				sin(wlf->rotsp);
+		wlf->planez = oldplaney * sin(wlf->rotsp) + wlf->planez *
+				cos(wlf->rotsp);
+		wlf->sbox += WINX / 64;
+	}
+	if (wlf->keys)
+	{
+		olddiry = wlf->diry;
+		wlf->diry = wlf->diry * cos(-wlf->rotsp) - wlf->dirz * sin(-wlf->rotsp);
+		wlf->dirz = olddiry * sin(-wlf->rotsp) + wlf->dirz * cos(-wlf->rotsp);
+		oldplaney = wlf->planey;
+		wlf->planey = wlf->planey * cos(-wlf->rotsp) - wlf->planez *
+				sin(-wlf->rotsp);
+		wlf->planez = oldplaney * sin(-wlf->rotsp) + wlf->planez *
+				cos(-wlf->rotsp);
+		wlf->sbox += WINX / 64;
+	}
+	if (wlf->keya)
+	{
+		olddirx = wlf->dirx;
+		wlf->dirx = wlf->dirx * cos(wlf->rotsp) + wlf->dirz * sin(wlf->rotsp);
+		wlf->dirz = -olddirx * sin(wlf->rotsp) + wlf->dirz * cos(wlf->rotsp);
+		oldplanex = wlf->planex;
+		wlf->planex = wlf->planex * cos(wlf->rotsp) + wlf->planez *
+				sin(wlf->rotsp);
+		wlf->planez = -oldplanex * sin(wlf->rotsp) + wlf->planez *
+				cos(wlf->rotsp);
+		wlf->sbox += WINX / 64;
+	}
+	if (wlf->keyd)
+	{
+		olddirx = wlf->dirx;
+		wlf->dirx = wlf->dirx * cos(-wlf->rotsp) + wlf->dirz * sin(-wlf->rotsp);
+		wlf->dirz = -olddirx * sin(-wlf->rotsp) + wlf->dirz * cos(-wlf->rotsp);
+		oldplanex = wlf->planex;
+		wlf->planex = wlf->planex * cos(-wlf->rotsp) + wlf->planez *
+				sin(-wlf->rotsp);
+		wlf->planez = -oldplaney * sin(-wlf->rotsp) + wlf->planez *
+				cos(-wlf->rotsp);
+		wlf->sbox += WINX / 64;
+	}
+	printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dirx, wlf->planex, wlf->diry, wlf->planey, wlf->dirz, wlf->planez);
+}
 
 void	move_l(t_wolf *wlf, double olddirx, double oldplanex)
 {
@@ -49,10 +105,7 @@ int		move_lr(t_wolf *wlf)
 		wlf->sbox -= WINX / 64;
 	}
 	move_l(wlf, olddirx, oldplanex);
-	if (wlf->sbox < 0)
-		wlf->sbox += WINX;
-	if (wlf->sbox > WINX)
-		wlf->sbox -= WINX;
+	printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dirx, wlf->planex, wlf->diry, wlf->planey, wlf->dirz, wlf->planez);
 	return (0);
 }
 

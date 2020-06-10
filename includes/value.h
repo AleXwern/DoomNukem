@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/09 13:41:48 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/10 15:43:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 /*
 ** Static values.
 */
-# define WINX		700
+# define WINX		2000
 # define WINY		700
 # define MAXAGGRO	999999
 # define GFXCOUNT	23
@@ -73,6 +73,10 @@
 # define NUM_MIN	78
 # define SLASH		75
 # define STAR		67
+# define KEY_W		13
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
 
 /*
 ** Keys for laptop if needed.

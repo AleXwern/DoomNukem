@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/09 14:16:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/10 16:01:50 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,14 @@ void	rc_init(t_wolf *wlf)
 		wlf->walldist += 0.01;
 }
 
-void	render(t_wolf *wlf)
+void	*multit(void *arg)
 {
-	wlf->img = init_image(wlf, WINX, WINY);
-	wlf->x = -1;
-	while (++wlf->x < WINX)
+	t_wolf *wlf;
+
+	wlf = (t_wolf*)arg;
+
+	wlf->x = wlf->x - 1;
+	while (++wlf->x < wlf->xmax)
 	{
 		wlf->y = -1;
 		while (++wlf->y < WINY)
@@ -143,6 +146,28 @@ void	render(t_wolf *wlf)
 				wall_stripe(wlf);
 		}
 	}
-	mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->img.img, 0, 0);
-	mlx_destroy_image(wlf->mlx, wlf->img.img);
+	return (0);
+}
+
+
+void	render(t_wolf *data)
+{
+	pthread_t	threads[THREADS];
+	t_wolf		data_r[THREADS];
+	int			x;
+
+	x = 0;
+	data->img = init_image(data, WINX, WINY);
+	while (x < THREADS)
+	{
+		ft_memcpy((void*)&data_r[x], (void*)data, sizeof(t_wolf));
+		data_r[x].x = x * (WINX / THREADS);
+		data_r[x].xmax = (x + 1) * (WINX / THREADS);
+		pthread_create(&threads[x], NULL, multit, &data_r[x]);
+		x++;
+	}
+	while (x--)
+		pthread_join(threads[x], NULL);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	mlx_destroy_image(data->mlx, data->img.img);
 }

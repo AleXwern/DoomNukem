@@ -6,12 +6,13 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/09 14:01:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/10 13:55:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF_H
 # define WOLF_H
+# define THREADS 8
 
 //DOOM
 
@@ -20,6 +21,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
+# include <pthread.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 
@@ -126,6 +128,7 @@ typedef struct	s_wolf
 	int			iscombat;
 	int			ismenu;
 	int			mapx;
+	int			xmax;
 	int			mapy;
 	int			mapz;
 	int			stepx;
@@ -194,6 +197,10 @@ typedef struct	s_wolf
 	int			keydown;
 	int			keyplus;
 	int			keyminus;
+	int			keyw;
+	int			keys;
+	int			keya;
+	int			keyd;
 }				t_wolf;
 
 t_gfx			init_image(t_wolf *wolf, int x, int y);
@@ -216,6 +223,7 @@ char			*get_syssmgone(t_wolf *wlf, int pc);
 char			*get_syssmgtwo(t_wolf *wlf, int pc);
 
 void			anim_shift(t_wolf *wlf, int frame);
+void			cam_udy(t_wolf *wlf, double olddiry, double oldplaney);
 void			combat_key(int key, t_wolf *wlf);
 void			comp_foe(t_wolf *wlf, char *bpath, int i);
 void			comp_gfx(t_wolf *wolf, int i);

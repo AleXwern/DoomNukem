@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/09 14:09:05 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/10 14:27:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	wolf_default(t_wolf *wlf)
 	wlf->diry = 0.0;
 	wlf->dirz = 0.0;
 	wlf->planex = 0.0;
-	wlf->planey = 0.5;
+	wlf->planey = 0.5 / ((double)WINY / (double)WINX);
 	wlf->planez = 0.5;
 	wlf->rotsp = 0.05;
 	wlf->movsp = 0.06;
@@ -77,7 +77,7 @@ void	free_memory(char **arr)
 void	setup(t_wolf *wolf)
 {
 	wolf_default(wolf);
-	if (wolf->map[(int)wolf->posz][(int)wolf->posy][(int)wolf->posx] != 1)
+	if (wolf->map[2][(int)wolf->posy][(int)wolf->posx] != 1)
 		error_out(SPW_ERROR, wolf);
 	mlx_hook(wolf->win, 2, 0, key_hold, wolf);
 	mlx_hook(wolf->win, 3, 0, key_release, wolf);
