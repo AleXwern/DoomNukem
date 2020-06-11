@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/10 15:47:10 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 16:47:54 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@ void	draw_stripe(t_wolf *wlf)
 {
 	if (wlf->texbool)
 	{
-		wlf->texy = abs((((wlf->y * 256 - WINY * 128 + wlf->lineh
-				* 128) * 128)
-					/ wlf->lineh) / 256);
-		wlf->testcolor = wlf->gfx[wlf->texnum].data[wlf->texy % 128 *
-				wlf->gfx[2].sizel / 4 + wlf->texx %
+		double	shift = fabs(wlf->posz - floor(wlf->posz));
+		shift = ((shift) - 0.5) * 128;
+		if (shift < 0)
+			shift += 128;
+		wlf->texy = ((int)(((wlf->y * 256 - WINY * 128 + wlf->lineh
+				* 128) * 128) / wlf->lineh) / 256);
+		while (wlf->texy < 0)
+			wlf->texy += 128;
+		wlf->testcolor = wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) *
+				wlf->gfx[wlf->texnum].sizel / 4 + wlf->texx %
 				128 * wlf->gfx[2].bpp / 32];
 	}
 	wlf->img.data[WINX * wlf->y + wlf->x] = wlf->testcolor;

@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/10 15:13:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 15:59:03 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/value.h"
 #include "../includes/wolf.h"
 
-#include <stdio.h>
+#include <stdio.h>//
 
 void	cam_udy(t_wolf *wlf, double olddiry, double oldplaney)
 {
 	double		olddirx;
 	double		oldplanex;
-	
+
 	if (wlf->keyw)
 	{
 		olddiry = wlf->diry;
@@ -121,6 +121,29 @@ int		move_fb(t_wolf *wlf)
 			wlf->posx += wlf->dirx * wlf->movsp;
 	}
 	if (wlf->keydown)
+	{
+		if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->diry
+				* wlf->movsp)][(int)wlf->posx] <= 1)
+			wlf->posy -= wlf->diry * wlf->movsp;
+		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
+				- wlf->dirx * wlf->movsp)] <= 1)
+			wlf->posx -= wlf->dirx * wlf->movsp;
+	}
+	return (0);
+}
+
+int		strafe(t_wolf *wlf)
+{
+	if (wlf->keyq)
+	{
+		if (wlf->map[(int)wlf->posz][(int)(wlf->posy + wlf->diry
+				* wlf->movsp)][(int)wlf->posx] <= 1)
+			wlf->posy += wlf->diry * wlf->movsp;
+		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
+				+ wlf->dirx * wlf->movsp)] <= 1)
+			wlf->posx += wlf->dirx * wlf->movsp;
+	}
+	if (wlf->keye)
 	{
 		if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->diry
 				* wlf->movsp)][(int)wlf->posx] <= 1)

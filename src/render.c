@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/10 16:01:50 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 16:58:37 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf.h"
 #include "../includes/value.h"
 
-#include <stdio.h>
+#include <stdio.h>//
 
 void	dda_sys(t_wolf *wlf)
 {
@@ -116,8 +116,7 @@ void	*multit(void *arg)
 
 	wlf = (t_wolf*)arg;
 
-	wlf->x = wlf->x - 1;
-	while (++wlf->x < wlf->xmax)
+	while (wlf->x < wlf->xmax)
 	{
 		wlf->y = -1;
 		while (++wlf->y < WINY)
@@ -145,10 +144,18 @@ void	*multit(void *arg)
 			else
 				wall_stripe(wlf);
 		}
+		wlf->x++;
 	}
 	return (0);
 }
 
+void	gravity(t_wolf *wlf)
+{
+	if (wlf->keytwo)
+		return ;
+	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+		wlf->posz += 0.1;
+}
 
 void	render(t_wolf *data)
 {
@@ -156,6 +163,7 @@ void	render(t_wolf *data)
 	t_wolf		data_r[THREADS];
 	int			x;
 
+	gravity(data);
 	x = 0;
 	data->img = init_image(data, WINX, WINY);
 	while (x < THREADS)

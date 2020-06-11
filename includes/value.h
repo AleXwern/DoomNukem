@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/10 15:43:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 16:57:28 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@
 # define KEY_A		0
 # define KEY_S		1
 # define KEY_D		2
+# define KEY_Q		12
+# define KEY_E		14
+# define KEY_SHIFT	257
 
 /*
 ** Keys for laptop if needed.
