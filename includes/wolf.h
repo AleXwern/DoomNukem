@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/10 13:55:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 15:08:14 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF_H
 # define WOLF_H
-# define THREADS 8
+# define THREADS 24
 
 //DOOM
 
@@ -201,6 +201,10 @@ typedef struct	s_wolf
 	int			keys;
 	int			keya;
 	int			keyd;
+	int			keyone;
+	int			keytwo;
+	int			keyq;
+	int			keye;
 }				t_wolf;
 
 t_gfx			init_image(t_wolf *wolf, int x, int y);
@@ -216,6 +220,7 @@ int				key_press(int key, t_wolf *wolf);
 int				key_release(int key, t_wolf *wolf);
 int				move(t_wolf *wlf);
 int				move_fb(t_wolf *wlf);
+int				strafe(t_wolf *wlf);
 int				move_lr(t_wolf *wlf);
 int				x_press(t_wolf *wolf);
 

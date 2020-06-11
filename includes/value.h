@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/11 12:42:32 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 17:17:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@
 # define KEY_A		0
 # define KEY_S		1
 # define KEY_D		2
+# define KEY_Q		12
+# define KEY_E		14
+# define KEY_SHIFT	257
 
 /*
 ** Keys for laptop if needed.

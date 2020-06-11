@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/06/08 15:49:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 17:03:12 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 
 void	lab_move(t_wolf *wlf, int obj)
 {
-	if (obj == 3 && (int)wlf->posz < wlf->mxflr && wlf->map[(int)wlf->posz +
+	if (obj == 3 && wlf->map[(int)wlf->posz -
 			1][(int)wlf->posy][(int)wlf->posx] == 1)
-		wlf->posz++;
+	{
+		printf("stairs\n");
+		wlf->posz -= 1;
+		wlf->posy += wlf->diry * 0.5;
+		wlf->posx += wlf->dirx * 0.5;
+	}
 	else if (obj == 4 && (int)wlf->posz > 0 && wlf->map[(int)wlf->posz -
 			1][(int)wlf->posy][(int)wlf->posx] == 1)
-		wlf->posz--;
+		wlf->posz += 0.5;
 	else if ((obj == 3 && (int)wlf->posz == wlf->mxflr) ||
 			(obj == 4 && wlf->flr == 0))
 		error_out(LAB_OUT, wlf);
