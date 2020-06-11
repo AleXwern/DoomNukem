@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/10 15:13:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 17:01:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	cam_udy(t_wolf *wlf, double olddiry, double oldplaney)
 	double		olddirx;
 	double		oldplanex;
 	
+	olddirx = wlf->dirx;
+	oldplanex = wlf->planex;
 	if (wlf->keyw)
 	{
 		olddiry = wlf->diry;

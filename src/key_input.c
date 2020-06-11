@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/10 15:14:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 16:55:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ void			move_z(t_wolf *wlf)
 {
 	if (wlf->keyminus)
 	{
-		if (wlf->map[(int)(wlf->posz + wlf->movsp)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+		if (wlf->map[(int)(wlf->posz + wlf->movsp - 0.4)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 		{
 			wlf->posz -= 0.1;
 		}
 	}
 	if (wlf->keyplus)
 	{
-		if (wlf->map[(int)(wlf->posz - wlf->movsp)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+		if (wlf->map[(int)(wlf->posz - wlf->movsp + 0.4)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 		{
 			wlf->posz += 0.1;
 		}

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 01:20:40 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/06/10 16:01:10 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 13:14:08 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void	draw_floor(t_wolf *wlf)
 	{
 		//while (x < wlf->x)
 		//{
-		if (wlf->side == 2)
-		{
-			wlf->cellx = (int)wlf->floorx;
+		wlf->cellx = (int)wlf->floorx;
 			wlf->celly = (int)wlf->floory;
 			wlf->tx = (int)(128 * (wlf->floorx - wlf->cellx)) & (128 - 1);
 			wlf->ty = (int)(128 * (wlf->floory - wlf->celly)) & (128 - 1);
@@ -31,7 +29,6 @@ void	draw_floor(t_wolf *wlf)
 			wlf->floory += wlf->flstepy;
 			wlf->img.data[WINX * wlf->y + wlf->x] = wlf->gfx[1].data[128 *
 				wlf->ty + wlf->tx];
-		}
 		//}
 		//printf("Write to %d from %d\n", WINX * wlf->y + wlf->x, 128 * wlf->ty + wlf->tx);
 		/*printf("\nEndvalues:\nRay0: %f %f\nRay1: %f %f\nPos: %d %f\nRowD: %f\nFLstep: %f %f\nCell: %d %d\nTX: %d %d\nFloor: %f %f\n\n", 

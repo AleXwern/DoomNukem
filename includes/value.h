@@ -6,16 +6,15 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/10 15:43:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 12:42:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VALUE_H
 # define VALUE_H
 
-/*
-** Error messages.
-*/
+# define WINDOW		"DoomNukem"
+
 # define G_ERROR	"General error happened. Exiting program."
 # define B_ARG		"Error: Bad argument."
 # define USAGE		"Usage:	./wolf3d [tileset] [floors] [FOLDER name]"

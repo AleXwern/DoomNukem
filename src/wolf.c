@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/10 14:27:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/11 12:42:47 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		main(int ac, char **av)
 		error_out(USAGE, wolf);
 	if (!(wolf->mlx = mlx_init()))
 		error_out(MLX_ERROR, wolf);
-	if (!(wolf->win = mlx_new_window(wolf->mlx, WINX, WINY, "Wolf3D")))
+	if (!(wolf->win = mlx_new_window(wolf->mlx, WINX, WINY, WINDOW)))
 		error_out(WIN_ERROR, wolf);
 	wolf->winb = 1;
 	comp_map(wolf, av[3]);
