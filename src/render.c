@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/11 17:16:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/12 13:32:50 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ void	rc_init(t_wolf *wlf)
 {
 	wlf->camx = 2 * wlf->x / (double)(WINX) - 1.0;
 	wlf->camy = 2 * wlf->y / (double)(WINY) - 1.0;
-	wlf->raydx = wlf->dirx + wlf->planex * wlf->camx;
-	wlf->raydy = wlf->diry + wlf->planey * wlf->camx;
-	wlf->raydz = wlf->dirz + wlf->planez * wlf->camy;
+	wlf->raydx = wlf->dir.x + wlf->plane.x * wlf->camx;
+	wlf->raydy = wlf->dir.y + wlf->plane.y * wlf->camx;
+	wlf->raydz = wlf->dir.z + wlf->plane.z * wlf->camy;
 	wlf->mapx = (int)wlf->posx;
 	wlf->mapy = (int)wlf->posy;
 	wlf->mapz = (int)wlf->posz;

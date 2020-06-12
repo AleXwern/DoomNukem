@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 01:20:40 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/06/11 13:14:08 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/12 13:43:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ void	render_floor(t_wolf *wlf)
 	//if (wlf->y < WINY / 2)
 	//	return ;
 	//ft_putendl("thing");
-	wlf->raydx0 = wlf->dirx - wlf->planex;
-	wlf->raydy0 = wlf->diry - wlf->planey;
-	wlf->raydz0 = wlf->dirz - wlf->planez;
-	wlf->raydx1 = wlf->dirx + wlf->planex;
-	wlf->raydy1 = wlf->diry + wlf->planey;
-	wlf->raydz1 = wlf->dirz + wlf->planez;
+	wlf->raydx0 = wlf->dir.x - wlf->plane.x;
+	wlf->raydy0 = wlf->dir.y - wlf->plane.y;
+	wlf->raydz0 = wlf->dir.z - wlf->plane.z;
+	wlf->raydx1 = wlf->dir.x + wlf->plane.x;
+	wlf->raydy1 = wlf->dir.y + wlf->plane.y;
+	wlf->raydz1 = wlf->dir.z + wlf->plane.z;
 	//wlf->pos = wlf->y - WINY / 2;
 	//wlf->poszz = WINY * 0.5;
 	//printf("Cmp: %f %f\n", (double)(wlf->poszz / wlf->pos), wlf->walldist);

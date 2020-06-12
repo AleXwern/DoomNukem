@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/11 17:17:43 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/12 13:39:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int				key_release(int key, t_wolf *wlf)
 		wlf->keye = 0;
 	if (key == KEY_SHIFT)
 		wlf->movsp -= 0.06;
+	if (key == KEY_R)
+		wolf_default(wlf);
 	if (key == SPACE)
 	{
 		if (wlf->map[(int)(wlf->posz - 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
@@ -141,7 +143,7 @@ int				move(t_wolf *wlf)
 	if (wlf->keyplus || wlf->keyminus)
 		move_z(wlf);
 	if (wlf->keyw || wlf->keys || wlf->keya || wlf->keyd)
-		cam_udy(wlf, 0.0, 0.0);
+		cam_udy(wlf);
 	if (wlf->keyone || wlf->keytwo)
 		jetpack(wlf);
 	if (wlf->keyq || wlf->keye)
