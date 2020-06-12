@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/11 16:57:28 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/06/12 12:58:57 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@
 # define KEY_Q		12
 # define KEY_E		14
 # define KEY_SHIFT	257
+# define KEY_CTRL	256// dont use this. its a shortcut key on mac which just messes up the program.
 
 /*
 ** Keys for laptop if needed.
