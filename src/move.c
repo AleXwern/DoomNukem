@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/12 16:45:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/12 16:55:14 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,23 +161,56 @@ int		move_fb(t_wolf *wlf)
 
 int		strafe(t_wolf *wlf)
 {
+	double	dirxtemp;
+	double	dirytemp;
+
 	if (wlf->keyq)
 	{
-		if (wlf->map[(int)wlf->posz][(int)(wlf->posy + wlf->dir.y
-				* wlf->movsp)][(int)wlf->posx] <= 1)
-			wlf->posy += wlf->dir.y * wlf->movsp;
-		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
-				+ wlf->dir.x * wlf->movsp)] <= 1)
-			wlf->posx += wlf->dir.x * wlf->movsp;
+		if (wlf->dir.y < 0)
+		{
+			if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
+					* wlf->movsp)][(int)wlf->posx] <= 1)
+				wlf->posy -= (wlf->dir.y + 1) * wlf->movsp;
+		}
+		else
+		{
+			if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
+					* wlf->movsp)][(int)wlf->posx] <= 1)
+				wlf->posy += (wlf->dir.y - 1) * wlf->movsp;
+		}
+		if (wlf->dir.x < 0)
+		{
+			if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
+					- wlf->dir.x * wlf->movsp)] <= 1)
+				wlf->posx -= (wlf->dir.x + 1) * wlf->movsp;
+		}
+		else
+		{
+			if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
+					- wlf->dir.x * wlf->movsp)] <= 1)
+				wlf->posx += (wlf->dir.x - 1) * wlf->movsp;
+		}
 	}
 	if (wlf->keye)
 	{
-		if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
-				* wlf->movsp)][(int)wlf->posx] <= 1)
-			wlf->posy -= wlf->dir.y * wlf->movsp;
-		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
-				- wlf->dir.x * wlf->movsp)] <= 1)
-			wlf->posx -= wlf->dir.x * wlf->movsp;
+		if (wlf->dir.y >= 0)
+		{
+			dirxtemp = wlf->dir.x - 1;
+		}
+		else if (wlf->dir.y < 0)
+		{
+			dirxtemp = wlf->dir.x + 1;
+		}
+		if (wlf->dir.x >= 0)
+		{
+			dirytemp = wlf->dir.y - 1;
+		}
+		else if (wlf->dir.x < 0)
+		{
+			dirytemp = wlf->dir.y + 1;
+		}
+		wlf->posx += dirxtemp * wlf->movsp;
+		wlf->posy += dirytemp * wlf->movsp;
 	}
 	return (0);
 }

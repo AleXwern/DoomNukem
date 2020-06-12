@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/12 13:39:39 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/12 16:53:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,9 @@ typedef struct	s_wolf
 	int			keytwo;
 	int			keyq;
 	int			keye;
+	int			crouching;
+	int			mouseprevx;
+	int			mouseprevy;
 }				t_wolf;
 
 t_gfx			init_image(t_wolf *wolf, int x, int y);
