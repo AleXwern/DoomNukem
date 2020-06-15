@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/12 16:53:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/15 15:11:06 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,8 @@ typedef struct	s_wolf
 	double		posy;
 	double		posz;
 	double		poszz;
+	int			airbrn;
+	t_vector	gravity;
 	t_vector	dir;
 	//double		dirx;
 	//double		diry;

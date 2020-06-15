@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/12 13:32:50 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/15 15:50:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,15 @@ void	gravity(t_wolf *wlf)
 {
 	if (wlf->keytwo)
 		return ;
-	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-		wlf->posz += 0.1;
+	wlf->gravity.z += 0.1;
+	if (wlf->gravity.z > 0.2)
+		wlf->gravity.z = 0.2;
+	if (wlf->map[(int)(wlf->posz + wlf->gravity.z + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+		wlf->posz += wlf->gravity.z;
+	else
+		wlf->gravity.z = 0;
+	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
+		wlf->posz -= 0.1;
 }
 
 void	render(t_wolf *data)

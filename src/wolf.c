@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/12 14:13:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/15 15:10:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ int		main(int ac, char **av)
 
 	if (!(wolf = (t_wolf*)malloc(sizeof(t_wolf))))
 		error_out(WLF_ERROR, wolf);
-	wolf->winb = 0;
-	wolf->flr = 0;
+	ft_bzero(wolf, sizeof(t_wolf));
 	if (ac != 4)
 		error_out(USAGE, wolf);
 	wolf->tile = ft_atoi(av[1]);
