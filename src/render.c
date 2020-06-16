@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/11 16:58:37 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:05:01 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,18 +157,72 @@ void	gravity(t_wolf *wlf)
 		wlf->posz += 0.1;
 }
 
-void	render(t_wolf *data)
+void	pickupitem(t_wolf *wlf)
+{
+	int			obj;
+
+	obj = wlf->map[(int)(wlf->posz + 0.5)][(int)wlf->posy][(int)wlf->posx];
+	if (obj == 8)//this will be used when we have sprites.
+	{
+		wlf->accesscard = 1;
+	}
+	else if (obj == 5)
+	{
+		wlf->map[(int)(wlf->posz + 0.5)][(int)wlf->posy][(int)wlf->posx] = 0;
+		wlf->accesscard = 1;
+	}
+}
+
+void	drawinventory(t_wolf *wlf, int endx, int endy)//work in progress. Now really slows down the game.
+{
+	int	x;
+	int	y;
+
+	mlx_string_put(wlf->mlx, wlf->win, 710, 160, COLOR_ORANGE, "INVENTORY");
+	y = 149;
+	while (++y < endy)
+	{
+		x = 699;
+		while (++x < endx)
+		{
+			mlx_pixel_put(wlf->mlx, wlf->win, y, x, COLOR_WHITE);
+		}
+	}
+}
+
+void	draw_gfx(t_wolf *wlf, t_gfx gfx, int x, int y)
+{
+	int	gx;
+	int	gy;
+
+	gy = 0;
+	while (gy < gfx.hgt)
+	{
+		gx = 0;
+		while (gx < gfx.wid)
+		{
+			if (gfx.data[gfx.wid * gy + gx] != 0xff00ff)
+				wlf->img.data[WINX * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
+					gy + gx];
+			gx++;
+		}
+		gy++;
+	}
+}
+
+void	render(t_wolf *wlf)
 {
 	pthread_t	threads[THREADS];
 	t_wolf		data_r[THREADS];
 	int			x;
+	t_gfx		gfx;
 
-	gravity(data);
+	gravity(wlf);
 	x = 0;
-	data->img = init_image(data, WINX, WINY);
+	wlf->img = init_image(wlf, WINX, WINY);
 	while (x < THREADS)
 	{
-		ft_memcpy((void*)&data_r[x], (void*)data, sizeof(t_wolf));
+		ft_memcpy((void*)&data_r[x], (void*)wlf, sizeof(t_wolf));
 		data_r[x].x = x * (WINX / THREADS);
 		data_r[x].xmax = (x + 1) * (WINX / THREADS);
 		pthread_create(&threads[x], NULL, multit, &data_r[x]);
@@ -176,6 +230,13 @@ void	render(t_wolf *data)
 	}
 	while (x--)
 		pthread_join(threads[x], NULL);
-	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
-	mlx_destroy_image(data->mlx, data->img.img);
+	draw_gfx(wlf, wlf->gfx[15], 100, 100);
+	if (wlf->accesscard == 0)
+		pickupitem(wlf);
+	mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->img.img, 0, 0);
+	if (wlf->keyi)
+		drawinventory(wlf, 1300, 500);
+	if (wlf->accesscard == 1)
+		mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
+	mlx_destroy_image(wlf->mlx, wlf->img.img);
 }

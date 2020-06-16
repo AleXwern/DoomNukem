@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/12 16:25:28 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:00:39 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int				key_release(int key, t_wolf *wlf)
 		wlf->keyq = 0;
 	if (key == KEY_E)
 		wlf->keye = 0;
+	if (key == KEY_I)
+		wlf->keyi = wlf->keyi == 1 ? 0 : 1;
 	if (key == KEY_SHIFT)
 		wlf->movsp -= 0.06;
 	if (key == KEY_C && wlf->crouching)

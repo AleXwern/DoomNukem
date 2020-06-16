@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/12 16:29:41 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:04:00 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	wolf_default(t_wolf *wlf)
 	wlf->keyminus = 0;
 	wlf->keyplus = 0;
 	wlf->crouching = 0;
+	wlf->keym = 0;
+	wlf->keyi = 0;
+	wlf->accesscard = 0;
 	wlf->mouseprevx = WINX / 2;
 	wlf->mouseprevy = WINY / 2;
 	wlf->cycle = &render;

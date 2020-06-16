@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/12 16:05:04 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/06/16 16:57:37 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,9 @@ typedef struct	s_wolf
 	int			keytwo;
 	int			keyq;
 	int			keye;
+	int			keym;
+	int			keyi;
+	int			accesscard;
 	int			crouching;
 	int			mouseprevx;
 	int			mouseprevy;
