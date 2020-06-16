@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/06/16 17:05:01 by tbergkul         ###   ########.fr       */
+=======
+/*   Updated: 2020/06/16 14:53:00 by anystrom         ###   ########.fr       */
+>>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +92,9 @@ void	rc_init(t_wolf *wlf)
 {
 	wlf->camx = 2 * wlf->x / (double)(WINX) - 1.0;
 	wlf->camy = 2 * wlf->y / (double)(WINY) - 1.0;
-	wlf->raydx = wlf->dirx + wlf->planex * wlf->camx;
-	wlf->raydy = wlf->diry + wlf->planey * wlf->camx;
-	wlf->raydz = wlf->dirz + wlf->planez * wlf->camy;
+	wlf->raydx = wlf->dir.x + wlf->plane.x * wlf->camx;
+	wlf->raydy = wlf->dir.y + wlf->plane.y * wlf->camx;
+	wlf->raydz = wlf->dir.z + wlf->plane.z * wlf->camy;
 	wlf->mapx = (int)wlf->posx;
 	wlf->mapy = (int)wlf->posy;
 	wlf->mapz = (int)wlf->posz;
@@ -153,8 +157,23 @@ void	gravity(t_wolf *wlf)
 {
 	if (wlf->keytwo)
 		return ;
-	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-		wlf->posz += 0.1;
+	wlf->gravity.z += 0.1;
+	if (wlf->gravity.z > 0.2)
+		wlf->gravity.z = 0.2;
+	if (wlf->gravity.z < 0)
+	{
+		if (wlf->map[(int)(wlf->posz + wlf->gravity.z - 0.1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+			wlf->posz += wlf->gravity.z;
+	}
+	else if (wlf->map[(int)(wlf->posz + wlf->gravity.z + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+		wlf->posz += wlf->gravity.z;
+	else
+	{
+		wlf->airbrn = 0;
+		wlf->gravity.z = 0;
+	}
+	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
+		wlf->posz -= 0.1;
 }
 
 void	pickupitem(t_wolf *wlf)

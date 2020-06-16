@@ -3,19 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/06/16 16:56:45 by tbergkul         ###   ########.fr       */
+=======
+/*   Updated: 2020/06/16 17:08:02 by anystrom         ###   ########.fr       */
+>>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VALUE_H
 # define VALUE_H
 
-/*
-** Error messages.
-*/
+# define WINDOW		"DoomNukem"
+
 # define G_ERROR	"General error happened. Exiting program."
 # define B_ARG		"Error: Bad argument."
 # define USAGE		"Usage:	./wolf3d [tileset] [floors] [FOLDER name]"
@@ -46,7 +49,7 @@
 /*
 ** Static values.
 */
-# define WINX		2000
+# define WINX		1500
 # define WINY		700
 # define MAXAGGRO	999999
 # define GFXCOUNT	23

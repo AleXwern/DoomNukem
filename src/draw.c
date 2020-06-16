@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/11 16:47:54 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/06/16 15:11:09 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	draw_stripe(t_wolf *wlf)
 {
 	if (wlf->texbool)
 	{
-		double	shift = fabs(wlf->posz - floor(wlf->posz));
-		shift = ((shift) - 0.5) * 128;
+		double	shift = (wlf->posz - floor(wlf->posz));
+		shift = ((shift - 0.5) * 128);
 		if (shift < 0)
-			shift += 128;
-		wlf->texy = ((int)(((wlf->y * 256 - WINY * 128 + wlf->lineh
-				* 128) * 128) / wlf->lineh) / 256);
-		while (wlf->texy < 0)
+			shift = 128 + shift;
+		wlf->texy = (int)((((wlf->y * 256 - WINY * 128 - wlf->lineh
+				* 128) * 128)
+					/ wlf->lineh) / 256) % 128;
+		//wlf->texy = (int)(wlf->texy  (wlf->walldist * wlf->dir.z)) % 128;
+		if (wlf->texy < 0)
 			wlf->texy += 128;
 		wlf->testcolor = wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) *
 				wlf->gfx[wlf->texnum].sizel / 4 + wlf->texx %

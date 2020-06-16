@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/06/16 16:57:37 by tbergkul         ###   ########.fr       */
+=======
+/*   Updated: 2020/06/16 16:42:33 by anystrom         ###   ########.fr       */
+>>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +28,13 @@
 # include <pthread.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
+
+typedef struct	s_vector
+{
+	double	x;
+	double	y;
+	double	z;
+}				t_vector;
 
 /*
 ** Party member info
@@ -150,16 +161,21 @@ typedef struct	s_wolf
 	int			tx;
 	int			ty;
 	int			tz;
+	int			rotation;
 	double		posx;
 	double		posy;
 	double		posz;
 	double		poszz;
-	double		dirx;
-	double		diry;
-	double		dirz;
-	double		planex;
-	double		planey;
-	double		planez;
+	int			airbrn;
+	t_vector	gravity;
+	t_vector	dir;
+	//double		dirx;
+	//double		diry;
+	//double		dirz;
+	t_vector	plane;
+	//double		planex;
+	//double		planey;
+	//double		planez;
 	double		camx;
 	double		camy;
 	double		raydx;
@@ -205,9 +221,12 @@ typedef struct	s_wolf
 	int			keytwo;
 	int			keyq;
 	int			keye;
+<<<<<<< HEAD
 	int			keym;
 	int			keyi;
 	int			accesscard;
+=======
+>>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 	int			crouching;
 	int			mouseprevx;
 	int			mouseprevy;
@@ -235,7 +254,7 @@ char			*get_syssmgone(t_wolf *wlf, int pc);
 char			*get_syssmgtwo(t_wolf *wlf, int pc);
 
 void			anim_shift(t_wolf *wlf, int frame);
-void			cam_udy(t_wolf *wlf, double olddiry, double oldplaney);
+void			cam_udy(t_wolf *wlf);
 void			combat_key(int key, t_wolf *wlf);
 void			comp_foe(t_wolf *wlf, char *bpath, int i);
 void			comp_gfx(t_wolf *wolf, int i);
@@ -254,5 +273,6 @@ void			place_pc(t_wolf *wlf, int pc);
 void			render(t_wolf *wlf);
 void			render_floor(t_wolf *wlf);
 void			wall_stripe(t_wolf *wlf);
+void			wolf_default(t_wolf *wlf);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 01:20:40 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/06/10 16:01:10 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/12 13:43:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void	draw_floor(t_wolf *wlf)
 	{
 		//while (x < wlf->x)
 		//{
-		if (wlf->side == 2)
-		{
-			wlf->cellx = (int)wlf->floorx;
+		wlf->cellx = (int)wlf->floorx;
 			wlf->celly = (int)wlf->floory;
 			wlf->tx = (int)(128 * (wlf->floorx - wlf->cellx)) & (128 - 1);
 			wlf->ty = (int)(128 * (wlf->floory - wlf->celly)) & (128 - 1);
@@ -31,7 +29,6 @@ void	draw_floor(t_wolf *wlf)
 			wlf->floory += wlf->flstepy;
 			wlf->img.data[WINX * wlf->y + wlf->x] = wlf->gfx[1].data[128 *
 				wlf->ty + wlf->tx];
-		}
 		//}
 		//printf("Write to %d from %d\n", WINX * wlf->y + wlf->x, 128 * wlf->ty + wlf->tx);
 		/*printf("\nEndvalues:\nRay0: %f %f\nRay1: %f %f\nPos: %d %f\nRowD: %f\nFLstep: %f %f\nCell: %d %d\nTX: %d %d\nFloor: %f %f\n\n", 
@@ -61,12 +58,12 @@ void	render_floor(t_wolf *wlf)
 	//if (wlf->y < WINY / 2)
 	//	return ;
 	//ft_putendl("thing");
-	wlf->raydx0 = wlf->dirx - wlf->planex;
-	wlf->raydy0 = wlf->diry - wlf->planey;
-	wlf->raydz0 = wlf->dirz - wlf->planez;
-	wlf->raydx1 = wlf->dirx + wlf->planex;
-	wlf->raydy1 = wlf->diry + wlf->planey;
-	wlf->raydz1 = wlf->dirz + wlf->planez;
+	wlf->raydx0 = wlf->dir.x - wlf->plane.x;
+	wlf->raydy0 = wlf->dir.y - wlf->plane.y;
+	wlf->raydz0 = wlf->dir.z - wlf->plane.z;
+	wlf->raydx1 = wlf->dir.x + wlf->plane.x;
+	wlf->raydy1 = wlf->dir.y + wlf->plane.y;
+	wlf->raydz1 = wlf->dir.z + wlf->plane.z;
 	//wlf->pos = wlf->y - WINY / 2;
 	//wlf->poszz = WINY * 0.5;
 	//printf("Cmp: %f %f\n", (double)(wlf->poszz / wlf->pos), wlf->walldist);

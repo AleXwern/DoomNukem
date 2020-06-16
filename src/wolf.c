@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/06/16 17:04:00 by tbergkul         ###   ########.fr       */
+=======
+/*   Updated: 2020/06/15 15:10:26 by anystrom         ###   ########.fr       */
+>>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +25,7 @@ void	wolf_default(t_wolf *wlf)
 	wlf->posx = 2.5;
 	wlf->posy = 2.5;
 	wlf->posz = 2.5;
+<<<<<<< HEAD
 	wlf->dirx = 1.0;
 	wlf->diry = 0.0;
 	wlf->dirz = 0.0;
@@ -28,6 +33,22 @@ void	wolf_default(t_wolf *wlf)
 	wlf->planey = 0.5 / ((double)WINY / (double)WINX);
 	wlf->planez = 0.5;
 	wlf->rotsp = 0.06;
+=======
+	wlf->dir.x = 1.0;
+	wlf->dir.y = 0.0;
+	wlf->dir.z = 0.0;
+	//wlf->dirx = 1.0;
+	//wlf->diry = 0.0;
+	//wlf->dirz = 0.0;
+	wlf->plane.x = 0.0;
+	wlf->plane.y = 0.5 / ((double)WINY / (double)WINX);
+	wlf->plane.z = 0.5;
+	//wlf->planex = 0.0;
+	//wlf->planey = 0.5 / ((double)WINY / (double)WINX);
+	//wlf->planez = 0.5;
+	wlf->rotation = 0;
+	wlf->rotsp = 0.05;
+>>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 	wlf->movsp = 0.06;
 	wlf->fcomb = 0;
 	wlf->rng = 0.0;
@@ -100,8 +121,7 @@ int		main(int ac, char **av)
 
 	if (!(wolf = (t_wolf*)malloc(sizeof(t_wolf))))
 		error_out(WLF_ERROR, wolf);
-	wolf->winb = 0;
-	wolf->flr = 0;
+	ft_bzero(wolf, sizeof(t_wolf));
 	if (ac != 4)
 		error_out(USAGE, wolf);
 	wolf->tile = ft_atoi(av[1]);
@@ -112,7 +132,7 @@ int		main(int ac, char **av)
 		error_out(USAGE, wolf);
 	if (!(wolf->mlx = mlx_init()))
 		error_out(MLX_ERROR, wolf);
-	if (!(wolf->win = mlx_new_window(wolf->mlx, WINX, WINY, "Wolf3D")))
+	if (!(wolf->win = mlx_new_window(wolf->mlx, WINX, WINY, WINDOW)))
 		error_out(WIN_ERROR, wolf);
 	wolf->winb = 1;
 	comp_map(wolf, av[3]);

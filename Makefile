@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/06/10 15:40:10 by anystrom         ###   ########.fr        #
+#    Updated: 2020/06/16 17:16:04 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,5 +55,9 @@ clean:
 fclean: clean
 	@echo Removing binaries.
 	@/bin/rm -f $(NAME)
+
+merge:
+	git checkout master
+	git pull https://github.com/AleXwern/DoomNukem.git master
 
 re: fclean all

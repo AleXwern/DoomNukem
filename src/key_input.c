@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   key_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/06/16 17:00:39 by tbergkul         ###   ########.fr       */
+=======
+/*   Updated: 2020/06/16 14:51:31 by anystrom         ###   ########.fr       */
+>>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +32,7 @@ int				key_hold(int key, t_wolf *wlf)
 		wlf->keyup = 1;
 	if (key == DOWN)
 		wlf->keydown = 1;
-		if (key == NUM_PLU)
+	if (key == NUM_PLU)
 		wlf->keyplus = 1;
 	if (key == NUM_MIN)
 		wlf->keyminus = 1;
@@ -105,11 +109,18 @@ int				key_release(int key, t_wolf *wlf)
 		wlf->movsp += 0.03;
 		wlf->posz -= 0.2;
 	}
+<<<<<<< HEAD
+=======
+	if (key == KEY_R)
+		wolf_default(wlf);
+>>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 	if (key == SPACE)
 	{
-		if (wlf->map[(int)(wlf->posz - 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-			if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
-				wlf->posz -= 1;
+		if (!wlf->airbrn)
+		{
+			wlf->airbrn = 1;
+			wlf->gravity.z = -0.6;
+		}
 	}
 	return (0);
 }
@@ -118,24 +129,6 @@ int				x_press(t_wolf *wolf)
 {
 	error_out(FINE, wolf);
 	return (0);
-}
-
-void			move_z(t_wolf *wlf)
-{
-	if (wlf->keyminus)
-	{
-		if (wlf->map[(int)(wlf->posz + wlf->movsp)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-		{
-			wlf->posz -= 0.1;
-		}
-	}
-	if (wlf->keyplus)
-	{
-		if (wlf->map[(int)(wlf->posz - wlf->movsp)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-		{
-			wlf->posz += 0.1;
-		}
-	}
 }
 
 void			jetpack(t_wolf *wlf)
@@ -188,10 +181,8 @@ int				move(t_wolf *wlf)
 		move_fb(wlf);
 	if (wlf->keyleft || wlf->keyright)
 		move_lr(wlf);
-	if (wlf->keyplus || wlf->keyminus)
-		move_z(wlf);
 	if (wlf->keyw || wlf->keys || wlf->keya || wlf->keyd)
-		cam_udy(wlf, 0.0, 0.0);
+		cam_udy(wlf);
 	if (wlf->keyone || wlf->keytwo)
 		jetpack(wlf);
 	if (wlf->keyq || wlf->keye)
