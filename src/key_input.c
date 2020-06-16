@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/15 15:44:30 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/16 14:51:31 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,11 @@ int				key_release(int key, t_wolf *wlf)
 		wolf_default(wlf);
 	if (key == SPACE)
 	{
-		wlf->airbrn = 1;
-		//if (wlf->map[(int)(wlf->posz - 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-		//	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
-		wlf->gravity.z = -0.6;
+		if (!wlf->airbrn)
+		{
+			wlf->airbrn = 1;
+			wlf->gravity.z = -0.6;
+		}
 	}
 	return (0);
 }

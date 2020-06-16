@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/15 16:28:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/16 16:23:24 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ void	set_reverse(t_wolf *wlf)
 	printf("Rot %f %f\n", test.x, test.y);
 }
 
+int		checkrota(double dir, double plane)
+{
+	if (dir > 0 && plane < 0)
+		return (0);
+	if (dir < 0 && plane > 0)
+		return (0);
+	if (dir > 1.0f || dir < -1.0f)
+		return (0);
+	if (plane > 1.5f || plane < -1.5f)
+		return (0);
+	return (1);
+}
+
 void	cam_udy(t_wolf *wlf)
 {
 	t_vector	oldplane;
@@ -52,38 +65,39 @@ void	cam_udy(t_wolf *wlf)
 	rotation.x = wlf->rotsp * cos(wlf->rotation * M_PI / 180);
 	if (wlf->keyw)
 	{
-		if (olddir.y * sin(rotation.y) + olddir.z * cos(rotation.y) > -0.4 && olddir.y * cos(rotation.y) - olddir.z * sin(rotation.y) > -1.0)
-		{
-			wlf->dir.y = olddir.y * cos(rotation.y) - olddir.z * sin(rotation.y);
-			wlf->dir.z = olddir.y * sin(rotation.y) + olddir.z * cos(rotation.y);
-			wlf->plane.y = oldplane.y * cos(rotation.y) - oldplane.z * sin(rotation.y);
-			wlf->plane.z = oldplane.y * sin(rotation.y) + oldplane.z * cos(rotation.y);
-		}
-		if (olddir.z * cos(rotation.x) - olddir.x * sin(rotation.x) > -0.4 && cos(rotation.x) + olddir.z * sin(rotation.x) > -1.0)
-		{
-			wlf->dir.x = olddir.x * cos(rotation.x) + olddir.z * sin(rotation.x);
-			wlf->dir.z = olddir.z * cos(rotation.x) - olddir.x * sin(rotation.x);
-			wlf->plane.x = oldplane.x * cos(rotation.x) + oldplane.z * sin(rotation.x);
-			wlf->plane.z = oldplane.z * cos(rotation.x) - oldplane.x * sin(rotation.x);
-		}
-
+		if (wlf->dir.z > -0.6)
+			wlf->dir.z -= 0.1;
+		/*wlf->dir.y = olddir.y * cos(rotation.y) - olddir.z * sin(rotation.y);
+		wlf->dir.z = olddir.y * sin(rotation.y) + olddir.z * cos(rotation.y);
+		wlf->plane.y = oldplane.y * cos(rotation.y) - oldplane.z * sin(rotation.y);
+		wlf->plane.z = oldplane.y * sin(rotation.y) + oldplane.z * cos(rotation.y);
+		oldplane = wlf->plane;
+		olddir = wlf->dir;
+		set_yroation(wlf);
+		rotation.y = wlf->rotsp * sin(wlf->rotation * M_PI / 180);
+		rotation.x = wlf->rotsp * cos(wlf->rotation * M_PI / 180);
+		wlf->dir.x = olddir.x * cos(rotation.x) + olddir.z * sin(rotation.x);
+		wlf->dir.z = olddir.z * cos(rotation.x) - olddir.x * sin(rotation.x);
+		wlf->plane.x = oldplane.x * cos(rotation.x) + oldplane.z * sin(rotation.x);
+		wlf->plane.z = oldplane.z * cos(rotation.x) - oldplane.x * sin(rotation.x);*/
 	}
 	if (wlf->keys)
 	{
-		if (olddir.y * sin(-rotation.y) + olddir.z * cos(-rotation.y) < 0.4 && olddir.y * cos(-rotation.y) - olddir.z * sin(-rotation.y) < 1.0)
-		{
-			wlf->dir.y = olddir.y * cos(-rotation.y) - olddir.z * sin(-rotation.y);
-			wlf->dir.z = olddir.y * sin(-rotation.y) + olddir.z * cos(-rotation.y);
-			wlf->plane.y = oldplane.y * cos(-rotation.y) - oldplane.z * sin(-rotation.y);
-			wlf->plane.z = oldplane.y * sin(-rotation.y) + oldplane.z * cos(-rotation.y);
-		}
-		if (olddir.z * cos(-rotation.x) - olddir.x * sin(-rotation.x) < 0.4 && olddir.x * cos(-rotation.x) + olddir.z * sin(-rotation.x) < 1.0)
-		{
-			wlf->dir.x = olddir.x * cos(-rotation.x) + olddir.z * sin(-rotation.x);
-			wlf->dir.z = olddir.z * cos(-rotation.x) - olddir.x * sin(-rotation.x);
-			wlf->plane.x = oldplane.x * cos(-rotation.x) + oldplane.z * sin(-rotation.x);
-			wlf->plane.z = oldplane.z * cos(-rotation.x) - oldplane.x * sin(-rotation.x);
-		}
+		if (wlf->dir.z < 0.6)
+			wlf->dir.z += 0.1;
+		/*wlf->dir.y = olddir.y * cos(-rotation.y) - olddir.z * sin(-rotation.y);
+		wlf->dir.z = olddir.y * sin(-rotation.y) + olddir.z * cos(-rotation.y);
+		wlf->plane.y = oldplane.y * cos(-rotation.y) - oldplane.z * sin(-rotation.y);
+		wlf->plane.z = oldplane.y * sin(-rotation.y) + oldplane.z * cos(-rotation.y);
+		oldplane = wlf->plane;
+		olddir = wlf->dir;
+		set_yroation(wlf);
+		rotation.y = wlf->rotsp * sin(wlf->rotation * M_PI / 180);
+		rotation.x = wlf->rotsp * cos(wlf->rotation * M_PI / 180);
+		wlf->dir.x = olddir.x * cos(-rotation.x) + olddir.z * sin(-rotation.x);
+		wlf->dir.z = olddir.z * cos(-rotation.x) - olddir.x * sin(-rotation.x);
+		wlf->plane.x = oldplane.x * cos(-rotation.x) + oldplane.z * sin(-rotation.x);
+		wlf->plane.z = oldplane.z * cos(-rotation.x) - oldplane.x * sin(-rotation.x)*/;
 	}
 	/*if (wlf->keya)
 	{
@@ -125,12 +139,10 @@ int		move_lr(t_wolf *wlf)
 	olddir = wlf->dir;
 	if (wlf->keyright)
 	{
-		wlf->dir.x = wlf->dir.x * cos(-wlf->rotsp) - wlf->dir.y * sin(-wlf->rotsp);
-		wlf->dir.y = olddir.x * sin(-wlf->rotsp) + wlf->dir.y * cos(-wlf->rotsp);
-		wlf->plane.x = wlf->plane.x * cos(-wlf->rotsp) - wlf->plane.y *
-				sin(-wlf->rotsp);
-		wlf->plane.y = oldplane.x * sin(-wlf->rotsp) + wlf->plane.y *
-				cos(-wlf->rotsp);
+		wlf->dir.x = olddir.x * cos(-wlf->rotsp) - olddir.y * sin(-wlf->rotsp);
+		wlf->dir.y = olddir.x * sin(-wlf->rotsp) + olddir.y * cos(-wlf->rotsp);
+		wlf->plane.x = oldplane.x * cos(-wlf->rotsp) - oldplane.y * sin(-wlf->rotsp);
+		wlf->plane.y = oldplane.x * sin(-wlf->rotsp) + oldplane.y * cos(-wlf->rotsp);
 	}
 	set_yroation(wlf);
 	set_reverse(wlf);

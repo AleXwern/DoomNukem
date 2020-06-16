@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/11 17:17:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:08:02 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 /*
 ** Static values.
 */
-# define WINX		2000
+# define WINX		1500
 # define WINY		700
 # define MAXAGGRO	999999
 # define GFXCOUNT	23
