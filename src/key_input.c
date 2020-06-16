@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/06/16 17:00:39 by tbergkul         ###   ########.fr       */
-=======
-/*   Updated: 2020/06/16 14:51:31 by anystrom         ###   ########.fr       */
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
+/*   Updated: 2020/06/16 17:30:34 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +105,8 @@ int				key_release(int key, t_wolf *wlf)
 		wlf->movsp += 0.03;
 		wlf->posz -= 0.2;
 	}
-<<<<<<< HEAD
-=======
 	if (key == KEY_R)
 		wolf_default(wlf);
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 	if (key == SPACE)
 	{
 		if (!wlf->airbrn)

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/06/12 15:50:20 by tbergkul         ###   ########.fr       */
-=======
-/*   Updated: 2020/06/16 16:23:24 by anystrom         ###   ########.fr       */
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
+/*   Updated: 2020/06/16 17:31:22 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +22,7 @@ void	set_yroation(t_wolf *wlf)
 	else
 		wlf->rotation = 360 - fabs(wlf->dir.x - 1) * 90;
 
-	
+
 }
 
 void	set_reverse(t_wolf *wlf)
@@ -188,25 +184,6 @@ void	strafe(t_wolf *wlf, double dirxtemp, double dirytemp)
 
 	if (wlf->keyq)
 	{
-<<<<<<< HEAD
-		if (wlf->diry < 0)
-		{
-			if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->diry
-					* wlf->movsp)][(int)wlf->posx] <= 1)
-				wlf->posy -= (wlf->diry + 1) * wlf->movsp;
-		}
-		else
-		{
-			if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->diry
-					* wlf->movsp)][(int)wlf->posx] <= 1)
-				wlf->posy += (wlf->diry - 1) * wlf->movsp;
-		}
-		if (wlf->dirx < 0)
-		{
-			if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
-					- wlf->dirx * wlf->movsp)] <= 1)
-				wlf->posx -= (wlf->dirx + 1) * wlf->movsp;
-=======
 		if (wlf->dir.y < 0)
 		{
 			if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
@@ -224,39 +201,16 @@ void	strafe(t_wolf *wlf, double dirxtemp, double dirytemp)
 			if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
 					- wlf->dir.x * wlf->movsp)] <= 1)
 				wlf->posx -= (wlf->dir.x + 1) * wlf->movsp;
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 		}
 		else
 		{
 			if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
-<<<<<<< HEAD
-					- wlf->dirx * wlf->movsp)] <= 1)
-				wlf->posx += (wlf->dirx - 1) * wlf->movsp;
-=======
 					- wlf->dir.x * wlf->movsp)] <= 1)
 				wlf->posx += (wlf->dir.x - 1) * wlf->movsp;
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 		}
 	}
 	if (wlf->keye)
 	{
-<<<<<<< HEAD
-		if (wlf->diry >= 0)
-		{
-			dirxtemp = wlf->dirx - 1;
-		}
-		else if (wlf->diry < 0)
-		{
-			dirxtemp = wlf->dirx + 1;
-		}
-		if (wlf->dirx >= 0)
-		{
-			dirytemp = wlf->diry - 1;
-		}
-		else if (wlf->dirx < 0)
-		{
-			dirytemp = wlf->diry + 1;
-=======
 		if (wlf->dir.y >= 0)
 		{
 			dirxtemp = wlf->dir.x - 1;
@@ -272,7 +226,6 @@ void	strafe(t_wolf *wlf, double dirxtemp, double dirytemp)
 		else if (wlf->dir.x < 0)
 		{
 			dirytemp = wlf->dir.y + 1;
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 		}
 		wlf->posx += dirxtemp * wlf->movsp;
 		wlf->posy += dirytemp * wlf->movsp;

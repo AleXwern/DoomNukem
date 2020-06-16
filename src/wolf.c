@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/06/16 17:04:00 by tbergkul         ###   ########.fr       */
-=======
-/*   Updated: 2020/06/15 15:10:26 by anystrom         ###   ########.fr       */
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
+/*   Updated: 2020/06/16 17:31:48 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +21,6 @@ void	wolf_default(t_wolf *wlf)
 	wlf->posx = 2.5;
 	wlf->posy = 2.5;
 	wlf->posz = 2.5;
-<<<<<<< HEAD
-	wlf->dirx = 1.0;
-	wlf->diry = 0.0;
-	wlf->dirz = 0.0;
-	wlf->planex = 0.0;
-	wlf->planey = 0.5 / ((double)WINY / (double)WINX);
-	wlf->planez = 0.5;
-	wlf->rotsp = 0.06;
-=======
 	wlf->dir.x = 1.0;
 	wlf->dir.y = 0.0;
 	wlf->dir.z = 0.0;
@@ -48,7 +35,6 @@ void	wolf_default(t_wolf *wlf)
 	//wlf->planez = 0.5;
 	wlf->rotation = 0;
 	wlf->rotsp = 0.05;
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 	wlf->movsp = 0.06;
 	wlf->fcomb = 0;
 	wlf->rng = 0.0;

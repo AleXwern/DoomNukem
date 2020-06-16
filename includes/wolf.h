@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/06/16 16:57:37 by tbergkul         ###   ########.fr       */
-=======
-/*   Updated: 2020/06/16 16:42:33 by anystrom         ###   ########.fr       */
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
+/*   Updated: 2020/06/16 17:28:40 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,12 +217,9 @@ typedef struct	s_wolf
 	int			keytwo;
 	int			keyq;
 	int			keye;
-<<<<<<< HEAD
 	int			keym;
 	int			keyi;
 	int			accesscard;
-=======
->>>>>>> cfb370dd058be1c2c0ee591482973de060939b45
 	int			crouching;
 	int			mouseprevx;
 	int			mouseprevy;
