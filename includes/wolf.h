@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/16 17:23:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:28:40 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,9 +236,10 @@ int				interact(t_wolf *wlf);
 int				key_hold(int key, t_wolf *wlf);
 int				key_press(int key, t_wolf *wolf);
 int				key_release(int key, t_wolf *wolf);
+int				mouse_move(int x, int y, t_wolf *wlf);
 int				move(t_wolf *wlf);
 int				move_fb(t_wolf *wlf);
-int				strafe(t_wolf *wlf);
+void			strafe(t_wolf *wlf, double dirxtemp, double dirytemp);
 int				move_lr(t_wolf *wlf);
 int				x_press(t_wolf *wolf);
 

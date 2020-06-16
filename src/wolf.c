@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/15 15:10:26 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:31:48 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ void	wolf_default(t_wolf *wlf)
 	wlf->plrck = 0;
 	wlf->keyminus = 0;
 	wlf->keyplus = 0;
+	wlf->crouching = 0;
+	wlf->keym = 0;
+	wlf->keyi = 0;
+	wlf->accesscard = 0;
+	wlf->mouseprevx = WINX / 2;
+	wlf->mouseprevy = WINY / 2;
 	wlf->cycle = &render;
 }
 
@@ -88,6 +94,7 @@ void	setup(t_wolf *wolf)
 		error_out(SPW_ERROR, wolf);
 	mlx_hook(wolf->win, 2, 0, key_hold, wolf);
 	mlx_hook(wolf->win, 3, 0, key_release, wolf);
+	mlx_hook(wolf->win, 6, 0, mouse_move, wolf);
 	mlx_hook(wolf->win, 17, 0, x_press, wolf);
 	mlx_loop_hook(wolf->mlx, move, wolf);
 	wolf->cycle(wolf);
