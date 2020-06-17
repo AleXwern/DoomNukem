@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf.h                                             :+:      :+:    :+:   */
+/*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/16 17:23:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:27:40 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLF_H
-# define WOLF_H
+#ifndef DOOM_H
+# define DOOM_H
 # define THREADS 24
 
 //DOOM
@@ -165,13 +165,7 @@ typedef struct	s_wolf
 	int			airbrn;
 	t_vector	gravity;
 	t_vector	dir;
-	//double		dirx;
-	//double		diry;
-	//double		dirz;
 	t_vector	plane;
-	//double		planex;
-	//double		planey;
-	//double		planez;
 	double		camx;
 	double		camy;
 	double		raydx;
@@ -223,6 +217,9 @@ typedef struct	s_wolf
 	int			crouching;
 	int			mouseprevx;
 	int			mouseprevy;
+	int			isoptions;
+	int			shift;
+	int			shifty;
 }				t_wolf;
 
 t_gfx			init_image(t_wolf *wolf, int x, int y);
@@ -230,6 +227,7 @@ t_gfx			gfx_get(t_wolf *wolf, char *file, int x, int y);
 t_chara			*generate_party(t_wolf *wlf);
 t_chara			generate_foe(t_wolf *wlf);
 
+int				color_shift(int color, double shift, t_wolf *wlf);
 int				get_x(int pc);
 int				get_y(int pc);
 int				interact(t_wolf *wlf);
@@ -261,6 +259,7 @@ void			free_memory(char **arr);
 void			gen_att_ai(t_wolf *wlf);
 void			health_check(t_wolf *wlf, int pc, int thp);
 void			lab_move(t_wolf *wlf, int obj);
+void			options_menu(t_wolf *wlf);
 void			place_pc(t_wolf *wlf, int pc);
 void			render(t_wolf *wlf);
 void			render_floor(t_wolf *wlf);

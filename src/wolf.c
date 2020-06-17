@@ -6,11 +6,11 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/15 15:10:26 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 15:27:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf.h"
+#include "../includes/doom.h"
 #include "../includes/value.h"
 
 #include <stdio.h>
@@ -24,15 +24,9 @@ void	wolf_default(t_wolf *wlf)
 	wlf->dir.x = 1.0;
 	wlf->dir.y = 0.0;
 	wlf->dir.z = 0.0;
-	//wlf->dirx = 1.0;
-	//wlf->diry = 0.0;
-	//wlf->dirz = 0.0;
 	wlf->plane.x = 0.0;
 	wlf->plane.y = 0.5 / ((double)WINY / (double)WINX);
 	wlf->plane.z = 0.5;
-	//wlf->planex = 0.0;
-	//wlf->planey = 0.5 / ((double)WINY / (double)WINX);
-	//wlf->planez = 0.5;
 	wlf->rotation = 0;
 	wlf->rotsp = 0.05;
 	wlf->movsp = 0.06;
@@ -47,6 +41,7 @@ void	wolf_default(t_wolf *wlf)
 	wlf->plrck = 0;
 	wlf->keyminus = 0;
 	wlf->keyplus = 0;
+	wlf->shift = 0;
 	wlf->cycle = &render;
 }
 

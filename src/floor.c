@@ -6,11 +6,11 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 01:20:40 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/06/12 13:43:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:37:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf.h"
+#include "../includes/doom.h"
 #include "../includes/value.h"
 
 #include <stdio.h>
@@ -19,16 +19,12 @@ void	draw_floor(t_wolf *wlf)
 {
 	if (wlf->texbool)
 	{
-		//while (x < wlf->x)
-		//{
 		wlf->cellx = (int)wlf->floorx;
-			wlf->celly = (int)wlf->floory;
-			wlf->tx = (int)(128 * (wlf->floorx - wlf->cellx)) & (128 - 1);
-			wlf->ty = (int)(128 * (wlf->floory - wlf->celly)) & (128 - 1);
-			wlf->floorx += wlf->flstepx;
-			wlf->floory += wlf->flstepy;
-			wlf->img.data[WINX * wlf->y + wlf->x] = wlf->gfx[1].data[128 *
-				wlf->ty + wlf->tx];
+		wlf->celly = (int)wlf->floory;
+		wlf->tx = (int)(128 * (wlf->floorx - wlf->cellx)) & (128 - 1);
+		wlf->ty = (int)(128 * (wlf->floory - wlf->celly)) & (128 - 1);
+		wlf->img.data[WINX * wlf->y + wlf->x] = color_shift(wlf->gfx[1].data[128 *
+			wlf->ty + wlf->tx], wlf->walldist + fabs((double)(wlf->x - WINX / 2) / WINX), wlf);
 		//}
 		//printf("Write to %d from %d\n", WINX * wlf->y + wlf->x, 128 * wlf->ty + wlf->tx);
 		/*printf("\nEndvalues:\nRay0: %f %f\nRay1: %f %f\nPos: %d %f\nRowD: %f\nFLstep: %f %f\nCell: %d %d\nTX: %d %d\nFloor: %f %f\n\n", 
@@ -54,29 +50,14 @@ void	draw_floor(t_wolf *wlf)
 
 void	render_floor(t_wolf *wlf)
 {
-	//return ;
-	//if (wlf->y < WINY / 2)
-	//	return ;
-	//ft_putendl("thing");
 	wlf->raydx0 = wlf->dir.x - wlf->plane.x;
 	wlf->raydy0 = wlf->dir.y - wlf->plane.y;
-	wlf->raydz0 = wlf->dir.z - wlf->plane.z;
 	wlf->raydx1 = wlf->dir.x + wlf->plane.x;
 	wlf->raydy1 = wlf->dir.y + wlf->plane.y;
-	wlf->raydz1 = wlf->dir.z + wlf->plane.z;
-	//wlf->pos = wlf->y - WINY / 2;
-	//wlf->poszz = WINY * 0.5;
-	//printf("Cmp: %f %f\n", (double)(wlf->poszz / wlf->pos), wlf->walldist);
 	wlf->rowdist = wlf->walldist;
-	//if (wlf->poszz / wlf->pos < 0)
-	//	wlf->rowdist *= -1;
-	//wlf->rowdist = wlf->poszz / wlf->pos;
 	wlf->flstepx = wlf->rowdist * (wlf->raydx1 - wlf->raydx0) / WINX;
 	wlf->flstepy = wlf->rowdist * (wlf->raydy1 - wlf->raydy0) / WINX;
-	wlf->flstepz = wlf->rowdist * (wlf->raydz1 - wlf->raydz0) / WINY;
 	wlf->floorx = (wlf->posx + wlf->rowdist * wlf->raydx0) + (wlf->flstepx * wlf->x);
 	wlf->floory = (wlf->posy + wlf->rowdist * wlf->raydy0) + (wlf->flstepy * wlf->x);
-	wlf->floorz = (wlf->posz + wlf->rowdist * wlf->raydz0) + (wlf->flstepz * wlf->x);
-	//ft_putendl("Hello");
 	draw_floor(wlf);
 }

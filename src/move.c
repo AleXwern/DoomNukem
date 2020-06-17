@@ -6,12 +6,12 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/16 16:23:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 14:36:57 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/doom.h"
 #include "../includes/value.h"
-#include "../includes/wolf.h"
 
 #include <stdio.h>//
 

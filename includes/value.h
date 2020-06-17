@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/16 17:08:02 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 15:40:04 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 /*
 ** Static values.
 */
-# define WINX		1500
-# define WINY		700
+# define WINX		1280
+# define WINY		720
 # define MAXAGGRO	999999
 # define GFXCOUNT	23
 
@@ -54,13 +54,44 @@
 ** Tagged keys.
 */
 # define ESC		53
-# define KEY_R		15
-# define KEY_C		8
-# define KEY_T		17
 # define KEY_ONE	18
 # define KEY_TWO	19
 # define KEY_TRE	20
 # define KEY_FOU	21
+# define KEY_FIV	23
+# define KEY_SIX	22
+# define KEY_SEV	26
+# define KEY_EIG	28
+# define KEY_NIN	25
+# define KEY_ZER	29
+# define KEY_MIN	27
+# define KEY_PLU	24
+# define KEY_Q		12
+# define KEY_W		13
+# define KEY_E		14
+# define KEY_R		15
+# define KEY_T		17
+# define KEY_Y		16
+# define KEY_U		32
+# define KEY_I		34
+# define KEY_O		31
+# define KEY_P		35
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+# define KEY_F		3
+# define KEY_G		5
+# define KEY_H		4
+# define KEY_J		38
+# define KEY_K		40
+# define KEY_L		377
+# define KEY_Z		6
+# define KEY_X		7
+# define KEY_C		8
+# define KEY_V		9
+# define KEY_B		11
+# define KEY_N		45
+# define KEY_M		46	
 # define SPACE		49
 # define UP			126
 # define DOWN		125
@@ -72,12 +103,6 @@
 # define NUM_MIN	78
 # define SLASH		75
 # define STAR		67
-# define KEY_W		13
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
-# define KEY_Q		12
-# define KEY_E		14
 # define KEY_SHIFT	257
 
 /*

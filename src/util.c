@@ -6,12 +6,31 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/08 15:17:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 15:26:58 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf.h"
+#include "../includes/doom.h"
 #include "../includes/value.h"
+
+int		color_shift(int color, double shift, t_wolf *wlf)
+{
+	int		ret;
+	int		r;
+	int		g;
+	int		b;
+
+	ret = (int)(shift * wlf->shift);
+	if (ret > 10 * wlf->shift)
+		ret = 10 * wlf->shift;
+	if (ret < 1)
+		return (color);
+	r = color / (256 * 256);
+	g = (color / 256 - r * 256);
+	b = (color - g * 256 - r * 256 * 256);
+	ret = ((r / ret) * 256 * 256) + ((g / ret) * 256) + (b / ret);
+	return (ret);
+}
 
 int		arr_len(char **arr)
 {

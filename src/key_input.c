@@ -6,12 +6,12 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/16 14:51:31 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 15:27:12 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/doom.h"
 #include "../includes/value.h"
-#include "../includes/wolf.h"
 
 int				key_hold(int key, t_wolf *wlf)
 {
@@ -48,6 +48,18 @@ int				key_hold(int key, t_wolf *wlf)
 		wlf->keyq = 1;
 	if (key == KEY_E)
 		wlf->keye = 1;
+	if (key == KEY_O)
+	{
+		wlf->shift++;
+		if (wlf->shift > 100)
+			wlf->shift = 100;
+	}
+	if (key == KEY_P)
+	{
+		wlf->shift--;
+		if (wlf->shift < 0)
+			wlf->shift = 0;
+	}
 	return (0);
 }
 
@@ -126,15 +138,15 @@ void			jetpack(t_wolf *wlf)
 
 int				move(t_wolf *wlf)
 {
-	if (wlf->keydown || wlf->keyup)
+	if ((wlf->keydown || wlf->keyup) && !wlf->isoptions)
 		move_fb(wlf);
-	if (wlf->keyleft || wlf->keyright)
+	if ((wlf->keyleft || wlf->keyright) && !wlf->isoptions)
 		move_lr(wlf);
-	if (wlf->keyw || wlf->keys || wlf->keya || wlf->keyd)
+	if ((wlf->keyw || wlf->keys || wlf->keya || wlf->keyd) && !wlf->isoptions)
 		cam_udy(wlf);
-	if (wlf->keyone || wlf->keytwo)
+	if ((wlf->keyone || wlf->keytwo) && !wlf->isoptions)
 		jetpack(wlf);
-	if (wlf->keyq || wlf->keye)
+	if ((wlf->keyq || wlf->keye) && !wlf->isoptions)
 		strafe(wlf);
 	wlf->cycle(wlf);
 	return (0);
