@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 14:36:57 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:48:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_yroation(t_wolf *wlf)
 	else
 		wlf->rotation = 360 - fabs(wlf->dir.x - 1) * 90;
 
-	
+
 }
 
 void	set_reverse(t_wolf *wlf)
@@ -177,7 +177,7 @@ int		move_fb(t_wolf *wlf)
 	return (0);
 }
 
-int		strafe(t_wolf *wlf)
+void	strafe(t_wolf *wlf, double dirxtemp, double dirytemp)
 {
 	double	dirxtemp;
 	double	dirytemp;
@@ -230,5 +230,4 @@ int		strafe(t_wolf *wlf)
 		wlf->posx += dirxtemp * wlf->movsp;
 		wlf->posy += dirytemp * wlf->movsp;
 	}
-	return (0);
 }

@@ -6,12 +6,14 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 15:27:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:48:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
+
+#include <stdio.h>
 
 int				key_hold(int key, t_wolf *wlf)
 {
@@ -59,6 +61,11 @@ int				key_hold(int key, t_wolf *wlf)
 		wlf->shift--;
 		if (wlf->shift < 0)
 			wlf->shift = 0;
+	if (key == KEY_C && !wlf->crouching)
+	{
+		wlf->crouching = 1;
+		wlf->movsp -= 0.03;
+		wlf->posz += 0.2;
 	}
 	return (0);
 }
@@ -67,7 +74,7 @@ int				key_release(int key, t_wolf *wlf)
 {
 	if (key == KEY_T)
 		wlf->texbool = (wlf->texbool * wlf->texbool) - 1;
-	if (key == KEY_R)
+	if (key == KEY_TRE)
 		interact(wlf);
 	if (key == KEY_C)
 		wlf->aggro = 499;
@@ -99,6 +106,8 @@ int				key_release(int key, t_wolf *wlf)
 		wlf->keyq = 0;
 	if (key == KEY_E)
 		wlf->keye = 0;
+	if (key == KEY_I)
+		wlf->keyi = wlf->keyi == 1 ? 0 : 1;
 	if (key == KEY_SHIFT)
 		wlf->movsp -= 0.06;
 	if (key == KEY_C && wlf->crouching)
@@ -134,6 +143,40 @@ void			jetpack(t_wolf *wlf)
 	if (wlf->keytwo)
 		if (wlf->map[(int)(wlf->posz - 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 			wlf->posz -= 0.05;
+}
+
+int				mouse_move(int x, int y, t_wolf *wlf)
+{
+	double	olddirx;
+	double	oldplanex;
+	printf(" mousex = %d\n mouseprevx = %d\n mousey = %d\n mouseprevy = %d\n", x, wlf->mouseprevx, y, wlf->mouseprevy);
+	if (x < wlf->mouseprevx/* && x > (WINX / 2)*/)
+	{
+		olddirx = wlf->dir.x;
+		wlf->dir.x = wlf->dir.x * cos(-wlf->rotsp) - wlf->dir.y * sin(-wlf->rotsp);
+		wlf->dir.y = olddirx * sin(-wlf->rotsp) + wlf->dir.y * cos(-wlf->rotsp);
+		oldplanex = wlf->plane.x;
+		wlf->plane.x = wlf->plane.x * cos(-wlf->rotsp) - wlf->plane.y *
+				sin(-wlf->rotsp);
+		wlf->plane.y = oldplanex * sin(-wlf->rotsp) + wlf->plane.y *
+				cos(-wlf->rotsp);
+		wlf->sbox -= WINX / 64;
+	}
+	else if (x > wlf->mouseprevx/* && x < (WINX / 2)*/)
+	{
+		olddirx = wlf->dir.x;
+		wlf->dir.x = wlf->dir.x * cos(wlf->rotsp) - wlf->dir.y * sin(wlf->rotsp);
+		wlf->dir.y = olddirx * sin(wlf->rotsp) + wlf->dir.y * cos(wlf->rotsp);
+		oldplanex = wlf->plane.x;
+		wlf->plane.x = wlf->plane.x * cos(wlf->rotsp) - wlf->plane.y *
+				sin(wlf->rotsp);
+		wlf->plane.y = oldplanex * sin(wlf->rotsp) + wlf->plane.y *
+				cos(wlf->rotsp);
+		wlf->sbox += WINX / 64;
+	}
+	wlf->mouseprevx = x;
+	wlf->mouseprevy = y;
+	return (0);
 }
 
 int				move(t_wolf *wlf)

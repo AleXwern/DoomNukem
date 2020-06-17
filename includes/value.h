@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 15:40:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:44:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,21 @@
 # define SLASH		75
 # define STAR		67
 # define KEY_SHIFT	257
+# define KEY_CTRL	256// dont use this. its a shortcut key on mac which just messes up the program.
+# define KEY_I		34
+# define KEY_O		31
+# define KEY_M		46
+# define KEY_F		3
+
+/*
+** Colors
+*/
+# define			COLOR_RED 16711680
+# define			COLOR_GREEN 65280
+# define			COLOR_YELLOW 16776960
+# define			COLOR_BLUE 255
+# define			COLOR_WHITE 16777215
+# define			COLOR_ORANGE 16742400
 
 /*
 ** Keys for laptop if needed.

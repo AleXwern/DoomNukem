@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 15:27:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:49:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ void	wolf_default(t_wolf *wlf)
 	wlf->keyminus = 0;
 	wlf->keyplus = 0;
 	wlf->shift = 0;
+	wlf->crouching = 0;
+	wlf->keym = 0;
+	wlf->keyi = 0;
+	wlf->accesscard = 0;
+	wlf->mouseprevx = WINX / 2;
+	wlf->mouseprevy = WINY / 2;
 	wlf->cycle = &render;
 }
 
@@ -83,6 +89,7 @@ void	setup(t_wolf *wolf)
 		error_out(SPW_ERROR, wolf);
 	mlx_hook(wolf->win, 2, 0, key_hold, wolf);
 	mlx_hook(wolf->win, 3, 0, key_release, wolf);
+	mlx_hook(wolf->win, 6, 0, mouse_move, wolf);
 	mlx_hook(wolf->win, 17, 0, x_press, wolf);
 	mlx_loop_hook(wolf->mlx, move, wolf);
 	wolf->cycle(wolf);

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 15:22:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:44:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ t_gfx	gfx_get(t_wolf *wolf, char *file, int x, int y)
 	close(fd);
 	return (gfx);
 }
+
+/*
+**	i = 15-22 for the foes.
+*/
 
 void	comp_foe(t_wolf *wlf, char *bpath, int i)
 {
