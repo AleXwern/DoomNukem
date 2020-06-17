@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-<<<<<<< HEAD:includes/doom.h
-/*   Updated: 2020/06/17 16:27:40 by anystrom         ###   ########.fr       */
-=======
-/*   Updated: 2020/06/16 17:28:40 by tbergkul         ###   ########.fr       */
->>>>>>> e31291df9a43537f95f12828c17887a3dcd4ef8b:includes/wolf.h
+/*   Updated: 2020/06/17 16:54:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +219,6 @@ typedef struct	s_wolf
 	int			mouseprevy;
 	int			isoptions;
 	int			shift;
-	int			shifty;
 }				t_wolf;
 
 t_gfx			init_image(t_wolf *wolf, int x, int y);
@@ -241,7 +236,6 @@ int				key_release(int key, t_wolf *wolf);
 int				mouse_move(int x, int y, t_wolf *wlf);
 int				move(t_wolf *wlf);
 int				move_fb(t_wolf *wlf);
-void			strafe(t_wolf *wlf, double dirxtemp, double dirytemp);
 int				move_lr(t_wolf *wlf);
 int				x_press(t_wolf *wolf);
 
@@ -268,6 +262,7 @@ void			options_menu(t_wolf *wlf);
 void			place_pc(t_wolf *wlf, int pc);
 void			render(t_wolf *wlf);
 void			render_floor(t_wolf *wlf);
+void			strafe(t_wolf *wlf, double dirxtemp, double dirytemp);
 void			wall_stripe(t_wolf *wlf);
 void			wolf_default(t_wolf *wlf);
 

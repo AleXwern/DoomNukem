@@ -6,32 +6,12 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 16:41:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:56:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
-
-void	draw_gfx(t_wolf *wlf, t_gfx gfx, int x, int y)
-{
-	int		gx;
-	int		gy;
-
-	gy = 0;
-	while (gy < gfx.hgt)
-	{
-		gx = 0;
-		while (gx < gfx.wid)
-		{
-			if (gfx.data[gfx.wid * gy + gx] != 0xff00ff)
-				wlf->img.data[WINX * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
-						gy + gx];
-			gx++;
-		}
-		gy++;
-	}
-}
 
 void	draw_stripe(t_wolf *wlf)
 {

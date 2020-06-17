@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 16:48:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:56:21 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,9 +179,6 @@ int		move_fb(t_wolf *wlf)
 
 void	strafe(t_wolf *wlf, double dirxtemp, double dirytemp)
 {
-	double	dirxtemp;
-	double	dirytemp;
-
 	if (wlf->keyq)
 	{
 		if (wlf->dir.y < 0)

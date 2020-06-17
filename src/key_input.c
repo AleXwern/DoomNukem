@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 16:48:32 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/17 16:55:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int				key_hold(int key, t_wolf *wlf)
 		wlf->shift--;
 		if (wlf->shift < 0)
 			wlf->shift = 0;
+	}
 	if (key == KEY_C && !wlf->crouching)
 	{
 		wlf->crouching = 1;
@@ -190,7 +191,7 @@ int				move(t_wolf *wlf)
 	if ((wlf->keyone || wlf->keytwo) && !wlf->isoptions)
 		jetpack(wlf);
 	if ((wlf->keyq || wlf->keye) && !wlf->isoptions)
-		strafe(wlf);
+		strafe(wlf, 0, 0);
 	wlf->cycle(wlf);
 	return (0);
 }
