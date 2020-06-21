@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-void	lab_move(t_wolf *wlf, int obj)
+void	lab_move(t_doom *wlf, int obj)
 {
 	if (obj == 3 && wlf->map[(int)wlf->posz -
 			1][(int)wlf->posy][(int)wlf->posx] == 1)
@@ -36,10 +36,10 @@ void	lab_move(t_wolf *wlf, int obj)
 	wlf->plane.x *= -1.0;
 	wlf->plane.y *= -1.0;
 	wlf->cycle(wlf);
-	mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->gfx[obj + 4].img, 0, 0);
+	//mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->gfx[obj + 4].img, 0, 0);
 }
 
-int		interact(t_wolf *wlf)
+int		interact(t_doom *wlf)
 {
 	t_vector	tarpos;
 	int			obj;
@@ -54,6 +54,6 @@ int		interact(t_wolf *wlf)
 	else if (obj == 0)
 		wlf->map[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x] = 5;
 	if (obj == 5 || obj == 0)
-		wlf->cycle(wlf);
+		render(wlf);
 	return (0);
 }

@@ -13,35 +13,39 @@
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	draw_stripe(t_wolf *wlf)
+void	draw_stripe(t_doom *wlf)
 {
+	double	shift;
+	Uint32* tex;
+	Uint32* tar;
+
 	if (wlf->texbool)
 	{
-		double	shift = (wlf->posz - floor(wlf->posz));
+		tex = (Uint32*)wlf->gfx[wlf->texnum].tex->pixels;
+		shift = (wlf->posz - floor(wlf->posz));
 		shift = ((shift - 0.5) * 128);
 		if (shift < 0)
 			shift = 128 + shift;
-		wlf->texy = (int)((((wlf->y * 256 - WINY * 128 - wlf->lineh
-				* 128) * 128)
-					/ wlf->lineh) / 256) % 128;
+		wlf->texy = (int)((((wlf->y * 256 - wlf->winh * (128 - 128 * wlf->dir.z) - wlf->lineh * 128) * 128) / wlf->lineh) / 256) % 128;
+		//wlf->texy = (int)((((wlf->y * 256 - WINY * 128 - wlf->lineh * 128) * 128) / wlf->lineh) / 256) % 128;
 		//wlf->texy = (int)(wlf->texy + (128 * (wlf->walldist - ceil(wlf->walldist)))) % 128;
 		if (wlf->texy < 0)
 			wlf->texy += 128;
-		wlf->testcolor = color_shift(wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) *
-				wlf->gfx[wlf->texnum].sizel / 4 + wlf->texx %
-				128 * wlf->gfx[2].bpp / 32], wlf->walldist + fabs((double)(wlf->x - WINX / 2) / WINX), wlf);
+		tex = (Uint32*)wlf->gfx[wlf->texnum].tex->pixels;
+		wlf->testcolor = color_shift(tex[((wlf->texy + (int)shift) % 128) * wlf->gfx[wlf->texnum].tex->pitch / 4 + wlf->texx % 128 * wlf->gfx[2].tex->format->BitsPerPixel / 32], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf);
 	}
-	wlf->img.data[WINX * wlf->y + wlf->x] = wlf->testcolor;
+	tar = (Uint8*)wlf->surf->pixels + wlf->y * wlf->surf->pitch + wlf->x * sizeof(*tar);
+	*tar = wlf->testcolor;
 }
 
-void	wall_stripe(t_wolf *wlf)
+void	wall_stripe(t_doom *wlf)
 {
 	if (wlf->texbool)
 	{
 		wlf->raydy0 = wlf->dir.y - wlf->plane.y;
 		wlf->raydy1 = wlf->dir.y + wlf->plane.y;
 		wlf->texnum = wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
-		wlf->flstepy = wlf->walldist * (wlf->raydy1 - wlf->raydy0) / WINX;
+		wlf->flstepy = wlf->walldist * (wlf->raydy1 - wlf->raydy0) / wlf->winw;
 		if (wlf->side == 0)
 			wlf->wallx = (wlf->posy + wlf->walldist * wlf->raydy);
 		else

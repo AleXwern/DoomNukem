@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-int				key_hold(int key, t_wolf *wlf)
+int				key_hold(int key, t_doom *wlf)
 {
 	//ft_putnbrln(key);
 	if (key == ESC)
@@ -71,7 +71,7 @@ int				key_hold(int key, t_wolf *wlf)
 	return (0);
 }
 
-int				key_release(int key, t_wolf *wlf)
+int				key_release(int key, t_doom *wlf)
 {
 	if (key == KEY_T)
 		wlf->texbool = (wlf->texbool * wlf->texbool) - 1;
@@ -130,13 +130,13 @@ int				key_release(int key, t_wolf *wlf)
 	return (0);
 }
 
-int				x_press(t_wolf *wolf)
+int				x_press(t_doom *wolf)
 {
 	error_out(FINE, wolf);
 	return (0);
 }
 
-void			jetpack(t_wolf *wlf)
+void			jetpack(t_doom *wlf)
 {
 	if (wlf->keyone)
 		if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
@@ -146,7 +146,7 @@ void			jetpack(t_wolf *wlf)
 			wlf->posz -= 0.05;
 }
 
-int				mouse_move(int x, int y, t_wolf *wlf)
+int				mouse_move(int x, int y, t_doom *wlf)
 {
 	double	olddirx;
 	double	oldplanex;
@@ -180,7 +180,7 @@ int				mouse_move(int x, int y, t_wolf *wlf)
 	return (0);
 }
 
-int				move(t_wolf *wlf)
+int				move(t_doom *wlf)
 {
 	if ((wlf->keydown || wlf->keyup) && !wlf->isoptions)
 		move_fb(wlf);
@@ -192,6 +192,6 @@ int				move(t_wolf *wlf)
 		jetpack(wlf);
 	if ((wlf->keyq || wlf->keye) && !wlf->isoptions)
 		strafe(wlf, 0, 0);
-	wlf->cycle(wlf);
+	//wlf->cycle(wlf);
 	return (0);
 }

@@ -13,7 +13,7 @@
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	validate_map(t_wolf *wlf, int i, int a)
+void	validate_map(t_doom *wlf, int i, int a)
 {
 	while (++a < wlf->mxflr)
 	{
@@ -46,7 +46,7 @@ int		templen(char **temp)
 	return (i);
 }
 
-int		get_next_matrix(t_wolf *wolf, char **temp, int x, int y)
+int		get_next_matrix(t_doom *wolf, char **temp, int x, int y)
 {
 	int		wid;
 
@@ -67,7 +67,7 @@ int		get_next_matrix(t_wolf *wolf, char **temp, int x, int y)
 	return (1);
 }
 
-void	fileformat(int fd, t_wolf *wolf, int y)
+void	fileformat(int fd, t_doom *wolf, int y)
 {
 	char	**temp;
 	char	*gnl;
@@ -92,9 +92,8 @@ void	fileformat(int fd, t_wolf *wolf, int y)
 		error_out(FIL_ERROR, wolf);
 }
 
-void	comp_map(t_wolf *wolf, char *av)
+void	comp_map(t_doom *wolf, char *av)
 {
-	char	*flrfl;
 	int		fd;
 
 	wolf->height = -1;
@@ -107,14 +106,33 @@ void	comp_map(t_wolf *wolf, char *av)
 			return ;
 		if (!(wolf->map[wolf->flr] = (int**)malloc(sizeof(int*) * 35)))
 			error_out(MEM_ERROR, wolf);
-		wolf->flr += 49;
-		flrfl = ft_strjoin(av, (char*)&(wolf->flr));
-		ft_putendl(flrfl);
-		fd = open(flrfl, O_RDONLY);
-		free(flrfl);
+		//wolf->flr += 49;
+		//flrfl = ft_strjoin(av, (char*)&(wolf->flr));
+		char* path = SDL_GetBasePath();
+		char* fpath;
+		if (wolf->flr == 0)
+			fpath = ft_strjoin(path, "map\\1");
+		else if (wolf->flr == 1)
+			fpath = ft_strjoin(path, "map\\2");
+		else if (wolf->flr == 2)
+			fpath = ft_strjoin(path, "map\\3");
+		else if (wolf->flr == 3)
+			fpath = ft_strjoin(path, "map\\4");
+		else if (wolf->flr == 4)
+			fpath = ft_strjoin(path, "map\\5");
+		else
+			return ;
+		//_sopen_s(&fd, fpath, _O_RDONLY, _SH_DENYWR, _S_IREAD);
+		open(&fd, fpath, O_RDONLY);
+		SDL_free(path);
+		ft_putendl(fpath);
+		free(fpath);
+		//ft_putendl(flrfl);
+		//fd = open(flrfl, O_RDONLY);
+		//free(flrfl);
 		if (fd == -1)
 			error_out(FLR_ERROR, wolf);
-		wolf->flr -= 49;
+		//wolf->flr -= 49;
 		fileformat(fd, wolf, 0);
 		wolf->flr++;
 	}

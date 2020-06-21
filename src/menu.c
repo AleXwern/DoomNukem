@@ -13,9 +13,10 @@
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	options_menu(t_wolf *wlf)
+void	options_menu(t_doom *wlf)
 {
-	wlf->img = init_image(wlf, WINX, WINY);
-	draw_gfx(wlf, wlf->gfx[9], 0, 0);
-	mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->img.img, 0, 0);
+	return;
+	//wlf->img = init_image(wlf, WINX, WINY);
+	//draw_gfx(wlf, wlf->gfx[9], 0, 0);
+	//mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->img.img, 0, 0);
 }

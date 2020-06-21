@@ -13,7 +13,20 @@
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-int		color_shift(int color, double shift, t_wolf *wlf)
+void	fps_counter(void* ptr)
+{
+	t_doom	*wlf;
+
+	wlf = (t_doom*)ptr;
+	while (1)
+	{
+		SDL_Delay(1000);
+		printf("FPS: %d\n", wlf->fps);
+		wlf->fps = 0;
+	}
+}
+
+int		color_shift(int color, double shift, t_doom *wlf)
 {
 	int		ret;
 	int		r;
@@ -42,7 +55,7 @@ int		arr_len(char **arr)
 	return (i);
 }
 
-void	free_map(t_wolf *wlf, int f, int y)
+void	free_map(t_doom *wlf, int f, int y)
 {
 	while (++f < wlf->mxflr)
 	{

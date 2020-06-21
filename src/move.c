@@ -15,7 +15,7 @@
 
 #include <stdio.h>//
 
-void	set_yroation(t_wolf *wlf)
+void	set_yroation(t_doom *wlf)
 {
 	if (wlf->dir.y > 0)
 		wlf->rotation = 180 - (wlf->dir.x + 1) * 90;
@@ -25,7 +25,7 @@ void	set_yroation(t_wolf *wlf)
 
 }
 
-void	set_reverse(t_wolf *wlf)
+void	set_reverse(t_doom *wlf)
 {
 	t_vector	test;
 
@@ -37,7 +37,7 @@ void	set_reverse(t_wolf *wlf)
 		test.y = (fabs((fabs(wlf->rotation - 90.0) / 90.0) - 1));
 	else
 		test.y = fabs((double)(-(wlf->rotation - 90) / 90.0)) - 3.0;
-	printf("Rot %f %f\n", test.x, test.y);
+	//printf("Rot %f %f\n", test.x, test.y);
 }
 
 int		checkrota(double dir, double plane)
@@ -53,7 +53,7 @@ int		checkrota(double dir, double plane)
 	return (1);
 }
 
-void	cam_udy(t_wolf *wlf)
+void	cam_udy(t_doom *wlf)
 {
 	t_vector	oldplane;
 	t_vector	olddir;
@@ -66,7 +66,7 @@ void	cam_udy(t_wolf *wlf)
 	if (wlf->keyw)
 	{
 		if (wlf->dir.z > -0.6)
-			wlf->dir.z -= 0.1;
+			wlf->dir.z -= 0.05;
 		/*wlf->dir.y = olddir.y * cos(rotation.y) - olddir.z * sin(rotation.y);
 		wlf->dir.z = olddir.y * sin(rotation.y) + olddir.z * cos(rotation.y);
 		wlf->plane.y = oldplane.y * cos(rotation.y) - oldplane.z * sin(rotation.y);
@@ -84,7 +84,7 @@ void	cam_udy(t_wolf *wlf)
 	if (wlf->keys)
 	{
 		if (wlf->dir.z < 0.6)
-			wlf->dir.z += 0.1;
+			wlf->dir.z += 0.05;
 		/*wlf->dir.y = olddir.y * cos(-rotation.y) - olddir.z * sin(-rotation.y);
 		wlf->dir.z = olddir.y * sin(-rotation.y) + olddir.z * cos(-rotation.y);
 		wlf->plane.y = oldplane.y * cos(-rotation.y) - oldplane.z * sin(-rotation.y);
@@ -113,15 +113,15 @@ void	cam_udy(t_wolf *wlf)
 		wlf->plane.x = oldplane.x * cos(-rotation.x) + oldplane.z * sin(-rotation.x);
 		wlf->plane.z = oldplane.z * cos(-rotation.x) - oldplane.x * sin(-rotation.x);
 	}*/
-	printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dir.x, wlf->plane.x, wlf->dir.y, wlf->plane.y, wlf->dir.z, wlf->plane.z);
-	printf("Rotation: %d\n", wlf->rotation);
+	//printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dir.x, wlf->plane.x, wlf->dir.y, wlf->plane.y, wlf->dir.z, wlf->plane.z);
+	//printf("Rotation: %d\n", wlf->rotation);
 }
 
-void	move_l(t_wolf *wlf, t_vector olddir, t_vector oldplane)
+void	move_l(t_doom *wlf, t_vector olddir, t_vector oldplane)
 {
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
-	if (wlf->keyleft)
+	if (wlf->keyright)
 	{
 		wlf->dir.x = olddir.x * cos(wlf->rotsp) - olddir.y * sin(wlf->rotsp);
 		wlf->dir.y = olddir.x * sin(wlf->rotsp) + olddir.y * cos(wlf->rotsp);
@@ -130,14 +130,14 @@ void	move_l(t_wolf *wlf, t_vector olddir, t_vector oldplane)
 	}
 }
 
-int		move_lr(t_wolf *wlf)
+int		move_lr(t_doom *wlf)
 {
 	t_vector	olddir;
 	t_vector	oldplane;
 
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
-	if (wlf->keyright)
+	if (wlf->keyleft)
 	{
 		wlf->dir.x = olddir.x * cos(-wlf->rotsp) - olddir.y * sin(-wlf->rotsp);
 		wlf->dir.y = olddir.x * sin(-wlf->rotsp) + olddir.y * cos(-wlf->rotsp);
@@ -147,12 +147,12 @@ int		move_lr(t_wolf *wlf)
 	set_yroation(wlf);
 	set_reverse(wlf);
 	move_l(wlf, olddir, oldplane);
-	printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dir.x, wlf->plane.x, wlf->dir.y, wlf->plane.y, wlf->dir.z, wlf->plane.z);
-	printf("Rotation: %d\n", wlf->rotation);
+	//printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dir.x, wlf->plane.x, wlf->dir.y, wlf->plane.y, wlf->dir.z, wlf->plane.z);
+	//printf("Rotation: %d\n", wlf->rotation);
 	return (0);
 }
 
-int		move_fb(t_wolf *wlf)
+int		move_fb(t_doom *wlf)
 {
 	if (wlf->keyup)
 	{
@@ -172,12 +172,12 @@ int		move_fb(t_wolf *wlf)
 				- wlf->dir.x * wlf->movsp)] <= 1)
 			wlf->posx -= wlf->dir.x * wlf->movsp;
 	}
-	printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dir.x, wlf->plane.x, wlf->dir.y, wlf->plane.y, wlf->dir.z, wlf->plane.z);
-	printf("Rotation: %d\n", wlf->rotation);
+	//printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dir.x, wlf->plane.x, wlf->dir.y, wlf->plane.y, wlf->dir.z, wlf->plane.z);
+	//printf("Rotation: %d\n", wlf->rotation);
 	return (0);
 }
 
-void	strafe(t_wolf *wlf, double dirxtemp, double dirytemp)
+void	strafe(t_doom *wlf, double dirxtemp, double dirytemp)
 {
 	if (wlf->keyq)
 	{

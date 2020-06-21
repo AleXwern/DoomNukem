@@ -15,7 +15,7 @@
 
 #include <stdio.h>//
 
-void	dda_sys(t_wolf *wlf)
+void	dda_sys(t_doom *wlf)
 {
 	//ft_putendl("dud");
 	wlf->hit = 0;
@@ -47,7 +47,7 @@ void	dda_sys(t_wolf *wlf)
 	//ft_putendl("exit");
 }
 
-void	dda_prep(t_wolf *wlf)
+void	dda_prep(t_doom *wlf)
 {
 	wlf->deltadx = fabs(1 / wlf->raydx);
 	wlf->deltady = fabs(1 / wlf->raydy);
@@ -84,10 +84,10 @@ void	dda_prep(t_wolf *wlf)
 	}
 }
 
-void	rc_init(t_wolf *wlf)
+void	rc_init(t_doom *wlf)
 {
-	wlf->camx = 2 * wlf->x / (double)(WINX) - 1.0;
-	wlf->camy = 2 * wlf->y / (double)(WINY) - 1.0;
+	wlf->camx = 2.0 * wlf->x / (double)(wlf->winw) - 1.0;
+	wlf->camy = 2.0 * wlf->y / (double)(wlf->winh) - 1.0;
 	wlf->raydx = wlf->dir.x + wlf->plane.x * wlf->camx;
 	wlf->raydy = wlf->dir.y + wlf->plane.y * wlf->camx;
 	wlf->raydz = wlf->dir.z + wlf->plane.z * wlf->camy;
@@ -110,29 +110,28 @@ void	rc_init(t_wolf *wlf)
 		wlf->walldist += 0.01;
 }
 
-void	*multit(void *arg)
+void putPixelRGB(SDL_Renderer* renderer, int x, int y, unsigned char r, unsigned char g, unsigned char b)
 {
-	t_wolf *wlf;
+	SDL_SetRenderDrawColor(renderer, (Uint8)r, (Uint8)g, (Uint8)b, 255);
+	SDL_RenderDrawPoint(renderer, x, y);
+}
 
-	wlf = (t_wolf*)arg;
+void	renthread(void *ptr)
+//void	render(t_doom *wlf)
+{
+	t_doom *wlf;
 
-	while (wlf->x < wlf->xmax)
+	wlf = (t_doom*)ptr;
+
+	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->gfx[0].tex);
+	//wlf->x = 0;
+	while (wlf->x < wlf->winw)
 	{
 		wlf->y = -1;
-		while (++wlf->y < WINY)
+		while (++wlf->y < wlf->winh)
 		{
 			rc_init(wlf);
-			wlf->lineh = (int)(WINY / wlf->walldist);
-			/*
-			if (wlf->side == 2)
-				wlf->lineh = (int)(WINX / wlf->walldist);
-			wlf->start = -wlf->lineh / 2 + WINY / 2;
-			if (wlf->start < 0)
-				wlf->start = 0;
-			wlf->end = wlf->lineh / 2 + WINY / 2;
-			if (wlf->end >= WINY)
-				wlf->end = WINY - 1;
-			*/
+			wlf->lineh = (int)(wlf->winh / wlf->walldist);
 			if (wlf->side == 1)
 				wlf->testcolor = 0x3679ff;
 			else if (wlf->side == 2)
@@ -144,12 +143,14 @@ void	*multit(void *arg)
 			else
 				wall_stripe(wlf);
 		}
-		wlf->x++;
+		wlf->x += wlf->trx;
 	}
-	return (0);
+	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->surf);
+	//SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
+	//SDL_RenderPresent(wlf->rend);
 }
 
-void	gravity(t_wolf *wlf)
+void	gravity(t_doom *wlf)
 {
 	if (wlf->keytwo)
 		return ;
@@ -172,7 +173,7 @@ void	gravity(t_wolf *wlf)
 		wlf->posz -= 0.1;
 }
 
-void	pickupitem(t_wolf *wlf)
+void	pickupitem(t_doom *wlf)
 {
 	int			obj;
 
@@ -188,7 +189,8 @@ void	pickupitem(t_wolf *wlf)
 	}
 }
 
-void	drawinventory(t_wolf *wlf, int endx, int endy)//work in progress. Now really slows down the game.
+/*
+void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now really slows down the game.
 {
 	int	x;
 	int	y;
@@ -205,7 +207,7 @@ void	drawinventory(t_wolf *wlf, int endx, int endy)//work in progress. Now reall
 	}
 }
 
-void	draw_gfx(t_wolf *wlf, t_gfx gfx, int x, int y)
+void	draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y)
 {
 	int	gx;
 	int	gy;
@@ -223,35 +225,53 @@ void	draw_gfx(t_wolf *wlf, t_gfx gfx, int x, int y)
 		}
 		gy++;
 	}
-}
+}*/
 
-void	render(t_wolf *wlf)
+
+void	render(t_doom *wlf)
 {
-	pthread_t	threads[THREADS];
-	t_wolf		data_r[THREADS];
+	//SDL_Thread	*threads[THREADS];
+	//t_doom		data_r[THREADS];
+	SDL_Thread	**threads;
+	t_doom		*data_r;
 	int			x;
-	t_gfx		gfx;
+	//t_gfx		gfx;
 
 	gravity(wlf);
 	x = 0;
-	wlf->img = init_image(wlf, WINX, WINY);
-	while (x < THREADS)
+	if (wlf->trx < 0)
+		wlf->trx = 1;
+	if (!(threads = (SDL_Thread*)malloc(sizeof(SDL_Thread*) * wlf->trx)))
+		error_out(MEM_ERROR, wlf);
+	if (!(data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
+		error_out(MEM_ERROR, wlf);
+	while (x < wlf->trx)
 	{
-		ft_memcpy((void*)&data_r[x], (void*)wlf, sizeof(t_wolf));
-		data_r[x].x = x * (WINX / THREADS);
-		data_r[x].xmax = (x + 1) * (WINX / THREADS);
-		pthread_create(&threads[x], NULL, multit, &data_r[x]);
+		ft_memcpy((void*)&data_r[x], (void*)wlf, sizeof(t_doom));
+		data_r[x].x = x/* * (wlf->winw / THREADS)*/;
+		//data_r[x].xmax = (x + 1) * (wlf->winw / THREADS);
+		threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&data_r[x]);
 		x++;
 	}
 	while (x--)
-		pthread_join(threads[x], NULL);
-	draw_gfx(wlf, wlf->gfx[15], 100, 100);
-	if (wlf->accesscard == 0)
-		pickupitem(wlf);
-	mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->img.img, 0, 0);
-	if (wlf->keyi)
-		drawinventory(wlf, 1300, 500);
-	if (wlf->accesscard == 1)
-		mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
-	mlx_destroy_image(wlf->mlx, wlf->img.img);
+	{
+		if (threads[x] == NULL)
+			ft_putendl("Thread failure.");
+		else
+			SDL_WaitThread(threads[x], NULL);
+	}
+	free(threads);
+	free(data_r);
+	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
+	//if (wlf->accesscard == 0)
+	//	pickupitem(wlf);
+	//mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->img.img, 0, 0);
+	//if (wlf->keyi)
+	//	drawinventory(wlf, 1300, 500);
+	//if (wlf->accesscard == 1)
+	//	mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
+	wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->surf);             
+	SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
+	SDL_RenderPresent(wlf->rend);
+	wlf->fps++;
 }

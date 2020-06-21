@@ -12,18 +12,40 @@
 
 #ifndef DOOM_H
 # define DOOM_H
-# define THREADS 24
 
 //DOOM
 
-# include "/usr/local/include/mlx.h"
+# include "SDL.h"
+# include "SDL_image.h"
+# include "SDL_mixer.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include <pthread.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
+
+#if _WIN64
+/*
+** Windows x64 OS spesific includes
+** Mainly to get win spesific versions of C functions like open -> _sopen_s
+** to work because of required flags.
+*/
+# include <windows.h>
+# include <share.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <io.h>
+# include <stdio.h>
+# include <string.h>
+
+# define main(X, Y)			wmain(X, Y)
+# define open(W, X, Y)		_sopen_s(W, X, Y, _SH_DENYWR, _S_IREAD);
+#elif __APPLE__
+/*
+** Apple Mac OS spesific includes
+*/
+#endif
 
 typedef struct	s_vector
 {
@@ -68,13 +90,9 @@ typedef struct	s_chara
 
 typedef struct	s_gfx
 {
-	void		*img;
-	int			*data;
-	int			sizel;
-	int			bpp;
-	int			endn;
-	int			wid;
-	int			hgt;
+	SDL_Surface*	tex;
+	int				wid;
+	int				hgt;
 }				t_gfx;
 
 /*
@@ -102,10 +120,14 @@ typedef struct	s_gfx
 ** ismenu
 */
 
-typedef struct	s_wolf
+typedef struct	s_doom
 {
-	void		*mlx;
-	void		*win;
+	SDL_Window	*win;
+	SDL_Renderer *rend;
+	SDL_Texture *tex;
+	SDL_Surface *surf;
+	SDL_RWops	*rwops;
+	SDL_Event	event;
 	int			tile;
 	t_gfx		*gfx;
 	int			gfxcount;
@@ -113,7 +135,9 @@ typedef struct	s_wolf
 	t_chara		*chara;
 	int			height;
 	int			width;
-	void		(*cycle)(struct s_wolf*);
+	int			winh;
+	int			winw;
+	void		(*cycle)(struct s_doom*);
 	char		*syssmg[2];
 	int			cur;
 	int			sel;
@@ -149,7 +173,7 @@ typedef struct	s_wolf
 	int			texnum;
 	int			texx;
 	int			texy;
-	int			testcolor;
+	Uint32		testcolor;
 	int			sbox;
 	int			cellx;
 	int			celly;
@@ -219,51 +243,55 @@ typedef struct	s_wolf
 	int			mouseprevy;
 	int			isoptions;
 	int			shift;
-}				t_wolf;
+	SDL_Thread	*fpsthread;
+	Uint32		fps;
+	int			trx;
+}				t_doom;
 
-t_gfx			init_image(t_wolf *wolf, int x, int y);
-t_gfx			gfx_get(t_wolf *wolf, char *file, int x, int y);
-t_chara			*generate_party(t_wolf *wlf);
-t_chara			generate_foe(t_wolf *wlf);
+t_gfx			init_image(t_doom *wolf, int x, int y);
+t_gfx			gfx_get(t_doom *wolf, char *file, int x, int y);
+t_chara			*generate_party(t_doom *wlf);
+t_chara			generate_foe(t_doom *wlf);
 
-int				color_shift(int color, double shift, t_wolf *wlf);
+int				color_shift(int color, double shift, t_doom *wlf);
 int				get_x(int pc);
 int				get_y(int pc);
-int				interact(t_wolf *wlf);
-int				key_hold(int key, t_wolf *wlf);
-int				key_press(int key, t_wolf *wolf);
-int				key_release(int key, t_wolf *wolf);
-int				mouse_move(int x, int y, t_wolf *wlf);
-int				move(t_wolf *wlf);
-int				move_fb(t_wolf *wlf);
-int				move_lr(t_wolf *wlf);
-int				x_press(t_wolf *wolf);
+int				interact(t_doom *wlf);
+int				key_hold(int key, t_doom *wlf);
+int				key_press(int key, t_doom *wolf);
+int				key_release(int key, t_doom *wolf);
+int				mouse_move(int x, int y, t_doom *wlf);
+int				move(t_doom *wlf);
+int				move_fb(t_doom *wlf);
+int				move_lr(t_doom *wlf);
+int				x_press(t_doom *wolf);
 
-char			*get_syssmgone(t_wolf *wlf, int pc);
-char			*get_syssmgtwo(t_wolf *wlf, int pc);
+char			*get_syssmgone(t_doom *wlf, int pc);
+char			*get_syssmgtwo(t_doom *wlf, int pc);
 
-void			anim_shift(t_wolf *wlf, int frame);
-void			cam_udy(t_wolf *wlf);
-void			combat_key(int key, t_wolf *wlf);
-void			comp_foe(t_wolf *wlf, char *bpath, int i);
-void			comp_gfx(t_wolf *wolf, int i);
-void			comp_map(t_wolf *wolf, char *av);
-void			destroy_gfx(t_wolf *wlf, int i);
-void			draw_gfx(t_wolf *wlf, t_gfx gfx, int x, int y);
-void			encounter(t_wolf *wlf);
-void			error_out(char *msg, t_wolf *wolf);
-void			exit_combat(t_wolf *wlf);
-void			free_map(t_wolf *wlf, int f, int y);
+void			anim_shift(t_doom *wlf, int frame);
+void			cam_udy(t_doom *wlf);
+void			combat_key(int key, t_doom *wlf);
+void			comp_foe(t_doom *wlf, char *bpath, int i);
+void			comp_gfx(t_doom *wolf, int i);
+void			comp_map(t_doom *wolf, char *av);
+void			destroy_gfx(t_doom *wlf, int i);
+void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
+void			encounter(t_doom *wlf);
+void			error_out(char *msg, t_doom *wolf);
+void			exit_combat(t_doom *wlf);
+void			free_map(t_doom *wlf, int f, int y);
 void			free_memory(char **arr);
-void			gen_att_ai(t_wolf *wlf);
-void			health_check(t_wolf *wlf, int pc, int thp);
-void			lab_move(t_wolf *wlf, int obj);
-void			options_menu(t_wolf *wlf);
-void			place_pc(t_wolf *wlf, int pc);
-void			render(t_wolf *wlf);
-void			render_floor(t_wolf *wlf);
-void			strafe(t_wolf *wlf, double dirxtemp, double dirytemp);
-void			wall_stripe(t_wolf *wlf);
-void			wolf_default(t_wolf *wlf);
+void			fps_counter(void* ptr);
+void			gen_att_ai(t_doom *wlf);
+void			health_check(t_doom *wlf, int pc, int thp);
+void			lab_move(t_doom *wlf, int obj);
+void			options_menu(t_doom *wlf);
+void			place_pc(t_doom *wlf, int pc);
+void			render(t_doom *wlf);
+void			render_floor(t_doom *wlf);
+void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
+void			wall_stripe(t_doom *wlf);
+void			wolf_default(t_doom *wlf);
 
 #endif
