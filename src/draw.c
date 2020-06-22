@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 16:56:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/22 14:41:04 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,24 @@
 void	draw_stripe(t_doom *wlf)
 {
 	double	shift;
-	Uint32* tex;
-	Uint32* tar;
 
 	if (wlf->texbool)
 	{
-		tex = (Uint32*)wlf->gfx[wlf->texnum].tex->pixels;
 		shift = (wlf->posz - floor(wlf->posz));
 		shift = ((shift - 0.5) * 128);
 		if (shift < 0)
 			shift = 128 + shift;
-		wlf->texy = (int)((((wlf->y * 256 - wlf->winh * (128 - 128 * wlf->dir.z) - wlf->lineh * 128) * 128) / wlf->lineh) / 256) % 128;
+		wlf->texy = (int)((((wlf->y * 256 - wlf->winh * 128 * wlf->camshift - wlf->lineh * 128) * 128) / wlf->lineh) / 256) % 128;
 		//wlf->texy = (int)((((wlf->y * 256 - WINY * 128 - wlf->lineh * 128) * 128) / wlf->lineh) / 256) % 128;
 		//wlf->texy = (int)(wlf->texy + (128 * (wlf->walldist - ceil(wlf->walldist)))) % 128;
 		if (wlf->texy < 0)
 			wlf->texy += 128;
-		tex = (Uint32*)wlf->gfx[wlf->texnum].tex->pixels;
-		wlf->testcolor = color_shift(tex[((wlf->texy + (int)shift) % 128) * wlf->gfx[wlf->texnum].tex->pitch / 4 + wlf->texx % 128 * wlf->gfx[2].tex->format->BitsPerPixel / 32], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf);
+		wlf->testcolor = (Uint32)color_shift(wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) * wlf->gfx[wlf->texnum].tex->pitch / 4 + wlf->texx % 128 * wlf->gfx[2].tex->format->BitsPerPixel / 32], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf, 0);
 	}
-	tar = (Uint8*)wlf->surf->pixels + wlf->y * wlf->surf->pitch + wlf->x * sizeof(*tar);
-	*tar = wlf->testcolor;
+	//tar = (Uint32*)wlf->surf->pixels + wlf->y * wlf->surf->pitch + wlf->x * sizeof(*tar);
+	//*tar = wlf->testcolor;
+	wlf->img.data[wlf->winw * wlf->y + wlf->x] = wlf->testcolor;
+
 }
 
 void	wall_stripe(t_doom *wlf)

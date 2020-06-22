@@ -5,7 +5,7 @@ static char *_586009079270[] = {
 "  c black",
 ". c #4C4C4C",
 "X c #62987E",
-"o c magenta",
+"o c #ff00ff",
 "O c #C0CECA",
 "+ c black",
 "@ c black",

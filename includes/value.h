@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 16:44:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/22 12:18:07 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define VALUE_H
 
 # define WINDOW		"DoomNukem"
+
+# include "doom.h"
 
 # define G_ERROR	"General error happened. Exiting program."
 # define B_ARG		"Error: Bad argument."
@@ -53,52 +55,51 @@
 # define GFXCOUNT	23
 # define THREADS	25
 
-#include "SDL.h"
 #if __APPLE__
-# define ESC		53
-# define KEY_ONE	18
-# define KEY_TWO	19
-# define KEY_TRE	20
-# define KEY_FOU	21
-# define KEY_FIV	23
-# define KEY_SIX	22
-# define KEY_SEV	26
-# define KEY_EIG	28
-# define KEY_NIN	25
-# define KEY_ZER	29
+# define ESC		SDL_SCANCODE_ESCAPE
+# define KEY_ONE	SDL_SCANCODE_1
+# define KEY_TWO	SDL_SCANCODE_2
+# define KEY_TRE	SDL_SCANCODE_3
+# define KEY_FOU	SDL_SCANCODE_4
+# define KEY_FIV	SDL_SCANCODE_5
+# define KEY_SIX	SDL_SCANCODE_6
+# define KEY_SEV	SDL_SCANCODE_7
+# define KEY_EIG	SDL_SCANCODE_8
+# define KEY_NIN	SDL_SCANCODE_9
+# define KEY_ZER	SDL_SCANCODE_0
 # define KEY_MIN	27
 # define KEY_PLU	24
-# define KEY_Q		12
-# define KEY_W		13
-# define KEY_E		14
-# define KEY_R		15
-# define KEY_T		17
-# define KEY_Y		16
-# define KEY_U		32
-# define KEY_I		34
-# define KEY_O		31
-# define KEY_P		35
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
-# define KEY_F		3
-# define KEY_G		5
-# define KEY_H		4
-# define KEY_J		38
-# define KEY_K		40
-# define KEY_L		377
-# define KEY_Z		6
-# define KEY_X		7
-# define KEY_C		8
-# define KEY_V		9
-# define KEY_B		11
-# define KEY_N		45
-# define KEY_M		46	
-# define SPACE		49
-# define UP			126
-# define DOWN		125
-# define LEFT		124
-# define RIGHT		123
+# define KEY_Q		SDL_SCANCODE_Q
+# define KEY_W		SDL_SCANCODE_W
+# define KEY_E		SDL_SCANCODE_E
+# define KEY_R		SDL_SCANCODE_R
+# define KEY_T		SDL_SCANCODE_T
+# define KEY_Y		SDL_SCANCODE_Y
+# define KEY_U		SDL_SCANCODE_U
+# define KEY_I		SDL_SCANCODE_I
+# define KEY_O		SDL_SCANCODE_O
+# define KEY_P		SDL_SCANCODE_P
+# define KEY_A		SDL_SCANCODE_A
+# define KEY_S		SDL_SCANCODE_S
+# define KEY_D		SDL_SCANCODE_D
+# define KEY_F		SDL_SCANCODE_F
+# define KEY_G		SDL_SCANCODE_G
+# define KEY_H		SDL_SCANCODE_H
+# define KEY_J		SDL_SCANCODE_J
+# define KEY_K		SDL_SCANCODE_K
+# define KEY_L		SDL_SCANCODE_L
+# define KEY_Z		SDL_SCANCODE_Z
+# define KEY_X		SDL_SCANCODE_X
+# define KEY_C		SDL_SCANCODE_C
+# define KEY_V		SDL_SCANCODE_V
+# define KEY_B		SDL_SCANCODE_B
+# define KEY_N		SDL_SCANCODE_N
+# define KEY_M		SDL_SCANCODE_M
+# define SPACE		SDL_SCANCODE_SPACE
+# define UP			SDL_SCANCODE_UP
+# define DOWN		SDL_SCANCODE_DOWN
+# define LEFT		SDL_SCANCODE_LEFT
+# define RIGHT		SDL_SCANCODE_RIGHT
 # define SCR_UPH	4
 # define SCR_DOWN	5
 # define NUM_PLU	69

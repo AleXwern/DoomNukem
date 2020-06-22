@@ -6,42 +6,43 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 15:26:58 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/22 14:49:24 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	fps_counter(void* ptr)
+int		fps_counter(void* ptr)
 {
 	t_doom	*wlf;
 
 	wlf = (t_doom*)ptr;
-	while (1)
+	while (!wlf->killthread)
 	{
 		SDL_Delay(1000);
 		printf("FPS: %d\n", wlf->fps);
 		wlf->fps = 0;
 	}
+	return (1);
 }
 
-int		color_shift(int color, double shift, t_doom *wlf)
+Uint32	color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret)
 {
-	int		ret;
-	int		r;
-	int		g;
-	int		b;
+	Uint8	r;
+	Uint8	g;
+	Uint8	b;
 
 	ret = (int)(shift * wlf->shift);
 	if (ret > 10 * wlf->shift)
 		ret = 10 * wlf->shift;
 	if (ret < 1)
 		return (color);
-	r = color / (256 * 256);
-	g = (color / 256 - r * 256);
-	b = (color - g * 256 - r * 256 * 256);
-	ret = ((r / ret) * 256 * 256) + ((g / ret) * 256) + (b / ret);
+	SDL_GetRGB(color, wlf->img.tex->format, &r, &b, &g);
+	r /= ret;
+	g /= ret;
+	b /= ret;
+	ret = SDL_MapRGB(wlf->img.tex->format, r, b, g);
 	return (ret);
 }
 
@@ -62,10 +63,8 @@ void	free_map(t_doom *wlf, int f, int y)
 		y = -1;
 		while (++y < wlf->height)
 		{
-			if (wlf->map[f][y])
-				free(wlf->map[f][y]);
+			free(wlf->map[f][y]);
 		}
-		if (wlf->map[f])
-			free(wlf->map[f]);
+		free(wlf->map[f]);
 	}
 }

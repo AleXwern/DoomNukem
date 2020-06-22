@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 16:54:59 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/22 14:46:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 //DOOM
 
-# include "SDL.h"
-# include "SDL_image.h"
-# include "SDL_mixer.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -31,6 +28,9 @@
 ** Mainly to get win spesific versions of C functions like open -> _sopen_s
 ** to work because of required flags.
 */
+# include "SDL.h"
+# include "SDL_image.h"
+# include "SDL_mixer.h"
 # include <windows.h>
 # include <share.h>
 # include <sys/types.h>
@@ -45,6 +45,9 @@
 /*
 ** Apple Mac OS spesific includes
 */
+# include "../frameworks/SDL2.framework/Headers/SDL.h"
+# include "../frameworks/SDL2_image.framework/Headers/SDL_image.h"
+# include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 #endif
 
 typedef struct	s_vector
@@ -90,7 +93,8 @@ typedef struct	s_chara
 
 typedef struct	s_gfx
 {
-	SDL_Surface*	tex;
+	SDL_Surface		*tex;
+	Uint32			*data;
 	int				wid;
 	int				hgt;
 }				t_gfx;
@@ -125,13 +129,13 @@ typedef struct	s_doom
 	SDL_Window	*win;
 	SDL_Renderer *rend;
 	SDL_Texture *tex;
-	SDL_Surface *surf;
+	t_gfx		img;
 	SDL_RWops	*rwops;
 	SDL_Event	event;
+	int			killthread;
 	int			tile;
 	t_gfx		*gfx;
 	int			gfxcount;
-	t_gfx		img;
 	t_chara		*chara;
 	int			height;
 	int			width;
@@ -246,14 +250,17 @@ typedef struct	s_doom
 	SDL_Thread	*fpsthread;
 	Uint32		fps;
 	int			trx;
+	double		camshift;
 }				t_doom;
 
-t_gfx			init_image(t_doom *wolf, int x, int y);
+t_gfx			init_image(t_doom *wolf);
 t_gfx			gfx_get(t_doom *wolf, char *file, int x, int y);
 t_chara			*generate_party(t_doom *wlf);
 t_chara			generate_foe(t_doom *wlf);
 
-int				color_shift(int color, double shift, t_doom *wlf);
+Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
+
+int				fps_counter(void* ptr);
 int				get_x(int pc);
 int				get_y(int pc);
 int				interact(t_doom *wlf);
@@ -282,7 +289,6 @@ void			error_out(char *msg, t_doom *wolf);
 void			exit_combat(t_doom *wlf);
 void			free_map(t_doom *wlf, int f, int y);
 void			free_memory(char **arr);
-void			fps_counter(void* ptr);
 void			gen_att_ai(t_doom *wlf);
 void			health_check(t_doom *wlf, int pc, int thp);
 void			lab_move(t_doom *wlf, int obj);

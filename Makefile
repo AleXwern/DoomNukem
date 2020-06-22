@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/06/17 15:13:13 by anystrom         ###   ########.fr        #
+#    Updated: 2020/06/22 11:58:05 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,11 @@ OBJS = $(SRC:.c=.o)
 OBJ = $(addprefix ./obj/,$(SRCFILE:.c=.o))
 OBJDIR = ./obj/
 SRCDIR = ./src/
-INCL = -I /usr/local/include -I ./libft -I ./includes
+INCL = -I ./SDL2 -I ./libft -I ./includes
 MLXLIB = -L /usr/local/lib
-FRAMEWORK = -lmlx -framework OpenGL -framework AppKit
+PWD = $(shell pwd)
+FRAMEWORK = -F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
+DUMMY = -F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
 RED = \033[0;31m
 STOP = \033[0m
 
@@ -38,10 +40,10 @@ $(LIBFT):
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
 	@echo "Compiling Wolf3D -> $(RED)$@$(STOP)"
-	@gcc $(FLG) -I ./includes -o $@ -c $<
+	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $@ -c $<
 
 $(NAME): $(OBJ) $(LIBFT)
-	gcc $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB) $(FRAMEWORK)
+	gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
 	@echo Done.
 
 test: $(LIBFT)

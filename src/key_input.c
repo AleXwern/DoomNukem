@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 16:55:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/22 14:28:22 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 int				key_hold(int key, t_doom *wlf)
 {
-	//ft_putnbrln(key);
 	if (key == ESC)
 		error_out(FINE, wlf);
 	if (key == LEFT)
@@ -36,10 +35,10 @@ int				key_hold(int key, t_doom *wlf)
 		wlf->keyw = 1;
 	if (key == KEY_S)
 		wlf->keys = 1;
-	if (key == KEY_A)
+	/*if (key == KEY_A)
 		wlf->keya = 1;
 	if (key == KEY_D)
-		wlf->keyd = 1;
+		wlf->keyd = 1;*/
 	if (key == KEY_ONE)
 		wlf->keyone = 1;
 	if (key == KEY_TWO)
@@ -95,10 +94,12 @@ int				key_release(int key, t_doom *wlf)
 		wlf->keyw = 0;
 	if (key == KEY_S)
 		wlf->keys = 0;
-	if (key == KEY_A)
-		wlf->keya = 0;
-	if (key == KEY_D)
-		wlf->keyd = 0;
+	//if (key == KEY_A)
+	//	wlf->keya = 0;
+	//if (key == KEY_A)
+	//	wlf->camshift += 0.05;
+	//if (key == KEY_D)
+	//	wlf->camshift -= 0.05;
 	if (key == KEY_ONE)
 		wlf->keyone = 0;
 	if (key == KEY_TWO)

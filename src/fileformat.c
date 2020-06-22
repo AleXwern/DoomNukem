@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 14:35:31 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/22 12:22:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,19 +111,22 @@ void	comp_map(t_doom *wolf, char *av)
 		char* path = SDL_GetBasePath();
 		char* fpath;
 		if (wolf->flr == 0)
-			fpath = ft_strjoin(path, "map\\1");
+			fpath = ft_strjoin(path, "map/1");
 		else if (wolf->flr == 1)
-			fpath = ft_strjoin(path, "map\\2");
+			fpath = ft_strjoin(path, "map/2");
 		else if (wolf->flr == 2)
-			fpath = ft_strjoin(path, "map\\3");
+			fpath = ft_strjoin(path, "map/3");
 		else if (wolf->flr == 3)
-			fpath = ft_strjoin(path, "map\\4");
+			fpath = ft_strjoin(path, "map/4");
 		else if (wolf->flr == 4)
-			fpath = ft_strjoin(path, "map\\5");
+			fpath = ft_strjoin(path, "map/5");
 		else
 			return ;
-		//_sopen_s(&fd, fpath, _O_RDONLY, _SH_DENYWR, _S_IREAD);
-		open(&fd, fpath, O_RDONLY);
+		#if _WIN64
+		_sopen_s(&fd, fpath, _O_RDONLY, _SH_DENYWR, _S_IREAD);
+		#elif __APPLE__
+		fd = open(fpath, O_RDONLY);
+		#endif
 		SDL_free(path);
 		ft_putendl(fpath);
 		free(fpath);

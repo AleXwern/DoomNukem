@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 16:49:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/22 15:22:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,7 @@ void	rc_init(t_doom *wlf)
 	if (wlf->walldist < 0.0001)
 		wlf->walldist += 0.01;
 }
-
-void putPixelRGB(SDL_Renderer* renderer, int x, int y, unsigned char r, unsigned char g, unsigned char b)
-{
-	SDL_SetRenderDrawColor(renderer, (Uint8)r, (Uint8)g, (Uint8)b, 255);
-	SDL_RenderDrawPoint(renderer, x, y);
-}
-
-void	renthread(void *ptr)
+int		renthread(void *ptr)
 //void	render(t_doom *wlf)
 {
 	t_doom *wlf;
@@ -148,6 +141,7 @@ void	renthread(void *ptr)
 	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->surf);
 	//SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
 	//SDL_RenderPresent(wlf->rend);
+	return (1);
 }
 
 void	gravity(t_doom *wlf)
@@ -205,7 +199,7 @@ void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now reall
 			mlx_pixel_put(wlf->mlx, wlf->win, y, x, COLOR_WHITE);
 		}
 	}
-}
+}*/
 
 void	draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y)
 {
@@ -213,19 +207,19 @@ void	draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y)
 	int	gy;
 
 	gy = 0;
-	while (gy < gfx.hgt)
+	while (gy < gfx.hgt && (y + gy) < wlf->winh)
 	{
 		gx = 0;
-		while (gx < gfx.wid)
+		while (gx < gfx.wid && (x + gx) < wlf->winw)
 		{
-			if (gfx.data[gfx.wid * gy + gx] != 0xff00ff)
-				wlf->img.data[WINX * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
+			if (gfx.data[gfx.wid * gy + gx] != -65281)
+				wlf->img.data[wlf->winw * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
 					gy + gx];
 			gx++;
 		}
 		gy++;
 	}
-}*/
+}
 
 
 void	render(t_doom *wlf)
@@ -241,7 +235,7 @@ void	render(t_doom *wlf)
 	x = 0;
 	if (wlf->trx < 0)
 		wlf->trx = 1;
-	if (!(threads = (SDL_Thread*)malloc(sizeof(SDL_Thread*) * wlf->trx)))
+	if (!(threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * wlf->trx)))
 		error_out(MEM_ERROR, wlf);
 	if (!(data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
 		error_out(MEM_ERROR, wlf);
@@ -265,12 +259,11 @@ void	render(t_doom *wlf)
 	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
 	//if (wlf->accesscard == 0)
 	//	pickupitem(wlf);
-	//mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->img.img, 0, 0);
 	//if (wlf->keyi)
 	//	drawinventory(wlf, 1300, 500);
 	//if (wlf->accesscard == 1)
 	//	mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
-	wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->surf);             
+	wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);             
 	SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
 	SDL_RenderPresent(wlf->rend);
 	wlf->fps++;

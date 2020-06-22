@@ -4,7 +4,7 @@ static char *_586009083582[] = {
 "221 312 16 1 ",
 "  c black",
 ". c #4C4C4C",
-"X c magenta",
+"X c #ff00ff",
 "o c #9ABC3C",
 "O c #C0CECA",
 "+ c black",

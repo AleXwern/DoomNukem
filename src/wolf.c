@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 16:49:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/22 14:48:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,16 @@ void	wolf_default(t_doom *wlf)
 	wlf->mouseprevy = WINY / 2;
 	wlf->fps = 0;
 	wlf->cycle = &render;
-	wlf->trx = ((wlf->winw / 100) + (wlf->winh / 100)) * 2;
+	wlf->trx = ((wlf->winw / 100) + (wlf->winh / 100)) * 2 + 1;
+	wlf->camshift = 1.0f;
 	printf("Threads: %d\n", wlf->trx);
 }
 
 void	error_out(char *msg, t_doom *wolf)
 {
 	ft_putendl(msg);
-	system("cd");
+	ft_putendl(SDL_GetError());
+	wolf->killthread = 1;
 	if (!ft_strcmp(msg, WLF_ERROR))
 		exit(0);
 	if (!ft_strcmp(msg, FLR_ERROR))
@@ -68,13 +70,15 @@ void	error_out(char *msg, t_doom *wolf)
 		free_map(wolf, -1, -1);
 	if (wolf->tex)
 		SDL_DestroyTexture(wolf->tex);
-	if (wolf->surf)
-		SDL_FreeSurface(wolf->surf);
+	if (wolf->img.tex)
+		SDL_FreeSurface(wolf->img.tex);
 	if (wolf->rend)
 		SDL_DestroyRenderer(wolf->rend);
 	if (wolf->win)
 		SDL_DestroyWindow(wolf->win);
+	SDL_WaitThread(wolf->fpsthread, NULL);
 	SDL_Quit();
+	system("leaks doomdemo");
 	exit(0);
 }
 
@@ -108,6 +112,7 @@ void	setup(t_doom *wlf)
 		//SDL_WaitEvent(&(wlf->event));
 		if (SDL_PollEvent(&(wlf->event)))
 		{
+			SDL_PumpEvents();
 			//ft_putnbrln(wlf->event.key.keysym.scancode);
 			if (wlf->event.type == SDL_QUIT || wlf->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				error_out(FINE, wlf);
@@ -115,28 +120,23 @@ void	setup(t_doom *wlf)
 			{
 				wlf->winw = wlf->event.window.data1;
 				wlf->winh = wlf->event.window.data2;
-				if (wlf->surf)
-					SDL_FreeSurface(wlf->surf);
+				if (wlf->img.tex)
+					SDL_FreeSurface(wlf->img.tex);
 				//if (wlf->rend)
 				//	SDL_DestroyRenderer(wlf->rend);
-				if (!(wlf->surf = SDL_GetWindowSurface(wlf->win)))
-					error_out(WIN_ERROR, wlf);
-				//if (!(wlf->rend = SDL_CreateRenderer(wlf->win, -1, SDL_RENDERER_SOFTWARE)))
-				//	error_out(REN_ERROR, wlf);
+				if (!(wlf->rend = SDL_GetRenderer(wlf->win)))
+					error_out(REN_ERROR, wlf);
+				wlf->img = init_image(wlf);
 				wolf_default(wlf);
 			}
-			else
-			{
-				if (wlf->event.type == SDL_KEYDOWN)
-					key_hold(wlf->event.key.keysym.scancode, wlf);
-				else if (wlf->event.type == SDL_KEYUP)
-					key_release(wlf->event.key.keysym.scancode, wlf);
-				move(wlf);
-				wlf->cycle(wlf);
-			}
-		}
-		else
+			if (wlf->event.key.state == SDL_PRESSED)
+				key_hold(wlf->event.key.keysym.scancode, wlf);
+			else if (wlf->event.key.state == SDL_RELEASED)
+				key_release(wlf->event.key.keysym.scancode, wlf);
 			wlf->cycle(wlf);
+		}
+		move(wlf);
+		wlf->cycle(wlf);
 	}
 }
 
@@ -164,13 +164,13 @@ int		main(int ac, char **av)
 	if (!(wolf->win = SDL_CreateWindow("DoomNukem", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINX, WINY, SDL_WINDOW_RESIZABLE)))
 		error_out(WIN_ERROR, wolf);
 	//SDL_CreateWindowAndRenderer(WINX, WINY, 0, &(wolf->win), &(wolf->rend));
-	if (!(wolf->surf = SDL_GetWindowSurface(wolf->win)))
-		error_out(WIN_ERROR, wolf);
+	wolf->img = init_image(wolf);
 	if (!(wolf->rend = SDL_CreateRenderer(wolf->win, -1, SDL_RENDERER_SOFTWARE)))
-		error_out(REN_ERROR, wolf);
+		if (!(wolf->rend = SDL_GetRenderer(wolf->win)))
+			error_out(REN_ERROR, wolf);
 	wolf->winb = 1;
-	wolf->winh = wolf->surf->h;
-	wolf->winw = wolf->surf->w;
+	wolf->winh = wolf->img.tex->h;
+	wolf->winw = wolf->img.tex->w;
 	printf("Comp map\n");
 	comp_map(wolf, "Null");
 	printf("Comp GFX\n");
