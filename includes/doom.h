@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 14:46:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/22 15:41:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <math.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
+
+//# include <SDL.h>
+//# include <SDL_image.h>
+//# include <SDL_mixer.h>
 
 #if _WIN64
 /*
