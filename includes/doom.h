@@ -136,6 +136,7 @@ typedef struct	s_doom
 	t_gfx		img;
 	SDL_RWops	*rwops;
 	SDL_Event	event;
+	SDL_GameController *gpad;
 	int			killthread;
 	int			tile;
 	t_gfx		*gfx;
@@ -250,10 +251,12 @@ typedef struct	s_doom
 	int			mouseprevx;
 	int			mouseprevy;
 	int			isoptions;
+	int			isfpscap;
 	int			shift;
 	SDL_Thread	*fpsthread;
 	Uint32		fps;
 	int			trx;
+	int			fpscap;
 	double		camshift;
 }				t_doom;
 
@@ -264,6 +267,7 @@ t_chara			generate_foe(t_doom *wlf);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 
+int				fps_capper(void* ptr);
 int				fps_counter(void* ptr);
 int				get_x(int pc);
 int				get_y(int pc);

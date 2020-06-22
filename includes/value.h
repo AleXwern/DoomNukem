@@ -36,6 +36,7 @@
 # define REN_ERROR	"Could not create renderer"
 # define SPW_ERROR	"Spawn point is blocked."
 # define WLF_ERROR	"Cannot create corestruct."
+# define PAD_ERROR	"Game controller was not found!"
 # define GAME_OVER	"Your party has fallen. Game over!"
 
 # define HIT_OPP	" dealt damage to "

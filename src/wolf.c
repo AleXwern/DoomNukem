@@ -52,6 +52,7 @@ void	wolf_default(t_doom *wlf)
 	wlf->cycle = &render;
 	wlf->trx = ((wlf->winw / 100) + (wlf->winh / 100)) * 2 + 1;
 	wlf->camshift = 1.0f;
+	wlf->fpscap = 60;
 	printf("Threads: %d\n", wlf->trx);
 }
 
@@ -76,9 +77,11 @@ void	error_out(char *msg, t_doom *wolf)
 		SDL_DestroyRenderer(wolf->rend);
 	if (wolf->win)
 		SDL_DestroyWindow(wolf->win);
+	if (wolf->gpad)
+		SDL_GameControllerClose(wolf->gpad);
 	SDL_WaitThread(wolf->fpsthread, NULL);
 	SDL_Quit();
-	system("leaks doomdemo");
+	//system("leaks doomdemo");
 	exit(0);
 }
 
@@ -97,7 +100,8 @@ void	free_memory(char **arr)
 
 void	setup(t_doom *wlf)
 {
-	int		quit;
+	int			quit;
+	SDL_Thread* capper;
 
 	wolf_default(wlf);
 	if (wlf->map[2][(int)wlf->posy][(int)wlf->posx] != 1)
@@ -109,11 +113,10 @@ void	setup(t_doom *wlf)
 	SDL_free(path);
 	while (!quit)
 	{
-		//SDL_WaitEvent(&(wlf->event));
+		capper = SDL_CreateThread(fps_capper, "FPS limiter", wlf);
 		if (SDL_PollEvent(&(wlf->event)))
 		{
-			SDL_PumpEvents();
-			//ft_putnbrln(wlf->event.key.keysym.scancode);
+			//SDL_PumpEvents();
 			if (wlf->event.type == SDL_QUIT || wlf->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				error_out(FINE, wlf);
 			if (wlf->event.window.event == SDL_WINDOWEVENT_RESIZED || wlf->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
@@ -122,8 +125,6 @@ void	setup(t_doom *wlf)
 				wlf->winh = wlf->event.window.data2;
 				if (wlf->img.tex)
 					SDL_FreeSurface(wlf->img.tex);
-				//if (wlf->rend)
-				//	SDL_DestroyRenderer(wlf->rend);
 				if (!(wlf->rend = SDL_GetRenderer(wlf->win)))
 					error_out(REN_ERROR, wlf);
 				wlf->img = init_image(wlf);
@@ -131,12 +132,17 @@ void	setup(t_doom *wlf)
 			}
 			if (wlf->event.key.state == SDL_PRESSED)
 				key_hold(wlf->event.key.keysym.scancode, wlf);
-			else if (wlf->event.key.state == SDL_RELEASED)
+			if (wlf->event.key.state == SDL_RELEASED)
 				key_release(wlf->event.key.keysym.scancode, wlf);
+			//if (wlf->event.cbutton.state == SDL_PRESSED)
+			//	key_hold(wlf->event.cbutton.button, wlf);
+			//if (wlf->event.cbutton.state == SDL_RELEASED)
+			//	key_release(wlf->event.cbutton.button, wlf);
 			wlf->cycle(wlf);
 		}
 		move(wlf);
 		wlf->cycle(wlf);
+		SDL_WaitThread(capper, NULL);
 	}
 }
 
@@ -168,6 +174,10 @@ int		main(int ac, char **av)
 	if (!(wolf->rend = SDL_CreateRenderer(wolf->win, -1, SDL_RENDERER_SOFTWARE)))
 		if (!(wolf->rend = SDL_GetRenderer(wolf->win)))
 			error_out(REN_ERROR, wolf);
+	//if (!(wolf->gpad = SDL_GameControllerOpen(1)))
+	//	ft_putendl(PAD_ERROR);
+	//else
+	//	ft_putendl(SDL_GameControllerName(wolf->gpad));
 	wolf->winb = 1;
 	wolf->winh = wolf->img.tex->h;
 	wolf->winw = wolf->img.tex->w;

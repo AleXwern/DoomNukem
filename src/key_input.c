@@ -19,13 +19,13 @@ int				key_hold(int key, t_doom *wlf)
 {
 	if (key == ESC)
 		error_out(FINE, wlf);
-	if (key == LEFT)
+	if (key == LEFT || key == SDL_CONTROLLER_BUTTON_DPAD_LEFT)
 		wlf->keyleft = 1;
-	if (key == RIGHT)
+	if (key == RIGHT || key == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
 		wlf->keyright = 1;
-	if (key == UP)
+	if (key == UP || key == SDL_CONTROLLER_BUTTON_DPAD_UP)
 		wlf->keyup = 1;
-	if (key == DOWN)
+	if (key == DOWN || key == SDL_CONTROLLER_BUTTON_DPAD_DOWN)
 		wlf->keydown = 1;
 	if (key == NUM_PLU)
 		wlf->keyplus = 1;
@@ -72,19 +72,20 @@ int				key_hold(int key, t_doom *wlf)
 
 int				key_release(int key, t_doom *wlf)
 {
+	ft_putnbrln(key);
 	if (key == KEY_T)
 		wlf->texbool = (wlf->texbool * wlf->texbool) - 1;
 	if (key == KEY_TRE)
 		interact(wlf);
 	if (key == KEY_C)
 		wlf->aggro = 499;
-	if (key == LEFT)
+	if (key == LEFT || key == SDL_CONTROLLER_BUTTON_DPAD_LEFT)
 		wlf->keyleft = 0;
-	if (key == RIGHT)
+	if (key == RIGHT || key == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
 		wlf->keyright = 0;
-	if (key == UP)
+	if (key == UP || key == SDL_CONTROLLER_BUTTON_DPAD_UP)
 		wlf->keyup = 0;
-	if (key == DOWN)
+	if (key == DOWN || key == SDL_CONTROLLER_BUTTON_DPAD_DOWN)
 		wlf->keydown = 0;
 	if (key == 69)
 		wlf->keyplus = 0;
@@ -94,12 +95,8 @@ int				key_release(int key, t_doom *wlf)
 		wlf->keyw = 0;
 	if (key == KEY_S)
 		wlf->keys = 0;
-	//if (key == KEY_A)
-	//	wlf->keya = 0;
-	//if (key == KEY_A)
-	//	wlf->camshift += 0.05;
-	//if (key == KEY_D)
-	//	wlf->camshift -= 0.05;
+	if (key == KEY_F)
+		wlf->isfpscap = (wlf->isfpscap * wlf->isfpscap) - 1;
 	if (key == KEY_ONE)
 		wlf->keyone = 0;
 	if (key == KEY_TWO)
