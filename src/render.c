@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 15:22:30 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/24 14:20:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ void	rc_init(t_doom *wlf)
 	if (wlf->walldist < 0.0001)
 		wlf->walldist += 0.01;
 }
+
 int		renthread(void *ptr)
-//void	render(t_doom *wlf)
 {
 	t_doom *wlf;
 
@@ -201,61 +201,28 @@ void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now reall
 	}
 }*/
 
-void	draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y)
-{
-	int	gx;
-	int	gy;
-
-	gy = 0;
-	while (gy < gfx.hgt && (y + gy) < wlf->winh)
-	{
-		gx = 0;
-		while (gx < gfx.wid && (x + gx) < wlf->winw)
-		{
-			if (gfx.data[gfx.wid * gy + gx] != -65281)
-				wlf->img.data[wlf->winw * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
-					gy + gx];
-			gx++;
-		}
-		gy++;
-	}
-}
-
-
 void	render(t_doom *wlf)
 {
-	//SDL_Thread	*threads[THREADS];
-	//t_doom		data_r[THREADS];
-	SDL_Thread	**threads;
-	t_doom		*data_r;
 	int			x;
-	//t_gfx		gfx;
 
 	gravity(wlf);
 	x = 0;
 	if (wlf->trx < 0)
 		wlf->trx = 1;
-	if (!(threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * wlf->trx)))
-		error_out(MEM_ERROR, wlf);
-	if (!(data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
-		error_out(MEM_ERROR, wlf);
 	while (x < wlf->trx)
 	{
-		ft_memcpy((void*)&data_r[x], (void*)wlf, sizeof(t_doom));
-		data_r[x].x = x/* * (wlf->winw / THREADS)*/;
-		//data_r[x].xmax = (x + 1) * (wlf->winw / THREADS);
-		threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&data_r[x]);
+		ft_memcpy((void*)&wlf->data_r[x], (void*)wlf, sizeof(t_doom));
+		wlf->data_r[x].x = x;
+		wlf->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&wlf->data_r[x]);
 		x++;
 	}
 	while (x--)
 	{
-		if (threads[x] == NULL)
+		if (wlf->threads[x] == NULL)
 			ft_putendl("Thread failure.");
 		else
-			SDL_WaitThread(threads[x], NULL);
+			SDL_WaitThread(wlf->threads[x], NULL);
 	}
-	free(threads);
-	free(data_r);
 	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
 	//if (wlf->accesscard == 0)
 	//	pickupitem(wlf);

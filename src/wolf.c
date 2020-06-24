@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 14:48:32 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/24 14:07:39 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,14 @@ void	wolf_default(t_doom *wlf)
 	wlf->mouseprevy = WINY / 2;
 	wlf->fps = 0;
 	wlf->cycle = &render;
-	wlf->trx = ((wlf->winw / 100) + (wlf->winh / 100)) * 2 + 1;
+	wlf->trx = ((wlf->winw / 100) * (wlf->winh / 100)) / 2 + 1;
+	//wlf->trx = 200;
 	wlf->camshift = 1.0f;
 	wlf->fpscap = 60;
+	if (!(wlf->threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * wlf->trx)))
+		error_out(MEM_ERROR, wlf);
+	if (!(wlf->data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
+		error_out(MEM_ERROR, wlf);
 	printf("Threads: %d\n", wlf->trx);
 }
 
@@ -81,7 +86,8 @@ void	error_out(char *msg, t_doom *wolf)
 		SDL_GameControllerClose(wolf->gpad);
 	SDL_WaitThread(wolf->fpsthread, NULL);
 	SDL_Quit();
-	//system("leaks doomdemo");
+	ft_bzero(wolf, sizeof(wolf));
+	system("leaks doomdemo");
 	exit(0);
 }
 
@@ -121,6 +127,8 @@ void	setup(t_doom *wlf)
 				error_out(FINE, wlf);
 			if (wlf->event.window.event == SDL_WINDOWEVENT_RESIZED || wlf->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 			{
+				free(wlf->threads);
+				free(wlf->data_r);
 				wlf->winw = wlf->event.window.data1;
 				wlf->winh = wlf->event.window.data2;
 				if (wlf->img.tex)

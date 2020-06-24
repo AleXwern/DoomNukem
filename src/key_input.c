@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 14:28:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/24 11:23:48 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int				key_hold(int key, t_doom *wlf)
 
 int				key_release(int key, t_doom *wlf)
 {
-	ft_putnbrln(key);
 	if (key == KEY_T)
 		wlf->texbool = (wlf->texbool * wlf->texbool) - 1;
 	if (key == KEY_TRE)
