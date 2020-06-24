@@ -13,6 +13,16 @@
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
+int		fps_capper(void* ptr)
+{
+	t_doom	*wlf;
+
+	wlf = (t_doom*)ptr;
+	if (wlf->isfpscap)
+		SDL_Delay(1000 / wlf->fpscap);
+	return (1);
+}
+
 int		fps_counter(void* ptr)
 {
 	t_doom	*wlf;
