@@ -17,6 +17,8 @@
 
 int				key_hold(int key, t_doom *wlf)
 {
+	if (wlf->ismenu)
+		return (1);
 	if (key == ESC)
 		error_out(FINE, wlf);
 	if (key == LEFT || key == SDL_CONTROLLER_BUTTON_DPAD_LEFT)
@@ -72,7 +74,6 @@ int				key_hold(int key, t_doom *wlf)
 
 int				key_release(int key, t_doom *wlf)
 {
-	ft_putnbrln(key);
 	if (key == KEY_T)
 		wlf->texbool = (wlf->texbool * wlf->texbool) - 1;
 	if (key == KEY_TRE)
@@ -124,6 +125,16 @@ int				key_release(int key, t_doom *wlf)
 			wlf->airbrn = 1;
 			wlf->gravity.z = -0.6;
 		}
+	}
+	if (key == KEY_M && wlf->ismenu == 0)
+	{
+		wlf->cycle = &options_menu;
+		wlf->ismenu = 1;
+	}
+	else if (key == KEY_M && wlf->ismenu == 1)
+	{
+		wlf->cycle = &render;
+		wlf->ismenu = 0;
 	}
 	return (0);
 }
@@ -190,6 +201,5 @@ int				move(t_doom *wlf)
 		jetpack(wlf);
 	if ((wlf->keyq || wlf->keye) && !wlf->isoptions)
 		strafe(wlf, 0, 0);
-	//wlf->cycle(wlf);
 	return (0);
 }

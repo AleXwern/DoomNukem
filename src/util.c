@@ -18,7 +18,7 @@ int		fps_capper(void* ptr)
 	t_doom	*wlf;
 
 	wlf = (t_doom*)ptr;
-	if (wlf->isfpscap)
+	if (wlf->isfpscap && wlf->prefps > wlf->fpscap)
 		SDL_Delay(1000 / wlf->fpscap);
 	return (1);
 }
@@ -32,6 +32,7 @@ int		fps_counter(void* ptr)
 	{
 		SDL_Delay(1000);
 		printf("FPS: %d\n", wlf->fps);
+		wlf->prefps = wlf->fps;
 		wlf->fps = 0;
 	}
 	return (1);

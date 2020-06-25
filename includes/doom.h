@@ -257,6 +257,7 @@ typedef struct	s_doom
 	Uint32		fps;
 	int			trx;
 	int			fpscap;
+	int			prefps;
 	double		camshift;
 }				t_doom;
 

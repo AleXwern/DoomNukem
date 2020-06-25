@@ -134,10 +134,10 @@ void	setup(t_doom *wlf)
 				key_hold(wlf->event.key.keysym.scancode, wlf);
 			if (wlf->event.key.state == SDL_RELEASED)
 				key_release(wlf->event.key.keysym.scancode, wlf);
-			//if (wlf->event.cbutton.state == SDL_PRESSED)
-			//	key_hold(wlf->event.cbutton.button, wlf);
-			//if (wlf->event.cbutton.state == SDL_RELEASED)
-			//	key_release(wlf->event.cbutton.button, wlf);
+			if (wlf->event.cbutton.state == SDL_PRESSED)
+				key_hold(wlf->event.cbutton.button, wlf);
+			if (wlf->event.cbutton.state == SDL_RELEASED)
+				key_release(wlf->event.cbutton.button, wlf);
 			wlf->cycle(wlf);
 		}
 		move(wlf);
@@ -174,10 +174,12 @@ int		main(int ac, char **av)
 	if (!(wolf->rend = SDL_CreateRenderer(wolf->win, -1, SDL_RENDERER_SOFTWARE)))
 		if (!(wolf->rend = SDL_GetRenderer(wolf->win)))
 			error_out(REN_ERROR, wolf);
-	//if (!(wolf->gpad = SDL_GameControllerOpen(1)))
-	//	ft_putendl(PAD_ERROR);
-	//else
-	//	ft_putendl(SDL_GameControllerName(wolf->gpad));
+	/*if (!(wolf->gpad = SDL_GameControllerOpen(0)))
+		ft_putendl(PAD_ERROR);
+	else
+		ft_putendl(SDL_GameControllerName(wolf->gpad));
+	if (SDL_GameControllerAddMappingsFromFile("mapping.txt") == -1)
+		ft_putendl("UWU");*/
 	wolf->winb = 1;
 	wolf->winh = wolf->img.tex->h;
 	wolf->winw = wolf->img.tex->w;

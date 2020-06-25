@@ -28,7 +28,7 @@ void	draw_stripe(t_doom *wlf)
 		//wlf->texy = (int)(wlf->texy + (128 * (wlf->walldist - ceil(wlf->walldist)))) % 128;
 		if (wlf->texy < 0)
 			wlf->texy += 128;
-		wlf->testcolor = (Uint32)color_shift(wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) * wlf->gfx[wlf->texnum].tex->pitch / 4 + wlf->texx % 128 * wlf->gfx[2].tex->format->BitsPerPixel / 32], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf, 0);
+		wlf->testcolor = color_shift(wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) * wlf->gfx[wlf->texnum].tex->pitch / 4 + wlf->texx % 128 * wlf->gfx[2].tex->format->BitsPerPixel / 32], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf, 0);
 	}
 	//tar = (Uint32*)wlf->surf->pixels + wlf->y * wlf->surf->pitch + wlf->x * sizeof(*tar);
 	//*tar = wlf->testcolor;
