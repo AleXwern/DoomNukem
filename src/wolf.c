@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 14:48:32 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/25 14:23:57 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ void	wolf_default(t_doom *wlf)
 	wlf->keym = 0;
 	wlf->keyi = 0;
 	wlf->accesscard = 0;
-	wlf->mouseprevx = WINX / 2;
-	wlf->mouseprevy = WINY / 2;
 	wlf->fps = 0;
+	wlf->mousemovement = 0;
 	wlf->cycle = &render;
 	wlf->trx = ((wlf->winw / 100) + (wlf->winh / 100)) * 2 + 1;
 	wlf->camshift = 1.0f;
@@ -134,6 +133,30 @@ void	setup(t_doom *wlf)
 				key_hold(wlf->event.key.keysym.scancode, wlf);
 			if (wlf->event.key.state == SDL_RELEASED)
 				key_release(wlf->event.key.keysym.scancode, wlf);
+			if (wlf->event.button.type == SDL_MOUSEBUTTONDOWN)//Mousebuttons: Left enables mouse-look-around. Right disables it.
+			{
+				if (wlf->event.button.button == SDL_BUTTON_LEFT)
+				{
+					wlf->mousemovement = 0;
+					SDL_SetRelativeMouseMode(SDL_FALSE);
+				}
+				if (wlf->event.button.button == SDL_BUTTON_RIGHT)
+				{
+					wlf->mousemovement = 1;
+					SDL_SetRelativeMouseMode(SDL_TRUE);
+				}
+			}
+			if (wlf->mousemovement)//using mouse to look around
+			{
+				if (wlf->event.motion.xrel > 0)
+					mouse_movex(0, wlf);
+				if (wlf->event.motion.xrel < 0)
+					mouse_movex(1, wlf);
+				if (wlf->event.motion.yrel > 0)
+					mouse_movey(0, wlf);
+				if (wlf->event.motion.yrel < 0)
+					mouse_movey(1, wlf);
+			}
 			//if (wlf->event.cbutton.state == SDL_PRESSED)
 			//	key_hold(wlf->event.cbutton.button, wlf);
 			//if (wlf->event.cbutton.state == SDL_RELEASED)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 12:18:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/25 14:38:49 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 # define WINY		720
 # define MAXAGGRO	999999
 # define GFXCOUNT	23
-# define THREADS	25
+# define THREADS	6
 
 #if __APPLE__
 # define ESC		SDL_SCANCODE_ESCAPE
@@ -107,7 +107,7 @@
 # define NUM_MIN	78
 # define SLASH		75
 # define STAR		67
-# define KEY_SHIFT	257
+# define KEY_SHIFT	SDL_SCANCODE_LSHIFT
 # define KEY_CTRL	256// dont use this. its a shortcut key on mac which just messes up the program.
 #elif _WIN64
 # define ESC		SDL_SCANCODE_ESCAPE
@@ -158,7 +158,7 @@
 # define NUM_MIN	86
 # define SLASH		84
 # define STAR		85
-# define KEY_SHIFT	225
+# define KEY_SHIFT	SDL_SCANCODE_LSHIFT
 # define KEY_CTRL	224
 
 # define SCR_UPH	-1
