@@ -121,7 +121,8 @@ void	setup(t_doom *wlf)
 		capper = SDL_CreateThread(fps_capper, "FPS limiter", wlf);
 		if (SDL_PollEvent(&(wlf->event)))
 		{
-			//SDL_PumpEvents();
+			//SDL_QuitRequested();
+			SDL_FlushEvents(0, 9999999);
 			if (wlf->event.type == SDL_QUIT || wlf->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				error_out(FINE, wlf);
 			if (wlf->event.window.event == SDL_WINDOWEVENT_RESIZED || wlf->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
