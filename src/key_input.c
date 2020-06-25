@@ -72,7 +72,6 @@ int				key_hold(int key, t_doom *wlf)
 
 int				key_release(int key, t_doom *wlf)
 {
-	ft_putnbrln(key);
 	if (key == KEY_T)
 		wlf->texbool = (wlf->texbool * wlf->texbool) - 1;
 	if (key == KEY_TRE)

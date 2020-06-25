@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:03:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/17 15:23:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/24 12:22:31 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	options_menu(t_doom *wlf)
 {
-	return;
-	//wlf->img = init_image(wlf, WINX, WINY);
-	//draw_gfx(wlf, wlf->gfx[9], 0, 0);
-	//mlx_put_image_to_window(wlf->mlx, wlf->win, wlf->img.img, 0, 0);
+	draw_scaled_gfx(wlf, wlf->gfx[9], 0, 0);
+	wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);             
+	SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
+	SDL_RenderPresent(wlf->rend);
 }
