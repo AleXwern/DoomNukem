@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/24 13:17:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/25 13:57:52 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # define open(W, X, Y)		_sopen_s(W, X, Y, _SH_DENYWR, _S_IREAD);
 #elif __APPLE__
 /*
-** Apple Mac OS spesific includes
+** Apple Mac OS specific includes
 */
 # include "../frameworks/SDL2.framework/Headers/SDL.h"
 # include "../frameworks/SDL2_image.framework/Headers/SDL_image.h"
@@ -261,6 +261,7 @@ typedef struct	s_doom
 	int			fpscap;
 	int			prefps;
 	double		camshift;
+	int			mousemovement;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);
@@ -278,7 +279,8 @@ int				interact(t_doom *wlf);
 int				key_hold(int key, t_doom *wlf);
 int				key_press(int key, t_doom *wolf);
 int				key_release(int key, t_doom *wolf);
-int				mouse_move(int x, int y, t_doom *wlf);
+void			mouse_movex(int dir, t_doom *wlf);
+void			mouse_movey(int dir, t_doom *wlf);
 int				move(t_doom *wlf);
 int				move_fb(t_doom *wlf);
 int				move_lr(t_doom *wlf);
