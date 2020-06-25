@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 15:41:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/24 13:17:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ typedef struct	s_doom
 	SDL_RWops	*rwops;
 	SDL_Event	event;
 	SDL_GameController *gpad;
+	SDL_Thread	**threads;
+	struct s_doom		*data_r;
 	int			killthread;
 	int			tile;
 	t_gfx		*gfx;
@@ -293,6 +295,7 @@ void			comp_gfx(t_doom *wolf, int i);
 void			comp_map(t_doom *wolf, char *av);
 void			destroy_gfx(t_doom *wlf, int i);
 void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
+void			draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
 void			encounter(t_doom *wlf);
 void			error_out(char *msg, t_doom *wolf);
 void			exit_combat(t_doom *wlf);
