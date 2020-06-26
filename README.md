@@ -12,12 +12,12 @@ Arguments in order
 
 Controls
 1. Arrowkeys - Move around and turn camera
-2. ESC/redX - Close the program
-3. Space - Jump
-4. Numpad +- - Move up/down (obsolete)
-5. WASD - Move the camera up/down per XY axis (less buggy than before)
+2. WASD - Move around and turn camera
+3. ESC/redX - Close the program
+4. Space - Jump
+5. Numpad +- - Move up/down (obsolete)
 6. T - Turn textures on and off
 7. R - Resets position and values as if you just opened the program
 8. 12 - Jetpack up/down
 9. QE - Strafe left/right
-10. C - Interact with an object before you
+10. 3 - Interact with an object before you

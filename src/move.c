@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 14:51:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/26 14:21:58 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,9 @@ void	cam_udy(t_doom *wlf)
 {
 	t_vector	oldplane;
 	t_vector	olddir;
-	t_vector	rotation;
 
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
-	rotation.y = wlf->rotsp * sin(wlf->rotation * M_PI / 180);
-	rotation.x = wlf->rotsp * cos(wlf->rotation * M_PI / 180);
 	if (wlf->keyw)
 	{
 		if (wlf->dir.z > -0.6)
@@ -74,21 +71,21 @@ void	cam_udy(t_doom *wlf)
 			wlf->dir.z += 0.05;
 	}
 	wlf->camshift = 1.0 - (wlf->dir.z * 2);
-	//printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dir.x, wlf->plane.x, wlf->dir.y, wlf->plane.y, wlf->dir.z, wlf->plane.z);
-	//printf("Rotation: %d\n", wlf->rotation);
-	//printf("DirZ: %f\nCamshift: %f\n", wlf->dir.z, wlf->camshift);
 }
 
 void	move_l(t_doom *wlf, t_vector olddir, t_vector oldplane)
 {
+	double	rota;
+
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
+	rota = wlf->rotsp * ((90.0 / BUFFER) / wlf->prefps);
 	if (wlf->keyright)
 	{
-		wlf->dir.x = olddir.x * cos(wlf->rotsp) - olddir.y * sin(wlf->rotsp);
-		wlf->dir.y = olddir.x * sin(wlf->rotsp) + olddir.y * cos(wlf->rotsp);
-		wlf->plane.x = oldplane.x * cos(wlf->rotsp) - oldplane.y * sin(wlf->rotsp);
-		wlf->plane.y = oldplane.x * sin(wlf->rotsp) + oldplane.y * cos(wlf->rotsp);
+		wlf->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
+		wlf->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
+		wlf->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
+		wlf->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
 	}
 }
 
@@ -96,46 +93,43 @@ int		move_lr(t_doom *wlf)
 {
 	t_vector	olddir;
 	t_vector	oldplane;
+	double		rota;
 
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
+	rota = -wlf->rotsp * ((90.0 / BUFFER) / wlf->prefps);
 	if (wlf->keyleft)
 	{
-		wlf->dir.x = olddir.x * cos(-wlf->rotsp) - olddir.y * sin(-wlf->rotsp);
-		wlf->dir.y = olddir.x * sin(-wlf->rotsp) + olddir.y * cos(-wlf->rotsp);
-		wlf->plane.x = oldplane.x * cos(-wlf->rotsp) - oldplane.y * sin(-wlf->rotsp);
-		wlf->plane.y = oldplane.x * sin(-wlf->rotsp) + oldplane.y * cos(-wlf->rotsp);
+		wlf->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
+		wlf->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
+		wlf->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
+		wlf->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
 	}
 	set_yroation(wlf);
 	set_reverse(wlf);
-	move_l(wlf, olddir, oldplane);
-	//printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dir.x, wlf->plane.x, wlf->dir.y, wlf->plane.y, wlf->dir.z, wlf->plane.z);
-	//printf("Rotation: %d\n", wlf->rotation);
+	if (wlf->keyright)
+		move_l(wlf, olddir, oldplane);
 	return (0);
 }
 
 int		move_fb(t_doom *wlf)
 {
+	double	mov;
+	mov = wlf->movsp * ((90.0 / BUFFER) / wlf->prefps);
 	if (wlf->keyup)
 	{
-		if (wlf->map[(int)wlf->posz][(int)(wlf->posy + wlf->dir.y
-				* wlf->movsp)][(int)wlf->posx] <= 1)
-			wlf->posy += wlf->dir.y * wlf->movsp;
-		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
-				+ wlf->dir.x * wlf->movsp)] <= 1)
-			wlf->posx += wlf->dir.x * wlf->movsp;
+		if (wlf->map[(int)wlf->posz][(int)(wlf->posy + wlf->dir.y * mov)][(int)wlf->posx] <= 1)
+			wlf->posy += wlf->dir.y * mov;
+		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx + wlf->dir.x * mov)] <= 1)
+			wlf->posx += wlf->dir.x * mov;
 	}
 	if (wlf->keydown)
 	{
-		if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
-				* wlf->movsp)][(int)wlf->posx] <= 1)
-			wlf->posy -= wlf->dir.y * wlf->movsp;
-		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
-				- wlf->dir.x * wlf->movsp)] <= 1)
-			wlf->posx -= wlf->dir.x * wlf->movsp;
+		if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y * mov)][(int)wlf->posx] <= 1)
+			wlf->posy -= wlf->dir.y * mov;
+		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx - wlf->dir.x * mov)] <= 1)
+			wlf->posx -= wlf->dir.x * mov;
 	}
-	//printf("Matrices:\n	DIR		PLANE\nX	%f	%f\nY	%f	%f\nZ	%f	%f\n", wlf->dir.x, wlf->plane.x, wlf->dir.y, wlf->plane.y, wlf->dir.z, wlf->plane.z);
-	//printf("Rotation: %d\n", wlf->rotation);
 	return (0);
 }
 

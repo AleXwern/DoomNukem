@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/25 13:57:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/06/26 11:15:24 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,7 @@ int				interact(t_doom *wlf);
 int				key_hold(int key, t_doom *wlf);
 int				key_press(int key, t_doom *wolf);
 int				key_release(int key, t_doom *wolf);
+int				mouse_move(int x, int y, t_doom *wlf);
 void			mouse_movex(int dir, t_doom *wlf);
 void			mouse_movey(int dir, t_doom *wlf);
 int				move(t_doom *wlf);

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 14:49:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/26 13:07:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		fps_capper(void* ptr)
 	t_doom	*wlf;
 
 	wlf = (t_doom*)ptr;
-	if (wlf->isfpscap && wlf->prefps > wlf->fpscap)
-		SDL_Delay(1000 / wlf->fpscap);
+	if (wlf->isfpscap)
+		SDL_Delay(1000 / wlf->fpscap / 6);
 	return (1);
 }
 

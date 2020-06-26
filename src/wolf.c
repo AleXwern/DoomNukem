@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/25 15:29:31 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/06/26 15:17:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,17 @@ void	wolf_default(t_doom *wlf)
 	wlf->keyi = 0;
 	wlf->accesscard = 0;
 	wlf->fps = 0;
+	wlf->prefps = 30;
 	wlf->mousemovement = 0;
 	wlf->cycle = &render;
 	wlf->trx = ((wlf->winw / 100) * (wlf->winh / 100)) / 2 + 1;
 	//wlf->trx = 200;
 	wlf->camshift = 1.0f;
 	wlf->fpscap = 60;
+	if (wlf->threads)
+		free(wlf->threads);
+	if (wlf->data_r)
+		free(wlf->data_r);
 	if (!(wlf->threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * wlf->trx)))
 		error_out(MEM_ERROR, wlf);
 	if (!(wlf->data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
@@ -107,6 +112,8 @@ void	setup(t_doom *wlf)
 {
 	int			quit;
 	SDL_Thread* capper;
+	Uint32		prevtype;
+	Uint32		buffer;
 
 	wolf_default(wlf);
 	if (wlf->map[2][(int)wlf->posy][(int)wlf->posx] != 1)
@@ -116,19 +123,21 @@ void	setup(t_doom *wlf)
 	char* path = SDL_GetBasePath();
 	printf("Exec path: %s\n", path);
 	SDL_free(path);
+	prevtype = 0;
+	buffer = 0;
 	while (!quit)
 	{
 		capper = SDL_CreateThread(fps_capper, "FPS limiter", wlf);
 		if (SDL_PollEvent(&(wlf->event)))
 		{
-			//SDL_QuitRequested();
-			SDL_FlushEvents(0, 9999999);
+			if (SDL_HasEvents(SDL_MOUSEMOTION, SDL_MOUSEWHEEL))
+				SDL_FlushEvents(SDL_MOUSEMOTION, SDL_MOUSEWHEEL);
 			if (wlf->event.type == SDL_QUIT || wlf->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 				error_out(FINE, wlf);
 			if (wlf->event.window.event == SDL_WINDOWEVENT_RESIZED || wlf->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 			{
-				free(wlf->threads);
-				free(wlf->data_r);
+				//free(wlf->threads);
+				//free(wlf->data_r);
 				wlf->winw = wlf->event.window.data1;
 				wlf->winh = wlf->event.window.data2;
 				if (wlf->img.tex)
@@ -146,38 +155,25 @@ void	setup(t_doom *wlf)
 				key_hold(wlf->event.cbutton.button, wlf);
 			if (wlf->event.cbutton.state == SDL_RELEASED)
 				key_release(wlf->event.cbutton.button, wlf);
-			if (wlf->event.button.type == SDL_MOUSEBUTTONDOWN)//Mousebuttons: Left enables mouse-look-around. Right disables it.
+			if (wlf->event.button.state == SDL_PRESSED && wlf->event.button.button == SDL_BUTTON_LEFT)//Mousebuttons: Left enables mouse-look-around. Right disables it.
 			{
-				if (wlf->event.button.button == SDL_BUTTON_LEFT)
-				{
-					wlf->mousemovement = 0;
-					SDL_SetRelativeMouseMode(SDL_FALSE);
-				}
-				if (wlf->event.button.button == SDL_BUTTON_RIGHT)
-				{
-					wlf->mousemovement = 1;
+				wlf->mousemovement = (wlf->mousemovement * wlf->mousemovement) - 1;
+				if (wlf->mousemovement)
 					SDL_SetRelativeMouseMode(SDL_TRUE);
-				}
+				else
+					SDL_SetRelativeMouseMode(SDL_FALSE);
 			}
-			if (wlf->mousemovement)//using mouse to look around
-			{
-				if (wlf->event.motion.xrel > 0)
-					mouse_movex(0, wlf);
-				if (wlf->event.motion.xrel < 0)
-					mouse_movex(1, wlf);
-				if (wlf->event.motion.yrel > 0)
-					mouse_movey(0, wlf);
-				if (wlf->event.motion.yrel < 0)
-					mouse_movey(1, wlf);
-			}
-			//if (wlf->event.cbutton.state == SDL_PRESSED)
-			//	key_hold(wlf->event.cbutton.button, wlf);
-			//if (wlf->event.cbutton.state == SDL_RELEASED)
-			//	key_release(wlf->event.cbutton.button, wlf);
-			wlf->cycle(wlf);
+			if (wlf->mousemovement)
+				mouse_move(wlf->event.motion.xrel, wlf->event.motion.yrel, wlf);
 		}
 		move(wlf);
-		wlf->cycle(wlf);
+		if (buffer > BUFFER)
+		{
+			wlf->cycle(wlf);
+			buffer = 0;
+		}
+		buffer++;
+		prevtype = wlf->event.type;
 		SDL_WaitThread(capper, NULL);
 	}
 }

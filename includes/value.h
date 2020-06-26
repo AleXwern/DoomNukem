@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/25 14:38:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/06/26 15:35:50 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # define MAXAGGRO	999999
 # define GFXCOUNT	23
 # define THREADS	6
+# define BUFFER		4
 
 #if __APPLE__
 # define ESC		SDL_SCANCODE_ESCAPE

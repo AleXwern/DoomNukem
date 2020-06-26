@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/24 14:20:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/26 13:53:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	gravity(t_doom *wlf)
 {
 	if (wlf->keytwo)
 		return ;
-	wlf->gravity.z += 0.1;
+	wlf->gravity.z += 0.1/* * (45.0 / wlf->prefps)*/;
 	if (wlf->gravity.z > 0.2)
 		wlf->gravity.z = 0.2;
 	if (wlf->gravity.z < 0)
