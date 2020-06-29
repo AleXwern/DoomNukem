@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/26 13:53:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/29 15:51:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 void	dda_sys(t_doom *wlf)
 {
-	//ft_putendl("dud");
 	wlf->hit = 0;
 	while (wlf->hit == 0)
 	{
@@ -44,14 +43,19 @@ void	dda_sys(t_doom *wlf)
 		if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 1)
 			wlf->hit = 1;
 	}
-	//ft_putendl("exit");
 }
 
 void	dda_prep(t_doom *wlf)
 {
-	wlf->deltadx = fabs(1 / wlf->raydx);
-	wlf->deltady = fabs(1 / wlf->raydy);
-	wlf->deltadz = fabs(1 / wlf->raydz);
+	//wlf->deltadx = fabs(1 / wlf->raydx);
+	//wlf->deltady = fabs(1 / wlf->raydy);
+	//wlf->deltadz = fabs(1 / wlf->raydz);
+	wlf->deltadx = (1 / wlf->raydx);
+	*((long*)&wlf->deltadx) &= 0x7FFFFFFFFFFFFFFF;
+	wlf->deltady = (1 / wlf->raydy);
+	*((long*)&wlf->deltady) &= 0x7FFFFFFFFFFFFFFF;
+	wlf->deltadz = (1 / wlf->raydz);
+	*((long*)&wlf->deltadz) &= 0x7FFFFFFFFFFFFFFF;
 	if (wlf->raydx < 0)
 	{
 		wlf->stepx = -1;
@@ -98,14 +102,11 @@ void	rc_init(t_doom *wlf)
 	dda_prep(wlf);
 	dda_sys(wlf);
 	if (wlf->side == 0)
-		wlf->walldist = (wlf->mapx - wlf->posx + (1 - wlf->stepx) / 2) /
-				wlf->raydx;
+		wlf->walldist = (wlf->mapx - wlf->posx + (1 - wlf->stepx) * 0.5) / wlf->raydx;
 	else if (wlf->side == 1)
-		wlf->walldist = (wlf->mapy - wlf->posy + (1 - wlf->stepy) / 2) /
-				wlf->raydy;
+		wlf->walldist = (wlf->mapy - wlf->posy + (1 - wlf->stepy) * 0.5) / wlf->raydy;
 	else
-		wlf->walldist = (wlf->mapz - wlf->posz + (1 - wlf->stepz) / 2) /
-				wlf->raydz;
+		wlf->walldist = (wlf->mapz - wlf->posz + (1 - wlf->stepz) * 0.5) / wlf->raydz;
 	if (wlf->walldist < 0.0001)
 		wlf->walldist += 0.01;
 }
@@ -115,9 +116,6 @@ int		renthread(void *ptr)
 	t_doom *wlf;
 
 	wlf = (t_doom*)ptr;
-
-	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->gfx[0].tex);
-	//wlf->x = 0;
 	while (wlf->x < wlf->winw)
 	{
 		wlf->y = -1;
@@ -126,11 +124,13 @@ int		renthread(void *ptr)
 			rc_init(wlf);
 			wlf->lineh = (int)(wlf->winh / wlf->walldist);
 			if (wlf->side == 1)
-				wlf->testcolor = 0x3679ff;
+				wlf->testcolor = 0xff3679ff;
 			else if (wlf->side == 2)
-				wlf->testcolor = 0xb01cff;
+				wlf->testcolor = 0xffb01cff;
 			else
-				wlf->testcolor = 0xF0330A;
+				wlf->testcolor = 0xffF0330A;
+			wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
+			wlf->maparr[wlf->winw * wlf->y + wlf->x] = wlf->side;
 			if (wlf->side == 2)
 				render_floor(wlf);
 			else
@@ -138,9 +138,6 @@ int		renthread(void *ptr)
 		}
 		wlf->x += wlf->trx;
 	}
-	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->surf);
-	//SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
-	//SDL_RenderPresent(wlf->rend);
 	return (1);
 }
 
@@ -148,9 +145,8 @@ void	gravity(t_doom *wlf)
 {
 	if (wlf->keytwo)
 		return ;
-	wlf->gravity.z += 0.1/* * (45.0 / wlf->prefps)*/;
-	if (wlf->gravity.z > 0.2)
-		wlf->gravity.z = 0.2;
+	while (wlf->gravity.z >= 1.0 || wlf->gravity.z <= -1.0)
+		wlf->gravity.z -= wlf->gravity.z / 10;
 	if (wlf->gravity.z < 0)
 	{
 		if (wlf->map[(int)(wlf->posz + wlf->gravity.z - 0.1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
@@ -162,7 +158,11 @@ void	gravity(t_doom *wlf)
 	{
 		wlf->airbrn = 0;
 		wlf->gravity.z = 0;
+		wlf->posz = floor(wlf->posz) + 0.5;
 	}
+	wlf->gravity.z += 0.1 * (90.0 / wlf->prefps);
+	if (wlf->gravity.z > 0.2 * (90.0 / wlf->prefps))
+		wlf->gravity.z = 0.2 * (90.0 / wlf->prefps);
 	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
 		wlf->posz -= 0.1;
 }
@@ -222,6 +222,16 @@ void	render(t_doom *wlf)
 			ft_putendl("Thread failure.");
 		else
 			SDL_WaitThread(wlf->threads[x], NULL);
+	}
+	wlf->y = -1;
+	while (++wlf->y < wlf->winh && !wlf->texbool)
+	{
+		wlf->x = -1;
+		while (++wlf->x < wlf->winw)
+		{
+			if (tex_check(wlf))
+				wlf->img.data[wlf->winw * wlf->y + wlf->x] = 0xff000000;
+		}
 	}
 	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
 	//if (wlf->accesscard == 0)

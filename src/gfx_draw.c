@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/24 12:30:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/29 15:43:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y)
 		gx = 0;
 		while (gx < gfx.wid && (x + gx) < wlf->winw)
 		{
-			if (gfx.data[gfx.wid * gy + gx] != -65281)
+			if (gfx.data[gfx.wid * gy + gx] != 0xffff00ff)
 				wlf->img.data[wlf->winw * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
 					gy + gx];
 			gx++;

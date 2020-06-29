@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/26 14:21:58 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/29 11:59:12 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ int		move_fb(t_doom *wlf)
 {
 	double	mov;
 	mov = wlf->movsp * ((90.0 / BUFFER) / wlf->prefps);
+	if (mov > 1.0)
+		mov = 0.99;
 	if (wlf->keyup)
 	{
 		if (wlf->map[(int)wlf->posz][(int)(wlf->posy + wlf->dir.y * mov)][(int)wlf->posx] <= 1)
