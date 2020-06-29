@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 14:41:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/29 13:57:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	draw_stripe(t_doom *wlf)
 			wlf->texy += 128;
 		wlf->testcolor = color_shift(wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) * wlf->gfx[wlf->texnum].tex->pitch / 4 + wlf->texx % 128 * wlf->gfx[2].tex->format->BitsPerPixel / 32], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf, 0);
 	}
-	//tar = (Uint32*)wlf->surf->pixels + wlf->y * wlf->surf->pitch + wlf->x * sizeof(*tar);
-	//*tar = wlf->testcolor;
+	//if (tex_check(wlf))
+	//	wlf->testcolor = 0xff000000;
 	wlf->img.data[wlf->winw * wlf->y + wlf->x] = wlf->testcolor;
 
 }
@@ -56,6 +56,6 @@ void	wall_stripe(t_doom *wlf)
 			wlf->texx = 128 - wlf->texx - 1;
 	}
 	else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] != 2)
-		wlf->testcolor = 0x22a800;
+		wlf->testcolor = 0xff22a800;
 	draw_stripe(wlf);
 }

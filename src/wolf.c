@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/26 15:17:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/29 15:49:45 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,17 @@ void	wolf_default(t_doom *wlf)
 	wlf->keyi = 0;
 	wlf->accesscard = 0;
 	wlf->fps = 0;
-	wlf->prefps = 30;
+	wlf->prefps = 60;
 	wlf->mousemovement = 0;
 	wlf->cycle = &render;
 	wlf->trx = ((wlf->winw / 100) * (wlf->winh / 100)) / 2 + 1;
-	//wlf->trx = 200;
+	//wlf->trx = 1;
 	wlf->camshift = 1.0f;
 	wlf->fpscap = 60;
+	if (!(wlf->maparr = (int*)malloc(sizeof(int) * wlf->winw * wlf->winh)))
+		error_out(MEM_ERROR, wlf);
+	if (!(wlf->wallarr = (double*)malloc(sizeof(double) * wlf->winw * wlf->winh)))
+		error_out(MEM_ERROR, wlf);
 	if (wlf->threads)
 		free(wlf->threads);
 	if (wlf->data_r)
@@ -139,6 +143,10 @@ void	setup(t_doom *wlf)
 			{
 				//free(wlf->threads);
 				//free(wlf->data_r);
+				if (wlf->maparr)
+					free(wlf->maparr);
+				if (wlf->wallarr)
+					free(wlf->wallarr);
 				wlf->winw = wlf->event.window.data1;
 				wlf->winh = wlf->event.window.data2;
 				if (wlf->img.tex)

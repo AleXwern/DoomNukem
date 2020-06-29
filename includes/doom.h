@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/26 11:15:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/29 13:33:50 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ typedef struct	s_doom
 	SDL_GameController *gpad;
 	SDL_Thread	**threads;
 	struct s_doom		*data_r;
+	double		*wallarr;
+	int			*maparr;
 	int			killthread;
 	int			tile;
 	t_gfx		*gfx;
@@ -271,6 +273,7 @@ t_chara			generate_foe(t_doom *wlf);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 
+int				tex_check(t_doom *wlf);
 int				fps_capper(void* ptr);
 int				fps_counter(void* ptr);
 int				get_x(int pc);
