@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 01:20:40 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/06/22 14:42:00 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/29 13:57:52 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	draw_floor(t_doom *wlf)
 		wlf->ty = (int)(128 * (wlf->floory - wlf->celly)) & (128 - 1);
 		wlf->testcolor = color_shift(wlf->gfx[1].data[128 * wlf->ty + wlf->tx], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf, 0);
 	}
+	//if (tex_check(wlf))
+	//	wlf->testcolor = 0xff000000;
 	wlf->img.data[wlf->winw * wlf->y + wlf->x] = wlf->testcolor;
 }
 
