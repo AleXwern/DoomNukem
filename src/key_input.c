@@ -149,9 +149,10 @@ int				mouse_move(int x, int y, t_doom *wlf)
 	
 	olddir = wlf->dir;
 	oldplane = wlf->plane;
+	//printf("%d %d\n", x, y);
 	if (x && abs(x) < wlf->winw)
 	{
-		rota.x = (double)x / wlf->winw;
+		rota.x = (double)x / wlf->winw * OSCAM;
 		//printf("%f\nwith: %d %d\n", rota.x, x, wlf->winw);
 		wlf->dir.x = olddir.x * cos(rota.x) - olddir.y * sin(rota.x);
 		wlf->dir.y = olddir.x * sin(rota.x) + olddir.y * cos(rota.x);
@@ -160,7 +161,7 @@ int				mouse_move(int x, int y, t_doom *wlf)
 	}
 	if (y && abs(y) < wlf->winh)
 	{
-		rota.y = (double)y / wlf->winh;
+		rota.y = (double)y / wlf->winh * OSCAM;
 		if (wlf->dir.z + rota.y > -0.6 && wlf->dir.z + rota.y < 0.6)
 			wlf->dir.z += rota.y;
 		wlf->camshift = 1.0 - (wlf->dir.z * 2);

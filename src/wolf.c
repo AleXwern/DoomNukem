@@ -62,6 +62,7 @@ void	wolf_default(t_doom *wlf)
 		error_out(MEM_ERROR, wlf);
 	if (!(wlf->data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
 		error_out(MEM_ERROR, wlf);
+	SDL_SetRelativeMouseMode(SDL_FALSE);
 	printf("Threads: %d\n", wlf->trx);
 }
 
