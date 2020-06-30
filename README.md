@@ -21,3 +21,7 @@ Controls
 8. 12 - Jetpack up/down
 9. QE - Strafe left/right
 10. 3 - Interact with an object before you
+11. L - When textures are off, set block oulines on/off
+12. M - Open/close options menu
+13. Mouse left - (un)target screen and move camera with mouse
+14. Mouse right - Interact with an object before you

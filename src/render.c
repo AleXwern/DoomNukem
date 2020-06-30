@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 15:51:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/30 17:05:00 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ void	dda_sys(t_doom *wlf)
 
 void	dda_prep(t_doom *wlf)
 {
-	//wlf->deltadx = fabs(1 / wlf->raydx);
-	//wlf->deltady = fabs(1 / wlf->raydy);
-	//wlf->deltadz = fabs(1 / wlf->raydz);
-	wlf->deltadx = (1 / wlf->raydx);
-	*((long*)&wlf->deltadx) &= 0x7FFFFFFFFFFFFFFF;
-	wlf->deltady = (1 / wlf->raydy);
-	*((long*)&wlf->deltady) &= 0x7FFFFFFFFFFFFFFF;
-	wlf->deltadz = (1 / wlf->raydz);
-	*((long*)&wlf->deltadz) &= 0x7FFFFFFFFFFFFFFF;
+	wlf->deltadx = fabs(1 / wlf->raydx);
+	wlf->deltady = fabs(1 / wlf->raydy);
+	wlf->deltadz = fabs(1 / wlf->raydz);
+	//wlf->deltadx = (1 / wlf->raydx);
+	//*((long*)&wlf->deltadx) &= 0x7FFFFFFFFFFFFFFF;
+	//wlf->deltady = (1 / wlf->raydy);
+	//*((long*)&wlf->deltady) &= 0x7FFFFFFFFFFFFFFF;
+	//wlf->deltadz = (1 / wlf->raydz);
+	//*((long*)&wlf->deltadz) &= 0x7FFFFFFFFFFFFFFF;
 	if (wlf->raydx < 0)
 	{
 		wlf->stepx = -1;
@@ -130,7 +130,7 @@ int		renthread(void *ptr)
 			else
 				wlf->testcolor = 0xffF0330A;
 			wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
-			wlf->maparr[wlf->winw * wlf->y + wlf->x] = wlf->side;
+			wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
 			if (wlf->side == 2)
 				render_floor(wlf);
 			else
@@ -146,13 +146,13 @@ void	gravity(t_doom *wlf)
 	if (wlf->keytwo)
 		return ;
 	while (wlf->gravity.z >= 1.0 || wlf->gravity.z <= -1.0)
-		wlf->gravity.z -= wlf->gravity.z / 10;
+		wlf->gravity.z += wlf->fallsp.z;
 	if (wlf->gravity.z < 0)
 	{
 		if (wlf->map[(int)(wlf->posz + wlf->gravity.z - 0.1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 			wlf->posz += wlf->gravity.z;
 	}
-	else if (wlf->map[(int)(wlf->posz + wlf->gravity.z + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+	else if (wlf->map[(int)(wlf->posz + 1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 		wlf->posz += wlf->gravity.z;
 	else
 	{
@@ -160,9 +160,9 @@ void	gravity(t_doom *wlf)
 		wlf->gravity.z = 0;
 		wlf->posz = floor(wlf->posz) + 0.5;
 	}
-	wlf->gravity.z += 0.1 * (90.0 / wlf->prefps);
-	if (wlf->gravity.z > 0.2 * (90.0 / wlf->prefps))
-		wlf->gravity.z = 0.2 * (90.0 / wlf->prefps);
+	wlf->gravity.z += wlf->fallsp.z;
+	if (wlf->gravity.z > 0.2 * (30.0 / BUFFER / wlf->prefps))
+		wlf->gravity.z = 0.2 * (30.0 / BUFFER / wlf->prefps);
 	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
 		wlf->posz -= 0.1;
 }
@@ -200,12 +200,16 @@ void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now reall
 		}
 	}
 }*/
+/*
+__global__ void test(void)
+{
+	printf("This is a test\n");
+}*/
 
 void	render(t_doom *wlf)
 {
 	int			x;
 
-	gravity(wlf);
 	x = 0;
 	if (wlf->trx < 0)
 		wlf->trx = 1;
@@ -224,15 +228,8 @@ void	render(t_doom *wlf)
 			SDL_WaitThread(wlf->threads[x], NULL);
 	}
 	wlf->y = -1;
-	while (++wlf->y < wlf->winh && !wlf->texbool)
-	{
-		wlf->x = -1;
-		while (++wlf->x < wlf->winw)
-		{
-			if (tex_check(wlf))
-				wlf->img.data[wlf->winw * wlf->y + wlf->x] = 0xff000000;
-		}
-	}
+	if (wlf->isoutline)
+		post_effects(wlf);
 	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
 	//if (wlf->accesscard == 0)
 	//	pickupitem(wlf);

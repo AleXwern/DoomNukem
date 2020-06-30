@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 14:38:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/30 16:24:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 int				key_hold(int key, t_doom *wlf)
 {
+	if (wlf->ismenu)
+		return (0);
 	if (key == ESC)
 		error_out(FINE, wlf);
 	if (key == LEFT || key == KEY_A)
@@ -70,8 +72,41 @@ int				key_hold(int key, t_doom *wlf)
 	return (0);
 }
 
+void			menu_keys(int key, t_doom *wlf)
+{
+	if (key == DOWN)
+		wlf->cur++;
+	else if (key == UP)
+		wlf->cur--;
+	else if (key == LEFT)
+		(*wlf->options[wlf->cur])--;
+	else if (key == RIGHT)
+		(*wlf->options[wlf->cur])++;
+	if (wlf->cur < 0)
+		wlf->cur = 4;
+	if (wlf->cur > 4)
+		wlf->cur = 0;
+	//if ((*wlf->options[wlf->cur]) < 0)
+	//	(*wlf->options[wlf->cur]) = (int)wlf->maxvalue[wlf->cur];
+	//if ((*wlf->options[wlf->cur]) > (int)wlf->maxvalue[wlf->cur])
+	//	(*wlf->options[wlf->cur]) = 0;
+}
+
 int				key_release(int key, t_doom *wlf)
 {
+	if (key == KEY_M)
+	{
+		wlf->ismenu = wlf->ismenu * wlf->ismenu - 1;
+		if (wlf->ismenu)
+			wlf->cycle = &options_menu;
+		else
+			wlf->cycle = &render;
+	}
+	if (wlf->ismenu)
+	{
+		menu_keys(key, wlf);
+		return (0);
+	}
 	if (key == KEY_T)
 		wlf->texbool = (wlf->texbool * wlf->texbool) - 1;
 	if (key == KEY_TRE)
@@ -106,6 +141,8 @@ int				key_release(int key, t_doom *wlf)
 		wlf->keyi = wlf->keyi == 1 ? 0 : 1;
 	if (key == KEY_SHIFT)
 		wlf->movsp -= 0.06;
+	if (key == KEY_L)
+		wlf->isoutline = (wlf->isoutline * wlf->isoutline) - 1;
 	if (key == KEY_C && wlf->crouching)
 	{
 		wlf->crouching = 0;
@@ -119,7 +156,7 @@ int				key_release(int key, t_doom *wlf)
 		if (!wlf->airbrn)
 		{
 			wlf->airbrn = 1;
-			wlf->gravity.z = -0.55;
+			wlf->gravity.z = -0.55 * (30.0 / BUFFER / wlf->prefps);
 		}
 	}
 	return (0);
@@ -135,10 +172,10 @@ void			jetpack(t_doom *wlf)
 {
 	if (wlf->keyone)
 		if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-			wlf->posz += 0.05;
+			wlf->posz += 0.05 * (30.0 / BUFFER / wlf->prefps);
 	if (wlf->keytwo)
 		if (wlf->map[(int)(wlf->posz - 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-			wlf->posz -= 0.05;
+			wlf->posz -= 0.05 * (30.0 / BUFFER / wlf->prefps);
 }
 
 int				mouse_move(int x, int y, t_doom *wlf)
@@ -181,6 +218,6 @@ int				move(t_doom *wlf)
 		jetpack(wlf);
 	if ((wlf->keyq || wlf->keye) && !wlf->isoptions)
 		strafe(wlf, 0, 0);
-	//wlf->cycle(wlf);
+	gravity(wlf);
 	return (0);
 }

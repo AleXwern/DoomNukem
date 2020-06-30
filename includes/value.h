@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 15:21:36 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/30 13:21:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 # define MAXAGGRO	999999
 # define GFXCOUNT	23
 # define THREADS	6
-# define BUFFER		10
+# define BUFFER		6
 
 #if __APPLE__
 # define OSCAM		1
@@ -179,28 +179,6 @@
 # define			COLOR_BLUE 255
 # define			COLOR_WHITE 16777215
 # define			COLOR_ORANGE 16742400
-# define			COLOR_SKIP	0xff00ff
+# define			COLOR_SKIP	0xffff00ff
 
-/*
-** Keys for laptop if needed.
-** # define ESC		65307
-** # define KEY_R		15
-** # define KEY_C		99
-** # define KEY_T		116
-** # define KEY_ONE	18
-** # define KEY_TWO	19
-** # define KEY_TRE	20
-** # define KEY_FOU	21
-** # define SPACE		32
-** # define UP			65362
-** # define DOWN		65364
-** # define LEFT		65363
-** # define RIGHT		65361
-** # define SCR_UPH	4
-** # define SCR_DOWN	5
-** # define NUM_PLU	69
-** # define NUM_MIN	78
-** # define SLASH		75
-** # define STAR		67
-*/
 #endif

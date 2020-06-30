@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 15:49:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/30 17:00:56 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	wolf_default(t_doom *wlf)
 	wlf->keyi = 0;
 	wlf->accesscard = 0;
 	wlf->fps = 0;
-	wlf->prefps = 60;
+	wlf->prefps = 30;
 	wlf->mousemovement = 0;
 	wlf->cycle = &render;
 	wlf->trx = ((wlf->winw / 100) * (wlf->winh / 100)) / 2 + 1;
@@ -117,7 +117,6 @@ void	setup(t_doom *wlf)
 {
 	int			quit;
 	SDL_Thread* capper;
-	Uint32		prevtype;
 	Uint32		buffer;
 
 	wolf_default(wlf);
@@ -128,7 +127,6 @@ void	setup(t_doom *wlf)
 	char* path = SDL_GetBasePath();
 	printf("Exec path: %s\n", path);
 	SDL_free(path);
-	prevtype = 0;
 	buffer = 0;
 	while (!quit)
 	{
@@ -143,10 +141,8 @@ void	setup(t_doom *wlf)
 			{
 				//free(wlf->threads);
 				//free(wlf->data_r);
-				if (wlf->maparr)
-					free(wlf->maparr);
-				if (wlf->wallarr)
-					free(wlf->wallarr);
+				free(wlf->maparr);
+				free(wlf->wallarr);
 				wlf->winw = wlf->event.window.data1;
 				wlf->winh = wlf->event.window.data2;
 				if (wlf->img.tex)
@@ -164,13 +160,18 @@ void	setup(t_doom *wlf)
 				key_hold(wlf->event.cbutton.button, wlf);
 			if (wlf->event.cbutton.state == SDL_RELEASED)
 				key_release(wlf->event.cbutton.button, wlf);
-			if (wlf->event.button.state == SDL_PRESSED && wlf->event.button.button == SDL_BUTTON_LEFT)//Mousebuttons: Left enables mouse-look-around. Right disables it.
+			if (wlf->event.button.state == SDL_PRESSED)
 			{
-				wlf->mousemovement = (wlf->mousemovement * wlf->mousemovement) - 1;
-				if (wlf->mousemovement)
-					SDL_SetRelativeMouseMode(SDL_TRUE);
-				else
-					SDL_SetRelativeMouseMode(SDL_FALSE);
+				if (wlf->event.button.button == SDL_BUTTON_LEFT)
+				{
+					wlf->mousemovement = (wlf->mousemovement * wlf->mousemovement) - 1;
+					if (wlf->mousemovement)
+						SDL_SetRelativeMouseMode(SDL_TRUE);
+					else
+						SDL_SetRelativeMouseMode(SDL_FALSE);
+				}
+				else if (wlf->event.button.button == SDL_BUTTON_RIGHT)
+					interact(wlf);
 			}
 			if (wlf->mousemovement)
 				mouse_move(wlf->event.motion.xrel, wlf->event.motion.yrel, wlf);
@@ -182,7 +183,6 @@ void	setup(t_doom *wlf)
 			buffer = 0;
 		}
 		buffer++;
-		prevtype = wlf->event.type;
 		SDL_WaitThread(capper, NULL);
 	}
 }
@@ -205,7 +205,7 @@ int		main(int ac, char **av)
 	wolf->tile = 6;
 	if (wolf->tile < 1 || wolf->tile > 6)
 		error_out(USAGE, wolf);
-	wolf->mxflr = 5;
+	wolf->mxflr = 9;
 	if (wolf->mxflr < 1 || wolf->mxflr > 9)
 		error_out(USAGE, wolf);
 	if (!(wolf->win = SDL_CreateWindow("DoomNukem", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINX, WINY, SDL_WINDOW_RESIZABLE)))

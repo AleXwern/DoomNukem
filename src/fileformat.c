@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/22 12:22:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/30 16:56:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,14 @@ void	comp_map(t_doom *wolf, char *av)
 			fpath = ft_strjoin(path, "map/3");
 		else if (wolf->flr == 3)
 			fpath = ft_strjoin(path, "map/4");
-		else if (wolf->flr == 4)
+		else if (wolf->flr != wolf->mxflr - 1)
 			fpath = ft_strjoin(path, "map/5");
 		else
-			return ;
+			fpath = ft_strjoin(path, "map/6");
 		#if _WIN64
-		_sopen_s(&fd, fpath, _O_RDONLY, _SH_DENYWR, _S_IREAD);
+			_sopen_s(&fd, fpath, _O_RDONLY, _SH_DENYWR, _S_IREAD);
 		#elif __APPLE__
-		fd = open(fpath, O_RDONLY);
+			fd = open(fpath, O_RDONLY);
 		#endif
 		SDL_free(path);
 		ft_putendl(fpath);

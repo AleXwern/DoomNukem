@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 15:52:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/30 16:47:09 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int		tex_check(t_doom *wlf)
 		if (wlf->maparr[wlf->winw * wlf->y + wlf->x - 1] != wlf->maparr[wlf->winw * wlf->y + wlf->x])
 			return (1);
 		wdistdiff = fabs(wlf->wallarr[wlf->winw * wlf->y + wlf->x - 1] - wlf->wallarr[wlf->winw * wlf->y + wlf->x]);
-		if (wdistdiff > 0.14)
+		if (wdistdiff > 0.8)
 			return (1);
 	}
-	if (wlf->x < wlf->winw - 1)
+	/*if (wlf->x < wlf->winw - 1)
 	{
 		//printf("X%d\n", wlf->x);
 		if (wlf->maparr[wlf->winw * wlf->y + wlf->x + 1] != wlf->maparr[wlf->winw * wlf->y + wlf->x])
@@ -35,17 +35,17 @@ int		tex_check(t_doom *wlf)
 		wdistdiff = fabs(wlf->wallarr[wlf->winw * wlf->y + wlf->x + 1] - wlf->wallarr[wlf->winw * wlf->y + wlf->x]);
 		if (wdistdiff > 0.14)
 			return (1);
-	}
+	}*/
 	if (wlf->y > 0)
 	{
 		//printf("Y%d\n", wlf->y);
 		if (wlf->maparr[wlf->winw * (wlf->y - 1) + wlf->x] != wlf->maparr[wlf->winw * wlf->y + wlf->x])
 			return (1);
 		wdistdiff = fabs(wlf->wallarr[wlf->winw * (wlf->y - 1) + wlf->x] - wlf->wallarr[wlf->winw * wlf->y + wlf->x]);
-		if (wdistdiff > 0.14)
+		if (wdistdiff > 0.8)
 			return (1);
 	}
-	if (wlf->y < wlf->winh - 1)
+	/*if (wlf->y < wlf->winh - 1)
 	{
 		//printf("Y%d\n", wlf->y);
 		if (wlf->maparr[wlf->winw * (wlf->y + 1) + wlf->x] != wlf->maparr[wlf->winw * wlf->y + wlf->x])
@@ -53,7 +53,7 @@ int		tex_check(t_doom *wlf)
 		wdistdiff = fabs(wlf->wallarr[wlf->winw * (wlf->y + 1) + wlf->x] - wlf->wallarr[wlf->winw * wlf->y + wlf->x]);
 		if (wdistdiff > 0.14)
 			return (1);
-	}
+	}*/
 	return (0);
 }
 
@@ -76,8 +76,9 @@ int		fps_counter(void* ptr)
 	{
 		SDL_Delay(1000);
 		printf("FPS: %d\n", wlf->fps);
-		wlf->prefps = wlf->fps;
-		//printf("FPS correction: %f\nWith buffer: %f\n", (90.0) / wlf->prefps, (90.0 / BUFFER) / wlf->prefps);
+		if (wlf->fps > 0)
+			wlf->prefps = wlf->fps;
+		wlf->fallsp.z = (0.65 * (30.0 / BUFFER / wlf->prefps)) / wlf->prefps / (BUFFER / 5.0);
 		wlf->fps = 0;
 	}
 	return (1);
