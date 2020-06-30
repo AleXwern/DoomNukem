@@ -1,5 +1,6 @@
 # DoomNukem
 Hive Helsinki project DoomNukem
+Last updated: 30/6/2020
 
 How to use:
 1. Compile with 'make'
