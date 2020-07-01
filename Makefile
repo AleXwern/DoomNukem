@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/06/24 12:23:15 by anystrom         ###   ########.fr        #
+#    Updated: 2020/06/25 17:50:14 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,20 @@ $(LIBFT):
 	@make -C ./libft
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
+ifeq ($(OS),Windows_NT)
+	echo $@
+	clang -I ./includes -I ./libft -I C:\SDL\SDL2_image-2.0.5\include -I C:\SDL\SDL2-2.0.12\include -I C:\SDL\SDL2_mixer-2.0.4\include  -o $@ -c $<
+else
 	@echo "Compiling Wolf3D -> $(RED)$@$(STOP)"
 	@gcc $(OBJFRAME) $(FLG) $(INCL) -o $@ -c $<
+endif
 
 $(NAME): $(OBJ) $(LIBFT)
+ifeq ($(OS),Windows_NT)
+	echo hi
+else
 	gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
+endif
 	@echo Done.
 
 test: $(LIBFT)

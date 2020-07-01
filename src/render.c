@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 15:51:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/06/29 21:46:48 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ void	dda_sys(t_doom *wlf)
 
 void	dda_prep(t_doom *wlf)
 {
-	//wlf->deltadx = fabs(1 / wlf->raydx);
-	//wlf->deltady = fabs(1 / wlf->raydy);
-	//wlf->deltadz = fabs(1 / wlf->raydz);
-	wlf->deltadx = (1 / wlf->raydx);
+	wlf->deltadx = fabs(1 / wlf->raydx);
+	wlf->deltady = fabs(1 / wlf->raydy);
+	wlf->deltadz = fabs(1 / wlf->raydz);
+	/*wlf->deltadx = (1 / wlf->raydx);
 	*((long*)&wlf->deltadx) &= 0x7FFFFFFFFFFFFFFF;
 	wlf->deltady = (1 / wlf->raydy);
 	*((long*)&wlf->deltady) &= 0x7FFFFFFFFFFFFFFF;
 	wlf->deltadz = (1 / wlf->raydz);
-	*((long*)&wlf->deltadz) &= 0x7FFFFFFFFFFFFFFF;
+	*((long*)&wlf->deltadz) &= 0x7FFFFFFFFFFFFFFF;*/
 	if (wlf->raydx < 0)
 	{
 		wlf->stepx = -1;
