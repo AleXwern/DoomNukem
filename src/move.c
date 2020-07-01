@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 11:59:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:01:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	move_l(t_doom *wlf, t_vector olddir, t_vector oldplane)
 
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
-	rota = wlf->rotsp * ((90.0 / BUFFER) / wlf->prefps);
+	rota = wlf->rotsp * ((30.0 / wlf->buffer) / wlf->prefps);
 	if (wlf->keyright)
 	{
 		wlf->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
@@ -97,7 +97,7 @@ int		move_lr(t_doom *wlf)
 
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
-	rota = -wlf->rotsp * ((90.0 / BUFFER) / wlf->prefps);
+	rota = -wlf->rotsp * ((30.0 / wlf->buffer) / wlf->prefps);
 	if (wlf->keyleft)
 	{
 		wlf->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
@@ -115,7 +115,7 @@ int		move_lr(t_doom *wlf)
 int		move_fb(t_doom *wlf)
 {
 	double	mov;
-	mov = wlf->movsp * ((90.0 / BUFFER) / wlf->prefps);
+	mov = wlf->movsp * ((30.0 / wlf->buffer) / wlf->prefps);
 	if (mov > 1.0)
 		mov = 0.99;
 	if (wlf->keyup)

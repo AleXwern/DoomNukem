@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 15:49:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/01 15:37:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	wolf_default(t_doom *wlf)
 	wlf->plane.z = 0.5;
 	wlf->rotation = 0;
 	wlf->rotsp = 0.05;
-	wlf->movsp = 0.06;
+	wlf->movsp = 0.0712;
 	wlf->fcomb = 0;
 	wlf->rng = 0.0;
 	wlf->texbool = 1;
@@ -47,25 +47,26 @@ void	wolf_default(t_doom *wlf)
 	wlf->keyi = 0;
 	wlf->accesscard = 0;
 	wlf->fps = 0;
-	wlf->prefps = 60;
+	wlf->prefps = 30;
 	wlf->mousemovement = 0;
+	wlf->buffer = BUFFER;
 	wlf->cycle = &render;
 	wlf->trx = ((wlf->winw / 100) * (wlf->winh / 100)) / 2 + 1;
-	//wlf->trx = 1;
+	wlf->trx = 15;
 	wlf->camshift = 1.0f;
 	wlf->fpscap = 60;
 	if (!(wlf->maparr = (int*)malloc(sizeof(int) * wlf->winw * wlf->winh)))
 		error_out(MEM_ERROR, wlf);
 	if (!(wlf->wallarr = (double*)malloc(sizeof(double) * wlf->winw * wlf->winh)))
 		error_out(MEM_ERROR, wlf);
-	if (wlf->threads)
-		free(wlf->threads);
-	if (wlf->data_r)
-		free(wlf->data_r);
-	if (!(wlf->threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * wlf->trx)))
-		error_out(MEM_ERROR, wlf);
-	if (!(wlf->data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
-		error_out(MEM_ERROR, wlf);
+	//if (wlf->threads)
+	//	free(wlf->threads);
+	//if (wlf->data_r)
+	//	free(wlf->data_r);
+	//if (!(wlf->threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * wlf->trx)))
+	//	error_out(MEM_ERROR, wlf);
+	//if (!(wlf->data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
+	//	error_out(MEM_ERROR, wlf);
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	printf("Threads: %d\n", wlf->trx);
 }
@@ -117,7 +118,6 @@ void	setup(t_doom *wlf)
 {
 	int			quit;
 	SDL_Thread* capper;
-	Uint32		prevtype;
 	Uint32		buffer;
 
 	wolf_default(wlf);
@@ -128,8 +128,11 @@ void	setup(t_doom *wlf)
 	char* path = SDL_GetBasePath();
 	printf("Exec path: %s\n", path);
 	SDL_free(path);
-	prevtype = 0;
 	buffer = 0;
+	if (!(wlf->threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * wlf->trx)))
+		error_out(MEM_ERROR, wlf);
+	if (!(wlf->data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
+		error_out(MEM_ERROR, wlf);
 	while (!quit)
 	{
 		capper = SDL_CreateThread(fps_capper, "FPS limiter", wlf);
@@ -143,10 +146,8 @@ void	setup(t_doom *wlf)
 			{
 				//free(wlf->threads);
 				//free(wlf->data_r);
-				if (wlf->maparr)
-					free(wlf->maparr);
-				if (wlf->wallarr)
-					free(wlf->wallarr);
+				free(wlf->maparr);
+				free(wlf->wallarr);
 				wlf->winw = wlf->event.window.data1;
 				wlf->winh = wlf->event.window.data2;
 				if (wlf->img.tex)
@@ -164,9 +165,12 @@ void	setup(t_doom *wlf)
 				key_hold(wlf->event.cbutton.button, wlf);
 			if (wlf->event.cbutton.state == SDL_RELEASED)
 				key_release(wlf->event.cbutton.button, wlf);
-			if (wlf->event.button.state == SDL_PRESSED && wlf->event.button.button == SDL_BUTTON_LEFT)//Mousebuttons: Left enables mouse-look-around. Right disables it.
+			if (wlf->event.button.state == SDL_PRESSED)
 			{
-				wlf->mousemovement = (wlf->mousemovement * wlf->mousemovement) - 1;
+				if (wlf->event.button.button == SDL_BUTTON_LEFT)
+					wlf->mousemovement = (wlf->mousemovement * wlf->mousemovement) - 1;
+				else if (wlf->event.button.button == SDL_BUTTON_RIGHT)
+					interact(wlf);
 				if (wlf->mousemovement)
 					SDL_SetRelativeMouseMode(SDL_TRUE);
 				else
@@ -176,13 +180,14 @@ void	setup(t_doom *wlf)
 				mouse_move(wlf->event.motion.xrel, wlf->event.motion.yrel, wlf);
 		}
 		move(wlf);
-		if (buffer > BUFFER)
+		if (wlf->buffer < 1)
+			wlf->buffer = 1;
+		if (buffer > wlf->buffer)
 		{
 			wlf->cycle(wlf);
 			buffer = 0;
 		}
 		buffer++;
-		prevtype = wlf->event.type;
 		SDL_WaitThread(capper, NULL);
 	}
 }
@@ -205,16 +210,16 @@ int		main(int ac, char **av)
 	wolf->tile = 6;
 	if (wolf->tile < 1 || wolf->tile > 6)
 		error_out(USAGE, wolf);
-	wolf->mxflr = 5;
+	wolf->mxflr = 9;
 	if (wolf->mxflr < 1 || wolf->mxflr > 9)
 		error_out(USAGE, wolf);
 	if (!(wolf->win = SDL_CreateWindow("DoomNukem", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINX, WINY, SDL_WINDOW_RESIZABLE)))
 		error_out(WIN_ERROR, wolf);
 	//SDL_CreateWindowAndRenderer(WINX, WINY, 0, &(wolf->win), &(wolf->rend));
-	wolf->img = init_image(wolf);
 	if (!(wolf->rend = SDL_CreateRenderer(wolf->win, -1, SDL_RENDERER_SOFTWARE)))
 		if (!(wolf->rend = SDL_GetRenderer(wolf->win)))
 			error_out(REN_ERROR, wolf);
+	wolf->img = init_image(wolf);
 	/*if (!(wolf->gpad = SDL_GameControllerOpen(0)))
 		ft_putendl(PAD_ERROR);
 	else

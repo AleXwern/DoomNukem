@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/24 12:34:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:42:31 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_gfx			init_image(t_doom *wolf)
 
 	if (!(image.tex = SDL_GetWindowSurface(wolf->win)))
 		error_out(WIN_ERROR, wolf);
+	image.img = SDL_CreateTextureFromSurface(wolf->rend, image.tex);
 	image.data = (Uint32*)image.tex->pixels;
 	return (image);
 }
@@ -93,7 +94,7 @@ void	comp_hud_gfx(t_doom *wolf, char *bpath, int i)
 {
 	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "hud/notifup.xpm"), 41, 57);
 	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "hud/notifdown.xpm"), 441, 57);
-	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "3/battlebg.xpm"), WINX, WINY);
+	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "hud/options.xpm"), 540, 720);
 	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "foe/foe3.xpm"), 564, 396);
 	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "hud/btlmenu.xpm"), 221, 312);
 	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "hud/btlsel.xpm"), 221, 312);

@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 21:46:48 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/07/01 17:25:12 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "../includes/value.h"
 
 #include <stdio.h>//
+
+t_doom* tester;
 
 void	dda_sys(t_doom *wlf)
 {
@@ -50,12 +52,12 @@ void	dda_prep(t_doom *wlf)
 	wlf->deltadx = fabs(1 / wlf->raydx);
 	wlf->deltady = fabs(1 / wlf->raydy);
 	wlf->deltadz = fabs(1 / wlf->raydz);
-	/*wlf->deltadx = (1 / wlf->raydx);
-	*((long*)&wlf->deltadx) &= 0x7FFFFFFFFFFFFFFF;
-	wlf->deltady = (1 / wlf->raydy);
-	*((long*)&wlf->deltady) &= 0x7FFFFFFFFFFFFFFF;
-	wlf->deltadz = (1 / wlf->raydz);
-	*((long*)&wlf->deltadz) &= 0x7FFFFFFFFFFFFFFF;*/
+	//wlf->deltadx = (1 / wlf->raydx);
+	//*((long*)&wlf->deltadx) &= 0x7FFFFFFFFFFFFFFF;
+	//wlf->deltady = (1 / wlf->raydy);
+	//*((long*)&wlf->deltady) &= 0x7FFFFFFFFFFFFFFF;
+	//wlf->deltadz = (1 / wlf->raydz);
+	//*((long*)&wlf->deltadz) &= 0x7FFFFFFFFFFFFFFF;
 	if (wlf->raydx < 0)
 	{
 		wlf->stepx = -1;
@@ -114,45 +116,53 @@ void	rc_init(t_doom *wlf)
 int		renthread(void *ptr)
 {
 	t_doom *wlf;
+	int		x;
 
 	wlf = (t_doom*)ptr;
-	while (wlf->x < wlf->winw)
+	x = wlf->x;
+	while (1)
 	{
-		wlf->y = -1;
-		while (++wlf->y < wlf->winh)
+		*wlf = *tester;
+		wlf->x = x;
+		while (wlf->x < wlf->winw && !wlf->ismenu)
 		{
-			rc_init(wlf);
-			wlf->lineh = (int)(wlf->winh / wlf->walldist);
-			if (wlf->side == 1)
-				wlf->testcolor = 0xff3679ff;
-			else if (wlf->side == 2)
-				wlf->testcolor = 0xffb01cff;
-			else
-				wlf->testcolor = 0xffF0330A;
-			wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
-			wlf->maparr[wlf->winw * wlf->y + wlf->x] = wlf->side;
-			if (wlf->side == 2)
-				render_floor(wlf);
-			else
-				wall_stripe(wlf);
+			wlf->y = -1;
+			while (++wlf->y < wlf->winh)
+			{
+				rc_init(wlf);
+				wlf->lineh = (int)(wlf->winh / wlf->walldist);
+				if (wlf->side == 1)
+					wlf->testcolor = 0xff3679ff;
+				else if (wlf->side == 2)
+					wlf->testcolor = 0xffb01cff;
+				else
+					wlf->testcolor = 0xffF0330A;
+				tester->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
+				tester->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
+				if (wlf->side == 2)
+					render_floor(wlf);
+				else
+					wall_stripe(wlf);
+			}
+			wlf->x += wlf->trx;
 		}
-		wlf->x += wlf->trx;
+		//tester->fps++;
 	}
 	return (1);
 }
 
 void	gravity(t_doom *wlf)
 {
-	if (wlf->keytwo)
+	if (wlf->keytwo || wlf->isgravity || wlf->ismenu)
 		return ;
 	while (wlf->gravity.z >= 1.0 || wlf->gravity.z <= -1.0)
-		wlf->gravity.z -= wlf->gravity.z / 10;
+		wlf->gravity.z += wlf->fallsp.z;
 	if (wlf->gravity.z < 0)
 	{
 		if (wlf->map[(int)(wlf->posz + wlf->gravity.z - 0.1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 			wlf->posz += wlf->gravity.z;
 	}
-	else if (wlf->map[(int)(wlf->posz + wlf->gravity.z + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+	else if (wlf->map[(int)(wlf->posz + 1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 		wlf->posz += wlf->gravity.z;
 	else
 	{
@@ -160,9 +170,9 @@ void	gravity(t_doom *wlf)
 		wlf->gravity.z = 0;
 		wlf->posz = floor(wlf->posz) + 0.5;
 	}
-	wlf->gravity.z += 0.1 * (90.0 / wlf->prefps);
-	if (wlf->gravity.z > 0.2 * (90.0 / wlf->prefps))
-		wlf->gravity.z = 0.2 * (90.0 / wlf->prefps);
+	wlf->gravity.z += wlf->fallsp.z;
+	if (wlf->gravity.z > 0.2 * (30.0 / wlf->buffer / wlf->prefps))
+		wlf->gravity.z = 0.2 * (30.0 / wlf->buffer / wlf->prefps);
 	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
 		wlf->posz -= 0.1;
 }
@@ -200,15 +210,20 @@ void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now reall
 		}
 	}
 }*/
+/*
+__global__ void test(void)
+{
+	printf("This is a test\n");
+}*/
 
 void	render(t_doom *wlf)
 {
-	int			x;
+	static int	x;
 
-	gravity(wlf);
-	x = 0;
+	//x = 0;
 	if (wlf->trx < 0)
 		wlf->trx = 1;
+	tester = wlf;
 	while (x < wlf->trx)
 	{
 		ft_memcpy((void*)&wlf->data_r[x], (void*)wlf, sizeof(t_doom));
@@ -216,23 +231,16 @@ void	render(t_doom *wlf)
 		wlf->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&wlf->data_r[x]);
 		x++;
 	}
-	while (x--)
+	/*while (x--)
 	{
 		if (wlf->threads[x] == NULL)
 			ft_putendl("Thread failure.");
 		else
 			SDL_WaitThread(wlf->threads[x], NULL);
-	}
-	wlf->y = -1;
-	while (++wlf->y < wlf->winh && !wlf->texbool)
-	{
-		wlf->x = -1;
-		while (++wlf->x < wlf->winw)
-		{
-			if (tex_check(wlf))
-				wlf->img.data[wlf->winw * wlf->y + wlf->x] = 0xff000000;
-		}
-	}
+	}*/
+	//wlf->y = -1;
+	if (wlf->isoutline)
+		post_effects(wlf);
 	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
 	//if (wlf->accesscard == 0)
 	//	pickupitem(wlf);
@@ -240,8 +248,8 @@ void	render(t_doom *wlf)
 	//	drawinventory(wlf, 1300, 500);
 	//if (wlf->accesscard == 1)
 	//	mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
-	wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);             
-	SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
+	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);             
+	//SDL_RenderCopy(wlf->rend, wlf->img.img, NULL, NULL);
 	SDL_RenderPresent(wlf->rend);
 	wlf->fps++;
 }

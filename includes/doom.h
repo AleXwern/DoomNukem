@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/29 13:33:50 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:35:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,21 @@ typedef struct	s_chara
 
 typedef struct	s_gfx
 {
-	SDL_Surface		*tex;
-	Uint32			*data;
-	int				wid;
-	int				hgt;
+	SDL_Surface	*tex;
+	SDL_Texture	*img;
+	Uint32		*data;
+	int			wid;
+	int			hgt;
 }				t_gfx;
+
+typedef struct	s_work
+{
+	int			claim;
+	Uint32		xmin;
+	Uint32		xmax;
+	Uint32		ymin;
+	Uint32		ymax;
+}				t_work;
 
 /*
 ** mlx	= MLX pointer
@@ -132,6 +142,7 @@ typedef struct	s_doom
 {
 	SDL_Window	*win;
 	SDL_Renderer *rend;
+	SDL_Surface	*surf;
 	SDL_Texture *tex;
 	t_gfx		img;
 	SDL_RWops	*rwops;
@@ -201,6 +212,7 @@ typedef struct	s_doom
 	double		poszz;
 	int			airbrn;
 	t_vector	gravity;
+	t_vector	fallsp;
 	t_vector	dir;
 	t_vector	plane;
 	double		camx;
@@ -254,14 +266,19 @@ typedef struct	s_doom
 	int			crouching;
 	int			mouseprevx;
 	int			mouseprevy;
+	int			*options[25];
+	double		maxvalue[25];
 	int			isoptions;
 	int			isfpscap;
+	int			isoutline;
+	int			isgravity;
 	int			shift;
 	SDL_Thread	*fpsthread;
 	Uint32		fps;
 	int			trx;
 	int			fpscap;
 	int			prefps;
+	int			buffer;
 	double		camshift;
 	int			mousemovement;
 }				t_doom;
@@ -301,6 +318,7 @@ void			comp_gfx(t_doom *wolf, int i);
 void			comp_map(t_doom *wolf, char *av);
 void			destroy_gfx(t_doom *wlf, int i);
 void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
+void			draw_menu(t_doom *wlf, int x, int y);
 void			draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
 void			encounter(t_doom *wlf);
 void			error_out(char *msg, t_doom *wolf);
@@ -308,10 +326,12 @@ void			exit_combat(t_doom *wlf);
 void			free_map(t_doom *wlf, int f, int y);
 void			free_memory(char **arr);
 void			gen_att_ai(t_doom *wlf);
+void			gravity(t_doom *wlf);
 void			health_check(t_doom *wlf, int pc, int thp);
 void			lab_move(t_doom *wlf, int obj);
 void			options_menu(t_doom *wlf);
 void			place_pc(t_doom *wlf, int pc);
+void			post_effects(t_doom *wlf);
 void			render(t_doom *wlf);
 void			render_floor(t_doom *wlf);
 void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
