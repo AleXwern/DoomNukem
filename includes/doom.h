@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/30 16:27:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:35:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct	s_chara
 typedef struct	s_gfx
 {
 	SDL_Surface	*tex;
+	SDL_Texture	*img;
 	Uint32		*data;
 	int			wid;
 	int			hgt;
@@ -141,6 +142,7 @@ typedef struct	s_doom
 {
 	SDL_Window	*win;
 	SDL_Renderer *rend;
+	SDL_Surface	*surf;
 	SDL_Texture *tex;
 	t_gfx		img;
 	SDL_RWops	*rwops;
@@ -269,6 +271,7 @@ typedef struct	s_doom
 	int			isoptions;
 	int			isfpscap;
 	int			isoutline;
+	int			isgravity;
 	int			shift;
 	SDL_Thread	*fpsthread;
 	Uint32		fps;

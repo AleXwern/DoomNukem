@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/30 17:05:00 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:50:57 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int		renthread(void *ptr)
 
 void	gravity(t_doom *wlf)
 {
-	if (wlf->keytwo)
+	if (wlf->keytwo || wlf->isgravity || wlf->ismenu)
 		return ;
 	while (wlf->gravity.z >= 1.0 || wlf->gravity.z <= -1.0)
 		wlf->gravity.z += wlf->fallsp.z;
@@ -161,8 +161,8 @@ void	gravity(t_doom *wlf)
 		wlf->posz = floor(wlf->posz) + 0.5;
 	}
 	wlf->gravity.z += wlf->fallsp.z;
-	if (wlf->gravity.z > 0.2 * (30.0 / BUFFER / wlf->prefps))
-		wlf->gravity.z = 0.2 * (30.0 / BUFFER / wlf->prefps);
+	if (wlf->gravity.z > 0.2 * (30.0 / wlf->buffer / wlf->prefps))
+		wlf->gravity.z = 0.2 * (30.0 / wlf->buffer / wlf->prefps);
 	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
 		wlf->posz -= 0.1;
 }
@@ -237,8 +237,8 @@ void	render(t_doom *wlf)
 	//	drawinventory(wlf, 1300, 500);
 	//if (wlf->accesscard == 1)
 	//	mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
-	wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);             
-	SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
+	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);             
+	//SDL_RenderCopy(wlf->rend, wlf->img.img, NULL, NULL);
 	SDL_RenderPresent(wlf->rend);
 	wlf->fps++;
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/30 16:47:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:01:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int		fps_capper(void* ptr)
 	t_doom	*wlf;
 
 	wlf = (t_doom*)ptr;
+	if (wlf->fpscap < 1)
+		wlf->fpscap = 1;
 	if (wlf->isfpscap)
 		SDL_Delay(1000 / wlf->fpscap / 6);
 	return (1);
@@ -76,9 +78,9 @@ int		fps_counter(void* ptr)
 	{
 		SDL_Delay(1000);
 		printf("FPS: %d\n", wlf->fps);
-		if (wlf->fps > 0)
+		if (wlf->fps > 0 && !wlf->ismenu)
 			wlf->prefps = wlf->fps;
-		wlf->fallsp.z = (0.65 * (30.0 / BUFFER / wlf->prefps)) / wlf->prefps / (BUFFER / 5.0);
+		wlf->fallsp.z = (0.65 * (30.0 / wlf->buffer / wlf->prefps)) / wlf->prefps / (wlf->buffer / 5.0);
 		wlf->fps = 0;
 	}
 	return (1);

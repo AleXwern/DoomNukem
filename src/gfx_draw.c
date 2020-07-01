@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/06/30 15:27:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/01 15:26:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ void	draw_menu(t_doom *wlf, int x, int y)
 	int		gy;
 	int		gx;
 
-	gy = 0;
-	while (gy < wlf->gfx[9].hgt && (y + gy) < wlf->winh)
+	gy = -1;
+	while (++gy < wlf->winh)
 	{
-		gx = 0;
-		while (gx < wlf->gfx[9].wid && (x + gx) < wlf->winw)
+		y = gy * (wlf->gfx[9].hgt / (double)wlf->winh);
+		gx = -1;
+		while (++gx < wlf->winw / 2)
 		{
+			x = gx * (wlf->gfx[9].wid / ((double)wlf->winw / 2));
 			if (gy > (wlf->cur * wlf->winh / 10) && gy < ((wlf->cur + 1) * wlf->winh / 10))
-				wlf->img.data[WINX * (y + gy) + (x + gx)] =
-						0xffff00ff;
+				wlf->img.data[wlf->winw * gy + gx] = wlf->gfx[9].data[wlf->gfx[9].wid * y + x] + 0x00252525;
 			else
-				wlf->img.data[WINX * (y + gy) + (x + gx)] =
-						wlf->gfx[9].data[wlf->gfx[9].wid * gy + gx];
-			gx++;
+				wlf->img.data[wlf->winw * gy + gx] = wlf->gfx[9].data[wlf->gfx[9].wid * y + x];
 		}
-		gy++;
+		while (++gx < wlf->winw)
+			wlf->img.data[wlf->winw * gy + gx] = 0xff1821ac;
 	}
 }
 
