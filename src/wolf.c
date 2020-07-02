@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/02 12:25:26 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/02 15:00:57 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ void	wolf_default(t_doom *wlf)
 		error_out(MEM_ERROR, wlf);
 	if (!(wlf->wallarr = (double*)malloc(sizeof(double) * wlf->winw * wlf->winh)))
 		error_out(MEM_ERROR, wlf);
+	if (!(wlf->mutex = SDL_CreateMutex()))
+		error_out(MEM_ERROR, wlf);
+	if (!(wlf->cond = SDL_CreateCond()))
+		error_out(MEM_ERROR, wlf);
 	//if (wlf->threads)
 	//	free(wlf->threads);
 	//if (wlf->data_r)
@@ -79,8 +83,15 @@ void	error_out(char *msg, t_doom *wolf)
 {
 	ft_putendl(msg);
 	ft_putendl(SDL_GetError());
+	SDL_SetRelativeMouseMode(SDL_FALSE);
 	wolf->killthread = 1;
-	ft_bzero(wolf->claimline, sizeof(int) * wolf->winw + 1);
+	SDL_CondBroadcast(wolf->cond);
+	for (int i = 0; i < wolf->trx; i++)
+	{
+		ft_putnbr(wolf->data_r[i].id);
+		ft_putchar(' ');
+	}
+	ft_putchar('\n');
 	while (--wolf->trx >= 0)
 	{
 		if (wolf->threads[wolf->trx] == NULL)
@@ -89,6 +100,8 @@ void	error_out(char *msg, t_doom *wolf)
 			SDL_WaitThread(wolf->threads[wolf->trx], NULL);
 		printf("Called thread: %d\n", wolf->trx);
 	}
+	SDL_DestroyMutex(wolf->mutex);
+	SDL_DestroyCond(wolf->cond);
 	if (!ft_strcmp(msg, WLF_ERROR))
 		exit(0);
 	if (!ft_strcmp(msg, FLR_ERROR))

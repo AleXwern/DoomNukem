@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/02 13:34:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/02 14:51:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,6 @@ typedef struct	s_doom
 	struct s_doom		*data_r;
 	struct s_doom		*wlf;
 	int			id;
-	Uint64		preframe;
-	Uint64		frame;
-	Uint64		msframe;
 	int			*claimline;
 	double		*wallarr;
 	int			*maparr;

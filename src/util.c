@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/02 13:30:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/02 14:18:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int		fps_counter(void* ptr)
 	while (!wlf->killthread)
 	{
 		SDL_Delay(1000);
-		//printf("FPS: %d\n", wlf->fps / wlf->trx);
-		printf("FPS: %d\n", wlf->fps);
+		printf("FPS: %d\n", wlf->fps / wlf->trx);
+		//printf("FPS: %d\n", wlf->fps);
 		if (wlf->fps > 0 && !wlf->ismenu)
 			wlf->prefps = wlf->fps;
 		wlf->fallsp.z = (0.65 * (30.0 / wlf->buffer / wlf->prefps)) / wlf->prefps / (wlf->buffer / 5.0);
