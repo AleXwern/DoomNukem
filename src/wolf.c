@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 15:37:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/02 12:25:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,13 @@ void	wolf_default(t_doom *wlf)
 	wlf->buffer = BUFFER;
 	wlf->cycle = &render;
 	wlf->trx = ((wlf->winw / 100) * (wlf->winh / 100)) / 2 + 1;
-	wlf->trx = 15;
+	wlf->trx = 30;
 	wlf->camshift = 1.0f;
 	wlf->fpscap = 60;
+	wlf->wlf = wlf;
+	if (!(wlf->claimline = (int*)malloc(sizeof(int) * wlf->winw + 1)))
+		error_out(MEM_ERROR, wlf);
+	ft_bzero(wlf->claimline, sizeof(int) * wlf->winw + 1);
 	if (!(wlf->maparr = (int*)malloc(sizeof(int) * wlf->winw * wlf->winh)))
 		error_out(MEM_ERROR, wlf);
 	if (!(wlf->wallarr = (double*)malloc(sizeof(double) * wlf->winw * wlf->winh)))
@@ -76,6 +80,15 @@ void	error_out(char *msg, t_doom *wolf)
 	ft_putendl(msg);
 	ft_putendl(SDL_GetError());
 	wolf->killthread = 1;
+	ft_bzero(wolf->claimline, sizeof(int) * wolf->winw + 1);
+	while (--wolf->trx >= 0)
+	{
+		if (wolf->threads[wolf->trx] == NULL)
+			ft_putendl("Thread failure.");
+		else
+			SDL_WaitThread(wolf->threads[wolf->trx], NULL);
+		printf("Called thread: %d\n", wolf->trx);
+	}
 	if (!ft_strcmp(msg, WLF_ERROR))
 		exit(0);
 	if (!ft_strcmp(msg, FLR_ERROR))

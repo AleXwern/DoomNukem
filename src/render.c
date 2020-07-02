@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 17:25:12 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/07/02 13:35:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "../includes/value.h"
 
 #include <stdio.h>//
-
-t_doom* tester;
 
 void	dda_sys(t_doom *wlf)
 {
@@ -120,14 +118,16 @@ int		renthread(void *ptr)
 
 	wlf = (t_doom*)ptr;
 	x = wlf->x;
-	while (1)
+	while (!wlf->killthread)
 	{
-		*wlf = *tester;
+		*wlf = *wlf->wlf;
 		wlf->x = x;
 		while (wlf->x < wlf->winw && !wlf->ismenu)
 		{
 			wlf->y = -1;
-			while (++wlf->y < wlf->winh)
+			if (wlf->wlf->claimline[wlf->x] == 0)
+				wlf->wlf->claimline[wlf->x] = wlf->id;
+			while (++wlf->y < wlf->winh && wlf->wlf->claimline[wlf->x] == wlf->id)
 			{
 				rc_init(wlf);
 				wlf->lineh = (int)(wlf->winh / wlf->walldist);
@@ -137,17 +137,25 @@ int		renthread(void *ptr)
 					wlf->testcolor = 0xffb01cff;
 				else
 					wlf->testcolor = 0xffF0330A;
-				tester->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
-				tester->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
+				wlf->wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
+				wlf->wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
 				if (wlf->side == 2)
 					render_floor(wlf);
 				else
 					wall_stripe(wlf);
 			}
-			wlf->x += wlf->trx;
+			if (wlf->y > 0)
+				wlf->wlf->claimline[wlf->x] = -1;
+			//printf("Values %d %d %d\n", wlf->x, wlf->winw, wlf->wlf->claimline[wlf->x]);
+			//while (wlf->x < wlf->winw && wlf->wlf->claimline[wlf->x] != 0)
+			wlf->x++;
 		}
-		//tester->fps++;
+		wlf->wlf->claimline[wlf->x]++;
+		wlf->wlf->fps++;
+		SDL_CondWait();
 	}
+	SDL_DestroyMutex(wlf->mutex);
+	SDL_DestroyCond(wlf->cond);
 	return (1);
 }
 
@@ -223,21 +231,23 @@ void	render(t_doom *wlf)
 	//x = 0;
 	if (wlf->trx < 0)
 		wlf->trx = 1;
-	tester = wlf;
 	while (x < wlf->trx)
 	{
 		ft_memcpy((void*)&wlf->data_r[x], (void*)wlf, sizeof(t_doom));
 		wlf->data_r[x].x = x;
+		wlf->data_r[x].id = x + 1;;
 		wlf->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&wlf->data_r[x]);
+		printf("Created thread: %d\n", x);
 		x++;
 	}
-	/*while (x--)
+	while (x > wlf->trx)
 	{
 		if (wlf->threads[x] == NULL)
 			ft_putendl("Thread failure.");
 		else
 			SDL_WaitThread(wlf->threads[x], NULL);
-	}*/
+		x--;
+	}
 	//wlf->y = -1;
 	if (wlf->isoutline)
 		post_effects(wlf);
@@ -250,6 +260,20 @@ void	render(t_doom *wlf)
 	//	mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
 	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);             
 	//SDL_RenderCopy(wlf->rend, wlf->img.img, NULL, NULL);
-	SDL_RenderPresent(wlf->rend);
-	wlf->fps++;
+	if (wlf->claimline[wlf->winw] >= wlf->trx || wlf->claimline[wlf->winw] < 0)
+	{
+		SDL_RenderPresent(wlf->rend);
+		ft_bzero(wlf->claimline, sizeof(int) * wlf->winw + 1);
+		wlf->msframe++;
+	}
+	/*else
+	{
+		for (int i = 0; i <= wlf->winw; i++)
+		{
+			ft_putnbr(wlf->claimline[i]);
+			ft_putchar(' ');
+		}
+		ft_putchar('\n');
+	}*/
+	//wlf->fps++;
 }
