@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 14:02:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 12:02:57 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,11 @@ int				key_release(int key, t_doom *wlf)
 		wlf->keyq = 0;
 	if (key == KEY_E)
 		wlf->keye = 0;
-	if (key == KEY_I)
+	if (key == KEY_I || key == SDL_SCANCODE_I)
+	{
+		ft_putendl("I pressed");
 		wlf->keyi = wlf->keyi == 1 ? 0 : 1;
+	}
 	if (key == KEY_SHIFT)
 		wlf->movsp -= 0.06;
 	if (key == KEY_L)
@@ -194,7 +197,7 @@ int				mouse_move(int x, int y, t_doom *wlf)
 	t_vector	olddir;
 	t_vector	oldplane;
 	t_vector	rota;
-	
+
 	olddir = wlf->dir;
 	oldplane = wlf->plane;
 	//printf("%d %d\n", x, y);

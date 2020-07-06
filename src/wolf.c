@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/06 11:47:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 14:56:39 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	wolf_default(t_doom *wlf)
 	wlf->prefps = 30;
 	wlf->mousemovement = 0;
 	wlf->buffer = BUFFER;
+	load_animsprite(wlf);
 	wlf->cycle = &render;
 	wlf->trx = ((wlf->winw / 100) * (wlf->winh / 100)) / 2 + 1;
 	wlf->trx = 30;
@@ -110,7 +111,7 @@ void	error_out(char *msg, t_doom *wolf)
 	SDL_WaitThread(wolf->fpsthread, NULL);
 	SDL_Quit();
 	ft_bzero(wolf, sizeof(wolf));
-	system("leaks doomdemo");
+	//system("leaks doom-nukem");
 	exit(0);
 }
 
