@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/02 15:00:57 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 11:47:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,6 @@ void	error_out(char *msg, t_doom *wolf)
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	wolf->killthread = 1;
 	SDL_CondBroadcast(wolf->cond);
-	for (int i = 0; i < wolf->trx; i++)
-	{
-		ft_putnbr(wolf->data_r[i].id);
-		ft_putchar(' ');
-	}
-	ft_putchar('\n');
-	while (--wolf->trx >= 0)
-	{
-		SDL_CondSignal(wolf->cond);
-		if (wolf->threads[wolf->trx] == NULL)
-			ft_putendl("Thread failure.");
-		else
-			SDL_WaitThread(wolf->threads[wolf->trx], NULL);
-		printf("Called thread: %d\n", wolf->trx);
-	}
 	SDL_DestroyMutex(wolf->mutex);
 	SDL_DestroyCond(wolf->cond);
 	if (!ft_strcmp(msg, WLF_ERROR))

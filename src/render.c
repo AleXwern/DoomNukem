@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/02 15:03:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 11:53:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,61 +116,33 @@ void	rc_init(t_doom *wlf)
 int		renthread(void *ptr)
 {
 	t_doom *wlf;
-	int		x;
-	int		test = 0;
 
 	wlf = (t_doom*)ptr;
-	x = wlf->x;
-	wlf->id = x + 1;
-	SDL_TryLockMutex(wlf->mutex);
-	while (!wlf->wlf->killthread)
+	//SDL_TryLockMutex(wlf->mutex);
+	while (wlf->x < wlf->winw)
 	{
-		*wlf = *wlf->wlf;
-		wlf->x = x;
-		while (wlf->x < wlf->winw && !wlf->ismenu)
+		wlf->y = -1;
+		while (++wlf->y < wlf->winh)
 		{
-			wlf->y = -1;
-			if (wlf->wlf->claimline[wlf->x] == 0)
-				wlf->wlf->claimline[wlf->x] = wlf->id;
-			while (++wlf->y < wlf->winh && wlf->wlf->claimline[wlf->x] == wlf->id)
-			{
-				rc_init(wlf);
-				wlf->lineh = (int)(wlf->winh / wlf->walldist);
-				if (wlf->side == 1)
-					wlf->testcolor = 0xff3679ff;
-				else if (wlf->side == 2)
-					wlf->testcolor = 0xffb01cff;
-				else
-					wlf->testcolor = 0xffF0330A;
-				wlf->wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
-				wlf->wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
-				if (wlf->side == 2)
-					render_floor(wlf);
-				else
-					wall_stripe(wlf);
-			}
-			if (wlf->y == wlf->winh)
-			{
-				test++;
-				wlf->wlf->claimline[wlf->x] = -1;
-			}
-			//printf("Values %d %d %d\n", wlf->x, wlf->winw, wlf->wlf->claimline[wlf->x]);
-			while (wlf->x < wlf->winw && wlf->wlf->claimline[wlf->x] != 0)
-				wlf->x += wlf->trx;
+			rc_init(wlf);
+			wlf->lineh = (int)(wlf->winh / wlf->walldist);
+			if (wlf->side == 1)
+				wlf->testcolor = 0xff3679ff;
+			else if (wlf->side == 2)
+				wlf->testcolor = 0xffb01cff;
+			else
+				wlf->testcolor = 0xffF0330A;
+			wlf->wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
+			wlf->wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
+			if (wlf->side == 2)
+				render_floor(wlf);
+			else
+				wall_stripe(wlf);
 		}
-		wlf->wlf->claimline[wlf->winw]++;
-		wlf->wlf->fps++;
-		//printf("Thread ID %d drew %d threads\nClaimline at %d\n", wlf->id, test, wlf->wlf->claimline[wlf->winw]);
-		if (SDL_CondWait(wlf->wlf->cond, wlf->wlf->mutex) == -1)
-		{
-			ft_putendl("Broadcast failed");
-			exit(0);
-		}
-		//else
-		//	printf("Thread ID %d\n", wlf->id);
-		test = 0;
+		wlf->x += wlf->trx;
 	}
-	SDL_UnlockMutex(wlf->mutex);
+	//printf("Thread ID %d drew %d threads\nClaimline at %d\n", wlf->id, test, wlf->wlf->claimline[wlf->winw]);
+	//UnlockMutex(wlf->mutex);
 	return (1);
 }
 
@@ -241,32 +213,33 @@ __global__ void test(void)
 
 void	render(t_doom *wlf)
 {
-	static int	x;
+	int			x;
 	int			i;
 
-	//x = 0;
+	x = 0;
 	if (wlf->trx < 0)
 		wlf->trx = 1;
 	while (x < wlf->trx)
 	{
-		ft_memcpy((void*)&wlf->data_r[x], (void*)wlf, sizeof(t_doom));
+		//ft_memcpy((void*)&wlf->data_r[x], (void*)wlf, sizeof(t_doom));
+		wlf->data_r[x] = *wlf;
 		wlf->data_r[x].x = x;
 		wlf->data_r[x].id = x + 1;
 		wlf->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&wlf->data_r[x]);
-		printf("Created thread: %d\n", x);
 		x++;
 	}
-	while (x > wlf->trx)
+	while (--x >= 0)
 	{
 		if (wlf->threads[x] == NULL)
 			ft_putendl("Thread failure.");
 		else
 			SDL_WaitThread(wlf->threads[x], NULL);
-		x--;
 	}
 	//wlf->y = -1;
 	if (wlf->isoutline)
 		post_effects(wlf);
+	SDL_UpdateWindowSurface(wlf->win);
+	wlf->wlf->fps++;
 	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
 	//if (wlf->accesscard == 0)
 	//	pickupitem(wlf);
@@ -279,13 +252,12 @@ void	render(t_doom *wlf)
 	//ft_putnbrln(wlf->claimline[wlf->winw]);
 	//ft_putnbrln(wlf->claimline[wlf->winw]);
 	//if (wlf->claimline[wlf->winw] == wlf->trx)
-	while (1)
+	/*while (1)
 	{
 		i = wlf->winw;
 		if (i = wlf->winw)
 		{
 			//SDL_RenderPresent(wlf->rend);
-			SDL_UpdateWindowSurface(wlf->win);
 			ft_bzero(wlf->claimline, sizeof(int) * wlf->winw + 1);
 			wlf->claimline[wlf->winw] = 0;
 			SDL_CondBroadcast(wlf->cond);
@@ -295,7 +267,7 @@ void	render(t_doom *wlf)
 			i--;
 		else
 			break;
-	}
+	}*/
 	/*else
 	{
 		for (int i = 0; i <= wlf->winw; i++)
