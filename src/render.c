@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/06 12:31:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 15:41:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,10 +206,35 @@ void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now reall
 	}
 }*/
 
+void	load_animsprite(t_doom *wlf)
+{
+	//wlf->sprites = IMG_Load("./gfx/foe/foe2.png");
+	//wlf->sprites = IMG_Load("./gfx/SpriteSheets/PokemonTrainer.png");
+	wlf->spriteSurface = IMG_Load("./gfx/SpriteSheets/GreyDragon.png");
+	wlf->spriteTexture = SDL_CreateTextureFromSurface(wlf->rend, wlf->spriteSurface);
+	SDL_FreeSurface(wlf->spriteSurface);
+
+	wlf->spriteRect.x = 0;//upper left corner x-coordinate
+	wlf->spriteRect.y = 0;//upper left corner y-coordinate
+	wlf->spriteRect.w = 96;//width of one animation part of the sheet
+	wlf->spriteRect.h = 96;//height of one animation part of the sheet
+
+	wlf->screenRect.x = (WINX - 200) / 2;//where on screen the upper left corner of the sprite should be drawn
+	wlf->screenRect.y = (WINY - 200) / 2;//where on screen the upper left corner of the sprite should be drawn
+	wlf->screenRect.w = 200;//width of the final sprite on screen
+	wlf->screenRect.h = 200;//height of the final sprite on screen
+}
+
+void	draw_sprite(t_doom *wlf)
+{
+	SDL_RenderCopy(wlf->rend, wlf->spriteTexture, &wlf->spriteRect, &wlf->screenRect);
+	//SDL_RenderPresent(wlf->rend);
+}
+
 void	render(t_doom *wlf)
 {
-	int			x;
-	int			i;
+	int	x;
+	int	i;
 
 	x = 0;
 	if (wlf->trx < 0)
@@ -228,10 +253,13 @@ void	render(t_doom *wlf)
 		else
 			SDL_WaitThread(wlf->threads[x], NULL);
 	}
+	if (wlf->keyi)
+		draw_sprite(wlf);
 	if (wlf->isoutline)
 		post_effects(wlf);
-	SDL_UpdateWindowSurface(wlf->win);
-	wlf->fps++;
+	//SDL_UpdateWindowSurface(wlf->win);
+	SDL_RenderPresent(wlf->rend);
+	wlf->wlf->fps++;
 	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
 	//if (wlf->accesscard == 0)
 	//	pickupitem(wlf);

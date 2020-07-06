@@ -6,12 +6,12 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/06 14:59:55 by anystrom         ###   ########.fr        #
+#    Updated: 2020/07/06 15:41:28 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = doomdemo
+NAME = doom-nukem
 FLG =
 SRCFILE = wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c floor.c menu.c gfx_draw.c posteff.c \

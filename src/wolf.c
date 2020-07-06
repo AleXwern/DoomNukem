@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/06 13:22:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 15:40:10 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	error_out(char *msg, t_doom *wolf)
 	SDL_WaitThread(wolf->fpsthread, NULL);
 	SDL_Quit();
 	ft_bzero(wolf, sizeof(wolf));
-	system("leaks doomdemo");
+	//system("leaks doom-nukem");
 	exit(0);
 }
 

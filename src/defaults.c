@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/06 15:35:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 15:40:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	doom_default(t_doom *wlf)
 	wlf->accesscard = 0;
 	wlf->prefps = 30;
 	wlf->buffer = BUFFER;
+	load_animsprite(wlf);
 	wlf->owinh = wlf->winh;
 	wlf->owinw = wlf->winw;
 	wind_default(wlf);
