@@ -32,6 +32,8 @@ void	draw_stripe(t_doom *wlf)
 		//shift = 0;
 		wlf->testcolor = color_shift(wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) * wlf->gfx[wlf->texnum].tex->pitch / 4 + wlf->texx % 128 * wlf->gfx[2].tex->format->BitsPerPixel / 32], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf, 0);
 	}
+	if (wlf->side > 2)
+		wlf->testcolor = (wlf->testcolor >> 1) & DARKEN;
 	wlf->img.data[wlf->winw * wlf->y + wlf->x] = wlf->testcolor;
 
 }
@@ -44,7 +46,7 @@ void	wall_stripe(t_doom *wlf)
 		wlf->raydy1 = wlf->dir.y + wlf->plane.y;
 		wlf->texnum = wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
 		wlf->flstepy = wlf->walldist * (wlf->raydy1 - wlf->raydy0) / wlf->winw;
-		if (wlf->side == 0)
+		if (wlf->side % 3 == 0)
 			wlf->wallx = (wlf->posy + wlf->walldist * wlf->raydy);
 		else
 			wlf->wallx = (wlf->posx + wlf->walldist * wlf->raydx);

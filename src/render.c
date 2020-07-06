@@ -113,6 +113,20 @@ void	rc_init(t_doom *wlf)
 		wlf->walldist += 0.01;
 }
 
+void	side_check(t_doom* wlf)
+{
+	int	delta;
+
+	if (wlf->side == 0)
+		delta = wlf->posx - wlf->mapx;
+	else if (wlf->side == 1)
+		delta = wlf->posy - wlf->mapy;
+	else
+		delta = wlf->posz - wlf->mapz;
+	if (delta > 0)
+		wlf->side += 3;
+}
+
 int		renthread(void *ptr)
 {
 	t_doom *wlf;
@@ -126,15 +140,16 @@ int		renthread(void *ptr)
 		{
 			rc_init(wlf);
 			wlf->lineh = (int)(wlf->winh / wlf->walldist);
-			if (wlf->side == 1)
+			side_check(wlf);
+			if (wlf->side % 3 == 1)
 				wlf->testcolor = 0xff3679ff;
-			else if (wlf->side == 2)
+			else if (wlf->side % 3 == 2)
 				wlf->testcolor = 0xffb01cff;
 			else
 				wlf->testcolor = 0xffF0330A;
-			//wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
-			//wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
-			if (wlf->side == 2)
+			wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
+			wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
+			if (wlf->side == 2 || wlf->side == 5)
 				render_floor(wlf);
 			else
 				wall_stripe(wlf);
@@ -259,7 +274,7 @@ void	render(t_doom *wlf)
 		post_effects(wlf);
 	//SDL_UpdateWindowSurface(wlf->win);
 	SDL_RenderPresent(wlf->rend);
-	wlf->wlf->fps++;
+	wlf->fps++;
 	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
 	//if (wlf->accesscard == 0)
 	//	pickupitem(wlf);

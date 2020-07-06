@@ -28,6 +28,8 @@ void	draw_floor(t_doom *wlf)
 	}
 	else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 2)
 		wlf->testcolor = 0xff22a800;
+	if (wlf->side > 2)
+		wlf->testcolor = (wlf->testcolor >> 1) & DARKEN;
 	wlf->img.data[wlf->winw * wlf->y + wlf->x] = wlf->testcolor;
 }
 

@@ -180,5 +180,6 @@
 # define			COLOR_WHITE 16777215
 # define			COLOR_ORANGE 16742400
 # define			COLOR_SKIP	0xffff00ff
+# define			DARKEN	0xff7f7f7f
 
 #endif

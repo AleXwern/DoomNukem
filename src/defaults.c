@@ -62,6 +62,7 @@ void	doom_default(t_doom *wlf)
 	wlf->cycle = &render;
 	wlf->keyck = &key_state_game;
 	wlf->trx = ((wlf->winw / 100) * (wlf->winh / 100)) / 2 + 1;
+	wlf->trx = 20;
 	wlf->camshift = 1.0f;
 	wlf->fpscap = 60;
 	if (!(wlf->maparr = (int*)malloc(sizeof(int) * wlf->winw * wlf->winh)))
