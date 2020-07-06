@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/06 11:53:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 12:31:14 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ int		renthread(void *ptr)
 				wlf->testcolor = 0xffb01cff;
 			else
 				wlf->testcolor = 0xffF0330A;
-			wlf->wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
-			wlf->wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
+			//wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
+			//wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
 			if (wlf->side == 2)
 				render_floor(wlf);
 			else
@@ -205,11 +205,6 @@ void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now reall
 		}
 	}
 }*/
-/*
-__global__ void test(void)
-{
-	printf("This is a test\n");
-}*/
 
 void	render(t_doom *wlf)
 {
@@ -221,10 +216,8 @@ void	render(t_doom *wlf)
 		wlf->trx = 1;
 	while (x < wlf->trx)
 	{
-		//ft_memcpy((void*)&wlf->data_r[x], (void*)wlf, sizeof(t_doom));
 		wlf->data_r[x] = *wlf;
 		wlf->data_r[x].x = x;
-		wlf->data_r[x].id = x + 1;
 		wlf->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&wlf->data_r[x]);
 		x++;
 	}
@@ -235,11 +228,10 @@ void	render(t_doom *wlf)
 		else
 			SDL_WaitThread(wlf->threads[x], NULL);
 	}
-	//wlf->y = -1;
 	if (wlf->isoutline)
 		post_effects(wlf);
 	SDL_UpdateWindowSurface(wlf->win);
-	wlf->wlf->fps++;
+	wlf->fps++;
 	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
 	//if (wlf->accesscard == 0)
 	//	pickupitem(wlf);
@@ -247,35 +239,4 @@ void	render(t_doom *wlf)
 	//	drawinventory(wlf, 1300, 500);
 	//if (wlf->accesscard == 1)
 	//	mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
-	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);             
-	//SDL_RenderCopy(wlf->rend, wlf->img.img, NULL, NULL);
-	//ft_putnbrln(wlf->claimline[wlf->winw]);
-	//ft_putnbrln(wlf->claimline[wlf->winw]);
-	//if (wlf->claimline[wlf->winw] == wlf->trx)
-	/*while (1)
-	{
-		i = wlf->winw;
-		if (i = wlf->winw)
-		{
-			//SDL_RenderPresent(wlf->rend);
-			ft_bzero(wlf->claimline, sizeof(int) * wlf->winw + 1);
-			wlf->claimline[wlf->winw] = 0;
-			SDL_CondBroadcast(wlf->cond);
-			break;
-		}
-		else if (wlf->claimline[i] >= 0)
-			i--;
-		else
-			break;
-	}*/
-	/*else
-	{
-		for (int i = 0; i <= wlf->winw; i++)
-		{
-			ft_putnbr(wlf->claimline[i]);
-			ft_putchar(' ');
-		}
-		ft_putchar('\n');
-	}*/
-	//wlf->fps++;
 }

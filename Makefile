@@ -3,23 +3,25 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/01 17:25:25 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/07/06 14:59:55 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = doomdemo
 FLG =
-SRCFILE = wolf.c fileformat.c gfx.c key_input.c render.c draw.c move.c \
-			interact.c util.c floor.c menu.c gfx_draw.c posteff.c
+SRCFILE = wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
+			interact.c util.c floor.c menu.c gfx_draw.c posteff.c \
+			defaults.c
+KEYFILE = key_editor.c key_game.c key_menu.c key_state.c
 TESTFILE = testkey.c
-SRC = $(addprefix ./src/,$(SRCFILE))
+SRC = $(addprefix ./src/,$(SRCFILE)) $(addprefix ./src/key/,$(SRCFILE))
 LIBFT = ./obj/libft.a
 OBJS = $(SRC:.c=.o)
-OBJ = $(addprefix ./obj/,$(SRCFILE:.c=.o))
+OBJ = $(addprefix ./obj/,$(SRCFILE:.c=.o)) $(addprefix ./obj/key/,$(KEYFILE:.c=.o))
 OBJDIR = ./obj/
 SRCDIR = ./src/
 INCL = -I ./SDL2 -I ./libft -I ./includes

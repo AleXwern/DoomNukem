@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/02 14:51:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 15:33:39 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,10 @@ typedef struct	s_doom
 	int			width;
 	int			winh;
 	int			winw;
+	int			owinw;
+	int			owinh;
 	void		(*cycle)(struct s_doom*);
+	void		(*keyck)(struct s_doom*);
 	char		*syssmg[2];
 	int			cur;
 	int			sel;
@@ -322,6 +325,7 @@ void			comp_foe(t_doom *wlf, char *bpath, int i);
 void			comp_gfx(t_doom *wolf, int i);
 void			comp_map(t_doom *wolf, char *av);
 void			destroy_gfx(t_doom *wlf, int i);
+void			doom_default(t_doom *wlf);
 void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
 void			draw_menu(t_doom *wlf, int x, int y);
 void			draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
@@ -330,17 +334,22 @@ void			error_out(char *msg, t_doom *wolf);
 void			exit_combat(t_doom *wlf);
 void			free_map(t_doom *wlf, int f, int y);
 void			free_memory(char **arr);
+void			game_loop(t_doom *wlf);
 void			gen_att_ai(t_doom *wlf);
 void			gravity(t_doom *wlf);
 void			health_check(t_doom *wlf, int pc, int thp);
+void			key_state_game(t_doom *wlf);
+void			key_state_menu(t_doom* wlf);
 void			lab_move(t_doom *wlf, int obj);
+void			main_menu(t_doom *wlf);
 void			options_menu(t_doom *wlf);
 void			place_pc(t_doom *wlf, int pc);
 void			post_effects(t_doom *wlf);
 void			render(t_doom *wlf);
 void			render_floor(t_doom *wlf);
+void			reset_window(t_doom *wlf);
 void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
 void			wall_stripe(t_doom *wlf);
-void			wolf_default(t_doom *wlf);
+void			wind_default(t_doom *wlf);
 
 #endif

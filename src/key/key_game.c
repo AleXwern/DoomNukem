@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_input.c                                        :+:      :+:    :+:   */
+/*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 14:02:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 14:52:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
-
-#include <stdio.h>
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
 
 void			menu_keys_hold(int key, t_doom *wlf)
 {
@@ -22,14 +20,12 @@ void			menu_keys_hold(int key, t_doom *wlf)
 		(*wlf->options[wlf->cur])--;
 		if ((*wlf->options[wlf->cur]) < 0)
 			(*wlf->options[wlf->cur]) = 0;
-		//printf("Option number %d value: %d\n", wlf->cur, (*wlf->options[wlf->cur]));
 	}
 	else if (key == RIGHT)
 	{
 		(*wlf->options[wlf->cur])++;
 		if ((*wlf->options[wlf->cur]) > (int)wlf->maxvalue[wlf->cur])
 			(*wlf->options[wlf->cur]) = (int)wlf->maxvalue[wlf->cur];
-		//printf("Option number %d value: %d\n", wlf->cur, (*wlf->options[wlf->cur]));
 	}
 }
 
@@ -138,8 +134,6 @@ int				key_release(int key, t_doom *wlf)
 	//	wlf->keyw = 0;
 	//if (key == KEY_S)
 	//	wlf->keys = 0;
-	if (key == KEY_F)
-		wlf->isfpscap = (wlf->isfpscap * wlf->isfpscap) - 1;
 	if (key == KEY_ONE)
 		wlf->keyone = 0;
 	if (key == KEY_TWO)
@@ -161,7 +155,7 @@ int				key_release(int key, t_doom *wlf)
 		wlf->posz -= 0.2;
 	}
 	if (key == KEY_R)
-		wolf_default(wlf);
+		doom_default(wlf);
 	if (key == SPACE)
 	{
 		if (!wlf->airbrn)

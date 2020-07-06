@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:03:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 13:49:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 15:34:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,19 @@ void	options_menu(t_doom *wlf)
 	draw_bars(wlf, -1, -1, -1);
 	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);
 	//SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
-	SDL_RenderPresent(wlf->rend);
+	SDL_UpdateWindowSurface(wlf->win);
 	wlf->fps++;
+}
+
+void	main_menu(t_doom *wlf)
+{
+	printf("uwu");
+	options_menu_create(wlf);
+	draw_menu(wlf, 0, 0);
+	draw_bars(wlf, -1, -1, -1);
+	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);
+	//SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
+	SDL_UpdateWindowSurface(wlf->win);
+	wlf->fps++;
+	wlf->keyck(wlf);
 }
