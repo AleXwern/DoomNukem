@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/02 14:51:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/06 15:04:57 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,12 +286,18 @@ typedef struct	s_doom
 	int			buffer;
 	double		camshift;
 	int			mousemovement;
+	SDL_Surface	*spriteSurface;
+	SDL_Texture	*spriteTexture;
+	SDL_Rect	spriteRect;
+	SDL_Rect	screenRect;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);
 t_gfx			gfx_get(t_doom *wolf, char *file, int x, int y);
 t_chara			*generate_party(t_doom *wlf);
 t_chara			generate_foe(t_doom *wlf);
+void			load_animsprite(t_doom *wlf);
+void			draw_sprite(t_doom *wlf);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 

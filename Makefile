@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/01 17:25:25 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/07/02 11:10:00 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = doomdemo
+NAME = doom-nukem
 FLG =
 SRCFILE = wolf.c fileformat.c gfx.c key_input.c render.c draw.c move.c \
 			interact.c util.c floor.c menu.c gfx_draw.c posteff.c
