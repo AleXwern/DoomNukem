@@ -97,9 +97,9 @@ void	rc_init(t_doom *wlf)
 	wlf->raydx = wlf->dir.x + wlf->plane.x * wlf->camx;
 	wlf->raydy = wlf->dir.y + wlf->plane.y * wlf->camx;
 	wlf->raydz = wlf->dir.z + wlf->plane.z * wlf->camy;
-	wlf->mapx = (int)wlf->posx;
-	wlf->mapy = (int)wlf->posy;
-	wlf->mapz = (int)wlf->posz;
+	wlf->mapx = ((int)wlf->posx) & 0x0fffffff;
+	wlf->mapy = ((int)wlf->posy) & 0x0fffffff;
+	wlf->mapz = ((int)wlf->posz) & 0x0fffffff;
 	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %d %d %d\n", wlf->camx, wlf->camy, wlf->raydz, wlf->raydy, wlf->raydx, wlf->mapz, wlf->mapy, wlf->mapx);
 	dda_prep(wlf);
 	dda_sys(wlf);
@@ -121,18 +121,18 @@ int		renthread(void *ptr)
 
 	wlf = (t_doom*)ptr;
 	x = wlf->x;
-	SDL_LockMutex(wlf->mutex);
+	wlf->id = x + 1;
+	SDL_TryLockMutex(wlf->mutex);
 	while (!wlf->wlf->killthread)
 	{
 		*wlf = *wlf->wlf;
 		wlf->x = x;
-		wlf->id = x + 1;
 		while (wlf->x < wlf->winw && !wlf->ismenu)
 		{
 			wlf->y = -1;
 			if (wlf->wlf->claimline[wlf->x] == 0)
 				wlf->wlf->claimline[wlf->x] = wlf->id;
-			while (++wlf->y < wlf->winh/* && wlf->wlf->claimline[wlf->x] == wlf->id*/)
+			while (++wlf->y < wlf->winh && wlf->wlf->claimline[wlf->x] == wlf->id)
 			{
 				rc_init(wlf);
 				wlf->lineh = (int)(wlf->winh / wlf->walldist);
@@ -149,25 +149,25 @@ int		renthread(void *ptr)
 				else
 					wall_stripe(wlf);
 			}
-			if (wlf->y > 0)
+			if (wlf->y == wlf->winh)
 			{
 				test++;
 				wlf->wlf->claimline[wlf->x] = -1;
 			}
 			//printf("Values %d %d %d\n", wlf->x, wlf->winw, wlf->wlf->claimline[wlf->x]);
-			//while (wlf->x < wlf->winw && wlf->wlf->claimline[wlf->x] != 0)
-			wlf->x += wlf->trx;
+			while (wlf->x < wlf->winw && wlf->wlf->claimline[wlf->x] != 0)
+				wlf->x += wlf->trx;
 		}
-		wlf->wlf->claimline[wlf->x]++;
+		wlf->wlf->claimline[wlf->winw]++;
 		wlf->wlf->fps++;
-		printf("Drew %d threads\n", test);
+		//printf("Thread ID %d drew %d threads\nClaimline at %d\n", wlf->id, test, wlf->wlf->claimline[wlf->winw]);
 		if (SDL_CondWait(wlf->wlf->cond, wlf->wlf->mutex) == -1)
 		{
 			ft_putendl("Broadcast failed");
 			exit(0);
 		}
-		else
-			printf("Thread ID %d\n", wlf->id);
+		//else
+		//	printf("Thread ID %d\n", wlf->id);
 		test = 0;
 	}
 	SDL_UnlockMutex(wlf->mutex);
@@ -242,6 +242,7 @@ __global__ void test(void)
 void	render(t_doom *wlf)
 {
 	static int	x;
+	int			i;
 
 	//x = 0;
 	if (wlf->trx < 0)
@@ -275,12 +276,25 @@ void	render(t_doom *wlf)
 	//	mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
 	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);             
 	//SDL_RenderCopy(wlf->rend, wlf->img.img, NULL, NULL);
-	if (wlf->claimline[wlf->winw] >= wlf->trx)
+	//ft_putnbrln(wlf->claimline[wlf->winw]);
+	//ft_putnbrln(wlf->claimline[wlf->winw]);
+	//if (wlf->claimline[wlf->winw] == wlf->trx)
+	while (1)
 	{
-		SDL_RenderPresent(wlf->rend);
-		ft_bzero(wlf->claimline, sizeof(int) * wlf->winw + 1);
-		wlf->claimline[wlf->winw] = 0;
-		SDL_CondBroadcast(wlf->cond);
+		i = wlf->winw;
+		if (i = wlf->winw)
+		{
+			//SDL_RenderPresent(wlf->rend);
+			SDL_UpdateWindowSurface(wlf->win);
+			ft_bzero(wlf->claimline, sizeof(int) * wlf->winw + 1);
+			wlf->claimline[wlf->winw] = 0;
+			SDL_CondBroadcast(wlf->cond);
+			break;
+		}
+		else if (wlf->claimline[i] >= 0)
+			i--;
+		else
+			break;
 	}
 	/*else
 	{

@@ -67,6 +67,7 @@ void	wolf_default(t_doom *wlf)
 		error_out(MEM_ERROR, wlf);
 	if (!(wlf->cond = SDL_CreateCond()))
 		error_out(MEM_ERROR, wlf);
+	SDL_CondBroadcast(wlf->cond);
 	//if (wlf->threads)
 	//	free(wlf->threads);
 	//if (wlf->data_r)
@@ -94,6 +95,7 @@ void	error_out(char *msg, t_doom *wolf)
 	ft_putchar('\n');
 	while (--wolf->trx >= 0)
 	{
+		SDL_CondSignal(wolf->cond);
 		if (wolf->threads[wolf->trx] == NULL)
 			ft_putendl("Thread failure.");
 		else
