@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 11:48:30 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 12:30:56 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,8 @@ void	draw_stripe(t_doom *wlf)
 		if (shift < 0)
 			shift = 128 + shift;
 		wlf->texy = (int)((((wlf->y * 256 - wlf->winh * 128 * wlf->camshift - wlf->lineh * 128) * 128) / wlf->lineh) / 256) % 128;
-		//wlf->texy = (int)((((wlf->y * 256 - WINY * 128 - wlf->lineh * 128) * 128) / wlf->lineh) / 256) % 128;
-		//wlf->texy = (int)(wlf->texy + (128 * (wlf->walldist - ceil(wlf->walldist)))) % 128;
 		if (wlf->texy < 0)
 			wlf->texy += 128;
-		//wlf->testcolor = wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) * wlf->gfx[wlf->texnum].tex->pitch / 4 + wlf->texx % 128 * wlf->gfx[2].tex->format->BitsPerPixel / 32];
-		//shift = 0;
 		wlf->testcolor = color_shift(wlf->gfx[wlf->texnum].data[((wlf->texy + (int)shift) % 128) * wlf->gfx[wlf->texnum].tex->pitch / 4 + wlf->texx % 128 * wlf->gfx[2].tex->format->BitsPerPixel / 32], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf, 0);
 	}
 	if (wlf->side > 2)
@@ -42,10 +38,7 @@ void	wall_stripe(t_doom *wlf)
 {
 	if (wlf->texbool)
 	{
-		wlf->raydy0 = wlf->dir.y - wlf->plane.y;
-		wlf->raydy1 = wlf->dir.y + wlf->plane.y;
 		wlf->texnum = wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
-		wlf->flstepy = wlf->walldist * (wlf->raydy1 - wlf->raydy0) / wlf->winw;
 		if (wlf->side % 3 == 0)
 			wlf->wallx = (wlf->posy + wlf->walldist * wlf->raydy);
 		else
@@ -60,4 +53,36 @@ void	wall_stripe(t_doom *wlf)
 	else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] != 2)
 		wlf->testcolor = 0xff22a800;
 	draw_stripe(wlf);
+}
+
+void	draw_floor(t_doom *wlf)
+{
+	if (wlf->texbool)
+	{
+		wlf->cellx = (int)wlf->floorx;
+		wlf->celly = (int)wlf->floory;
+		wlf->tx = (int)(128 * (wlf->floorx - wlf->cellx)) & (128 - 1);
+		wlf->ty = (int)(128 * (wlf->floory - wlf->celly)) & (128 - 1);
+		wlf->testcolor = color_shift(wlf->gfx[1].data[128 * wlf->ty + wlf->tx], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf, 0);
+		//wlf->testcolor = wlf->gfx[1].data[128 * wlf->ty + wlf->tx];
+	}
+	else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 2)
+		wlf->testcolor = 0xff22a800;
+	if (wlf->side > 2)
+		wlf->testcolor = (wlf->testcolor >> 1) & DARKEN;
+	wlf->img.data[wlf->winw * wlf->y + wlf->x] = wlf->testcolor;
+}
+
+void	render_floor(t_doom *wlf)
+{
+	wlf->raydx0 = wlf->dir.x - wlf->plane.x;
+	wlf->raydy0 = wlf->dir.y - wlf->plane.y;
+	wlf->raydx1 = wlf->dir.x + wlf->plane.x;
+	wlf->raydy1 = wlf->dir.y + wlf->plane.y;
+	wlf->rowdist = wlf->walldist;
+	wlf->flstepx = wlf->rowdist * (wlf->raydx1 - wlf->raydx0) / wlf->winw;
+	wlf->flstepy = wlf->rowdist * (wlf->raydy1 - wlf->raydy0) / wlf->winw;
+	wlf->floorx = (wlf->posx + wlf->rowdist * wlf->raydx0) + (wlf->flstepx * wlf->x);
+	wlf->floory = (wlf->posy + wlf->rowdist * wlf->raydy0) + (wlf->flstepy * wlf->x);
+	draw_floor(wlf);
 }

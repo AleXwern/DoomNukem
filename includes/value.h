@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 14:02:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 13:32:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 # define WINX		1080
 # define WINY		720
 # define MAXAGGRO	999999
-# define GFXCOUNT	23
+# define GFXCOUNT	24
 # define THREADS	6
 # define BUFFER		6
 

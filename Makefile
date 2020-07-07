@@ -6,32 +6,36 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/06 15:41:28 by anystrom         ###   ########.fr        #
+#    Updated: 2020/07/07 15:15:02 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = doom-nukem
+NAME =		doom-nukem
 FLG =
-SRCFILE = wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
-			interact.c util.c floor.c menu.c gfx_draw.c posteff.c \
-			defaults.c
-KEYFILE = key_editor.c key_game.c key_menu.c key_state.c
-TESTFILE = testkey.c
-SRC = $(addprefix ./src/,$(SRCFILE)) $(addprefix ./src/key/,$(SRCFILE))
-LIBFT = ./obj/libft.a
-OBJS = $(SRC:.c=.o)
-OBJ = $(addprefix ./obj/,$(SRCFILE:.c=.o)) $(addprefix ./obj/key/,$(KEYFILE:.c=.o))
-OBJDIR = ./obj/
-SRCDIR = ./src/
-INCL = -I ./SDL2 -I ./libft -I ./includes
-MLXLIB = -L /usr/local/lib
-PWD = $(shell pwd)
-OBJFRAME = -F ./frameworks
-FRAMEWORK = -F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
-DUMMY = -F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
-RED = \033[0;31m
-STOP = \033[0m
+SRCFILE =	wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
+			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
+			main_menu.c
+KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
+EDTFILE =	editor.c
+SRC =		$(addprefix ./src/,$(SRCFILE)) \
+			$(addprefix ./src/key/,$(SRCFILE)) \
+			$(addprefix ./src/editor/,$(EDTFILE))
+LIBFT =		./obj/libft.a
+OBJS =		$(SRC:.c=.o)
+OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=.o)) \
+			$(addprefix ./obj/key/,$(KEYFILE:.c=.o)) \
+			$(addprefix ./obj/editor/,$(EDTFILE:.c=.o))
+OBJDIR =	./obj/
+SRCDIR =	./src/
+INCL =		-I ./SDL2 -I ./libft -I ./includes
+MLXLIB =	-L /usr/local/lib
+PWD =		$(shell pwd)
+OBJFRAME =	-F ./frameworks
+FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
+DUMMY =		-F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
+RED =		\033[0;31m
+STOP =		\033[0m
 
 .PHONY: all clean fclean re obj
 

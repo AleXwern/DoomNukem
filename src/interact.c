@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/06/26 11:58:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 14:10:12 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ int		interact(t_doom *wlf)
 	else if (obj == 0)
 		wlf->map[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x] = 5;
 	if (obj == 5 || obj == 0)
-		render(wlf);
+		wlf->cycle(wlf);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:03:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/06 15:34:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 13:51:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_bars(t_doom *wlf, int y, int x, int pc)
 	Uint32	color;
 	Uint32	black;
 
-	while (++pc < 8)
+	while (++pc < 9)
 	{
 		sy = (pc * (wlf->winh / 10));
 		sx = wlf->winw / 2;
@@ -67,28 +67,18 @@ void	options_menu_create(t_doom *wlf)
 	wlf->maxvalue[6] = 15.0;
 	wlf->options[7] = &wlf->ismenu;
 	wlf->maxvalue[7] = 1.0;
+	wlf->options[8] = &wlf->tile;
+	wlf->maxvalue[8] = 6.0;
 }
 
 void	options_menu(t_doom *wlf)
 {
 	options_menu_create(wlf);
-	draw_menu(wlf, 0, 0);
+	draw_menu(wlf, 0, 0, wlf->cur);
 	draw_bars(wlf, -1, -1, -1);
 	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);
 	//SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
-	SDL_UpdateWindowSurface(wlf->win);
+	//SDL_UpdateWindowSurface(wlf->win);
+	SDL_RenderPresent(wlf->rend);
 	wlf->fps++;
-}
-
-void	main_menu(t_doom *wlf)
-{
-	printf("uwu");
-	options_menu_create(wlf);
-	draw_menu(wlf, 0, 0);
-	draw_bars(wlf, -1, -1, -1);
-	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);
-	//SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
-	SDL_UpdateWindowSurface(wlf->win);
-	wlf->fps++;
-	wlf->keyck(wlf);
 }

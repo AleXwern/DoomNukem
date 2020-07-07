@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 14:42:31 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 13:32:48 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	comp_hud_gfx(t_doom *wolf, char *bpath, int i)
 	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "hud/btlsel.xpm"), 221, 312);
 	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "hud/pcturn.xpm"), 354, 95);
 	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "hud/pcsel.xpm"), 354, 95);
+	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "hud/mainmenu.xpm"), 1080, 720);
 	//free(bpath);
 	//wolf->gfxcount = i;
 	comp_foe(wolf, bpath, i);
@@ -120,14 +121,15 @@ void	comp_gfx(t_doom *wolf, int i)
 	bpath = ft_strjoin(path, "gfx/");
 	if (!(wolf->gfx = (t_gfx*)malloc(sizeof(t_gfx) * GFXCOUNT)))
 		error_out(MEM_ERROR, wolf);
-	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "3/sky.xpm"), 1080, 360);
-	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "3/floor.xpm"), 128, 128);
-	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "3/wall.xpm"), 128, 128);
-	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "3/stairu.xpm"), 128, 128);
-	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "3/staird.xpm"), 128, 128);
-	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "3/door.xpm"), 128, 128);
-	wolf->gfx[i++] = gfx_get(wolf, ft_strjoin(bpath, "3/warp.xpm"), 128, 128);
+	wolf->gfx[i++] = gfx_get(wolf, ft_quadjoin(bpath, (char*)&wolf->tile, "/sky.xpm", ""), 1080, 360);
+	wolf->gfx[i++] = gfx_get(wolf, ft_quadjoin(bpath, (char*)&wolf->tile, "/floor.xpm", ""), 128, 128);
+	wolf->gfx[i++] = gfx_get(wolf, ft_quadjoin(bpath, (char*)&wolf->tile, "/wall.xpm", ""), 128, 128);
+	wolf->gfx[i++] = gfx_get(wolf, ft_quadjoin(bpath, (char*)&wolf->tile, "/stairu.xpm", ""), 128, 128);
+	wolf->gfx[i++] = gfx_get(wolf, ft_quadjoin(bpath, (char*)&wolf->tile, "/staird.xpm", ""), 128, 128);
+	wolf->gfx[i++] = gfx_get(wolf, ft_quadjoin(bpath, (char*)&wolf->tile, "/door.xpm", ""), 128, 128);
+	wolf->gfx[i++] = gfx_get(wolf, ft_quadjoin(bpath, (char*)&wolf->tile, "/warp.xpm", ""), 128, 128);
 	comp_hud_gfx(wolf, bpath, i);
+	wolf->tile -= 48;
 	SDL_free(path);
 	free(bpath);
 }

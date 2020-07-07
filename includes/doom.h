@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/06 15:41:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 14:41:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,54 @@
 # include "../frameworks/SDL2_image.framework/Headers/SDL_image.h"
 # include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 #endif
+
+typedef struct	s_key
+{
+	Sint8	esc;
+	Sint8	one;
+	Sint8	two;
+	Sint8	three;
+	Sint8	four;
+	Sint8	five;
+	Sint8	six;
+	Sint8	seven;
+	Sint8	eight;
+	Sint8	nine;
+	Sint8	zero;
+	Sint8	q;
+	Sint8	w;
+	Sint8	e;
+	Sint8	r;
+	Sint8	t;
+	Sint8	y;
+	Sint8	u;
+	Sint8	i;
+	Sint8	o;
+	Sint8	p;
+	Sint8	a;
+	Sint8	s;
+	Sint8	d;
+	Sint8	f;
+	Sint8	g;
+	Sint8	h;
+	Sint8	j;
+	Sint8	k;
+	Sint8	l;
+	Sint8	z;
+	Sint8	x;
+	Sint8	c;
+	Sint8	v;
+	Sint8	b;
+	Sint8	n;
+	Sint8	m;
+	Sint8	left;
+	Sint8	right;
+	Sint8	down;
+	Sint8	up;
+	Sint8	plus;
+	Sint8	minus;
+	
+}				t_key;
 
 typedef struct	s_vector
 {
@@ -199,7 +247,7 @@ typedef struct	s_doom
 	int			stepz;
 	int			hit;
 	int			side;
-	int			lineh;
+	double		lineh;
 	int			start;
 	int			end;
 	int			texnum;
@@ -254,22 +302,7 @@ typedef struct	s_doom
 	double		wallx;
 	double		texpos;
 	int			isclick;
-	int			keyleft;
-	int			keyright;
-	int			keyup;
-	int			keydown;
-	int			keyplus;
-	int			keyminus;
-	int			keyw;
-	int			keys;
-	int			keya;
-	int			keyd;
-	int			keyone;
-	int			keytwo;
-	int			keyq;
-	int			keye;
-	int			keym;
-	int			keyi;
+	t_key		key;
 	int			accesscard;
 	int			crouching;
 	int			mouseprevx;
@@ -278,6 +311,7 @@ typedef struct	s_doom
 	double		maxvalue[25];
 	int			isoptions;
 	int			isfpscap;
+	int			limit;
 	int			isoutline;
 	int			isgravity;
 	int			shift;
@@ -319,6 +353,7 @@ void			mouse_movey(int dir, t_doom *wlf);
 int				move(t_doom *wlf);
 int				move_fb(t_doom *wlf);
 int				move_lr(t_doom *wlf);
+int				renthread(void *ptr);
 int				x_press(t_doom *wolf);
 
 char			*get_syssmgone(t_doom *wlf, int pc);
@@ -333,7 +368,7 @@ void			comp_map(t_doom *wolf, char *av);
 void			destroy_gfx(t_doom *wlf, int i);
 void			doom_default(t_doom *wlf);
 void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
-void			draw_menu(t_doom *wlf, int x, int y);
+void			draw_menu(t_doom *wlf, int x, int y, int cur);
 void			draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
 void			encounter(t_doom *wlf);
 void			error_out(char *msg, t_doom *wolf);
@@ -344,6 +379,7 @@ void			game_loop(t_doom *wlf);
 void			gen_att_ai(t_doom *wlf);
 void			gravity(t_doom *wlf);
 void			health_check(t_doom *wlf, int pc, int thp);
+void			key_release_menu(int key, t_doom *wlf);
 void			key_state_game(t_doom *wlf);
 void			key_state_menu(t_doom* wlf);
 void			lab_move(t_doom *wlf, int obj);
@@ -353,7 +389,9 @@ void			place_pc(t_doom *wlf, int pc);
 void			post_effects(t_doom *wlf);
 void			render(t_doom *wlf);
 void			render_floor(t_doom *wlf);
-void			reset_window(t_doom *wlf);
+void			reset_position(t_doom *wlf);
+void			reset_window(t_doom *wlf, Uint8 arg);
+void			resize_window(t_doom *wlf);
 void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
 void			wall_stripe(t_doom *wlf);
 void			wind_default(t_doom *wlf);

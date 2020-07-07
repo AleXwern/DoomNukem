@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 14:01:53 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 14:27:21 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	cam_udy(t_doom *wlf)
 
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
-	if (wlf->keyw)
+	if (wlf->key.w)
 	{
 		if (wlf->dir.z > -0.6)
 			wlf->dir.z -= 0.05;
 	}
-	if (wlf->keys)
+	if (wlf->key.s)
 	{
 		if (wlf->dir.z < 0.6)
 			wlf->dir.z += 0.05;
@@ -80,7 +80,7 @@ void	move_l(t_doom *wlf, t_vector olddir, t_vector oldplane)
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
 	rota = wlf->rotsp * ((30.0 / wlf->buffer) / wlf->prefps);
-	if (wlf->keyright)
+	if (wlf->key.right)
 	{
 		wlf->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
 		wlf->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
@@ -98,7 +98,7 @@ int		move_lr(t_doom *wlf)
 	oldplane = wlf->plane;
 	olddir = wlf->dir;
 	rota = -wlf->rotsp * ((30.0 / wlf->buffer) / wlf->prefps);
-	if (wlf->keyleft)
+	if (wlf->key.left)
 	{
 		wlf->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
 		wlf->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
@@ -107,7 +107,7 @@ int		move_lr(t_doom *wlf)
 	}
 	set_yroation(wlf);
 	set_reverse(wlf);
-	if (wlf->keyright)
+	if (wlf->key.right)
 		move_l(wlf, olddir, oldplane);
 	return (0);
 }
@@ -115,17 +115,18 @@ int		move_lr(t_doom *wlf)
 int		move_fb(t_doom *wlf)
 {
 	double	mov;
+	
 	mov = wlf->movsp * ((30.0 / wlf->buffer) / wlf->prefps);
 	if (mov > 1.0)
 		mov = 0.99;
-	if (wlf->keyup)
+	if (wlf->key.up)
 	{
 		if (wlf->map[(int)wlf->posz][(int)(wlf->posy + wlf->dir.y * mov)][(int)wlf->posx] <= 1)
 			wlf->posy += wlf->dir.y * mov;
 		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx + wlf->dir.x * mov)] <= 1)
 			wlf->posx += wlf->dir.x * mov;
 	}
-	if (wlf->keydown)
+	if (wlf->key.down)
 	{
 		if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y * mov)][(int)wlf->posx] <= 1)
 			wlf->posy -= wlf->dir.y * mov;
@@ -137,7 +138,29 @@ int		move_fb(t_doom *wlf)
 
 void	strafe(t_doom *wlf, double dirxtemp, double dirytemp)
 {
-	if (wlf->keyq)
+	double	mov;
+
+	mov = wlf->movsp * ((30.0 / wlf->buffer) / wlf->prefps);
+	if (mov > 1.0)
+		mov = 0.99;
+	if (wlf->key.q)
+	{
+		if (wlf->map[(int)wlf->posz][(int)(wlf->posy + wlf->dir.x * mov)][(int)wlf->posx] <= 1)
+			wlf->posy += wlf->dir.x * mov;
+		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx + wlf->dir.y * mov)] <= 1)
+			wlf->posx += wlf->dir.y * mov;
+	}
+	if (wlf->key.e)
+	{
+		if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.x * mov)][(int)wlf->posx] <= 1)
+			wlf->posy -= wlf->dir.x * mov;
+		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx - wlf->dir.y * mov)] <= 1)
+			wlf->posx -= wlf->dir.y * mov;
+	}
+	return ;
+
+
+	if (wlf->key.q)
 	{
 		if (wlf->dir.y < 0)
 		{
@@ -164,7 +187,7 @@ void	strafe(t_doom *wlf, double dirxtemp, double dirytemp)
 				wlf->posx += (wlf->dir.x - 1) * wlf->movsp;
 		}
 	}
-	if (wlf->keye)
+	if (wlf->key.e)
 	{
 		if (wlf->dir.y >= 0)
 		{

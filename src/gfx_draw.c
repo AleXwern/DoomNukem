@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/01 15:26:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 13:51:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y) //DO NO USE
 	}
 }
 
-void	draw_menu(t_doom *wlf, int x, int y)
+void	draw_menu(t_doom *wlf, int x, int y, int cur)
 {
 	int		gy;
 	int		gx;
@@ -50,7 +50,7 @@ void	draw_menu(t_doom *wlf, int x, int y)
 		while (++gx < wlf->winw / 2)
 		{
 			x = gx * (wlf->gfx[9].wid / ((double)wlf->winw / 2));
-			if (gy > (wlf->cur * wlf->winh / 10) && gy < ((wlf->cur + 1) * wlf->winh / 10))
+			if (gy > (cur * wlf->winh / 10) && gy < ((cur + 1) * wlf->winh / 10))
 				wlf->img.data[wlf->winw * gy + gx] = wlf->gfx[9].data[wlf->gfx[9].wid * y + x] + 0x00252525;
 			else
 				wlf->img.data[wlf->winw * gy + gx] = wlf->gfx[9].data[wlf->gfx[9].wid * y + x];

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/06 15:41:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 14:26:00 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		renthread(void *ptr)
 		while (++wlf->y < wlf->winh)
 		{
 			rc_init(wlf);
-			wlf->lineh = (int)(wlf->winh / wlf->walldist);
+			wlf->lineh = (wlf->winh / wlf->walldist);
 			side_check(wlf);
 			if (wlf->side % 3 == 1)
 				wlf->testcolor = 0xff3679ff;
@@ -148,7 +148,8 @@ int		renthread(void *ptr)
 			else
 				wlf->testcolor = 0xffF0330A;
 			wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
-			wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
+			//wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
+			wlf->maparr[wlf->winw * wlf->y + wlf->x] = wlf->side + 1 + wlf->mapz + wlf->mapy + wlf->mapx;
 			if (wlf->side == 2 || wlf->side == 5)
 				render_floor(wlf);
 			else
@@ -163,7 +164,7 @@ int		renthread(void *ptr)
 
 void	gravity(t_doom *wlf)
 {
-	if (wlf->keytwo || wlf->isgravity || wlf->ismenu)
+	if (wlf->key.two || wlf->isgravity || wlf->ismenu)
 		return ;
 	while (wlf->gravity.z >= 1.0 || wlf->gravity.z <= -1.0)
 		wlf->gravity.z += wlf->fallsp.z;
@@ -268,7 +269,7 @@ void	render(t_doom *wlf)
 		else
 			SDL_WaitThread(wlf->threads[x], NULL);
 	}
-	if (wlf->keyi)
+	if (wlf->key.i)
 		draw_sprite(wlf);
 	if (wlf->isoutline)
 		post_effects(wlf);

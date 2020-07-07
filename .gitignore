@@ -1,0 +1,8 @@
+**/.DS_Store
+**/.vscode/
+**/.vs
+**/.git/
+42MapGenerator/
+test-**/
+gameoflife/
+fractol-old/

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/06 15:40:10 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/07 14:52:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	error_out(char *msg, t_doom *wolf)
 {
 	ft_putendl(msg);
-	ft_putendl(SDL_GetError());
+	//ft_putendl(SDL_GetError());
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	wolf->killthread = 1;
 	if (!ft_strcmp(msg, WLF_ERROR))
@@ -42,7 +42,7 @@ void	error_out(char *msg, t_doom *wolf)
 	SDL_WaitThread(wolf->fpsthread, NULL);
 	SDL_Quit();
 	ft_bzero(wolf, sizeof(wolf));
-	//system("leaks doom-nukem");
+	system("leaks doom-nukem");
 	exit(0);
 }
 
@@ -61,30 +61,25 @@ void	free_memory(char **arr)
 
 void	setup(t_doom *wlf)
 {
-	int			quit;
 	SDL_Thread* capper;
 
 	doom_default(wlf);
 	if (wlf->map[2][(int)wlf->posy][(int)wlf->posx] != 1)
 		error_out(SPW_ERROR, wlf);
-	quit = 0;
 	wlf->fpsthread = SDL_CreateThread(fps_counter, "fps counter", (void*)wlf);
 	char* path = SDL_GetBasePath();
 	printf("Exec path: %s\n", path);
 	SDL_free(path);
-	if (!(wlf->threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * wlf->trx)))
-		error_out(MEM_ERROR, wlf);
-	if (!(wlf->data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
-		error_out(MEM_ERROR, wlf);
-	while (!quit)
+	while (1)
 	{
-		//if (wlf->isfpscap && !wlf->ismenu)
-		//	capper = SDL_CreateThread(fps_capper, "FPS limiter", wlf);
+		if (wlf->isfpscap && !wlf->ismenu)
+			capper = SDL_CreateThread(fps_capper, "FPS limiter", wlf);
 		game_loop(wlf);
-		//if (wlf->isfpscap && !wlf->ismenu)
-		//	SDL_WaitThread(capper, NULL);
-		//if (wlf->event.key.keysym.scancode == KEY_F && wlf->event.key.state == SDL_RELEASED)
-		//	wlf->isfpscap = (wlf->isfpscap * wlf->isfpscap) - 1;
+		if (wlf->limit)
+		{
+			SDL_WaitThread(capper, NULL);
+			wlf->limit = 0;
+		}
 	}
 }
 
@@ -103,7 +98,7 @@ int		main(int ac, char **av)
 	//	error_out(IMG_ERROR, wolf);
 	//if (ac != 4 && ac != 0)
 	//	error_out(USAGE, wolf);
-	wolf->tile = 6;
+	wolf->tile = 2;
 	if (wolf->tile < 1 || wolf->tile > 6)
 		error_out(USAGE, wolf);
 	wolf->mxflr = 9;
