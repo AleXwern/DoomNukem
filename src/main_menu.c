@@ -19,16 +19,17 @@ void	draw_main_menu(t_doom *wlf, int x, int y, int cur)
 	int		gx;
 
 	gy = -1;
+	//printf("%#010x\n", wlf->gfx[15].data[wlf->gfx[15].wid * 0 + 0]);
 	while (++gy < wlf->winh)
 	{
 		y = gy * (wlf->gfx[15].hgt / (double)wlf->winh);
-		gx = 15;
-		while (++gx < wlf->winw - 15)
+		gx = -1;
+		while (++gx < wlf->winw)
 		{
 			x = gx * (wlf->gfx[15].wid / ((double)wlf->winw));
-			if (gy > (cur * wlf->winh / 10) + wlf->winh / 3 && gy < ((cur + 1) * wlf->winh / 10) + wlf->winh / 3)
+			if (gy > (cur * wlf->winh / 7) + wlf->winh / 4 && gy < ((cur + 1) * wlf->winh / 7) + wlf->winh / 4)
 				wlf->img.data[wlf->winw * gy + gx] = wlf->gfx[15].data[wlf->gfx[15].wid * y + x] + 0x00252525;
-			else if (wlf->gfx[15].data[wlf->gfx[15].wid * y + x] == 0xffff00ff)
+			else if (wlf->gfx[15].data[wlf->gfx[15].wid * y + x] == 0xffff00ff || wlf->gfx[15].data[wlf->gfx[15].wid * y + x] == 0x00ff00ff)
 				x += 0;
 			else
 				wlf->img.data[wlf->winw * gy + gx] = wlf->gfx[15].data[wlf->gfx[15].wid * y + x];

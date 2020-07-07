@@ -72,14 +72,14 @@ void	setup(t_doom *wlf)
 	SDL_free(path);
 	while (1)
 	{
-		if (wlf->isfpscap && !wlf->ismenu)
-			capper = SDL_CreateThread(fps_capper, "FPS limiter", wlf);
+		//if (wlf->isfpscap && !wlf->ismenu)
+		//	capper = SDL_CreateThread(fps_capper, "FPS limiter", wlf);
 		game_loop(wlf);
-		if (wlf->limit)
+		/*if (wlf->limit)
 		{
 			SDL_WaitThread(capper, NULL);
 			wlf->limit = 0;
-		}
+		}*/
 	}
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/07 15:15:02 by anystrom         ###   ########.fr        #
+#    Updated: 2020/07/07 19:26:58 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,5 +78,9 @@ fclean: clean
 merge:
 	git checkout master
 	git pull https://github.com/AleXwern/DoomNukem.git master
+
+winup:
+	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/gfx
+	@cp -r gfx ../../../../source/repos/DoomNukem/x64/Debug/
 
 re: fclean all
