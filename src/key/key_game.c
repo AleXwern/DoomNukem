@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 14:51:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/08 14:02:46 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ int				key_release(int key, t_doom *wlf)
 	if (key == KEY_I || key == SDL_SCANCODE_I)
 	{
 		ft_putendl("I pressed");
+		load_animsprite(wlf);
 		wlf->key.i = wlf->key.i == 1 ? 0 : 1;
 	}
 	if (key == KEY_SHIFT)

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/08 16:19:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/08 16:25:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct	s_key
 	Sint8	up;
 	Sint8	plus;
 	Sint8	minus;
-	
+
 }				t_key;
 
 typedef struct	s_vector
@@ -331,8 +331,14 @@ typedef struct	s_doom
 	int			mousemovement;
 	SDL_Surface	*spriteSurface;
 	SDL_Texture	*spriteTexture;
-	SDL_Rect	spriteRect;
+	SDL_Rect	spriteRect[4][4];
 	SDL_Rect	screenRect;
+	int			anim;
+	int			frame;
+	double		depthbuffer[1080];
+	double		disttosprite;
+	double		spriteX;
+	double		spriteY;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);

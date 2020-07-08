@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/30 16:09:13 by anystrom          #+#    #+#              #
-#    Updated: 2020/06/02 16:09:28 by anystrom         ###   ########.fr        #
+#    Updated: 2020/07/08 13:51:43 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,10 @@ $(NAME): $(OBJS)
 
 clean:
 	@/bin/rm -f $(addprefix $(OBJFLD),$(OBJS))
+	@/bin/rm -f $(OBJS)
 
 fclean: clean
 	@/bin/rm -f $(addprefix $(OBJFLD),$(NAME))
+	@/bin/rm -f $(NAME)
 
 re: fclean all
