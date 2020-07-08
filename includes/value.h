@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 13:32:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/08 12:27:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define SPW_ERROR	"Spawn point is blocked."
 # define WLF_ERROR	"Cannot create corestruct."
 # define PAD_ERROR	"Game controller was not found!"
+# define LOD_ERROR	"Could not load the level"
 # define GAME_OVER	"Your party has fallen. Game over!"
 
 # define HIT_OPP	" dealt damage to "

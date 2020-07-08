@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 14:41:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/08 16:19:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,14 +152,20 @@ typedef struct	s_gfx
 	int			hgt;
 }				t_gfx;
 
-typedef struct	s_work
+typedef struct	s_editor
 {
-	int			claim;
-	Uint32		xmin;
-	Uint32		xmax;
-	Uint32		ymin;
-	Uint32		ymax;
-}				t_work;
+	Uint8		flr;
+	Uint8		quit;
+	Uint32		**level;
+	t_vector	spawn;
+	t_vector	end;
+	Uint8		cur;
+	Uint8		blk;
+	Uint8		options[5];
+	double		maxval[5];
+	Uint8		minval[5];
+	SDL_Event	ev;
+}				t_editor;
 
 /*
 ** mlx	= MLX pointer
@@ -347,6 +353,7 @@ int				interact(t_doom *wlf);
 int				key_hold(int key, t_doom *wlf);
 int				key_press(int key, t_doom *wolf);
 int				key_release(int key, t_doom *wolf);
+int				load_level(t_editor *le, t_doom *dm);
 int				mouse_move(int x, int y, t_doom *wlf);
 void			mouse_movex(int dir, t_doom *wlf);
 void			mouse_movey(int dir, t_doom *wlf);
@@ -367,9 +374,15 @@ void			comp_gfx(t_doom *wolf, int i);
 void			comp_map(t_doom *wolf, char *av);
 void			destroy_gfx(t_doom *wlf, int i);
 void			doom_default(t_doom *wlf);
+void			draw_bg(t_doom *wlf, t_gfx gfx);
 void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
+void			draw_level_screen(t_doom *wlf, t_editor *le, int x, int y);
 void			draw_menu(t_doom *wlf, int x, int y, int cur);
 void			draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
+void			draw_sliders(t_doom *dm, t_editor *le, int x, int y);
+void			editor_key_press(Uint32 key, t_editor *le);
+void			editor_key_release(Uint32 key, t_editor *le);
+void			editor_main(t_doom *wlf);
 void			encounter(t_doom *wlf);
 void			error_out(char *msg, t_doom *wolf);
 void			exit_combat(t_doom *wlf);
@@ -380,6 +393,7 @@ void			gen_att_ai(t_doom *wlf);
 void			gravity(t_doom *wlf);
 void			health_check(t_doom *wlf, int pc, int thp);
 void			key_release_menu(int key, t_doom *wlf);
+void			key_state_editor(t_editor *le, t_doom *dm);
 void			key_state_game(t_doom *wlf);
 void			key_state_menu(t_doom* wlf);
 void			lab_move(t_doom *wlf, int obj);

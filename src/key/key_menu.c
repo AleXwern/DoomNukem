@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 14:41:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/08 13:08:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ void	key_release_menu(int key, t_doom *wlf)
 			wlf->ismenu = 0;
 		}
 		else if (wlf->sel == 1)
-		{
-			ft_putendl("Yes yes, this is editor.");
-		}
+			editor_main(wlf);
 		else
 			error_out(FINE, wlf);
+		ft_putendl("hi");
 	}
 	if (wlf->sel > 2)
 		wlf->sel = 0;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/07 19:26:58 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/07/08 16:13:15 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCFILE =	wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
 			main_menu.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
-EDTFILE =	editor.c
+EDTFILE =	editor.c render_editor.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
 			$(addprefix ./src/editor/,$(EDTFILE))

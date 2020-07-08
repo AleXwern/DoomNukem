@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 14:50:36 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/08 15:57:09 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	key_state_game(t_doom *wlf)
 	move(wlf);
 }
 
-void	key_state_menu(t_doom* wlf)
+void	key_state_menu(t_doom *wlf)
 {
 	if (SDL_PollEvent(&(wlf->event)))
 	{
@@ -58,5 +58,20 @@ void	key_state_menu(t_doom* wlf)
 			resize_window(wlf);
 		if (wlf->event.key.state == SDL_RELEASED)
 			key_release_menu(wlf->event.key.keysym.scancode, wlf);
+	}
+}
+
+void	key_state_editor(t_editor *le, t_doom *dm)
+{
+	if (SDL_PollEvent(&(le->ev)))
+	{
+		if (le->ev.window.event == SDL_WINDOWEVENT_RESIZED || le->ev.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			resize_window(dm);
+		if (le->ev.type == SDL_QUIT)
+			le->quit = 1;
+		if (le->ev.key.state == SDL_PRESSED)
+			editor_key_press(le->ev.key.keysym.scancode, le);
+		if (le->ev.key.state == SDL_RELEASED)
+			editor_key_release(le->ev.key.keysym.scancode, le);
 	}
 }
