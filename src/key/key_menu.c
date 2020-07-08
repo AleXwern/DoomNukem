@@ -33,12 +33,13 @@ void	key_release_menu(int key, t_doom *wlf)
 		}
 		else if (wlf->sel == 1)
 			editor_main(wlf);
+		else if (wlf->sel == 2)
+			printf("Show help/keys and credits.\n"); //help_n_credits(wlf);
 		else
 			error_out(FINE, wlf);
-		ft_putendl("hi");
 	}
-	if (wlf->sel > 2)
+	if (wlf->sel > 3)
 		wlf->sel = 0;
 	else if (wlf->sel < 0)
-		wlf->sel = 2;
+		wlf->sel = 3;
 }

@@ -45,7 +45,7 @@ void	draw_block(t_doom *dm, t_gfx blk, int x, int y)
 		gx = -1;
 		while (++gx < dm->winw / dm->width * 0.66)
 		{
-			dm->img.data[dm->winw * (y + gy) + (x + gx)] = blk.data[blk.wid * gy * (blk.wid / (dm->winh / dm->height)) + gx * (blk.wid / (int)(dm->winw / dm->width * 0.66))];
+			dm->img.data[dm->winw * (y + gy) + (x + gx)] = blk.data[(int)(blk.wid * gy * (blk.wid / (dm->winh / dm->height)) + gx * (blk.wid / (dm->winw / dm->width * 0.66)))];
 		}
 	}
 }
