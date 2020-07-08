@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 15:02:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/08 14:02:27 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	doom_default(t_doom *wlf)
 	wlf->accesscard = 0;
 	wlf->prefps = 30;
 	wlf->buffer = BUFFER;
-	load_animsprite(wlf);
+	//load_animsprite(wlf);
 	wlf->owinh = wlf->winh;
 	wlf->owinw = wlf->winw;
 	wind_default(wlf);

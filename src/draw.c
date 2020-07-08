@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 12:30:56 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/08 15:21:04 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	wall_stripe(t_doom *wlf)
 	if (wlf->texbool)
 	{
 		wlf->texnum = wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
+		if (wlf->texnum > 5)//This is a (temporary) fix for the issue where having a value higher than 5 on the map creating a wal with a weird texture.
+			wlf->texnum = 2;
 		if (wlf->side % 3 == 0)
 			wlf->wallx = (wlf->posy + wlf->walldist * wlf->raydy);
 		else

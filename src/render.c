@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 14:26:00 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/08 16:17:16 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ void	dda_sys(t_doom *wlf)
 		}
 		//printf("--after--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", wlf->hit, wlf->mapz, wlf->mapy, wlf->mapx, wlf->sidedz, wlf->sidedy, wlf->sidedx);
 		if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 1)
+		{
 			wlf->hit = 1;
+			if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] == 9)//distance from player to sprite (9 on the map)
+				wlf->disttosprite = ((wlf->posx - wlf->mapx) * (wlf->posx - wlf->mapx) + (wlf->posy - wlf->mapy) * (wlf->posy - wlf->mapy));//initialize disttosprite
+		}
 	}
 }
 
@@ -154,6 +158,8 @@ int		renthread(void *ptr)
 				render_floor(wlf);
 			else
 				wall_stripe(wlf);
+			//wlf->depthbuffer[wlf->x] = wlf->walldist;
+			//wlf->spriteX =
 		}
 		wlf->x += wlf->trx;
 	}
@@ -224,16 +230,96 @@ void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now reall
 
 void	load_animsprite(t_doom *wlf)
 {
-	//wlf->sprites = IMG_Load("./gfx/foe/foe2.png");
 	//wlf->sprites = IMG_Load("./gfx/SpriteSheets/PokemonTrainer.png");
 	wlf->spriteSurface = IMG_Load("./gfx/SpriteSheets/GreyDragon.png");
 	wlf->spriteTexture = SDL_CreateTextureFromSurface(wlf->rend, wlf->spriteSurface);
 	SDL_FreeSurface(wlf->spriteSurface);
 
-	wlf->spriteRect.x = 0;//upper left corner x-coordinate
-	wlf->spriteRect.y = 0;//upper left corner y-coordinate
-	wlf->spriteRect.w = 96;//width of one animation part of the sheet
-	wlf->spriteRect.h = 96;//height of one animation part of the sheet
+	wlf->frame = 0;
+	wlf->anim = 3;
+	//walking towards you
+	wlf->spriteRect[0][0].x = 0;//upper left corner x-coordinate
+	wlf->spriteRect[0][0].y = 0;//upper left corner y-coordinate
+	wlf->spriteRect[0][0].w = 96;//width of one animation part of the sheet
+	wlf->spriteRect[0][0].h = 96;//height of one animation part of the sheet
+
+	wlf->spriteRect[0][1].x = 96;
+	wlf->spriteRect[0][1].y = 0;
+	wlf->spriteRect[0][1].w = 96;
+	wlf->spriteRect[0][1].h = 96;
+
+	wlf->spriteRect[0][2].x = 192;
+	wlf->spriteRect[0][2].y = 0;
+	wlf->spriteRect[0][2].w = 96;
+	wlf->spriteRect[0][2].h = 96;
+
+	wlf->spriteRect[0][3].x = 288;
+	wlf->spriteRect[0][3].y = 0;
+	wlf->spriteRect[0][3].w = 96;
+	wlf->spriteRect[0][3].h = 96;
+
+	//walking to your left
+	wlf->spriteRect[1][0].x = 0;//upper left corner x-coordinate
+	wlf->spriteRect[1][0].y = 96;//upper left corner y-coordinate
+	wlf->spriteRect[1][0].w = 96;//width of one animation part of the sheet
+	wlf->spriteRect[1][0].h = 96;//height of one animation part of the sheet
+
+	wlf->spriteRect[1][1].x = 96;
+	wlf->spriteRect[1][1].y = 96;
+	wlf->spriteRect[1][1].w = 96;
+	wlf->spriteRect[1][1].h = 96;
+
+	wlf->spriteRect[1][2].x = 192;
+	wlf->spriteRect[1][2].y = 96;
+	wlf->spriteRect[1][2].w = 96;
+	wlf->spriteRect[1][2].h = 96;
+
+	wlf->spriteRect[1][3].x = 288;
+	wlf->spriteRect[1][3].y = 96;
+	wlf->spriteRect[1][3].w = 96;
+	wlf->spriteRect[1][3].h = 96;
+
+	//walking to your right
+	wlf->spriteRect[2][0].x = 0;//upper left corner x-coordinate
+	wlf->spriteRect[2][0].y = 192;//upper left corner y-coordinate
+	wlf->spriteRect[2][0].w = 96;//width of one animation part of the sheet
+	wlf->spriteRect[2][0].h = 96;//height of one animation part of the sheet
+
+	wlf->spriteRect[2][1].x = 96;
+	wlf->spriteRect[2][1].y = 192;
+	wlf->spriteRect[2][1].w = 96;
+	wlf->spriteRect[2][1].h = 96;
+
+	wlf->spriteRect[2][2].x = 192;
+	wlf->spriteRect[2][2].y = 192;
+	wlf->spriteRect[2][2].w = 96;
+	wlf->spriteRect[2][2].h = 96;
+
+	wlf->spriteRect[2][3].x = 288;
+	wlf->spriteRect[2][3].y = 192;
+	wlf->spriteRect[2][3].w = 96;
+	wlf->spriteRect[2][3].h = 96;
+
+	//walking away from you
+	wlf->spriteRect[3][0].x = 0;//upper left corner x-coordinate
+	wlf->spriteRect[3][0].y = 288;//upper left corner y-coordinate
+	wlf->spriteRect[3][0].w = 96;//width of one animation part of the sheet
+	wlf->spriteRect[3][0].h = 96;//height of one animation part of the sheet
+
+	wlf->spriteRect[3][1].x = 96;
+	wlf->spriteRect[3][1].y = 288;
+	wlf->spriteRect[3][1].w = 96;
+	wlf->spriteRect[3][1].h = 96;
+
+	wlf->spriteRect[3][2].x = 192;
+	wlf->spriteRect[3][2].y = 288;
+	wlf->spriteRect[3][2].w = 96;
+	wlf->spriteRect[3][2].h = 96;
+
+	wlf->spriteRect[3][3].x = 288;
+	wlf->spriteRect[3][3].y = 288;
+	wlf->spriteRect[3][3].w = 96;
+	wlf->spriteRect[3][3].h = 96;
 
 	wlf->screenRect.x = (WINX - 200) / 2;//where on screen the upper left corner of the sprite should be drawn
 	wlf->screenRect.y = (WINY - 200) / 2;//where on screen the upper left corner of the sprite should be drawn
@@ -243,8 +329,22 @@ void	load_animsprite(t_doom *wlf)
 
 void	draw_sprite(t_doom *wlf)
 {
-	SDL_RenderCopy(wlf->rend, wlf->spriteTexture, &wlf->spriteRect, &wlf->screenRect);
-	//SDL_RenderPresent(wlf->rend);
+	SDL_RenderCopy(wlf->rend, wlf->spriteTexture, &wlf->spriteRect[wlf->anim][wlf->frame / 4], &wlf->screenRect);
+	wlf->frame++;
+	if (wlf->screenRect.w < 550)
+		wlf->screenRect.w += 3;
+	if (wlf->screenRect.x > 200)//440
+		wlf->screenRect.x -= 3;
+	if (wlf->screenRect.w < 550)
+		wlf->screenRect.h += 3;
+	if (wlf->screenRect.y > 200)
+		wlf->screenRect.y -= 3;
+	if ((wlf->frame / 4) > 3)
+	{
+		if (wlf->anim != 0)
+			wlf->anim--;
+		wlf->frame = 0;
+	}
 }
 
 void	render(t_doom *wlf)
