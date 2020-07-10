@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/08 12:27:30 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:38:23 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 # define WINX		1080
 # define WINY		720
 # define MAXAGGRO	999999
-# define GFXCOUNT	24
+# define GFXCOUNT	25
 # define THREADS	6
 # define BUFFER		6
 
