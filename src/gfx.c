@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 13:32:48 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:42:12 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_gfx	gfx_get(t_doom *wolf, char *file, int x, int y)
 }
 
 /*
-**	i = 15-22 for the foes.
+**	i = 15-23 for the foes.
 */
 
 void	comp_foe(t_doom *wlf, char *bpath, int i)
@@ -81,6 +81,7 @@ void	comp_foe(t_doom *wlf, char *bpath, int i)
 	wlf->gfx[i++] = gfx_get(wlf, ft_strjoin(bpath, "foe/foe6.xpm"), 564, 396);
 	wlf->gfx[i++] = gfx_get(wlf, ft_strjoin(bpath, "foe/foe7.xpm"), 564, 396);
 	wlf->gfx[i++] = gfx_get(wlf, ft_strjoin(bpath, "foe/foe8.xpm"), 564, 396);
+	wlf->gfx[i++] = gfx_get(wlf, ft_strjoin(bpath, "SpriteSheets/GreyDragon.xpm"), 384, 384);
 	wlf->gfxcount = i;
 	if (i != GFXCOUNT)
 		error_out(GFX_ERROR, wlf);

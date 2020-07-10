@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 14:55:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:12:45 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,10 +346,24 @@ typedef struct	s_doom
 	SDL_Rect	screenRect;
 	int			anim;
 	int			frame;
+
 	double		depthbuffer[1080];
 	double		disttosprite;
-	double		spriteX;
-	double		spriteY;
+	t_vector	spriteLoc;
+	t_vector	spriteRelLoc;
+	double		invDet;
+	double		transformX;
+	double		transformY;
+	int			spriteScreenX;
+	int			spriteHeight;
+	int			spriteWidth;
+	int			drawStartX;
+	int			drawStartY;
+	int			drawEndX;
+	int			drawEndY;
+	int			textureX;
+	int			textureY;
+	Uint32		spriteColor;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);

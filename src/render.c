@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 14:40:36 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:12:52 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,13 @@ void	dda_sys(t_doom *wlf)
 		else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 1)
 		{
 			wlf->hit = 1;
-			if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] == 9)//distance from player to sprite (9 on the map)
+			if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] == 9)//distance from player to sprite (sprite is 9 on the map)
+			{
+				wlf->spriteLoc.x = wlf->mapx;
+				wlf->spriteLoc.y = wlf->mapy;
+				wlf->spriteLoc.z = wlf->mapz;
 				wlf->disttosprite = ((wlf->posx - wlf->mapx) * (wlf->posx - wlf->mapx) + (wlf->posy - wlf->mapy) * (wlf->posy - wlf->mapy));//initialize disttosprite
+			}
 		}
 	}
 }
@@ -133,7 +138,10 @@ void	side_check(t_doom* wlf)
 
 int		renthread(void *ptr)
 {
-	t_doom *wlf;
+	t_doom	*wlf;
+	int		i;
+	int		j;
+	int		d;
 
 	wlf = (t_doom*)ptr;
 	//SDL_TryLockMutex(wlf->mutex);
@@ -160,8 +168,60 @@ int		renthread(void *ptr)
 				render_floor(wlf);
 			else
 				wall_stripe(wlf);
-			//wlf->depthbuffer[wlf->x] = wlf->walldist;
-			//wlf->spriteX =
+
+			//trying to draw stationary sprite in map:
+
+			//saving the depth for each raycast
+			wlf->depthbuffer[wlf->x] = wlf->walldist;
+
+			//sprites relative location to the player.
+			wlf->spriteRelLoc.x = wlf->spriteLoc.x - wlf->posx;
+			wlf->spriteRelLoc.y = wlf->spriteLoc.y - wlf->posy;
+			wlf->spriteRelLoc.z = wlf->spriteLoc.z - wlf->posz;
+
+			wlf->invDet = 1.0 / (wlf->plane.x * wlf->dir.y - wlf->plane.y * wlf->dir.x);
+
+			wlf->transformX = wlf->invDet * (wlf->dir.y * wlf->spriteRelLoc.x - wlf->dir.x * wlf->spriteRelLoc.y);
+			wlf->transformY = wlf->invDet * (-wlf->dir.y * wlf->spriteRelLoc.x + wlf->plane.x * wlf->spriteRelLoc.y);
+
+			wlf->spriteScreenX = (int)((WINX / 2) * (1 + wlf->transformX / wlf->transformY));
+			wlf->spriteHeight = abs((int)(WINY / (wlf->transformY)));
+
+			wlf->drawStartY = -wlf->spriteHeight / 2 + WINY / 2;
+			if (wlf->drawStartY < 0)
+				wlf->drawStartY = 0;
+			wlf->drawEndY = wlf->spriteHeight / 2 + WINY / 2;
+			if (wlf->drawEndY >= WINY)
+				wlf->drawEndY = WINY - 1;
+			wlf->spriteWidth = abs((int)(WINY / wlf->transformY));
+
+			wlf->drawStartX = -wlf->spriteWidth / 2 + wlf->spriteScreenX;
+			if (wlf->drawStartX < 0)
+				wlf->drawStartX = 0;
+			wlf->drawEndX = wlf->spriteWidth / 2 + wlf->spriteScreenX;
+			if (wlf->drawEndX >= WINX)
+				wlf->drawEndX = WINX - 1;
+			i = wlf->drawStartX - 1;
+			while (++i < wlf->drawEndX)//enderdragon: 564w 396h			GreyDragon: 384w384h
+			{
+				//wlf->textureX = (int)(564 * (i - (-wlf->spriteWidth / 2 + wlf->spriteScreenX)) * 564 / wlf->spriteWidth) / 564;//EnderDragon
+				wlf->textureX = (int)(1536 * (i - (-wlf->spriteWidth / 2 + wlf->spriteScreenX)) * 384 / wlf->spriteWidth) / 1536;//GreyDragon
+				if (wlf->transformY > 0 && i > 0 && i < WINX && wlf->transformY < wlf->depthbuffer[i])
+				{
+					j = wlf->drawStartY - 1;
+					while (++j < wlf->drawEndY)
+					{
+						d = j * 1536 - WINY * 768 + wlf->spriteHeight * 768;//GreyDragon
+						//d = j * 2256 - WINY * 1128 + wlf->spriteHeight * 1128;//EnderDragon
+						wlf->textureY = ((d * 384) / wlf->spriteHeight) / 1536;//GreyDragon
+						//wlf->textureY = ((d * 396) / wlf->spriteHeight) / 396;//EnderDragon
+						//wlf->spriteColor = wlf->gfx[15].data[396 * wlf->textureY + wlf->textureX];//EnderDragon
+						wlf->spriteColor = wlf->gfx[23].data[384 * wlf->textureY + wlf->textureX];//GreyDragon
+						//if (wlf->spriteColor != 0xffff00ff)//Use if EnderDragon with pink background
+						wlf->img.data[WINX * j + i] = wlf->spriteColor;
+					}
+				}
+			}
 		}
 		wlf->x += wlf->trx;
 	}
@@ -232,6 +292,18 @@ void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now reall
 
 void	load_animsprite(t_doom *wlf)
 {
+	//This will be good for use later when we have many sprites:
+	//SDL_QueryTexture() method gets the width and height of the texture
+	//SDL_QueryTexture(spriteSheet, NULL, NULL, &textureRect.w, &textureRect.h);
+	//Now, textureRect.w and textureRect.h are filled
+	//with respective dimensions of the image/texture
+
+	//As there are 8 frames with same width, we simply
+	//get the width of a frame by dividing with 8
+	//textureRect.w /= 8;
+	//Height for each frame is the same as for the whole sheet/texture
+
+
 	//wlf->sprites = IMG_Load("./gfx/SpriteSheets/PokemonTrainer.png");
 	wlf->spriteSurface = IMG_Load("./gfx/SpriteSheets/GreyDragon.png");
 	wlf->spriteTexture = SDL_CreateTextureFromSurface(wlf->rend, wlf->spriteSurface);
