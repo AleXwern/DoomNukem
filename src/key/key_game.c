@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/08 14:02:46 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:43:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,15 +205,14 @@ int				mouse_move(int x, int y, t_doom *wlf)
 
 	olddir = wlf->dir;
 	oldplane = wlf->plane;
-	//printf("%d %d\n", x, y);
 	if (x && abs(x) < wlf->winw)
 	{
 		rota.x = (double)x / wlf->winw * OSCAM;
-		//printf("%f\nwith: %d %d\n", rota.x, x, wlf->winw);
 		wlf->dir.x = olddir.x * cos(rota.x) - olddir.y * sin(rota.x);
 		wlf->dir.y = olddir.x * sin(rota.x) + olddir.y * cos(rota.x);
 		wlf->plane.x = oldplane.x * cos(rota.x) - oldplane.y * sin(rota.x);
 		wlf->plane.y = oldplane.x * sin(rota.x) + oldplane.y * cos(rota.x);
+		wlf->sbox += (wlf->winw / 64.0) * (rota.x / wlf->rotsp);
 	}
 	if (y && abs(y) < wlf->winh)
 	{

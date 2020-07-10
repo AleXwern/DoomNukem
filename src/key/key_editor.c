@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/08 14:31:40 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:10:07 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	editor_key_press(Uint32 key, t_editor *le)
 		le->options[le->cur] = le->maxval[le->cur];
 	if (le->options[le->cur] < le->minval[le->cur])
 		le->options[le->cur] = le->minval[le->cur];
+	//printf("Min %d max %f\n", le->minval[le->cur], le->maxval[le->cur]);
 }

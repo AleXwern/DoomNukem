@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 14:27:21 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/10 15:00:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	move_l(t_doom *wlf, t_vector olddir, t_vector oldplane)
 		wlf->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
 		wlf->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
 		wlf->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
+		wlf->sbox -= (wlf->winw / 64.0) * (rota / wlf->rotsp);
 	}
 }
 
@@ -104,11 +105,16 @@ int		move_lr(t_doom *wlf)
 		wlf->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
 		wlf->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
 		wlf->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
+		wlf->sbox -= (wlf->winw / 64) * (rota / wlf->rotsp);
 	}
 	set_yroation(wlf);
 	set_reverse(wlf);
 	if (wlf->key.right)
 		move_l(wlf, olddir, oldplane);
+	if (wlf->sbox < 0)
+		wlf->sbox += wlf->winw;
+	if (wlf->sbox > wlf->winw)
+		wlf->sbox -= wlf->winw;
 	return (0);
 }
 

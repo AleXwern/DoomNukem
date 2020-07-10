@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/08 15:57:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/10 11:30:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ void	key_state_menu(t_doom *wlf)
 
 void	key_state_editor(t_editor *le, t_doom *dm)
 {
-	if (SDL_PollEvent(&(le->ev)))
+	if (SDL_PollEvent(&(dm->event)))
 	{
-		if (le->ev.window.event == SDL_WINDOWEVENT_RESIZED || le->ev.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+		if (dm->event.window.event == SDL_WINDOWEVENT_RESIZED || dm->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 			resize_window(dm);
-		if (le->ev.type == SDL_QUIT)
+		if (dm->event.type == SDL_QUIT)
 			le->quit = 1;
-		if (le->ev.key.state == SDL_PRESSED)
-			editor_key_press(le->ev.key.keysym.scancode, le);
-		if (le->ev.key.state == SDL_RELEASED)
-			editor_key_release(le->ev.key.keysym.scancode, le);
+		if (dm->event.key.state == SDL_PRESSED)
+			editor_key_press(dm->event.key.keysym.scancode, le);
+		if (dm->event.key.state == SDL_RELEASED)
+			editor_key_release(dm->event.key.keysym.scancode, le);
 	}
 }

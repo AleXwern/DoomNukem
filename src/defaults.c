@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/08 16:25:48 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:10:17 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ void	resize_window(t_doom *wlf)
 {
 	wlf->winw = wlf->event.window.data1;
 	wlf->winh = wlf->event.window.data2;
-	SDL_FreeSurface(wlf->img.tex);
-	SDL_DestroyTexture(wlf->img.img);
+	wlf->img = init_image(wlf);
+	//SDL_FreeSurface(wlf->img.tex);
+	//SDL_DestroyTexture(wlf->img.img);
 	if (!(wlf->rend = SDL_GetRenderer(wlf->win)))
 		error_out(REN_ERROR, wlf);
-	wlf->img = init_image(wlf);
+	//wlf->img = init_image(wlf);
 	free(wlf->threads);
 	free(wlf->data_r);
 	free(wlf->maparr);

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/08 16:22:39 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/10 13:44:01 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,23 @@ void	draw_bg(t_doom *wlf, t_gfx gfx)
 	}
 }
 
-void	draw_block(t_doom *dm, t_gfx blk, int x, int y)
+void	draw_block(t_doom *dm, t_gfx blk, double x, double y)
 {
-	int		gx;
-	int		gy;
+	double		gx;
+	double		gy;
 
 	gy = -1;
 	while (++gy < dm->winh / dm->height)
 	{
 		gx = -1;
-		while (++gx < dm->winw / dm->width * 0.66)
+		while (++gx < dm->winw / dm->width * 0.5)
 		{
-			dm->img.data[dm->winw * (y + gy) + (x + gx)] = blk.data[(int)(blk.wid * gy * (blk.wid / (dm->winh / dm->height)) + gx * (blk.wid / (dm->winw / dm->width * 0.66)))];
+			dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = blk.data[(int)(blk.wid * (gy * (blk.hgt / (dm->winh / dm->height))) + gx * (blk.wid / (dm->winw / dm->width * 0.5)))];
 		}
 	}
 }
 
-void	draw_level_screen(t_doom *wlf, t_editor *le, int x, int y)
+void	draw_level_screen(t_doom *wlf, t_editor *le, double x, double y)
 {
 	int		gx;
 	int		gy;
@@ -62,18 +62,19 @@ void	draw_level_screen(t_doom *wlf, t_editor *le, int x, int y)
 		x = 0;
 		while (gx < wlf->width)
 		{
-			//printf("%d %d\n%d %d\n\n", gx, gy, x, y);
-			draw_block(wlf, wlf->gfx[wlf->map[2][gy][gx]], x, y);
-			x += wlf->winw / wlf->width * 0.66;
+			if (wlf->map[le->options[3]][gy][gx] == 0)
+				wlf->map[le->options[3]][gy][gx] = 5;
+			if (wlf->map[le->options[3]][gy][gx] > 6)
+				wlf->map[le->options[3]][gy][gx] = 2;
+			draw_block(wlf, wlf->gfx[wlf->map[le->options[3]][gy][gx]], x, y);
+			x += wlf->winw / wlf->width * 0.5;
 			gx++;
-			//printf("af%d %d\n%d %d\n\n", gx, gy, x, y);
 		}
 		y += wlf->winh / wlf->height;
 		gy++;
 	}
 }
 
-/*
 void	draw_sliders(t_doom *dm, t_editor *le, int x, int y)
 {
 	int		i;
@@ -86,28 +87,28 @@ void	draw_sliders(t_doom *dm, t_editor *le, int x, int y)
 	while (++i < 5)
 	{
 		sy = (i * (dm->winh / 10));
-		sx = wlf->winw / 2;
+		sx = dm->winw / 2;
 		y = 0;
-		while (++y < wlf->winh / 10 - 1)
+		while (++y < dm->winh / 10 - 1)
 		{
 			x = -1;
-			*wlf->options[pc] = abs(*wlf->options[pc]);
-			while (++x < wlf->winw / 2 * (*wlf->options[pc] / wlf->maxvalue[pc]) && x < wlf->winw)
+			le->options[i] = le->options[i] & 0x7f;
+			while (++x < dm->winw / 2 * (le->options[i] / le->maxval[i]) && x < dm->winw)
 			{
 				if (0xffffcd38 + x > 0xffffcdff)
 					color = 0xffffcdff;
 				else
 					color = 0xffffcd38 + x;
-				wlf->img.data[wlf->winw * (y + sy) + (x + sx)] = color;
+				dm->img.data[dm->winw * (y + sy) + (x + sx)] = color;
 			}
-			while (++x < wlf->winw / 2 + 1)
+			while (++x < dm->winw / 2)
 			{
 				if (x < (0xff * 2))
 					black = 0xff000000 + (x / 2 * 0x00010000) + (x / 2 * 0x00000100) + (x / 2);
 				else
 					black = 0xffffffff;
-				wlf->img.data[wlf->winw * (y + sy) + (x + sx - 1)] = black;
+				dm->img.data[dm->winw * (y + sy) + (x + sx - 1)] = black;
 			}
 		}
 	}
-}*/
+}

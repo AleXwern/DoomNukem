@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/08 16:17:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:40:36 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "../includes/value.h"
 
 #include <stdio.h>//
-
-int cond = SDL_FALSE;
 
 void	dda_sys(t_doom *wlf)
 {
@@ -42,7 +40,9 @@ void	dda_sys(t_doom *wlf)
 			wlf->side = 2;
 		}
 		//printf("--after--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", wlf->hit, wlf->mapz, wlf->mapy, wlf->mapx, wlf->sidedz, wlf->sidedy, wlf->sidedx);
-		if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 1)
+		if (wlf->mapz< 0 || wlf->mapy < 0 || wlf->mapx < 0)
+			wlf->hit = 2;
+		else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 1)
 		{
 			wlf->hit = 1;
 			if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] == 9)//distance from player to sprite (9 on the map)
@@ -154,7 +154,9 @@ int		renthread(void *ptr)
 			wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
 			//wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
 			wlf->maparr[wlf->winw * wlf->y + wlf->x] = wlf->side + 1 + wlf->mapz + wlf->mapy + wlf->mapx;
-			if (wlf->side == 2 || wlf->side == 5)
+			if (wlf->hit == 2)
+				draw_sky(wlf, 0, wlf->sbox);
+			else if (wlf->side == 2 || wlf->side == 5)
 				render_floor(wlf);
 			else
 				wall_stripe(wlf);
