@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 14:36:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/13 11:53:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	draw_sky(t_doom *wlf, int scany, int scanx)
 {
 	if (scanx >= wlf->winw)
 		scanx -= wlf->winw;
-	scany = abs(wlf->y + 360 * wlf->dir.z) % 360;
+	scany = abs(wlf->y + 360 * (int)(wlf->dir.z) % 360);
 	if (wlf->texbool)
 		wlf->img.data[wlf->winw * wlf->y + wlf->x] = wlf->gfx[0].data[wlf->winw * scany + wlf->x + scanx];
 }
