@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 13:11:53 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/13 15:22:57 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ void	setup(t_doom *wlf)
 {
 	SDL_Thread* capper;
 
+	SDL_Init(SDL_INIT_AUDIO);
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	{
+		ft_putendl("Failed to initialize SDL_Mixer!");
+	}
+	wlf->music = Mix_LoadMUS("Audio/Music/scapemain.wav");
+	wlf->readyForAction = Mix_LoadWAV("Audio/SoundEffects/ready_for_action.wav");
 	doom_default(wlf);
 	if (wlf->map[2][(int)wlf->posy][(int)wlf->posx] != 1)
 		error_out(SPW_ERROR, wlf);

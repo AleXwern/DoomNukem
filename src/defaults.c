@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 13:10:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/13 15:27:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	doom_default(t_doom *wlf)
 		error_out(MEM_ERROR, wlf);
 	if (!(wlf->data_r = (t_doom*)malloc(sizeof(t_doom) * wlf->trx)))
 		error_out(MEM_ERROR, wlf);
+	if (!(Mix_PlayingMusic()))
+		Mix_PlayMusic(wlf->music, -1);
 	printf("Threads: %d\n", wlf->trx);
 }
 

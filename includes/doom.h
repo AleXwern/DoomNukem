@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 15:12:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/13 15:29:27 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,6 +364,12 @@ typedef struct	s_doom
 	int			textureX;
 	int			textureY;
 	Uint32		spriteColor;
+
+	/*
+	**	Variables for playing some sounds and music!
+	*/
+	Mix_Music			*music;
+	Mix_Chunk			*readyForAction;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/13 13:40:07 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/13 14:39:55 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int		renthread(void *ptr)
 				render_floor(wlf);
 			else
 				wall_stripe(wlf);
-
+			/*
 			//trying to draw stationary sprite in map:
 
 			//saving the depth for each raycast
@@ -217,13 +217,13 @@ int		renthread(void *ptr)
 						//wlf->textureY = ((d * 396) / wlf->spriteHeight) / 1584;//EnderDragon
 						//wlf->spriteColor = wlf->gfx[15].data[564 * wlf->textureY + wlf->textureX];//EnderDragon
 						wlf->spriteColor = wlf->gfx[23].data[384 * wlf->textureY + wlf->textureX];//GreyDragon
-						if (wlf->spriteColor != 0xffff00ff)//Used to not draw EnderDragons pink background
+						if (wlf->spriteColor != 0xffff00ff || wlf->spriteColor != 4294902015)//Used to not draw EnderDragons pink background && transparent background in GreyDragon(?)
 							wlf->img.data[WINX * j + i] = wlf->spriteColor;
 						j++;
 					}
 				}
 				i++;
-			}
+			}*/
 		}
 		wlf->x += wlf->trx;
 	}
