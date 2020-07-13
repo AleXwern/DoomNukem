@@ -3,7 +3,7 @@ Hive Helsinki project DoomNukem
 
 How to use:
 1. Compile with 'make'
-2. Run ./doomdemo
+2. Run ./doom-nukem
 
 Controls
 1. Arrowkeys - Move around and turn camera
