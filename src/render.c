@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 00:22:31 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/07/15 00:27:41 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int		renthread(void *ptr)
 			wlf->invDet = 1.0 / (wlf->plane.x * wlf->dir.y - wlf->plane.y * wlf->dir.x);
 
 			wlf->transformX = wlf->invDet * (wlf->dir.y * wlf->spriteRelLoc.x - wlf->dir.x * wlf->spriteRelLoc.y);
-			wlf->transformY = wlf->invDet * (-wlf->dir.y * wlf->spriteRelLoc.x + wlf->plane.x * wlf->spriteRelLoc.y);
+			wlf->transformY = wlf->invDet * (-wlf->plane.y * wlf->spriteRelLoc.x + wlf->plane.x * wlf->spriteRelLoc.y);
 
 			wlf->spriteScreenX = (int)((WINX / 2) * (1 + wlf->transformX / wlf->transformY));
 			wlf->spriteHeight = abs((int)(WINY / (wlf->transformY)));
@@ -201,26 +201,28 @@ int		renthread(void *ptr)
 			wlf->drawEndX = wlf->spriteWidth / 2 + wlf->spriteScreenX;
 			if (wlf->drawEndX >= WINX)
 				wlf->drawEndX = WINX - 1;
-			i = wlf->drawStartX - 1;
-			while (++i < wlf->drawEndX)//enderdragon: 564w 396h			GreyDragon: 384w384h
+			i = wlf->drawStartX;
+			while (i < wlf->drawEndX)// && wlf->transformY > 0 && wlf->transformY < wlf->depthbuffer[i])	//enderdragon: 564w 396h		GreyDragon: 384w384h
 			{
-				//wlf->textureX = (int)(564 * (i - (-wlf->spriteWidth / 2 + wlf->spriteScreenX)) * 564 / wlf->spriteWidth) / 564;//EnderDragon
+				//wlf->textureX = (int)(2256 * (i - (-wlf->spriteWidth / 2 + wlf->spriteScreenX)) * 564 / wlf->spriteWidth) / 2256;//EnderDragon
 				wlf->textureX = (int)(1536 * (i - (-wlf->spriteWidth / 2 + wlf->spriteScreenX)) * 384 / wlf->spriteWidth) / 1536;//GreyDragon
 				if (wlf->transformY > 0 && i > 0 && i < WINX && wlf->transformY < wlf->depthbuffer[i])
 				{
-					j = wlf->drawStartY - 1;
-					while (++j < wlf->drawEndY)
+					j = wlf->drawStartY;
+					while (j < wlf->drawEndY)
 					{
 						d = j * 1536 - WINY * 768 + wlf->spriteHeight * 768;//GreyDragon
 						//d = j * 2256 - WINY * 1128 + wlf->spriteHeight * 1128;//EnderDragon
 						wlf->textureY = ((d * 384) / wlf->spriteHeight) / 1536;//GreyDragon
-						//wlf->textureY = ((d * 396) / wlf->spriteHeight) / 396;//EnderDragon
-						//wlf->spriteColor = wlf->gfx[15].data[396 * wlf->textureY + wlf->textureX];//EnderDragon
+						//wlf->textureY = ((d * 396) / wlf->spriteHeight) / 1584;//EnderDragon
+						//wlf->spriteColor = wlf->gfx[15].data[564 * wlf->textureY + wlf->textureX];//EnderDragon
 						wlf->spriteColor = wlf->gfx[23].data[384 * wlf->textureY + wlf->textureX];//GreyDragon
-						//if (wlf->spriteColor != 0xffff00ff)//Use if EnderDragon with pink background
-						wlf->img.data[WINX * j + i] = wlf->spriteColor;
+						if (wlf->spriteColor != 0xffff00ff || wlf->spriteColor != 4294902015)//Used to not draw EnderDragons pink background && transparent background in GreyDragon(?)
+							wlf->img.data[WINX * j + i] = wlf->spriteColor;
+						j++;
 					}
 				}
+				i++;
 			}
 		}
 		wlf->x += wlf->trx;

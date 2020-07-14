@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/08 16:13:15 by anystrom         ###   ########.fr        #
+#    Updated: 2020/07/13 12:44:35 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ ifeq ($(OS),Windows_NT)
 	clang -I ./includes -I ./libft -I C:\SDL\SDL2_image-2.0.5\include -I C:\SDL\SDL2-2.0.12\include -I C:\SDL\SDL2_mixer-2.0.4\include  -o $@ -c $<
 else
 	@echo "Compiling Wolf3D -> $(RED)$@$(STOP)"
-	@gcc $(OBJFRAME) $(FLG) $(INCL) -o $@ -c $<
+	@gcc -g $(OBJFRAME) $(FLG) $(INCL) -o $@ -c $<
 endif
 
 $(NAME): $(OBJ) $(LIBFT)
