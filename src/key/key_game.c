@@ -152,12 +152,12 @@ int				key_release(int key, t_doom *wlf)
 		wlf->key.q = 0;
 	if (key == KEY_E)
 		wlf->key.e = 0;
-	if (key == KEY_I || key == SDL_SCANCODE_I)
+	/*if (key == KEY_I || key == SDL_SCANCODE_I)
 	{
 		ft_putendl("I pressed");
 		load_animsprite(wlf);
 		wlf->key.i = wlf->key.i == 1 ? 0 : 1;
-	}
+	}*/
 	if (key == KEY_SHIFT)
 		wlf->movsp -= 0.06;
 	if (key == KEY_L)
@@ -190,10 +190,10 @@ int				x_press(t_doom *wolf)
 void			jetpack(t_doom *wlf)
 {
 	if (wlf->key.one)
-		if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+		if (wlf->area[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 			wlf->posz += 0.05 * (30.0 / wlf->buffer / wlf->prefps);
 	if (wlf->key.two)
-		if (wlf->map[(int)(wlf->posz - 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+		if (wlf->area[(int)(wlf->posz - 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 			wlf->posz -= 0.05 * (30.0 / wlf->buffer / wlf->prefps);
 }
 

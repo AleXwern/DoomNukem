@@ -127,16 +127,16 @@ int		move_fb(t_doom *wlf)
 		mov = 0.99;
 	if (wlf->key.up)
 	{
-		if (wlf->map[(int)wlf->posz][(int)(wlf->posy + wlf->dir.y * mov)][(int)wlf->posx] <= 1)
+		if (wlf->area[(int)wlf->posz][(int)(wlf->posy + wlf->dir.y * mov)][(int)wlf->posx] <= 1)
 			wlf->posy += wlf->dir.y * mov;
-		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx + wlf->dir.x * mov)] <= 1)
+		if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx + wlf->dir.x * mov)] <= 1)
 			wlf->posx += wlf->dir.x * mov;
 	}
 	if (wlf->key.down)
 	{
-		if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y * mov)][(int)wlf->posx] <= 1)
+		if (wlf->area[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y * mov)][(int)wlf->posx] <= 1)
 			wlf->posy -= wlf->dir.y * mov;
-		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx - wlf->dir.x * mov)] <= 1)
+		if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx - wlf->dir.x * mov)] <= 1)
 			wlf->posx -= wlf->dir.x * mov;
 	}
 	return (0);
@@ -151,16 +151,16 @@ void	strafe(t_doom *wlf, double dirxtemp, double dirytemp)
 		mov = 0.99;
 	if (wlf->key.q)
 	{
-		if (wlf->map[(int)wlf->posz][(int)(wlf->posy + wlf->dir.x * mov)][(int)wlf->posx] <= 1)
+		if (wlf->area[(int)wlf->posz][(int)(wlf->posy + wlf->dir.x * mov)][(int)wlf->posx] <= 1)
 			wlf->posy += wlf->dir.x * mov;
-		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx + wlf->dir.y * mov)] <= 1)
+		if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx + wlf->dir.y * mov)] <= 1)
 			wlf->posx += wlf->dir.y * mov;
 	}
 	if (wlf->key.e)
 	{
-		if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.x * mov)][(int)wlf->posx] <= 1)
+		if (wlf->area[(int)wlf->posz][(int)(wlf->posy - wlf->dir.x * mov)][(int)wlf->posx] <= 1)
 			wlf->posy -= wlf->dir.x * mov;
-		if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx - wlf->dir.y * mov)] <= 1)
+		if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx - wlf->dir.y * mov)] <= 1)
 			wlf->posx -= wlf->dir.y * mov;
 	}
 	return ;
@@ -170,25 +170,25 @@ void	strafe(t_doom *wlf, double dirxtemp, double dirytemp)
 	{
 		if (wlf->dir.y < 0)
 		{
-			if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
+			if (wlf->area[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
 					* wlf->movsp)][(int)wlf->posx] <= 1)
 				wlf->posy -= (wlf->dir.y + 1) * wlf->movsp;
 		}
 		else
 		{
-			if (wlf->map[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
+			if (wlf->area[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
 					* wlf->movsp)][(int)wlf->posx] <= 1)
 				wlf->posy += (wlf->dir.y - 1) * wlf->movsp;
 		}
 		if (wlf->dir.x < 0)
 		{
-			if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
+			if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
 					- wlf->dir.x * wlf->movsp)] <= 1)
 				wlf->posx -= (wlf->dir.x + 1) * wlf->movsp;
 		}
 		else
 		{
-			if (wlf->map[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
+			if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
 					- wlf->dir.x * wlf->movsp)] <= 1)
 				wlf->posx += (wlf->dir.x - 1) * wlf->movsp;
 		}

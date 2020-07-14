@@ -62,11 +62,11 @@ void	draw_level_screen(t_doom *wlf, t_editor *le, double x, double y)
 		x = 0;
 		while (gx < wlf->width)
 		{
-			if (wlf->map[le->options[3]][gy][gx] == 0)
-				wlf->map[le->options[3]][gy][gx] = 5;
-			if (wlf->map[le->options[3]][gy][gx] > 6)
-				wlf->map[le->options[3]][gy][gx] = 2;
-			draw_block(wlf, wlf->gfx[wlf->map[le->options[3]][gy][gx]], x, y);
+			if (wlf->area[le->options[3]][gy][gx] == 0)
+				wlf->area[le->options[3]][gy][gx] = 5;
+			if (wlf->area[le->options[3]][gy][gx] > 6)
+				wlf->area[le->options[3]][gy][gx] = 2;
+			draw_block(wlf, wlf->gfx[wlf->area[le->options[3]][gy][gx]], x, y);
 			x += wlf->winw / wlf->width * 0.5;
 			gx++;
 		}

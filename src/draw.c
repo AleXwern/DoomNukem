@@ -47,7 +47,7 @@ void	wall_stripe(t_doom *wlf)
 {
 	if (wlf->texbool)
 	{
-		wlf->texnum = wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
+		wlf->texnum = wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x];
 		if (wlf->texnum > 5)//This is a (temporary) fix for the issue where having a value higher than 5 on the map creating a wal with a weird texture.
 			wlf->texnum = 2;
 		if (wlf->side % 3 == 0)
@@ -61,7 +61,7 @@ void	wall_stripe(t_doom *wlf)
 		if (wlf->side == 1 && wlf->raydy < 0)
 			wlf->texx = 128 - wlf->texx - 1;
 	}
-	else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] != 2)
+	else if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] != 2)
 		wlf->testcolor = 0xff22a800;
 	draw_stripe(wlf);
 }
@@ -77,7 +77,7 @@ void	draw_floor(t_doom *wlf)
 		wlf->testcolor = color_shift(wlf->gfx[1].data[128 * wlf->ty + wlf->tx], wlf->walldist + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), wlf, 0);
 		//wlf->testcolor = wlf->gfx[1].data[128 * wlf->ty + wlf->tx];
 	}
-	else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 2)
+	else if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] > 2)
 		wlf->testcolor = 0xff22a800;
 	if (wlf->side > 2)
 		wlf->testcolor = (wlf->testcolor >> 1) & DARKEN;

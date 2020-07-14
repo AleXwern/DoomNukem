@@ -27,7 +27,7 @@ void	error_out(char *msg, t_doom *wolf)
 		wolf->mxflr = wolf->flr - 49;
 	if (wolf->gfx)
 		destroy_gfx(wolf, -1);
-	if (wolf->map)
+	if (wolf->area)
 		free_map(wolf, -1, -1);
 	if (wolf->tex)
 		SDL_DestroyTexture(wolf->tex);
@@ -64,7 +64,7 @@ void	setup(t_doom *wlf)
 	SDL_Thread* capper;
 
 	doom_default(wlf);
-	if (wlf->map[2][(int)wlf->posy][(int)wlf->posx] != 1)
+	if (wlf->area[2][(int)wlf->posy][(int)wlf->posx] != 1)
 		error_out(SPW_ERROR, wlf);
 	wlf->fpsthread = SDL_CreateThread(fps_counter, "fps counter", (void*)wlf);
 	char* path = SDL_GetBasePath();

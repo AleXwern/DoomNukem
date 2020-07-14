@@ -17,7 +17,7 @@
 
 void	lab_move(t_doom *wlf, int obj)
 {
-	if (obj == 3 && wlf->map[(int)wlf->posz -
+	if (obj == 3 && wlf->area[(int)wlf->posz -
 			1][(int)wlf->posy][(int)wlf->posx] == 1)
 	{
 		printf("stairs\n");
@@ -25,7 +25,7 @@ void	lab_move(t_doom *wlf, int obj)
 		wlf->posy += wlf->dir.y * 0.5;
 		wlf->posx += wlf->dir.x * 0.5;
 	}
-	else if (obj == 4 && (int)wlf->posz > 0 && wlf->map[(int)wlf->posz -
+	else if (obj == 4 && (int)wlf->posz > 0 && wlf->area[(int)wlf->posz -
 			1][(int)wlf->posy][(int)wlf->posx] == 1)
 		wlf->posz += 0.5;
 	else if ((obj == 3 && (int)wlf->posz == wlf->mxflr) ||
@@ -46,13 +46,13 @@ int		interact(t_doom *wlf)
 
 	tarpos.x = wlf->posx + wlf->dir.x * 0.9;
 	tarpos.y = wlf->posy + wlf->dir.y * 0.9;
-	obj = wlf->map[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x];
+	obj = wlf->area[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x];
 	if (obj == 3 || obj == 4)
 		lab_move(wlf, obj);
 	else if (obj == 5)
-		wlf->map[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x] = 0;
+		wlf->area[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x] = 0;
 	else if (obj == 0)
-		wlf->map[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x] = 5;
+		wlf->area[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x] = 5;
 	if (obj == 5 || obj == 0)
 		wlf->cycle(wlf);
 	return (0);

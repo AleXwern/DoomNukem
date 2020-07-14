@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 15:12:52 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/15 00:22:31 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,33 @@ void	dda_sys(t_doom *wlf)
 		if (wlf->sidedx < wlf->sidedy && wlf->sidedx < wlf->sidedz)
 		{
 			wlf->sidedx += wlf->deltadx;
-			wlf->mapx += wlf->stepx;
+			wlf->map.x += wlf->stepx;
 			wlf->side = 0;
 		}
 		else if (wlf->sidedy < wlf->sidedx && wlf->sidedy < wlf->sidedz)
 		{
 			wlf->sidedy += wlf->deltady;
-			wlf->mapy += wlf->stepy;
+			wlf->map.y += wlf->stepy;
 			wlf->side = 1;
 		}
 		else
 		{
 			wlf->sidedz += wlf->deltadz;
-			wlf->mapz += wlf->stepz;
+			wlf->map.z += wlf->stepz;
 			wlf->side = 2;
 		}
 		//printf("--after--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", wlf->hit, wlf->mapz, wlf->mapy, wlf->mapx, wlf->sidedz, wlf->sidedy, wlf->sidedx);
-		if (wlf->mapz< 0 || wlf->mapy < 0 || wlf->mapx < 0)
+		if (wlf->map.z < 0 || wlf->map.y < 0 || wlf->map.x < 0 || wlf->map.z >= 25 || wlf->map.y >= 25 || wlf->map.x >= 25)
 			wlf->hit = 2;
-		else if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] > 1)
+		else if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] > 1)
 		{
 			wlf->hit = 1;
-			if (wlf->map[wlf->mapz][wlf->mapy][wlf->mapx] == 9)//distance from player to sprite (sprite is 9 on the map)
+			if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] == 9)//distance from player to sprite (sprite is 9 on the map)
 			{
-				wlf->spriteLoc.x = wlf->mapx;
-				wlf->spriteLoc.y = wlf->mapy;
-				wlf->spriteLoc.z = wlf->mapz;
-				wlf->disttosprite = ((wlf->posx - wlf->mapx) * (wlf->posx - wlf->mapx) + (wlf->posy - wlf->mapy) * (wlf->posy - wlf->mapy));//initialize disttosprite
+				wlf->spriteLoc.x = wlf->map.x;
+				wlf->spriteLoc.y = wlf->map.y;
+				wlf->spriteLoc.z = wlf->map.z;
+				wlf->disttosprite = ((wlf->posx - wlf->map.x) * (wlf->posx - wlf->map.x) + (wlf->posy - wlf->map.y) * (wlf->posy - wlf->map.y));//initialize disttosprite
 			}
 		}
 	}
@@ -70,32 +70,32 @@ void	dda_prep(t_doom *wlf)
 	if (wlf->raydx < 0)
 	{
 		wlf->stepx = -1;
-		wlf->sidedx = (wlf->posx - wlf->mapx) * wlf->deltadx;
+		wlf->sidedx = (wlf->posx - wlf->map.x) * wlf->deltadx;
 	}
 	else
 	{
 		wlf->stepx = 1;
-		wlf->sidedx = (wlf->mapx + 1.0 - wlf->posx) * wlf->deltadx;
+		wlf->sidedx = (wlf->map.x + 1.0 - wlf->posx) * wlf->deltadx;
 	}
 	if (wlf->raydy < 0)
 	{
 		wlf->stepy = -1;
-		wlf->sidedy = (wlf->posy - wlf->mapy) * wlf->deltady;
+		wlf->sidedy = (wlf->posy - wlf->map.y) * wlf->deltady;
 	}
 	else
 	{
 		wlf->stepy = 1;
-		wlf->sidedy = (wlf->mapy + 1.0 - wlf->posy) * wlf->deltady;
+		wlf->sidedy = (wlf->map.y + 1.0 - wlf->posy) * wlf->deltady;
 	}
 	if (wlf->raydz < 0)
 	{
 		wlf->stepz = -1;
-		wlf->sidedz = (wlf->posz - wlf->mapz) * wlf->deltadz;
+		wlf->sidedz = (wlf->posz - wlf->map.z) * wlf->deltadz;
 	}
 	else
 	{
 		wlf->stepz = 1;
-		wlf->sidedz = (wlf->mapz + 1.0 - wlf->posz) * wlf->deltadz;
+		wlf->sidedz = (wlf->map.z + 1.0 - wlf->posz) * wlf->deltadz;
 	}
 }
 
@@ -106,18 +106,18 @@ void	rc_init(t_doom *wlf)
 	wlf->raydx = wlf->dir.x + wlf->plane.x * wlf->camx;
 	wlf->raydy = wlf->dir.y + wlf->plane.y * wlf->camx;
 	wlf->raydz = wlf->dir.z + wlf->plane.z * wlf->camy;
-	wlf->mapx = ((int)wlf->posx) & 0x0fffffff;
-	wlf->mapy = ((int)wlf->posy) & 0x0fffffff;
-	wlf->mapz = ((int)wlf->posz) & 0x0fffffff;
-	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %d %d %d\n", wlf->camx, wlf->camy, wlf->raydz, wlf->raydy, wlf->raydx, wlf->mapz, wlf->mapy, wlf->mapx);
+	wlf->map.x = ((int)wlf->posx) & 0x0fffffff;
+	wlf->map.y = ((int)wlf->posy) & 0x0fffffff;
+	wlf->map.z = ((int)wlf->posz) & 0x0fffffff;
+	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %f %f %f\n", wlf->camx, wlf->camy, wlf->raydz, wlf->raydy, wlf->raydx, wlf->map.z, wlf->map.y, wlf->map.x);
 	dda_prep(wlf);
 	dda_sys(wlf);
 	if (wlf->side == 0)
-		wlf->walldist = (wlf->mapx - wlf->posx + (1 - wlf->stepx) * 0.5) / wlf->raydx;
+		wlf->walldist = (wlf->map.x - wlf->posx + (1 - wlf->stepx) * 0.5) / wlf->raydx;
 	else if (wlf->side == 1)
-		wlf->walldist = (wlf->mapy - wlf->posy + (1 - wlf->stepy) * 0.5) / wlf->raydy;
+		wlf->walldist = (wlf->map.y - wlf->posy + (1 - wlf->stepy) * 0.5) / wlf->raydy;
 	else
-		wlf->walldist = (wlf->mapz - wlf->posz + (1 - wlf->stepz) * 0.5) / wlf->raydz;
+		wlf->walldist = (wlf->map.z - wlf->posz + (1 - wlf->stepz) * 0.5) / wlf->raydz;
 	if (wlf->walldist < 0.0001)
 		wlf->walldist += 0.01;
 }
@@ -127,11 +127,11 @@ void	side_check(t_doom* wlf)
 	int	delta;
 
 	if (wlf->side == 0)
-		delta = wlf->posx - wlf->mapx;
+		delta = wlf->posx - wlf->map.x;
 	else if (wlf->side == 1)
-		delta = wlf->posy - wlf->mapy;
+		delta = wlf->posy - wlf->map.y;
 	else
-		delta = wlf->posz - wlf->mapz;
+		delta = wlf->posz - wlf->map.z;
 	if (delta > 0)
 		wlf->side += 3;
 }
@@ -161,14 +161,14 @@ int		renthread(void *ptr)
 				wlf->testcolor = 0xffF0330A;
 			wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
 			//wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
-			wlf->maparr[wlf->winw * wlf->y + wlf->x] = wlf->side + 1 + wlf->mapz + wlf->mapy + wlf->mapx;
+			wlf->maparr[wlf->winw * wlf->y + wlf->x] = wlf->side + 1 + wlf->map.z + wlf->map.y + wlf->map.x;
 			if (wlf->hit == 2)
 				draw_sky(wlf, 0, wlf->sbox);
 			else if (wlf->side == 2 || wlf->side == 5)
 				render_floor(wlf);
 			else
 				wall_stripe(wlf);
-
+			
 			//trying to draw stationary sprite in map:
 
 			//saving the depth for each raycast
@@ -238,10 +238,10 @@ void	gravity(t_doom *wlf)
 		wlf->gravity.z += wlf->fallsp.z;
 	if (wlf->gravity.z < 0)
 	{
-		if (wlf->map[(int)(wlf->posz + wlf->gravity.z - 0.1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+		if (wlf->area[(int)(wlf->posz + wlf->gravity.z - 0.1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 			wlf->posz += wlf->gravity.z;
 	}
-	else if (wlf->map[(int)(wlf->posz + 1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
+	else if (wlf->area[(int)(wlf->posz + 1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
 		wlf->posz += wlf->gravity.z;
 	else
 	{
@@ -252,7 +252,7 @@ void	gravity(t_doom *wlf)
 	wlf->gravity.z += wlf->fallsp.z;
 	if (wlf->gravity.z > 0.2 * (30.0 / wlf->buffer / wlf->prefps))
 		wlf->gravity.z = 0.2 * (30.0 / wlf->buffer / wlf->prefps);
-	if (wlf->map[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
+	if (wlf->area[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
 		wlf->posz -= 0.1;
 }
 
@@ -260,14 +260,14 @@ void	pickupitem(t_doom *wlf)
 {
 	int			obj;
 
-	obj = wlf->map[(int)(wlf->posz + 0.5)][(int)wlf->posy][(int)wlf->posx];
+	obj = wlf->area[(int)(wlf->posz + 0.5)][(int)wlf->posy][(int)wlf->posx];
 	if (obj == 8)//this will be used when we have sprites.
 	{
 		wlf->accesscard = 1;
 	}
 	else if (obj == 5)
 	{
-		wlf->map[(int)(wlf->posz + 0.5)][(int)wlf->posy][(int)wlf->posx] = 0;
+		wlf->area[(int)(wlf->posz + 0.5)][(int)wlf->posy][(int)wlf->posx] = 0;
 		wlf->accesscard = 1;
 	}
 }

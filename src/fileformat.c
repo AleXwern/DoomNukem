@@ -20,17 +20,17 @@ void	validate_map(t_doom *wlf, int i, int a)
 		i = -1;
 		while (++i < wlf->width)
 		{
-			if (wlf->map[a][0][i] != 2)
+			if (wlf->area[a][0][i] != 2)
 				error_out(FIL_ERROR, wlf);
-			if (wlf->map[a][wlf->height - 1][i] != 2)
+			if (wlf->area[a][wlf->height - 1][i] != 2)
 				error_out(FIL_ERROR, wlf);
 		}
 		i = -1;
 		while (++i < wlf->height)
 		{
-			if (wlf->map[a][i][0] != 2)
+			if (wlf->area[a][i][0] != 2)
 				error_out(FIL_ERROR, wlf);
-			if (wlf->map[a][i][wlf->width - 1] != 2)
+			if (wlf->area[a][i][wlf->width - 1] != 2)
 				error_out(FIL_ERROR, wlf);
 		}
 	}
@@ -55,12 +55,12 @@ int		get_next_matrix(t_doom *wolf, char **temp, int x, int y)
 		wolf->width = wid;
 	if (wid < 4 || wid >= 35 || wolf->width != wid)
 		return (0);
-	if (!(wolf->map[wolf->flr][y] = (int*)malloc(sizeof(int) * wid)))
+	if (!(wolf->area[wolf->flr][y] = (int*)malloc(sizeof(int) * wid)))
 		error_out(MEM_ERROR, wolf);
 	while (temp[x])
 	{
-		wolf->map[wolf->flr][y][x] = ft_atoi(temp[x]);
-		if (wolf->map[wolf->flr][y][x] == 0)
+		wolf->area[wolf->flr][y][x] = ft_atoi(temp[x]);
+		if (wolf->area[wolf->flr][y][x] == 0)
 			return (0);
 		x++;
 	}
@@ -98,13 +98,13 @@ void	comp_map(t_doom *wolf, char *av)
 
 	wolf->height = -1;
 	wolf->width = -1;
-	if (!(wolf->map = (int***)malloc(sizeof(int**) * 9)))
+	if (!(wolf->area = (int***)malloc(sizeof(int**) * 9)))
 		error_out(MEM_ERROR, wolf);
 	while (wolf->flr < wolf->mxflr)
 	{
 		if (wolf->flr >= wolf->mxflr)
 			return ;
-		if (!(wolf->map[wolf->flr] = (int**)malloc(sizeof(int*) * 35)))
+		if (!(wolf->area[wolf->flr] = (int**)malloc(sizeof(int*) * 35)))
 			error_out(MEM_ERROR, wolf);
 		//wolf->flr += 49;
 		//flrfl = ft_strjoin(av, (char*)&(wolf->flr));

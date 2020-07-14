@@ -80,8 +80,8 @@ void	free_map(t_doom *wlf, int f, int y)
 		y = -1;
 		while (++y < wlf->height)
 		{
-			free(wlf->map[f][y]);
+			free(wlf->area[f][y]);
 		}
-		free(wlf->map[f]);
+		free(wlf->area[f]);
 	}
 }

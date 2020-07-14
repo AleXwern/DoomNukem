@@ -58,13 +58,14 @@ void	editor_main(t_doom *wlf)
 	if (!(le = (t_editor*)malloc(sizeof(t_editor))))
 		error_out(MEM_ERROR, wlf);
 	defaults(le, wlf);
-	//SDL_SetWindowResizable(wlf->win, SDL_FALSE);
+	SDL_SetWindowResizable(wlf->win, SDL_FALSE);
+	SDL_SetWindowSize(wlf->win, 1500, 750);
 	printf("Dim %d %d", wlf->width, wlf->height);
 	while (!le->quit)
 	{
 		key_state_editor(le, wlf);
 		render_editor(wlf, le);
 	}
-	//SDL_SetWindowResizable(wlf->win, SDL_TRUE);
+	SDL_SetWindowResizable(wlf->win, SDL_TRUE);
 	free(le);
 }

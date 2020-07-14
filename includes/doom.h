@@ -102,7 +102,7 @@ typedef struct	s_key
 
 }				t_key;
 
-typedef struct	s_block
+/*typedef struct	s_block
 {
 	uint	block	: 12,
 			light	: 12,
@@ -111,7 +111,7 @@ typedef struct	s_block
 			r		: 1,
 			f		: 1,
 			b		: 1;
-}				t_block;
+}				t_block;*/
 
 typedef struct	s_vector
 {
@@ -247,7 +247,7 @@ typedef struct	s_doom
 	int			flr;
 	int			mxflr;
 	int			mapset;
-	int			***map;
+	int			***area;
 	int			winb;
 	int			texbool;
 	double		rng;
@@ -255,10 +255,7 @@ typedef struct	s_doom
 	int			aggro;
 	int			iscombat;
 	int			ismenu;
-	int			mapx;
 	int			xmax;
-	int			mapy;
-	int			mapz;
 	int			stepx;
 	int			stepy;
 	int			stepz;
@@ -288,6 +285,7 @@ typedef struct	s_doom
 	t_vector	fallsp;
 	t_vector	dir;
 	t_vector	plane;
+	t_vector	map;
 	double		camx;
 	double		camy;
 	double		raydx;
