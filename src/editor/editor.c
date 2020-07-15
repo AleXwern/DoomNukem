@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 13:09:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/15 14:48:14 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	render_editor(t_doom *wlf, t_editor *le)
 {
 	draw_bg(wlf, wlf->gfx[0]);
 	draw_level_screen(wlf, le, 0, 0);
+	draw_editor_cursor(wlf, le, wlf->winw * 0.5, 0);
 	draw_sliders(wlf, le, wlf->winw * 0.5, 0);
 	//draw_blocks(wlf, le);
 	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);
@@ -58,7 +59,6 @@ void	editor_main(t_doom *wlf)
 	if (!(le = (t_editor*)malloc(sizeof(t_editor))))
 		error_out(MEM_ERROR, wlf);
 	defaults(le, wlf);
-	SDL_SetWindowResizable(wlf->win, SDL_FALSE);
 	SDL_SetWindowSize(wlf->win, 1500, 750);
 	printf("Dim %d %d", wlf->width, wlf->height);
 	while (!le->quit)
@@ -66,6 +66,9 @@ void	editor_main(t_doom *wlf)
 		key_state_editor(le, wlf);
 		render_editor(wlf, le);
 	}
-	SDL_SetWindowResizable(wlf->win, SDL_TRUE);
+	SDL_SetWindowSize(wlf->win, WINX, WINY);
+	wlf->tile = le->options[4];
+	destroy_gfx(wlf, -1);
+	comp_gfx(wlf, 0);
 	free(le);
 }

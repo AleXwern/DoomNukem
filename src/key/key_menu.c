@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_menu.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/13 15:29:22 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/15 14:48:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	key_release_menu(int key, t_doom *wlf)
 	{
 		if (wlf->sel == 0)
 		{
+			SDL_SetWindowResizable(wlf->win, SDL_TRUE);
 			wlf->cycle = &render;
 			wlf->keyck = &key_state_game;
 			ft_bzero(&wlf->key, sizeof(t_key));

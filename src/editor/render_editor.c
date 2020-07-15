@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 13:44:01 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/15 14:30:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ void	draw_sliders(t_doom *dm, t_editor *le, int x, int y)
 	i = -1;
 	while (++i < 5)
 	{
-		sy = (i * (dm->winh / 10));
-		sx = dm->winw / 2;
+		sy = (i * (dm->winh / 10) + 2);
+		sx = dm->winw / 2 + 2;
 		y = 0;
-		while (++y < dm->winh / 10 - 1)
+		while (++y < (dm->winh / 10) - 2)
 		{
 			x = -1;
 			le->options[i] = le->options[i] & 0x7f;
@@ -109,6 +109,26 @@ void	draw_sliders(t_doom *dm, t_editor *le, int x, int y)
 					black = 0xffffffff;
 				dm->img.data[dm->winw * (y + sy) + (x + sx - 1)] = black;
 			}
+		}
+	}
+}
+
+void	draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y)
+{
+	int		i;
+	int		sy;
+	int		sx;
+
+	sy = (le->cur * (dm->winh / 10));
+	sx = dm->winw / 2;
+	y = -1;
+	while (++y < (dm->winh / 10) + 3)
+	{
+		x = 0;
+		while ((x + sx) < dm->winw)
+		{
+			dm->img.data[dm->winw * (y + sy) + (x + sx)] = 0xffdb0000;
+			x++;
 		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/13 14:42:31 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/15 14:49:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int				key_release(int key, t_doom *wlf)
 {
 	if (key == ESC)
 	{
+		SDL_SetWindowResizable(wlf->win, SDL_FALSE);
+		SDL_SetWindowSize(wlf->win, WINX, WINY);
 		wlf->cycle = &main_menu;
 		wlf->keyck = &key_state_menu;
 		reset_position(wlf);

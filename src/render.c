@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 00:27:41 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/07/15 12:34:31 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	dda_sys(t_doom *wlf)
 			wlf->side = 2;
 		}
 		//printf("--after--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", wlf->hit, wlf->mapz, wlf->mapy, wlf->mapx, wlf->sidedz, wlf->sidedy, wlf->sidedx);
-		if (wlf->map.z < 0 || wlf->map.y < 0 || wlf->map.x < 0 || wlf->map.z >= 25 || wlf->map.y >= 25 || wlf->map.x >= 25)
+		if (wlf->map.z < 0 || wlf->map.y < 0 || wlf->map.x < 0 || wlf->map.z >= 9 || wlf->map.y >= 25 || wlf->map.x >= 25)
 			wlf->hit = 2;
 		else if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] > 1)
 		{
@@ -168,7 +168,7 @@ int		renthread(void *ptr)
 				render_floor(wlf);
 			else
 				wall_stripe(wlf);
-			
+			/*
 			//trying to draw stationary sprite in map:
 
 			//saving the depth for each raycast
@@ -223,7 +223,7 @@ int		renthread(void *ptr)
 					}
 				}
 				i++;
-			}
+			}*/
 		}
 		wlf->x += wlf->trx;
 	}

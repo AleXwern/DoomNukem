@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/13 12:44:35 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/07/15 14:08:39 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME =		doom-nukem
+PATH_TO_FILE = /Users/anystrom/alexwern/Hive-main/DoomNukem/doom-nukem
 FLG =
 SRCFILE =	wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
@@ -55,15 +56,13 @@ else
 endif
 
 $(NAME): $(OBJ) $(LIBFT)
-ifeq ($(OS),Windows_NT)
-	echo hi
-else
-	gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
-endif
-	@echo Done.
-
-test: $(LIBFT)
-	gcc $(INCL) -o $(NAME) testkey.c $(LIBFT) $(MLXLIB) $(FRAMEWORK)
+	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
+	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
+	@Rez -a icon.rsrc -o $(NAME)
+	@SetFile -a C $(NAME)
+	@rm icon.rsrc
+	@echo Exectabe created succesfully. Get maps with 'make git'.
+	@echo Run the executable as ./doom-nukem. No args.
 
 clean:
 	@echo "Removing Wolf3D libraries."

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 14:42:12 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/15 14:40:57 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_gfx	gfx_get(t_doom *wolf, char *file, int x, int y)
 	t_gfx			gfx;
 	SDL_Surface*	surf;
 
-	ft_putendl(file);
+	//ft_putendl(file);
 	wolf->rwops = SDL_RWFromFile(file, "rb");
 	surf = IMG_Load(file);
 	if (!surf)
@@ -54,8 +54,7 @@ t_gfx	gfx_get(t_doom *wolf, char *file, int x, int y)
 		gfx.wid = 0;
 		gfx.hgt = 0;
 		SDL_FreeRW(wolf->rwops);
-		return (gfx);
-		//error_out(GFX_ERROR, wolf);
+		error_out(GFX_ERROR, wolf);
 	}
 	gfx.tex = SDL_ConvertSurfaceFormat(surf, wolf->img.tex->format->format, 0);
 	SDL_FreeSurface(surf);
@@ -82,6 +81,7 @@ void	comp_foe(t_doom *wlf, char *bpath, int i)
 	wlf->gfx[i++] = gfx_get(wlf, ft_strjoin(bpath, "foe/foe7.xpm"), 564, 396);
 	wlf->gfx[i++] = gfx_get(wlf, ft_strjoin(bpath, "foe/foe8.xpm"), 564, 396);
 	wlf->gfx[i++] = gfx_get(wlf, ft_strjoin(bpath, "SpriteSheets/GreyDragon.xpm"), 384, 384);
+	wlf->gfx[i++] = gfx_get(wlf, ft_strjoin(bpath, "misc/icon.xpm"), 157, 157);
 	wlf->gfxcount = i;
 	if (i != GFXCOUNT)
 		error_out(GFX_ERROR, wlf);
@@ -133,4 +133,5 @@ void	comp_gfx(t_doom *wolf, int i)
 	wolf->tile -= 48;
 	SDL_free(path);
 	free(bpath);
+	SDL_SetWindowIcon(wolf->win, wolf->gfx[25].tex);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/13 15:29:27 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/15 14:24:07 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,6 +410,7 @@ void			comp_map(t_doom *wolf, char *av);
 void			destroy_gfx(t_doom *wlf, int i);
 void			doom_default(t_doom *wlf);
 void			draw_bg(t_doom *wlf, t_gfx gfx);
+void			draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y);
 void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
 void			draw_level_screen(t_doom *wlf, t_editor *le, double x, double y);
 void			draw_menu(t_doom *wlf, int x, int y, int cur);
