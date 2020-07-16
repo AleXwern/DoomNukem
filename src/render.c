@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 12:34:31 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/16 16:11:08 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -445,6 +445,8 @@ void	render(t_doom *wlf)
 		else
 			SDL_WaitThread(wlf->threads[x], NULL);
 	}
+	draw_gun(wlf);
+	draw_crosshair(wlf);
 	if (wlf->key.i)
 		draw_sprite(wlf);
 	if (wlf->isoutline)

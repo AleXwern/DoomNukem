@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 14:49:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:34:45 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,13 @@ int				key_release(int key, t_doom *wlf)
 		wlf->movsp += 0.03;
 		wlf->posz -= 0.2;
 	}
-	if (key == KEY_R)
+	if (key == KEY_M)
 		reset_window(wlf, 0);
+	if (key == KEY_R && !wlf->reloading && !wlf->shooting)
+	{
+		wlf->reloading = 1;
+		wlf->ani = 2;
+	}
 	if (key == SPACE)
 	{
 		if (!wlf->airbrn && !wlf->isgravity)

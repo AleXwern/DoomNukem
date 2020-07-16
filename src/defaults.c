@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/13 15:27:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:59:19 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	doom_default(t_doom *wlf)
 	wlf->prefps = 30;
 	wlf->buffer = BUFFER;
 	//load_animsprite(wlf);
+	load_gun(wlf);
 	wlf->owinh = wlf->winh;
 	wlf->owinw = wlf->winw;
 	wind_default(wlf);

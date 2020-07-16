@@ -6,7 +6,7 @@
 #    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/15 19:58:21 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/07/16 17:14:40 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ endif
 FLG =
 SRCFILE =	wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
-			main_menu.c
+			main_menu.c gun.c gunextra.c numbers.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
 EDTFILE =	editor.c render_editor.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
@@ -82,7 +82,7 @@ else
 	@Rez -a icon.rsrc -o $(NAME)
 	@SetFile -a C $(NAME)
 	@rm icon.rsrc
-	@echo Exectabe created succesfully. Get maps with 'make git'.
+	@echo Executable created successfully. Get maps with 'make git'.
 	@echo Run the executable as ./doom-nukem. No args.
 endif
 

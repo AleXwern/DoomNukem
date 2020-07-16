@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_menu.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 14:48:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/16 16:00:14 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	key_release_menu(int key, t_doom *wlf)
 			reset_position(wlf);
 			wlf->ismenu = 0;
 			Mix_PlayChannel(-1, wlf->readyForAction, 0);
+			wlf->mousemovement = 1;
+			SDL_SetRelativeMouseMode(SDL_TRUE);
 		}
 		else if (wlf->sel == 1)
 			editor_main(wlf);
