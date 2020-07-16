@@ -3,16 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/15 14:08:39 by anystrom         ###   ########.fr        #
+#    Updated: 2020/07/15 19:58:21 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME =		doom-nukem
-PATH_TO_FILE = /Users/anystrom/alexwern/Hive-main/DoomNukem/doom-nukem
+ifeq ($(OS),Windows_NT)
+OEXT = .obj
+LEXT = .lib
+else
+OEXT = .o
+LEXT = .a
+endif
 FLG =
 SRCFILE =	wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
@@ -22,19 +28,30 @@ EDTFILE =	editor.c render_editor.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
 			$(addprefix ./src/editor/,$(EDTFILE))
-LIBFT =		./obj/libft.a
-OBJS =		$(SRC:.c=.o)
-OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=.o)) \
-			$(addprefix ./obj/key/,$(KEYFILE:.c=.o)) \
-			$(addprefix ./obj/editor/,$(EDTFILE:.c=.o))
+LIBFT =		$(addprefix ./obj/libft,$(LEXT))
+OBJS =		$(SRC:.c=$(OEXT))
+OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/key/,$(KEYFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/editor/,$(EDTFILE:.c=$(OEXT)))
 OBJDIR =	./obj/
 SRCDIR =	./src/
 INCL =		-I ./SDL2 -I ./libft -I ./includes
 MLXLIB =	-L /usr/local/lib
+WININC =	-I "C:\Program Files (x86)Windows Kits\10\Include\10.0.18362.0\ucrt" -I /libft/ -I /includes/
+CLINC =		/I "C:\Program Files (x86)Windows Kits\10\Include\10.0.18362.0\ucrt" /I /libft/ /I /includes/
+WINLIB =	-L "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\ucrt\x64"
 PWD =		$(shell pwd)
 OBJFRAME =	-F ./frameworks
 FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
-DUMMY =		-F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
+WINSDLI =	-I C:/SDL/SDL2-2.0.12/include/ \
+			-I C:/SDL/SDL2_mixer-2.0.4/include/ \
+			-I C:/SDL/SDL2_image-2.0.5/include/
+DUMMY2 =	-L C:/SDL/SDL2-2.0.12/lib/x64 SDL2.lib SDL2main.lib\
+			-L C:/SDL/SDL2_mixer-2.0.4/lib/x64 SDL2_mixer.lib \
+			-L C:/SDL/SDL2_image-2.0.5/lib/x64 SDL2_image.lib
+WINSDLL =	-L C:/SDL/SDL2-2.0.12/lib/x64 \
+			-L C:/SDL/SDL2_mixer-2.0.4/lib/x64 \
+			-L C:/SDL/SDL2_image-2.0.5/lib/x64
 RED =		\033[0;31m
 STOP =		\033[0m
 
@@ -46,16 +63,20 @@ $(LIBFT):
 	@echo Compiling Libft libraries.
 	@make -C ./libft
 
-$(OBJDIR)%.o:$(SRCDIR)%.c
+$(OBJDIR)%$(OEXT):$(SRCDIR)%.c
 ifeq ($(OS),Windows_NT)
-	echo $@
-	clang -I ./includes -I ./libft -I C:\SDL\SDL2_image-2.0.5\include -I C:\SDL\SDL2-2.0.12\include -I C:\SDL\SDL2_mixer-2.0.4\include  -o $@ -c $<
+	@echo "Compiling Wolf3D -> $@"
+	clang $(WININC) $(WINSDLI) -o $@ -c $<
 else
 	@echo "Compiling Wolf3D -> $(RED)$@$(STOP)"
 	@gcc -g $(OBJFRAME) $(FLG) $(INCL) -o $@ -c $<
 endif
 
 $(NAME): $(OBJ) $(LIBFT)
+ifeq ($(OS),Windows_NT)
+	#clang $(WINSDLL) $(WININC) $(INCL) $(WINSDLI) -o $(NAME).exe $(OBJ) $(LIBFT)
+	@clang $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
+else
 	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
 	@Rez -a icon.rsrc -o $(NAME)
@@ -63,6 +84,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	@rm icon.rsrc
 	@echo Exectabe created succesfully. Get maps with 'make git'.
 	@echo Run the executable as ./doom-nukem. No args.
+endif
 
 clean:
 	@echo "Removing Wolf3D libraries."
