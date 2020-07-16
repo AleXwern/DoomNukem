@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/07/07 14:10:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:08:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,13 @@ int		interact(t_doom *wlf)
 	if (obj == 3 || obj == 4)
 		lab_move(wlf, obj);
 	else if (obj == 5)
+	{
 		wlf->area[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x] = 0;
+	}
 	else if (obj == 0)
+	{
 		wlf->area[(int)wlf->posz][(int)tarpos.y][(int)tarpos.x] = 5;
+	}
 	if (obj == 5 || obj == 0)
 		wlf->cycle(wlf);
 	return (0);

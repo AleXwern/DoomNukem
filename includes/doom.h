@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 14:24:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/16 16:56:21 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,27 @@ typedef struct	s_doom
 	int			buffer;
 	double		camshift;
 	int			mousemovement;
+
+	SDL_Surface	*gunSurface;
+	SDL_Texture	*gunTexture;
+	SDL_Rect	gunRect[6][3];
+	SDL_Rect	screenGunRect;
+	int			shooting;
+	int			reloading;
+	int			ani;
+	int			frm;
+	int			magazine;
+
+	SDL_Surface	*CHSurface;
+	SDL_Texture	*CHTexture;
+	SDL_Rect	CHRect;
+	SDL_Rect	screenCHRect;
+
+	SDL_Surface	*nbrsSurface;
+	SDL_Texture	*nbrsTexture;
+	SDL_Rect	nbrsRect[2][5];
+	SDL_Rect	screennbrsRect;
+
 	SDL_Surface	*spriteSurface;
 	SDL_Texture	*spriteTexture;
 	SDL_Rect	spriteRect[4][4];
@@ -366,8 +387,12 @@ typedef struct	s_doom
 	/*
 	**	Variables for playing some sounds and music!
 	*/
-	Mix_Music			*music;
-	Mix_Chunk			*readyForAction;
+	Mix_Music	*music;
+	Mix_Chunk	*readyForAction;
+	Mix_Chunk	*doorOpen;
+	Mix_Chunk	*doorClose;
+	Mix_Chunk	*reload;
+	Mix_Chunk	*gunshot;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);
@@ -376,6 +401,12 @@ t_chara			*generate_party(t_doom *wlf);
 t_chara			generate_foe(t_doom *wlf);
 void			load_animsprite(t_doom *wlf);
 void			draw_sprite(t_doom *wlf);
+void			load_gun(t_doom *wlf);
+void			draw_gun(t_doom *wlf);
+void			reloading_gun(t_doom *wlf);
+void			draw_crosshair(t_doom *wlf);
+void			load_numbers(t_doom *wlf);
+void			draw_ammo(t_doom *wlf);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 

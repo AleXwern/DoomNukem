@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 14:44:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/16 14:10:08 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ void	free_memory(char **arr)
 	arr = NULL;
 }
 
-void	setup(t_doom *wlf)
+void	init_audio(t_doom *wlf)
 {
-	SDL_Thread* capper;
-
 	SDL_Init(SDL_INIT_AUDIO);
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
@@ -70,6 +68,17 @@ void	setup(t_doom *wlf)
 	}
 	wlf->music = Mix_LoadMUS("Audio/Music/scapemain.wav");
 	wlf->readyForAction = Mix_LoadWAV("Audio/SoundEffects/ready_for_action.wav");
+	//wlf->doorClose = Mix_LoadWAV("Audio/SoundEffects/doorclose.wav");
+	//wlf->doorOpen = Mix_LoadWAV("Audio/SoundEffects/dooropen.wav");
+	wlf->reload = Mix_LoadWAV("Audio/SoundEffects/reload.wav");
+	wlf->gunshot = Mix_LoadWAV("Audio/SoundEffects/gunshot.wav");
+}
+
+void	setup(t_doom *wlf)
+{
+	SDL_Thread* capper;
+
+	init_audio(wlf);
 	doom_default(wlf);
 	if (wlf->area[2][(int)wlf->posy][(int)wlf->posx] != 1)
 		error_out(SPW_ERROR, wlf);

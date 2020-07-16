@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/15 14:08:39 by anystrom         ###   ########.fr        #
+#    Updated: 2020/07/16 16:55:50 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ PATH_TO_FILE = /Users/anystrom/alexwern/Hive-main/DoomNukem/doom-nukem
 FLG =
 SRCFILE =	wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
-			main_menu.c
+			main_menu.c gun.c gunextra.c numbers.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
 EDTFILE =	editor.c render_editor.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
@@ -61,7 +61,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	@Rez -a icon.rsrc -o $(NAME)
 	@SetFile -a C $(NAME)
 	@rm icon.rsrc
-	@echo Exectabe created succesfully. Get maps with 'make git'.
+	@echo Executable created successfully. Get maps with 'make git'.
 	@echo Run the executable as ./doom-nukem. No args.
 
 clean:
