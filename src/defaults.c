@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/16 15:59:19 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:54:40 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ void	doom_default(t_doom *wlf)
 	wlf->sbox = WINX / 2;
 	//wlf->mxflr--;
 	ft_putnbrln(wlf->mxflr);
-	wlf->accesscard = 0;
 	wlf->prefps = 30;
 	wlf->buffer = BUFFER;
+	wlf->keycard = 0;
 	//load_animsprite(wlf);
 	load_gun(wlf);
+	load_numbers(wlf);
+	load_inventory(wlf);
 	wlf->owinh = wlf->winh;
 	wlf->owinw = wlf->winw;
 	wind_default(wlf);

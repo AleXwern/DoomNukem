@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/16 16:11:08 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/17 18:15:09 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,12 +267,12 @@ void	pickupitem(t_doom *wlf)
 	obj = wlf->area[(int)(wlf->pos.z + 0.5)][(int)wlf->pos.y][(int)wlf->pos.x];
 	if (obj == 8)//this will be used when we have sprites.
 	{
-		wlf->accesscard = 1;
+		wlf->keycard = 1;
 	}
 	else if (obj == 5)
 	{
 		wlf->area[(int)(wlf->pos.z + 0.5)][(int)wlf->pos.y][(int)wlf->pos.x] = 0;
-		wlf->accesscard = 1;
+		wlf->keycard = 1;
 	}
 }
 
@@ -449,18 +449,15 @@ void	render(t_doom *wlf)
 	}
 	draw_gun(wlf);
 	draw_crosshair(wlf);
-	if (wlf->key.i)
-		draw_sprite(wlf);
+	draw_ammo(wlf);
+	draw_inventory(wlf);
+	if (wlf->keycard)
+		draw_keycard(wlf);
+	/*if (wlf->key.i)
+		draw_sprite(wlf);*/
 	if (wlf->isoutline)
 		post_effects(wlf);
 	//SDL_UpdateWindowSurface(wlf->win);
 	SDL_RenderPresent(wlf->rend);
 	wlf->fps++;
-	//draw_gfx(wlf, wlf->gfx[15], 100, 100);
-	//if (wlf->accesscard == 0)
-	//	pickupitem(wlf);
-	//if (wlf->keyi)
-	//	drawinventory(wlf, 1300, 500);
-	//if (wlf->accesscard == 1)
-	//	mlx_string_put(wlf->mlx, wlf->win, 300, 200, COLOR_ORANGE, "Access card");
 }

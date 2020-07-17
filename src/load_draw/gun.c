@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/07/16 16:55:54 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/17 13:00:45 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,23 +136,26 @@ void	load_gun(t_doom *wlf)
 
 void	draw_gun(t_doom *wlf)
 {
-	SDL_RenderCopy(wlf->rend, wlf->gunTexture, &wlf->gunRect[wlf->ani][wlf->frm / 3], &wlf->screenGunRect);
-	if (wlf->shooting)
+	if (!wlf->reloading)
 	{
-		wlf->frm++;
-		if (wlf->ani == 0 && wlf->frm == 1)
-			Mix_PlayChannel(-1, wlf->gunshot, 0);
-		if ((wlf->frm / 3) > 2)
+		SDL_RenderCopy(wlf->rend, wlf->gunTexture, &wlf->gunRect[wlf->ani][wlf->frm / 3], &wlf->screenGunRect);
+		if (wlf->shooting)
 		{
-			if (wlf->ani == 0)
-				wlf->ani = 1;
-			else
+			wlf->frm++;
+			if (wlf->ani == 0 && wlf->frm == 1)
+				Mix_PlayChannel(-1, wlf->gunshot, 0);
+			if ((wlf->frm / 3) > 2)
 			{
-				wlf->ani = 0;
-				wlf->shooting = 0;
-				wlf->magazine--;
+				if (wlf->ani == 0)
+					wlf->ani = 1;
+				else
+				{
+					wlf->ani = 0;
+					wlf->shooting = 0;
+					wlf->magazine--;
+				}
+				wlf->frm = 0;
 			}
-			wlf->frm = 0;
 		}
 	}
 	if (wlf->reloading)

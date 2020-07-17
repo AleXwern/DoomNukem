@@ -3,10 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2020/07/16 17:17:27 by AleXwern         ###   ########.fr        #
+=======
+#    Updated: 2020/07/17 14:20:34 by tbergkul         ###   ########.fr        #
+>>>>>>> 509631dfda84855d3da89f995bfe50fd77fc488b
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,16 +26,19 @@ endif
 FLG =
 SRCFILE =	wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
-			main_menu.c gun.c gunextra.c numbers.c
+			main_menu.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
+LOADDRAW =	gun.c gunextra.c loadextra.c
 EDTFILE =	editor.c render_editor.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
+			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
 			$(addprefix ./src/editor/,$(EDTFILE))
 LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/key/,$(KEYFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/load_draw/,$(LOADDRAW:.c=$(OEXT))) \
 			$(addprefix ./obj/editor/,$(EDTFILE:.c=$(OEXT)))
 OBJDIR =	./obj/
 SRCDIR =	./src/
