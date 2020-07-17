@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/16 14:10:08 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/17 14:18:25 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	init_audio(t_doom *wlf)
 
 void	setup(t_doom *wlf)
 {
-	SDL_Thread* capper;
+	//SDL_Thread* capper;
 
 	init_audio(wlf);
 	doom_default(wlf);
@@ -99,7 +99,7 @@ void	setup(t_doom *wlf)
 	}
 }
 
-int		main(int ac, char **av)
+int		main(void)//int ac, char **av)
 {
 	t_doom	*wolf;
 
@@ -109,7 +109,7 @@ int		main(int ac, char **av)
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		error_out(SDL_ERROR, wolf);
 	ft_putstr("Args: ");
-	ft_putnbrln(ac);
+	//ft_putnbrln(ac);
 	//if (!IMG_Init(IMG_INIT_XPM))
 	//	error_out(IMG_ERROR, wolf);
 	//if (ac != 4 && ac != 0)
@@ -137,7 +137,7 @@ int		main(int ac, char **av)
 	wolf->winh = wolf->img.tex->h;
 	wolf->winw = wolf->img.tex->w;
 	printf("Comp map\n");
-	comp_map(wolf, "Null");
+	comp_map(wolf);//, "Null");
 	printf("Comp GFX\n");
 	comp_gfx(wolf, 0);
 	setup(wolf);

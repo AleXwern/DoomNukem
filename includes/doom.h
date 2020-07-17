@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/16 16:56:21 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/17 14:20:17 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,7 +318,7 @@ typedef struct	s_doom
 	double		texpos;
 	int			isclick;
 	t_key		key;
-	int			accesscard;
+	int			keycard;
 	int			crouching;
 	int			mouseprevx;
 	int			mouseprevy;
@@ -354,10 +354,21 @@ typedef struct	s_doom
 	SDL_Rect	CHRect;
 	SDL_Rect	screenCHRect;
 
+	SDL_Surface	*invSurface;
+	SDL_Texture	*invTexture;
+	SDL_Rect	invRect;
+	SDL_Rect	screeninvRect;
+
+	SDL_Surface	*keycardSurface;
+	SDL_Texture	*keycardTexture;
+	SDL_Rect	keycardRect;
+	SDL_Rect	screenkeycardRect;
+
 	SDL_Surface	*nbrsSurface;
 	SDL_Texture	*nbrsTexture;
-	SDL_Rect	nbrsRect[2][5];
+	SDL_Rect	nbrsRect[10];
 	SDL_Rect	screennbrsRect;
+	SDL_Rect	screennbrsTenRect;
 
 	SDL_Surface	*spriteSurface;
 	SDL_Texture	*spriteTexture;
@@ -407,6 +418,10 @@ void			reloading_gun(t_doom *wlf);
 void			draw_crosshair(t_doom *wlf);
 void			load_numbers(t_doom *wlf);
 void			draw_ammo(t_doom *wlf);
+void			load_inventory(t_doom *wlf);
+void			draw_inventory(t_doom *wlf);
+void			load_keycard(t_doom *wlf);
+void			draw_keycard(t_doom *wlf);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 
@@ -437,7 +452,7 @@ void			cam_udy(t_doom *wlf);
 void			combat_key(int key, t_doom *wlf);
 void			comp_foe(t_doom *wlf, char *bpath, int i);
 void			comp_gfx(t_doom *wolf, int i);
-void			comp_map(t_doom *wolf, char *av);
+void			comp_map(t_doom *wolf);//, char *av);
 void			destroy_gfx(t_doom *wlf, int i);
 void			doom_default(t_doom *wlf);
 void			draw_bg(t_doom *wlf, t_gfx gfx);

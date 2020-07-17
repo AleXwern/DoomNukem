@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 12:31:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/17 14:18:14 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	fileformat(int fd, t_doom *wolf, int y)
 		error_out(FIL_ERROR, wolf);
 }
 
-void	comp_map(t_doom *wolf, char *av)
+void	comp_map(t_doom *wolf)//, char *av)
 {
 	int		fd;
 

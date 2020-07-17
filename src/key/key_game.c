@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/16 15:34:45 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/17 14:28:41 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,12 +154,13 @@ int				key_release(int key, t_doom *wlf)
 		wlf->key.q = 0;
 	if (key == KEY_E)
 		wlf->key.e = 0;
-	/*if (key == KEY_I || key == SDL_SCANCODE_I)
+	if (key == KEY_I || key == SDL_SCANCODE_I)
 	{
-		ft_putendl("I pressed");
+		/*ft_putendl("I pressed");
 		load_animsprite(wlf);
-		wlf->key.i = wlf->key.i == 1 ? 0 : 1;
-	}*/
+		wlf->key.i = wlf->key.i == 1 ? 0 : 1;*/
+		wlf->keycard = (wlf->keycard == 0 ? 1 : 0);
+	}
 	if (key == KEY_SHIFT)
 		wlf->movsp -= 0.06;
 	if (key == KEY_L)
