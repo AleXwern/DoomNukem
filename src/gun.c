@@ -27,7 +27,7 @@ void	load_gun4(t_doom *wlf)
 	wlf->gunRect[5][2].y = 640;
 	wlf->gunRect[5][2].w = 128;
 	wlf->gunRect[5][2].h = 128;
-	wlf->CHSurface = IMG_Load("./gfx/SpriteSheets/crosshair.png");
+	wlf->CHSurface = IMG_Load("/gfx/SpriteSheets/crosshair.xpm");
 	wlf->CHTexture = SDL_CreateTextureFromSurface(wlf->rend, wlf->CHSurface);
 	SDL_FreeSurface(wlf->CHSurface);
 	wlf->CHRect.x = 0;
@@ -107,7 +107,7 @@ void	load_gun2(t_doom *wlf)
 
 void	load_gun(t_doom *wlf)
 {
-	wlf->gunSurface = IMG_Load("./gfx/SpriteSheets/gun.png");
+	wlf->gunSurface = IMG_Load("/gfx/SpriteSheets/gun.xpm");
 	wlf->gunTexture = SDL_CreateTextureFromSurface(wlf->rend, wlf->gunSurface);
 	SDL_FreeSurface(wlf->gunSurface);
 	wlf->shooting = 0;

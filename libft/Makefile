@@ -3,14 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
+#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/30 16:09:13 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/08 13:51:43 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/07/15 19:02:42 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+ifeq ($(OS),Windows_NT)
+OEXT = .obj
+LEXT = .lib
+else
+OEXT = .o
+LEXT = .a
+endif
+NAME = $(addprefix libft,$(LEXT))
 SRCS = ft_memalloc.c ft_putendl.c ft_strcpy.c ft_strmapi.c ft_strsub.c \
 	ft_memccpy.c ft_putendl_fd.c ft_strdel.c ft_strncat.c ft_strtrim.c \
 	ft_atoi.c ft_memchr.c ft_putnbr.c ft_strdup.c ft_strncmp.c \
@@ -24,7 +31,7 @@ SRCS = ft_memalloc.c ft_putendl.c ft_strcpy.c ft_strmapi.c ft_strsub.c \
 	ft_strmap.c ft_strstr.c ft_wordlen.c ft_isblank.c ft_isnegative.c \
 	ft_intsize.c ft_isextascii.c get_next_line.c ft_puthex.c ft_lcm.c \
 	ft_abs.c ft_fabs.c ft_putnbrln.c ft_sleep.c ft_quadjoin.c
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=$(OEXT))
 INCLS = ./
 OBJFLD = ../obj/
 GREEN = \033[0;32m
@@ -34,15 +41,25 @@ STOP = \033[0m
 
 all: $(NAME)
 
-%.o:%.c
+%$(OEXT):%.c
+ifeq ($(OS),Windows_NT)
+	@clang -Wall -Wextra -Werror $(FLG) -I $(INCLS) -o $@ -c $<
+	@echo "Compiling Libft -> $@"
+else
 	@gcc -Wall -Wextra -Werror $(FLG) -I $(INCLS) -o $@ -c $<
 	@echo "Compiling Libft -> $(GREEN)$@$(STOP)"
+endif
 
 $(NAME): $(OBJS)
+ifeq ($(OS),Windows_NT)
+	lib /OUT:libft.lib $(OBJS)
+else
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
+endif
 	@mv $(OBJS) ../obj
 	@mv $(NAME) ../obj
+	echo $(OS)
 
 clean:
 	@/bin/rm -f $(addprefix $(OBJFLD),$(OBJS))

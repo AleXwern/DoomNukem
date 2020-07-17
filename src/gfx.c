@@ -133,5 +133,4 @@ void	comp_gfx(t_doom *wolf, int i)
 	wolf->tile -= 48;
 	SDL_free(path);
 	free(bpath);
-	SDL_SetWindowIcon(wolf->win, wolf->gfx[25].tex);
 }

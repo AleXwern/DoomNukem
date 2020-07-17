@@ -127,17 +127,17 @@ int		move_fb(t_doom *wlf)
 		mov = 0.99;
 	if (wlf->key.up)
 	{
-		if (wlf->area[(int)wlf->posz][(int)(wlf->posy + wlf->dir.y * mov)][(int)wlf->posx] <= 1)
-			wlf->posy += wlf->dir.y * mov;
-		if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx + wlf->dir.x * mov)] <= 1)
-			wlf->posx += wlf->dir.x * mov;
+		if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y + wlf->dir.y * mov)][(int)wlf->pos.x] <= 1)
+			wlf->pos.y += wlf->dir.y * mov;
+		if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x + wlf->dir.x * mov)] <= 1)
+			wlf->pos.x += wlf->dir.x * mov;
 	}
 	if (wlf->key.down)
 	{
-		if (wlf->area[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y * mov)][(int)wlf->posx] <= 1)
-			wlf->posy -= wlf->dir.y * mov;
-		if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx - wlf->dir.x * mov)] <= 1)
-			wlf->posx -= wlf->dir.x * mov;
+		if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y - wlf->dir.y * mov)][(int)wlf->pos.x] <= 1)
+			wlf->pos.y -= wlf->dir.y * mov;
+		if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x - wlf->dir.x * mov)] <= 1)
+			wlf->pos.x -= wlf->dir.x * mov;
 	}
 	return (0);
 }
@@ -151,17 +151,17 @@ void	strafe(t_doom *wlf, double dirxtemp, double dirytemp)
 		mov = 0.99;
 	if (wlf->key.q)
 	{
-		if (wlf->area[(int)wlf->posz][(int)(wlf->posy + wlf->dir.x * mov)][(int)wlf->posx] <= 1)
-			wlf->posy += wlf->dir.x * mov;
-		if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx + wlf->dir.y * mov)] <= 1)
-			wlf->posx += wlf->dir.y * mov;
+		if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y + wlf->dir.x * mov)][(int)wlf->pos.x] <= 1)
+			wlf->pos.y += wlf->dir.x * mov;
+		if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x + wlf->dir.y * mov)] <= 1)
+			wlf->pos.x += wlf->dir.y * mov;
 	}
 	if (wlf->key.e)
 	{
-		if (wlf->area[(int)wlf->posz][(int)(wlf->posy - wlf->dir.x * mov)][(int)wlf->posx] <= 1)
-			wlf->posy -= wlf->dir.x * mov;
-		if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx - wlf->dir.y * mov)] <= 1)
-			wlf->posx -= wlf->dir.y * mov;
+		if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y - wlf->dir.x * mov)][(int)wlf->pos.x] <= 1)
+			wlf->pos.y -= wlf->dir.x * mov;
+		if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x - wlf->dir.y * mov)] <= 1)
+			wlf->pos.x -= wlf->dir.y * mov;
 	}
 	return ;
 
@@ -170,27 +170,27 @@ void	strafe(t_doom *wlf, double dirxtemp, double dirytemp)
 	{
 		if (wlf->dir.y < 0)
 		{
-			if (wlf->area[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
-					* wlf->movsp)][(int)wlf->posx] <= 1)
-				wlf->posy -= (wlf->dir.y + 1) * wlf->movsp;
+			if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y - wlf->dir.y
+					* wlf->movsp)][(int)wlf->pos.x] <= 1)
+				wlf->pos.y -= (wlf->dir.y + 1) * wlf->movsp;
 		}
 		else
 		{
-			if (wlf->area[(int)wlf->posz][(int)(wlf->posy - wlf->dir.y
-					* wlf->movsp)][(int)wlf->posx] <= 1)
-				wlf->posy += (wlf->dir.y - 1) * wlf->movsp;
+			if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y - wlf->dir.y
+					* wlf->movsp)][(int)wlf->pos.x] <= 1)
+				wlf->pos.y += (wlf->dir.y - 1) * wlf->movsp;
 		}
 		if (wlf->dir.x < 0)
 		{
-			if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
+			if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x
 					- wlf->dir.x * wlf->movsp)] <= 1)
-				wlf->posx -= (wlf->dir.x + 1) * wlf->movsp;
+				wlf->pos.x -= (wlf->dir.x + 1) * wlf->movsp;
 		}
 		else
 		{
-			if (wlf->area[(int)wlf->posz][(int)wlf->posy][(int)(wlf->posx
+			if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x
 					- wlf->dir.x * wlf->movsp)] <= 1)
-				wlf->posx += (wlf->dir.x - 1) * wlf->movsp;
+				wlf->pos.x += (wlf->dir.x - 1) * wlf->movsp;
 		}
 	}
 	if (wlf->key.e)
@@ -211,7 +211,7 @@ void	strafe(t_doom *wlf, double dirxtemp, double dirytemp)
 		{
 			dirytemp = wlf->dir.y + 1;
 		}
-		wlf->posx += dirxtemp * wlf->movsp;
-		wlf->posy += dirytemp * wlf->movsp;
+		wlf->pos.x += dirxtemp * wlf->movsp;
+		wlf->pos.y += dirytemp * wlf->movsp;
 	}
 }

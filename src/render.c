@@ -42,6 +42,8 @@ void	dda_sys(t_doom *wlf)
 		//printf("--after--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", wlf->hit, wlf->mapz, wlf->mapy, wlf->mapx, wlf->sidedz, wlf->sidedy, wlf->sidedx);
 		if (wlf->map.z < 0 || wlf->map.y < 0 || wlf->map.x < 0 || wlf->map.z >= 9 || wlf->map.y >= 25 || wlf->map.x >= 25)
 			wlf->hit = 2;
+		else if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] == 7)
+			wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] == 1;
 		else if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] > 1)
 		{
 			wlf->hit = 1;
@@ -50,7 +52,7 @@ void	dda_sys(t_doom *wlf)
 				wlf->spriteLoc.x = wlf->map.x;
 				wlf->spriteLoc.y = wlf->map.y;
 				wlf->spriteLoc.z = wlf->map.z;
-				wlf->disttosprite = ((wlf->posx - wlf->map.x) * (wlf->posx - wlf->map.x) + (wlf->posy - wlf->map.y) * (wlf->posy - wlf->map.y));//initialize disttosprite
+				wlf->disttosprite = ((wlf->pos.x - wlf->map.x) * (wlf->pos.x - wlf->map.x) + (wlf->pos.y - wlf->map.y) * (wlf->pos.y - wlf->map.y));//initialize disttosprite
 			}
 		}
 	}
@@ -70,32 +72,32 @@ void	dda_prep(t_doom *wlf)
 	if (wlf->raydx < 0)
 	{
 		wlf->stepx = -1;
-		wlf->sidedx = (wlf->posx - wlf->map.x) * wlf->deltadx;
+		wlf->sidedx = (wlf->pos.x - wlf->map.x) * wlf->deltadx;
 	}
 	else
 	{
 		wlf->stepx = 1;
-		wlf->sidedx = (wlf->map.x + 1.0 - wlf->posx) * wlf->deltadx;
+		wlf->sidedx = (wlf->map.x + 1.0 - wlf->pos.x) * wlf->deltadx;
 	}
 	if (wlf->raydy < 0)
 	{
 		wlf->stepy = -1;
-		wlf->sidedy = (wlf->posy - wlf->map.y) * wlf->deltady;
+		wlf->sidedy = (wlf->pos.y - wlf->map.y) * wlf->deltady;
 	}
 	else
 	{
 		wlf->stepy = 1;
-		wlf->sidedy = (wlf->map.y + 1.0 - wlf->posy) * wlf->deltady;
+		wlf->sidedy = (wlf->map.y + 1.0 - wlf->pos.y) * wlf->deltady;
 	}
 	if (wlf->raydz < 0)
 	{
 		wlf->stepz = -1;
-		wlf->sidedz = (wlf->posz - wlf->map.z) * wlf->deltadz;
+		wlf->sidedz = (wlf->pos.z - wlf->map.z) * wlf->deltadz;
 	}
 	else
 	{
 		wlf->stepz = 1;
-		wlf->sidedz = (wlf->map.z + 1.0 - wlf->posz) * wlf->deltadz;
+		wlf->sidedz = (wlf->map.z + 1.0 - wlf->pos.z) * wlf->deltadz;
 	}
 }
 
@@ -106,18 +108,18 @@ void	rc_init(t_doom *wlf)
 	wlf->raydx = wlf->dir.x + wlf->plane.x * wlf->camx;
 	wlf->raydy = wlf->dir.y + wlf->plane.y * wlf->camx;
 	wlf->raydz = wlf->dir.z + wlf->plane.z * wlf->camy;
-	wlf->map.x = ((int)wlf->posx) & 0x0fffffff;
-	wlf->map.y = ((int)wlf->posy) & 0x0fffffff;
-	wlf->map.z = ((int)wlf->posz) & 0x0fffffff;
+	wlf->map.x = ((int)wlf->pos.x) & 0x0fffffff;
+	wlf->map.y = ((int)wlf->pos.y) & 0x0fffffff;
+	wlf->map.z = ((int)wlf->pos.z) & 0x0fffffff;
 	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %f %f %f\n", wlf->camx, wlf->camy, wlf->raydz, wlf->raydy, wlf->raydx, wlf->map.z, wlf->map.y, wlf->map.x);
 	dda_prep(wlf);
 	dda_sys(wlf);
 	if (wlf->side == 0)
-		wlf->walldist = (wlf->map.x - wlf->posx + (1 - wlf->stepx) * 0.5) / wlf->raydx;
+		wlf->walldist = (wlf->map.x - wlf->pos.x + (1 - wlf->stepx) * 0.5) / wlf->raydx;
 	else if (wlf->side == 1)
-		wlf->walldist = (wlf->map.y - wlf->posy + (1 - wlf->stepy) * 0.5) / wlf->raydy;
+		wlf->walldist = (wlf->map.y - wlf->pos.y + (1 - wlf->stepy) * 0.5) / wlf->raydy;
 	else
-		wlf->walldist = (wlf->map.z - wlf->posz + (1 - wlf->stepz) * 0.5) / wlf->raydz;
+		wlf->walldist = (wlf->map.z - wlf->pos.z + (1 - wlf->stepz) * 0.5) / wlf->raydz;
 	if (wlf->walldist < 0.0001)
 		wlf->walldist += 0.01;
 }
@@ -127,11 +129,11 @@ void	side_check(t_doom* wlf)
 	int	delta;
 
 	if (wlf->side == 0)
-		delta = wlf->posx - wlf->map.x;
+		delta = wlf->pos.x - wlf->map.x;
 	else if (wlf->side == 1)
-		delta = wlf->posy - wlf->map.y;
+		delta = wlf->pos.y - wlf->map.y;
 	else
-		delta = wlf->posz - wlf->map.z;
+		delta = wlf->pos.z - wlf->map.z;
 	if (delta > 0)
 		wlf->side += 3;
 }
@@ -163,7 +165,7 @@ int		renthread(void *ptr)
 			//wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
 			wlf->maparr[wlf->winw * wlf->y + wlf->x] = wlf->side + 1 + wlf->map.z + wlf->map.y + wlf->map.x;
 			if (wlf->hit == 2)
-				draw_sky(wlf, 0, wlf->sbox);
+				draw_sky(wlf, wlf->sboy, wlf->sbox);
 			else if (wlf->side == 2 || wlf->side == 5)
 				render_floor(wlf);
 			else
@@ -240,36 +242,36 @@ void	gravity(t_doom *wlf)
 		wlf->gravity.z += wlf->fallsp.z;
 	if (wlf->gravity.z < 0)
 	{
-		if (wlf->area[(int)(wlf->posz + wlf->gravity.z - 0.1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-			wlf->posz += wlf->gravity.z;
+		if (wlf->area[(int)(wlf->pos.z + wlf->gravity.z - 0.1)][(int)(wlf->pos.y)][(int)wlf->pos.x] <= 1)
+			wlf->pos.z += wlf->gravity.z;
 	}
-	else if (wlf->area[(int)(wlf->posz + 1)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-		wlf->posz += wlf->gravity.z;
+	else if (wlf->area[(int)(wlf->pos.z + 1)][(int)(wlf->pos.y)][(int)wlf->pos.x] <= 1)
+		wlf->pos.z += wlf->gravity.z;
 	else
 	{
 		wlf->airbrn = 0;
 		wlf->gravity.z = 0;
-		wlf->posz = floor(wlf->posz) + 0.5;
+		wlf->pos.z = floor(wlf->pos.z) + 0.5;
 	}
 	wlf->gravity.z += wlf->fallsp.z;
 	if (wlf->gravity.z > 0.2 * (30.0 / wlf->buffer / wlf->prefps))
 		wlf->gravity.z = 0.2 * (30.0 / wlf->buffer / wlf->prefps);
-	if (wlf->area[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] > 1)
-		wlf->posz -= 0.1;
+	if (wlf->area[(int)(wlf->pos.z + 0.5)][(int)(wlf->pos.y)][(int)wlf->pos.x] > 1)
+		wlf->pos.z -= 0.1;
 }
 
 void	pickupitem(t_doom *wlf)
 {
 	int			obj;
 
-	obj = wlf->area[(int)(wlf->posz + 0.5)][(int)wlf->posy][(int)wlf->posx];
+	obj = wlf->area[(int)(wlf->pos.z + 0.5)][(int)wlf->pos.y][(int)wlf->pos.x];
 	if (obj == 8)//this will be used when we have sprites.
 	{
 		wlf->accesscard = 1;
 	}
 	else if (obj == 5)
 	{
-		wlf->area[(int)(wlf->posz + 0.5)][(int)wlf->posy][(int)wlf->posx] = 0;
+		wlf->area[(int)(wlf->pos.z + 0.5)][(int)wlf->pos.y][(int)wlf->pos.x] = 0;
 		wlf->accesscard = 1;
 	}
 }
@@ -307,7 +309,7 @@ void	load_animsprite(t_doom *wlf)
 
 
 	//wlf->sprites = IMG_Load("./gfx/SpriteSheets/PokemonTrainer.png");
-	wlf->spriteSurface = IMG_Load("./gfx/SpriteSheets/GreyDragon.png");
+	wlf->spriteSurface = IMG_Load("./gfx/SpriteSheets/GreyDragon.xpm");
 	wlf->spriteTexture = SDL_CreateTextureFromSurface(wlf->rend, wlf->spriteSurface);
 	SDL_FreeSurface(wlf->spriteSurface);
 

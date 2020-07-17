@@ -57,9 +57,7 @@ void	resize_window(t_doom *wlf)
 
 void	reset_position(t_doom *wlf)
 {
-	wlf->posx = 2.51;
-	wlf->posy = 2.51;
-	wlf->posz = 2.5;
+	wlf->pos = wlf->spawn;
 	wlf->dir.x = 1.0;
 	wlf->dir.y = 0.0;
 	wlf->dir.z = 0.0;

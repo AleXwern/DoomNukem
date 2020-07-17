@@ -16,6 +16,7 @@
 void	defaults(t_editor *le, t_doom *dm)
 {
 	ft_bzero(le, sizeof(t_editor));
+	le->blk = 2;
 	le->options[0] = dm->width;
 	le->options[1] = dm->height;
 	le->options[2] = dm->mxflr;
@@ -31,9 +32,6 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->minval[2] = 0;
 	le->minval[3] = 0;
 	le->minval[4] = 1;
-	le->spawn.x = 2.51;
-	le->spawn.y = 2.51;
-	le->spawn.z = 2.5;
 }
 
 void	render_editor(t_doom *wlf, t_editor *le)
@@ -48,7 +46,6 @@ void	render_editor(t_doom *wlf, t_editor *le)
 	//SDL_UpdateWindowSurface(wlf->win);
 	SDL_RenderPresent(wlf->rend);
 	//mouse_move(2, 0, wlf);
-	wlf->fps++;
 	//wlf->keyck(wlf);
 }
 
@@ -65,10 +62,12 @@ void	editor_main(t_doom *wlf)
 	{
 		key_state_editor(le, wlf);
 		render_editor(wlf, le);
+		wlf->fps++;
 	}
 	SDL_SetWindowSize(wlf->win, WINX, WINY);
 	wlf->tile = le->options[4];
 	destroy_gfx(wlf, -1);
 	comp_gfx(wlf, 0);
 	free(le);
+	wlf->pos = wlf->spawn;
 }

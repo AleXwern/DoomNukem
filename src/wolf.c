@@ -78,9 +78,12 @@ void	setup(t_doom *wlf)
 {
 	SDL_Thread* capper;
 
+	wlf->spawn.x = 2.51;
+	wlf->spawn.y = 2.51;
+	wlf->spawn.z = 2.5;
 	init_audio(wlf);
 	doom_default(wlf);
-	if (wlf->area[2][(int)wlf->posy][(int)wlf->posx] != 1)
+	if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)wlf->pos.x] != 1)
 		error_out(SPW_ERROR, wlf);
 	wlf->fpsthread = SDL_CreateThread(fps_counter, "fps counter", (void*)wlf);
 	char* path = SDL_GetBasePath();

@@ -6,7 +6,7 @@
 #    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/16 17:14:40 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/07/16 17:17:27 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,6 +102,8 @@ merge:
 
 winup:
 	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/gfx
+	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/Audio
 	@cp -r gfx ../../../../source/repos/DoomNukem/x64/Debug/
+	@cp -r Audio ../../../../source/repos/DoomNukem/x64/Debug/
 
 re: fclean all

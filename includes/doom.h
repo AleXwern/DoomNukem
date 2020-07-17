@@ -176,6 +176,9 @@ typedef struct	s_editor
 	double		maxval[5];
 	Sint8		minval[5];
 	SDL_Event	ev;
+	Sint8		marea;
+	Sint8		mslider;
+	Sint8		mblock;
 }				t_editor;
 
 /*
@@ -242,7 +245,6 @@ typedef struct	s_doom
 	int			plrck;
 	int			x;
 	int			y;
-	int			pos;
 	int			hold;
 	int			flr;
 	int			mxflr;
@@ -269,6 +271,7 @@ typedef struct	s_doom
 	int			texy;
 	Uint32		testcolor;
 	int			sbox;
+	int			sboy;
 	int			cellx;
 	int			celly;
 	int			cellz;
@@ -276,11 +279,13 @@ typedef struct	s_doom
 	int			ty;
 	int			tz;
 	int			rotation;
-	double		posx;
-	double		posy;
-	double		posz;
+	//double		posx;
+	//double		posy;
+	//double		posz;
 	double		poszz;
 	int			airbrn;
+	t_vector	spawn;
+	t_vector	pos;
 	t_vector	gravity;
 	t_vector	fallsp;
 	t_vector	dir;
@@ -446,6 +451,7 @@ void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
 void			draw_level_screen(t_doom *wlf, t_editor *le, double x, double y);
 void			draw_menu(t_doom *wlf, int x, int y, int cur);
 void			draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
+void			draw_screen(t_editor* le, t_doom* dm, int x, int y);
 void			draw_sliders(t_doom *dm, t_editor *le, int x, int y);
 void			draw_sky(t_doom *wlf, int scany, int scanx);
 void			editor_key_press(Uint32 key, t_editor *le);

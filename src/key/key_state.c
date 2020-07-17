@@ -67,6 +67,16 @@ void	key_state_editor(t_editor *le, t_doom *dm)
 {
 	if (SDL_PollEvent(&(dm->event)))
 	{
+		//if (SDL_HasEvent(SDL_MOUSEMOTION))
+		//	SDL_FlushEvent(SDL_MOUSEMOTION);
+		if (dm->event.type == SDL_MOUSEBUTTONDOWN)
+			check_area(le, dm->event);
+		if (dm->event.type == SDL_MOUSEBUTTONUP)
+		{
+			le->marea = 0;
+			le->mslider = 0;
+			le->mblock = 0;
+		}
 		if (dm->event.window.event == SDL_WINDOWEVENT_RESIZED || dm->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 		{
 			SDL_SetWindowSize(dm->win, 1500, 750);
@@ -79,4 +89,5 @@ void	key_state_editor(t_editor *le, t_doom *dm)
 		if (dm->event.key.state == SDL_RELEASED)
 			editor_key_release(dm->event.key.keysym.scancode, le);
 	}
+	draw_screen(le, dm, 0, 0);
 }

@@ -17,9 +17,13 @@ void	draw_sky(t_doom *wlf, int scany, int scanx)
 {
 	if (scanx >= wlf->winw)
 		scanx -= wlf->winw;
-	scany = abs(wlf->y + 360 * (int)(wlf->dir.z) % 360);
+	if (scanx >= wlf->winh)
+		scanx -= wlf->winh;
+	//scany = abs(wlf->y + 360 * (int)(wlf->dir.z) % 360);
 	if (wlf->texbool)
-		wlf->img.data[wlf->winw * wlf->y + wlf->x] = wlf->gfx[0].data[wlf->winw * scany + wlf->x + scanx];
+		wlf->img.data[wlf->winw * wlf->y + wlf->x] = wlf->gfx[0].data[wlf->winw * ((wlf->y + scany) % 360) + wlf->x + scanx];
+	else
+		wlf->img.data[wlf->winw * wlf->y + wlf->x] = 0xff000000;
 }
 
 void	draw_stripe(t_doom *wlf)
@@ -28,7 +32,7 @@ void	draw_stripe(t_doom *wlf)
 
 	if (wlf->texbool)
 	{
-		shift = (wlf->posz - floor(wlf->posz));
+		shift = (wlf->pos.z - floor(wlf->pos.z));
 		shift = ((shift - 0.5) * 128);
 		if (shift < 0)
 			shift = 128 + shift;
@@ -51,9 +55,9 @@ void	wall_stripe(t_doom *wlf)
 		if (wlf->texnum > 5)//This is a (temporary) fix for the issue where having a value higher than 5 on the map creating a wal with a weird texture.
 			wlf->texnum = 2;
 		if (wlf->side % 3 == 0)
-			wlf->wallx = (wlf->posy + wlf->walldist * wlf->raydy);
+			wlf->wallx = (wlf->pos.y + wlf->walldist * wlf->raydy);
 		else
-			wlf->wallx = (wlf->posx + wlf->walldist * wlf->raydx);
+			wlf->wallx = (wlf->pos.x + wlf->walldist * wlf->raydx);
 		wlf->wallx -= floor(wlf->wallx);
 		wlf->texx = (int)(wlf->wallx * 128.0);
 		if (wlf->side == 0 && wlf->raydx > 0)
@@ -93,7 +97,7 @@ void	render_floor(t_doom *wlf)
 	wlf->rowdist = wlf->walldist;
 	wlf->flstepx = wlf->rowdist * (wlf->raydx1 - wlf->raydx0) / wlf->winw;
 	wlf->flstepy = wlf->rowdist * (wlf->raydy1 - wlf->raydy0) / wlf->winw;
-	wlf->floorx = (wlf->posx + wlf->rowdist * wlf->raydx0) + (wlf->flstepx * wlf->x);
-	wlf->floory = (wlf->posy + wlf->rowdist * wlf->raydy0) + (wlf->flstepy * wlf->x);
+	wlf->floorx = (wlf->pos.x + wlf->rowdist * wlf->raydx0) + (wlf->flstepx * wlf->x);
+	wlf->floory = (wlf->pos.y + wlf->rowdist * wlf->raydy0) + (wlf->flstepy * wlf->x);
 	draw_floor(wlf);
 }

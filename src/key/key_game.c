@@ -89,7 +89,7 @@ int				key_hold(int key, t_doom *wlf)
 	{
 		wlf->crouching = 1;
 		wlf->movsp -= 0.03;
-		wlf->posz += 0.2;
+		wlf->pos.z += 0.2;
 	}
 	return (0);
 }
@@ -168,7 +168,7 @@ int				key_release(int key, t_doom *wlf)
 	{
 		wlf->crouching = 0;
 		wlf->movsp += 0.03;
-		wlf->posz -= 0.2;
+		wlf->pos.z -= 0.2;
 	}
 	if (key == KEY_M)
 		reset_window(wlf, 0);
@@ -197,11 +197,11 @@ int				x_press(t_doom *wolf)
 void			jetpack(t_doom *wlf)
 {
 	if (wlf->key.one)
-		if (wlf->area[(int)(wlf->posz + 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-			wlf->posz += 0.05 * (30.0 / wlf->buffer / wlf->prefps);
+		if (wlf->area[(int)(wlf->pos.z + 0.5)][(int)(wlf->pos.y)][(int)wlf->pos.x] <= 1)
+			wlf->pos.z += 0.05 * (30.0 / wlf->buffer / wlf->prefps);
 	if (wlf->key.two)
-		if (wlf->area[(int)(wlf->posz - 0.5)][(int)(wlf->posy)][(int)wlf->posx] <= 1)
-			wlf->posz -= 0.05 * (30.0 / wlf->buffer / wlf->prefps);
+		if (wlf->area[(int)(wlf->pos.z - 0.5)][(int)(wlf->pos.y)][(int)wlf->pos.x] <= 1)
+			wlf->pos.z -= 0.05 * (30.0 / wlf->buffer / wlf->prefps);
 }
 
 int				mouse_move(int x, int y, t_doom *wlf)
@@ -224,9 +224,10 @@ int				mouse_move(int x, int y, t_doom *wlf)
 	if (y && abs(y) < wlf->winh)
 	{
 		rota.y = (double)y / wlf->winh * OSCAM;
-		if (wlf->dir.z + rota.y > -0.6 && wlf->dir.z + rota.y < 0.6)
+		if (wlf->dir.z + rota.y > -0.5 && wlf->dir.z + rota.y < 0.5)
 			wlf->dir.z += rota.y;
 		wlf->camshift = 1.0 - (wlf->dir.z * 2);
+		wlf->sboy = wlf->winh * (wlf->dir.z + 0.5);
 	}
 	return (0);
 }
