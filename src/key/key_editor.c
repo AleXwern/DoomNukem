@@ -19,14 +19,10 @@ void	draw_screen(t_editor* le, t_doom* dm, int x, int y)
 	{
 		y = dm->event.motion.y / 30;
 		x = dm->event.motion.x / 30;
-		if (y >= dm->height)
-			y = dm->height - 1;
-		if (x >= dm->width)
-			x = dm->width - 1;
-		if (y < 0)
-			y = 0;
-		if (x < 0)
-			x = 0;
+		if (y >= dm->height || x >= dm->width)
+			return ;
+		if (y < 0 || x < 0)
+			return ;
 		if (le->blk == 7)
 		{
 			dm->spawn.x = x + 0.51;
