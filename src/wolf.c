@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf.c                                             :+:      :+:    :+:   */
+/*   dm.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/17 14:18:25 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:31:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 
 #include <stdio.h>
 
-void	error_out(char *msg, t_doom *wolf)
+void	error_out(char *msg, t_doom *dm)
 {
 	ft_putendl(msg);
 	//ft_putendl(SDL_GetError());
 	SDL_SetRelativeMouseMode(SDL_FALSE);
-	wolf->killthread = 1;
+	dm->killthread = 1;
 	if (!ft_strcmp(msg, WLF_ERROR))
 		exit(0);
 	if (!ft_strcmp(msg, FLR_ERROR))
-		wolf->mxflr = wolf->flr - 49;
-	if (wolf->gfx)
-		destroy_gfx(wolf, -1);
-	if (wolf->area)
-		free_map(wolf, -1, -1);
-	if (wolf->tex)
-		SDL_DestroyTexture(wolf->tex);
-	if (wolf->img.tex)
-		SDL_FreeSurface(wolf->img.tex);
-	if (wolf->rend)
-		SDL_DestroyRenderer(wolf->rend);
-	if (wolf->win)
-		SDL_DestroyWindow(wolf->win);
-	if (wolf->gpad)
-		SDL_GameControllerClose(wolf->gpad);
-	SDL_WaitThread(wolf->fpsthread, NULL);
+		dm->mxflr = dm->flr - 49;
+	if (dm->gfx)
+		destroy_gfx(dm, -1);
+	if (dm->area)
+		free_map(dm, -1, -1);
+	if (dm->tex)
+		SDL_DestroyTexture(dm->tex);
+	if (dm->img.tex)
+		SDL_FreeSurface(dm->img.tex);
+	if (dm->rend)
+		SDL_DestroyRenderer(dm->rend);
+	if (dm->win)
+		SDL_DestroyWindow(dm->win);
+	if (dm->gpad)
+		SDL_GameControllerClose(dm->gpad);
+	SDL_WaitThread(dm->fpsthread, NULL);
 	SDL_Quit();
-	ft_bzero(wolf, sizeof(wolf));
+	ft_bzero(dm, sizeof(dm));
 	system("leaks doom-nukem");
 	exit(0);
 }
@@ -59,90 +59,101 @@ void	free_memory(char **arr)
 	arr = NULL;
 }
 
-void	init_audio(t_doom *wlf)
+void	init_audio(t_doom *dm)
 {
 	SDL_Init(SDL_INIT_AUDIO);
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
 		ft_putendl("Failed to initialize SDL_Mixer!");
 	}
-	wlf->music = Mix_LoadMUS("Audio/Music/scapemain.wav");
-	wlf->readyForAction = Mix_LoadWAV("Audio/SoundEffects/ready_for_action.wav");
-	//wlf->doorClose = Mix_LoadWAV("Audio/SoundEffects/doorclose.wav");
-	//wlf->doorOpen = Mix_LoadWAV("Audio/SoundEffects/dooropen.wav");
-	wlf->reload = Mix_LoadWAV("Audio/SoundEffects/reload.wav");
-	wlf->gunshot = Mix_LoadWAV("Audio/SoundEffects/gunshot.wav");
+	dm->music = Mix_LoadMUS("Audio/Music/scapemain.wav");
+	dm->readyForAction = Mix_LoadWAV("Audio/SoundEffects/ready_for_action.wav");
+	//dm->doorClose = Mix_LoadWAV("Audio/SoundEffects/doorclose.wav");
+	//dm->doorOpen = Mix_LoadWAV("Audio/SoundEffects/dooropen.wav");
+	dm->reload = Mix_LoadWAV("Audio/SoundEffects/reload.wav");
+	dm->gunshot = Mix_LoadWAV("Audio/SoundEffects/gunshot.wav");
 }
 
-void	setup(t_doom *wlf)
+void	setup(t_doom *dm)
 {
 	//SDL_Thread* capper;
 
-	wlf->spawn.x = 2.51;
-	wlf->spawn.y = 2.51;
-	wlf->spawn.z = 2.5;
-	init_audio(wlf);
-	doom_default(wlf);
-	if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)wlf->pos.x] != 1)
-		error_out(SPW_ERROR, wlf);
-	wlf->fpsthread = SDL_CreateThread(fps_counter, "fps counter", (void*)wlf);
+	dm->spawn.x = 2.51;
+	dm->spawn.y = 2.51;
+	dm->spawn.z = 2.5;
+	init_audio(dm);
+	doom_default(dm);
+	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x] != 1)
+		error_out(SPW_ERROR, dm);
+	dm->fpsthread = SDL_CreateThread(fps_counter, "fps counter", (void*)dm);
 	char* path = SDL_GetBasePath();
 	printf("Exec path: %s\n", path);
 	SDL_free(path);
+	if (!(dm->joblist = SDL_CreateMutex()))
+		error_out(MEM_ERROR, dm);
+	if (!(dm->setdone = SDL_CreateMutex()))
+		error_out(MEM_ERROR, dm);
+	if (!(dm->lock = SDL_CreateMutex()))
+		error_out(MEM_ERROR, dm);
+	if (!(dm->cond = SDL_CreateCond()))
+		error_out(MEM_ERROR, dm);
+	SDL_LockMutex(dm->lock);
+	dm->done = (int*)malloc(4);
+	*dm->done = 0;
 	while (1)
 	{
-		//if (wlf->isfpscap && !wlf->ismenu)
-		//	capper = SDL_CreateThread(fps_capper, "FPS limiter", wlf);
-		game_loop(wlf);
-		/*if (wlf->limit)
+		//if (dm->isfpscap && !dm->ismenu)
+		//	capper = SDL_CreateThread(fps_capper, "FPS limiter", dm);
+		game_loop(dm);
+		/*if (dm->limit)
 		{
 			SDL_WaitThread(capper, NULL);
-			wlf->limit = 0;
+			dm->limit = 0;
 		}*/
 	}
 }
 
 int		main(void)//int ac, char **av)
 {
-	t_doom	*wolf;
+	t_doom	*dm;
 
-	if (!(wolf = (t_doom*)malloc(sizeof(t_doom))))
-		error_out(WLF_ERROR, wolf);
-	ft_bzero(wolf, sizeof(t_doom));
+	if (!(dm = (t_doom*)malloc(sizeof(t_doom))))
+		error_out(WLF_ERROR, dm);
+	ft_bzero(dm, sizeof(t_doom));
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-		error_out(SDL_ERROR, wolf);
+		error_out(SDL_ERROR, dm);
 	ft_putstr("Args: ");
 	//ft_putnbrln(ac);
 	//if (!IMG_Init(IMG_INIT_XPM))
-	//	error_out(IMG_ERROR, wolf);
+	//	error_out(IMG_ERROR, dm);
 	//if (ac != 4 && ac != 0)
-	//	error_out(USAGE, wolf);
-	wolf->tile = 2;
-	if (wolf->tile < 1 || wolf->tile > 6)
-		error_out(USAGE, wolf);
-	wolf->mxflr = 9;
-	if (wolf->mxflr < 1 || wolf->mxflr > 9)
-		error_out(USAGE, wolf);
-	if (!(wolf->win = SDL_CreateWindow("DoomNukem", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINX, WINY, 0)))
-		error_out(WIN_ERROR, wolf);
-	//SDL_CreateWindowAndRenderer(WINX, WINY, 0, &(wolf->win), &(wolf->rend));
-	if (!(wolf->rend = SDL_CreateRenderer(wolf->win, -1, SDL_RENDERER_SOFTWARE)))
-		if (!(wolf->rend = SDL_GetRenderer(wolf->win)))
-			error_out(REN_ERROR, wolf);
-	wolf->img = init_image(wolf);
-	/*if (!(wolf->gpad = SDL_GameControllerOpen(0)))
+	//	error_out(USAGE, dm);
+	dm->tile = 2;
+	if (dm->tile < 1 || dm->tile > 6)
+		error_out(USAGE, dm);
+	dm->mxflr = 9;
+	if (dm->mxflr < 1 || dm->mxflr > 9)
+		error_out(USAGE, dm);
+	if (!(dm->win = SDL_CreateWindow("DoomNukem", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINX, WINY, 0)))
+		error_out(WIN_ERROR, dm);
+	//SDL_CreateWindowAndRenderer(WINX, WINY, 0, &(dm->win), &(dm->rend));
+	if (!(dm->rend = SDL_CreateRenderer(dm->win, -1, SDL_RENDERER_SOFTWARE)))
+		if (!(dm->rend = SDL_GetRenderer(dm->win)))
+			error_out(REN_ERROR, dm);
+	dm->img = init_image(dm);
+	/*if (!(dm->gpad = SDL_GameControllerOpen(0)))
 		ft_putendl(PAD_ERROR);
 	else
-		ft_putendl(SDL_GameControllerName(wolf->gpad));
+		ft_putendl(SDL_GameControllerName(dm->gpad));
 	if (SDL_GameControllerAddMappingsFromFile("mapping.txt") == -1)
 		ft_putendl("UWU");*/
-	wolf->winb = 1;
-	wolf->winh = wolf->img.tex->h;
-	wolf->winw = wolf->img.tex->w;
+	dm->winb = 1;
+	dm->winh = dm->img.tex->h;
+	dm->winw = dm->img.tex->w;
 	printf("Comp map\n");
-	comp_map(wolf);//, "Null");
+	comp_map(dm);//, "Null");
 	printf("Comp GFX\n");
-	comp_gfx(wolf, 0);
-	setup(wolf);
+	comp_gfx(dm, 0);
+	setup(dm);
 	return (0);
 }

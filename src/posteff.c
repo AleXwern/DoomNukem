@@ -6,50 +6,50 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 16:26:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 11:44:53 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:35:23 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-int		tex_check(t_doom *wlf)
+int		tex_check(t_doom *dm)
 {
 	double	wdistdiff;
 	
-	if (wlf->x > 0)
+	if (dm->x > 0)
 	{
-		if (wlf->maparr[wlf->winw * wlf->y + wlf->x - 1] != wlf->maparr[wlf->winw * wlf->y + wlf->x])
+		if (dm->maparr[dm->winw * dm->y + dm->x - 1] != dm->maparr[dm->winw * dm->y + dm->x])
 			return (1);
-		wdistdiff = fabs(wlf->wallarr[wlf->winw * wlf->y + wlf->x - 1] - wlf->wallarr[wlf->winw * wlf->y + wlf->x]);
+		wdistdiff = fabs(dm->wallarr[dm->winw * dm->y + dm->x - 1] - dm->wallarr[dm->winw * dm->y + dm->x]);
 		if (wdistdiff > 0.8)
 			return (1);
 	}
-	if (wlf->y > 0)
+	if (dm->y > 0)
 	{
-		if (wlf->maparr[wlf->winw * (wlf->y - 1) + wlf->x] != wlf->maparr[wlf->winw * wlf->y + wlf->x])
+		if (dm->maparr[dm->winw * (dm->y - 1) + dm->x] != dm->maparr[dm->winw * dm->y + dm->x])
 			return (1);
-		wdistdiff = fabs(wlf->wallarr[wlf->winw * (wlf->y - 1) + wlf->x] - wlf->wallarr[wlf->winw * wlf->y + wlf->x]);
+		wdistdiff = fabs(dm->wallarr[dm->winw * (dm->y - 1) + dm->x] - dm->wallarr[dm->winw * dm->y + dm->x]);
 		if (wdistdiff > 0.8)
 			return (1);
 	}
 	return (0);
 }
 
-void	post_effects(t_doom *wlf)
+void	post_effects(t_doom *dm)
 {
-	wlf->y = -1;
-	while (++wlf->y < wlf->winh)
+	dm->y = -1;
+	while (++dm->y < dm->winh)
 	{
-		wlf->x = -1;
-		while (++wlf->x < wlf->winw)
+		dm->x = -1;
+		while (++dm->x < dm->winw)
 		{
-			if (tex_check(wlf) && wlf->isoutline)
-				wlf->img.data[wlf->winw * wlf->y + wlf->x] = 0xff000000;
-			//if (wlf->shift)
-			//	wlf->img.data[wlf->winw * wlf->y + wlf->x] = color_shift(wlf->img.data[wlf->winw * wlf->y + wlf->x], 
-			//			wlf->wallarr[wlf->winw * wlf->y + wlf->x] + fabs((double)(wlf->x - wlf->winw / 2) / wlf->winw), 
-			//			wlf, 0);
+			if (tex_check(dm) && dm->isoutline)
+				dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
+			//if (dm->shift)
+			//	dm->img.data[dm->winw * dm->y + dm->x] = color_shift(dm->img.data[dm->winw * dm->y + dm->x], 
+			//			dm->wallarr[dm->winw * dm->y + dm->x] + fabs((double)(dm->x - dm->winw / 2) / dm->winw), 
+			//			dm, 0);
 		}
 	}
 }

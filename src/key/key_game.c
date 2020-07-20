@@ -3,187 +3,187 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/17 14:28:41 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:30:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void			menu_keys_hold(int key, t_doom *wlf)
+void			menu_keys_hold(int key, t_doom *dm)
 {
 	if (key == LEFT)
 	{
-		(*wlf->options[wlf->cur])--;
-		if ((*wlf->options[wlf->cur]) < 0)
-			(*wlf->options[wlf->cur]) = 0;
+		(*dm->options[dm->cur])--;
+		if ((*dm->options[dm->cur]) < 0)
+			(*dm->options[dm->cur]) = 0;
 	}
 	else if (key == RIGHT)
 	{
-		(*wlf->options[wlf->cur])++;
-		if ((*wlf->options[wlf->cur]) > (int)wlf->maxvalue[wlf->cur])
-			(*wlf->options[wlf->cur]) = (int)wlf->maxvalue[wlf->cur];
+		(*dm->options[dm->cur])++;
+		if ((*dm->options[dm->cur]) > (int)dm->maxvalue[dm->cur])
+			(*dm->options[dm->cur]) = (int)dm->maxvalue[dm->cur];
 	}
-	if (wlf->cur == 8)
+	if (dm->cur == 8)
 	{
-		if (wlf->tile < 1)
-			wlf->tile = 1;
-		destroy_gfx(wlf, -1);
-		comp_gfx(wlf, 0);
+		if (dm->tile < 1)
+			dm->tile = 1;
+		destroy_gfx(dm, -1);
+		comp_gfx(dm, 0);
 	}
 }
 
-int				key_hold(int key, t_doom *wlf)
+int				key_hold(int key, t_doom *dm)
 {
-	if (wlf->ismenu)
+	if (dm->ismenu)
 	{
-		menu_keys_hold(key, wlf);
+		menu_keys_hold(key, dm);
 		return (0);
 	}
 	if (key == LEFT || key == KEY_A)
-		wlf->key.left = 1;
+		dm->key.left = 1;
 	if (key == RIGHT || key == KEY_D)
-		wlf->key.right = 1;
+		dm->key.right = 1;
 	if (key == UP || key == KEY_W)
-		wlf->key.up = 1;
+		dm->key.up = 1;
 	if (key == DOWN || key == KEY_S)
-		wlf->key.down = 1;
+		dm->key.down = 1;
 	if (key == NUM_PLU)
-		wlf->key.plus = 1;
+		dm->key.plus = 1;
 	if (key == NUM_MIN)
-		wlf->key.minus = 1;
+		dm->key.minus = 1;
 	//if (key == KEY_W)
-	//	wlf->keyw = 1;
+	//	dm->keyw = 1;
 	//if (key == KEY_S)
-	//	wlf->keys = 1;
+	//	dm->keys = 1;
 	/*if (key == KEY_A)
-		wlf->keya = 1;
+		dm->keya = 1;
 	if (key == KEY_D)
-		wlf->keyd = 1;*/
+		dm->keyd = 1;*/
 	if (key == KEY_ONE)
-		wlf->key.one = 1;
+		dm->key.one = 1;
 	if (key == KEY_TWO)
-		wlf->key.two = 1;
+		dm->key.two = 1;
 	if (key == KEY_SHIFT)
-		wlf->movsp += 0.06;
+		dm->movsp += 0.06;
 	if (key == KEY_Q)
-		wlf->key.q = 1;
+		dm->key.q = 1;
 	if (key == KEY_E)
-		wlf->key.e = 1;
+		dm->key.e = 1;
 	if (key == KEY_O)
 	{
-		wlf->shift++;
-		if (wlf->shift > 100)
-			wlf->shift = 100;
+		dm->shift++;
+		if (dm->shift > 100)
+			dm->shift = 100;
 	}
 	if (key == KEY_P)
 	{
-		wlf->shift--;
-		if (wlf->shift < 0)
-			wlf->shift = 0;
+		dm->shift--;
+		if (dm->shift < 0)
+			dm->shift = 0;
 	}
-	if (key == KEY_C && !wlf->crouching)
+	if (key == KEY_C && !dm->crouching)
 	{
-		wlf->crouching = 1;
-		wlf->movsp -= 0.03;
-		wlf->pos.z += 0.2;
+		dm->crouching = 1;
+		dm->movsp -= 0.03;
+		dm->pos.z += 0.2;
 	}
 	return (0);
 }
 
-void			menu_keys(int key, t_doom *wlf)
+void			menu_keys(int key, t_doom *dm)
 {
 	if (key == DOWN)
-		wlf->cur++;
+		dm->cur++;
 	else if (key == UP)
-		wlf->cur--;
-	if (wlf->cur < 0)
-		wlf->cur = 8;
-	if (wlf->cur > 8)
-		wlf->cur = 0;
+		dm->cur--;
+	if (dm->cur < 0)
+		dm->cur = 8;
+	if (dm->cur > 8)
+		dm->cur = 0;
 }
 
-int				key_release(int key, t_doom *wlf)
+int				key_release(int key, t_doom *dm)
 {
 	if (key == ESC)
 	{
-		SDL_SetWindowResizable(wlf->win, SDL_FALSE);
-		SDL_SetWindowSize(wlf->win, WINX, WINY);
-		wlf->cycle = &main_menu;
-		wlf->keyck = &key_state_menu;
-		reset_position(wlf);
+		SDL_SetWindowResizable(dm->win, SDL_FALSE);
+		SDL_SetWindowSize(dm->win, WINX, WINY);
+		dm->cycle = &main_menu;
+		dm->keyck = &key_state_menu;
+		reset_position(dm);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
-		wlf->mousemovement = 0;
+		dm->mousemovement = 0;
 		return (1);
 	}
 	if (key == KEY_M)
-		wlf->ismenu = wlf->ismenu * wlf->ismenu - 1;
-	if (wlf->ismenu == -1)
-		wlf->cycle = &options_menu;
-	else if (wlf->ismenu == 0)
-		wlf->cycle = &render;
-	if (wlf->ismenu)
+		dm->ismenu = dm->ismenu * dm->ismenu - 1;
+	if (dm->ismenu == -1)
+		dm->cycle = &options_menu;
+	else if (dm->ismenu == 0)
+		dm->cycle = &render;
+	if (dm->ismenu)
 	{
-		menu_keys(key, wlf);
+		menu_keys(key, dm);
 		return (0);
 	}
 	if (key == KEY_T)
-		wlf->texbool = (wlf->texbool * wlf->texbool) - 1;
+		dm->texbool = (dm->texbool * dm->texbool) - 1;
 	if (key == KEY_TRE)
-		interact(wlf);
+		interact(dm);
 	if (key == LEFT || key == KEY_A)
-		wlf->key.left = 0;
+		dm->key.left = 0;
 	if (key == RIGHT || key == KEY_D)
-		wlf->key.right = 0;
+		dm->key.right = 0;
 	if (key == UP || key == KEY_W)
-		wlf->key.up = 0;
+		dm->key.up = 0;
 	if (key == DOWN || key == KEY_S)
-		wlf->key.down = 0;
+		dm->key.down = 0;
 	if (key == 69)
-		wlf->key.plus = 0;
+		dm->key.plus = 0;
 	if (key == 78)
-		wlf->key.minus = 0;
+		dm->key.minus = 0;
 	if (key == KEY_ONE)
-		wlf->key.one = 0;
+		dm->key.one = 0;
 	if (key == KEY_TWO)
-		wlf->key.two = 0;
+		dm->key.two = 0;
 	if (key == KEY_Q)
-		wlf->key.q = 0;
+		dm->key.q = 0;
 	if (key == KEY_E)
-		wlf->key.e = 0;
+		dm->key.e = 0;
 	if (key == KEY_I || key == SDL_SCANCODE_I)
 	{
 		/*ft_putendl("I pressed");
-		load_animsprite(wlf);
-		wlf->key.i = wlf->key.i == 1 ? 0 : 1;*/
-		wlf->keycard = (wlf->keycard == 0 ? 1 : 0);
+		load_animsprite(dm);
+		dm->key.i = dm->key.i == 1 ? 0 : 1;*/
+		dm->keycard = (dm->keycard == 0 ? 1 : 0);
 	}
 	if (key == KEY_SHIFT)
-		wlf->movsp -= 0.06;
+		dm->movsp -= 0.06;
 	if (key == KEY_L)
-		wlf->isoutline = (wlf->isoutline * wlf->isoutline) - 1;
-	if (key == KEY_C && wlf->crouching)
+		dm->isoutline = (dm->isoutline * dm->isoutline) - 1;
+	if (key == KEY_C && dm->crouching)
 	{
-		wlf->crouching = 0;
-		wlf->movsp += 0.03;
-		wlf->pos.z -= 0.2;
+		dm->crouching = 0;
+		dm->movsp += 0.03;
+		dm->pos.z -= 0.2;
 	}
-	if (key == KEY_M)
-		reset_window(wlf, 0);
-	if (key == KEY_R && !wlf->reloading && !wlf->shooting)
+	//if (key == KEY_M)
+	//	reset_window(dm, 0);
+	if (key == KEY_R && !dm->reloading && !dm->shooting)
 	{
-		wlf->reloading = 1;
-		wlf->ani = 2;
+		dm->reloading = 1;
+		dm->ani = 2;
 	}
 	if (key == SPACE)
 	{
-		if (!wlf->airbrn && !wlf->isgravity)
+		if (!dm->airbrn && !dm->isgravity)
 		{
-			wlf->airbrn = 1;
-			wlf->gravity.z = -0.55 * (30.0 / wlf->buffer / wlf->prefps);
+			dm->airbrn = 1;
+			dm->gravity.z = -0.55 * (30.0 / dm->buffer / dm->prefps);
 		}
 	}
 	return (0);
@@ -195,56 +195,56 @@ int				x_press(t_doom *wolf)
 	return (0);
 }
 
-void			jetpack(t_doom *wlf)
+void			jetpack(t_doom *dm)
 {
-	if (wlf->key.one)
-		if (wlf->area[(int)(wlf->pos.z + 0.5)][(int)(wlf->pos.y)][(int)wlf->pos.x] <= 1)
-			wlf->pos.z += 0.05 * (30.0 / wlf->buffer / wlf->prefps);
-	if (wlf->key.two)
-		if (wlf->area[(int)(wlf->pos.z - 0.5)][(int)(wlf->pos.y)][(int)wlf->pos.x] <= 1)
-			wlf->pos.z -= 0.05 * (30.0 / wlf->buffer / wlf->prefps);
+	if (dm->key.one)
+		if (dm->area[(int)(dm->pos.z + 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
+			dm->pos.z += 0.05 * (30.0 / dm->buffer / dm->prefps);
+	if (dm->key.two)
+		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
+			dm->pos.z -= 0.05 * (30.0 / dm->buffer / dm->prefps);
 }
 
-int				mouse_move(int x, int y, t_doom *wlf)
+int				mouse_move(int x, int y, t_doom *dm)
 {
 	t_vector	olddir;
 	t_vector	oldplane;
 	t_vector	rota;
 
-	olddir = wlf->dir;
-	oldplane = wlf->plane;
-	if (x && abs(x) < wlf->winw)
+	olddir = dm->dir;
+	oldplane = dm->plane;
+	if (x && abs(x) < dm->winw)
 	{
-		rota.x = (double)x / wlf->winw * OSCAM;
-		wlf->dir.x = olddir.x * cos(rota.x) - olddir.y * sin(rota.x);
-		wlf->dir.y = olddir.x * sin(rota.x) + olddir.y * cos(rota.x);
-		wlf->plane.x = oldplane.x * cos(rota.x) - oldplane.y * sin(rota.x);
-		wlf->plane.y = oldplane.x * sin(rota.x) + oldplane.y * cos(rota.x);
-		wlf->sbox += (wlf->winw / 64.0) * (rota.x / wlf->rotsp);
+		rota.x = (double)x / dm->winw * OSCAM;
+		dm->dir.x = olddir.x * cos(rota.x) - olddir.y * sin(rota.x);
+		dm->dir.y = olddir.x * sin(rota.x) + olddir.y * cos(rota.x);
+		dm->plane.x = oldplane.x * cos(rota.x) - oldplane.y * sin(rota.x);
+		dm->plane.y = oldplane.x * sin(rota.x) + oldplane.y * cos(rota.x);
+		dm->sbox += (dm->winw / 64.0) * (rota.x / dm->rotsp);
 	}
-	if (y && abs(y) < wlf->winh)
+	if (y && abs(y) < dm->winh)
 	{
-		rota.y = (double)y / wlf->winh * OSCAM;
-		if (wlf->dir.z + rota.y > -0.5 && wlf->dir.z + rota.y < 0.5)
-			wlf->dir.z += rota.y;
-		wlf->camshift = 1.0 - (wlf->dir.z * 2);
-		wlf->sboy = wlf->winh * (wlf->dir.z + 0.5);
+		rota.y = (double)y / dm->winh * OSCAM;
+		if (dm->dir.z + rota.y > -0.5 && dm->dir.z + rota.y < 0.5)
+			dm->dir.z += rota.y;
+		dm->camshift = 1.0 - (dm->dir.z * 2);
+		dm->sboy = dm->winh * (dm->dir.z + 0.5);
 	}
 	return (0);
 }
 
-int				move(t_doom *wlf)
+int				move(t_doom *dm)
 {
-	if ((wlf->key.down || wlf->key.up) && !wlf->isoptions)
-		move_fb(wlf);
-	if ((wlf->key.left || wlf->key.right) && !wlf->isoptions)
-		move_lr(wlf);
-	if ((wlf->key.w || wlf->key.s || wlf->key.a || wlf->key.d) && !wlf->isoptions)
-		cam_udy(wlf);
-	if ((wlf->key.one || wlf->key.two) && !wlf->isoptions)
-		jetpack(wlf);
-	if ((wlf->key.q || wlf->key.e) && !wlf->isoptions)
-		strafe(wlf, 0, 0);
-	gravity(wlf);
+	if ((dm->key.down || dm->key.up) && !dm->isoptions)
+		move_fb(dm);
+	if ((dm->key.left || dm->key.right) && !dm->isoptions)
+		move_lr(dm);
+	if ((dm->key.w || dm->key.s || dm->key.a || dm->key.d) && !dm->isoptions)
+		cam_udy(dm);
+	if ((dm->key.one || dm->key.two) && !dm->isoptions)
+		jetpack(dm);
+	if ((dm->key.q || dm->key.e) && !dm->isoptions)
+		strafe(dm, 0, 0);
+	gravity(dm);
 	return (0);
 }

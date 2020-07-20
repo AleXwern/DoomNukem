@@ -6,14 +6,14 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 14:30:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:32:22 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	draw_bg(t_doom *wlf, t_gfx gfx)
+void	draw_bg(t_doom *dm, t_gfx gfx)
 {
 	int		gy;
 	int		gx;
@@ -21,15 +21,15 @@ void	draw_bg(t_doom *wlf, t_gfx gfx)
 	int		y;
 
 	gy = -1;
-	while (++gy < wlf->winh)
+	while (++gy < dm->winh)
 	{
-		y = gy * (gfx.hgt / (double)wlf->winh);
+		y = gy * (gfx.hgt / (double)dm->winh);
 		gx = -1;
-		while (++gx < wlf->winw)
+		while (++gx < dm->winw)
 		{
-			x = gx * (gfx.wid / ((double)wlf->winw));
-			//wlf->img.data[wlf->winw * gy + gx] = gfx.data[gfx.wid * y + x];
-			wlf->img.data[wlf->winw * gy + gx] = 0xff000000;
+			x = gx * (gfx.wid / ((double)dm->winw));
+			//dm->img.data[dm->winw * gy + gx] = gfx.data[gfx.wid * y + x];
+			dm->img.data[dm->winw * gy + gx] = 0xff000000;
 		}
 	}
 }
@@ -50,27 +50,27 @@ void	draw_block(t_doom *dm, t_gfx blk, double x, double y)
 	}
 }
 
-void	draw_level_screen(t_doom *wlf, t_editor *le, double x, double y)
+void	draw_level_screen(t_doom *dm, t_editor *le, double x, double y)
 {
 	int		gx;
 	int		gy;
 
 	gy = 0;
-	while (gy < wlf->height)
+	while (gy < dm->height)
 	{
 		gx = 0;
 		x = 0;
-		while (gx < wlf->width)
+		while (gx < dm->width)
 		{
-			if (wlf->area[le->options[3]][gy][gx] == 7)
-				wlf->area[le->options[3]][gy][gx] = 1;
-			if (wlf->area[le->options[3]][gy][gx] > 6 || wlf->area[le->options[3]][gy][gx] < 1)
-				wlf->area[le->options[3]][gy][gx] = 2;
-			draw_block(wlf, wlf->gfx[wlf->area[le->options[3]][gy][gx]], x, y);
-			x += wlf->winw / wlf->width * 0.5;
+			if (dm->area[le->options[3]][gy][gx] == 7)
+				dm->area[le->options[3]][gy][gx] = 1;
+			if (dm->area[le->options[3]][gy][gx] > 6 || dm->area[le->options[3]][gy][gx] < 1)
+				dm->area[le->options[3]][gy][gx] = 2;
+			draw_block(dm, dm->gfx[dm->area[le->options[3]][gy][gx]], x, y);
+			x += dm->winw / dm->width * 0.5;
 			gx++;
 		}
-		y += wlf->winh / wlf->height;
+		y += dm->winh / dm->height;
 		gy++;
 	}
 }

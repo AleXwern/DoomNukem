@@ -3,47 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   key_menu.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/17 14:09:40 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:32:45 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	key_release_menu(int key, t_doom *wlf)
+void	key_release_menu(int key, t_doom *dm)
 {
 	if (key == ESC)
-		error_out(FINE, wlf);
+		error_out(FINE, dm);
 	if (key == DOWN)
-		wlf->sel++;
+		dm->sel++;
 	if (key == UP)
-		wlf->sel--;
+		dm->sel--;
 	if (key == SPACE)
 	{
-		if (wlf->sel == 0)
+		if (dm->sel == 0)
 		{
-			SDL_SetWindowResizable(wlf->win, SDL_TRUE);
-			wlf->cycle = &render;
-			wlf->keyck = &key_state_game;
-			ft_bzero(&wlf->key, sizeof(t_key));
-			reset_position(wlf);
-			wlf->ismenu = 0;
-			//Mix_PlayChannel(-1, wlf->readyForAction, 0);
-			wlf->mousemovement = 1;
+			SDL_SetWindowResizable(dm->win, SDL_TRUE);
+			dm->cycle = &render;
+			dm->keyck = &key_state_game;
+			ft_bzero(&dm->key, sizeof(t_key));
+			reset_position(dm);
+			dm->ismenu = 0;
+			//Mix_PlayChannel(-1, dm->readyForAction, 0);
+			dm->mousemovement = 1;
 			SDL_SetRelativeMouseMode(SDL_TRUE);
 		}
-		else if (wlf->sel == 1)
-			editor_main(wlf);
-		else if (wlf->sel == 2)
-			printf("Show help/keys and credits.\n"); //help_n_credits(wlf);
+		else if (dm->sel == 1)
+			editor_main(dm);
+		else if (dm->sel == 2)
+			printf("Show help/keys and credits.\n"); //help_n_credits(dm);
 		else
-			error_out(FINE, wlf);
+			error_out(FINE, dm);
 	}
-	if (wlf->sel > 3)
-		wlf->sel = 0;
-	else if (wlf->sel < 0)
-		wlf->sel = 3;
+	if (dm->sel > 3)
+		dm->sel = 0;
+	else if (dm->sel < 0)
+		dm->sel = 3;
 }

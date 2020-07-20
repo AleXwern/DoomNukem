@@ -3,63 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   key_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/16 15:56:58 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:32:56 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	key_state_game(t_doom *wlf)
+void	key_state_game(t_doom *dm)
 {
-	if (SDL_PollEvent(&(wlf->event)))
+	if (SDL_PollEvent(&(dm->event)))
 	{
 		if (SDL_HasEvents(SDL_MOUSEMOTION, SDL_MOUSEWHEEL))
 			SDL_FlushEvents(SDL_MOUSEMOTION, SDL_MOUSEWHEEL);
-		if (wlf->event.type == SDL_QUIT)
-			error_out(FINE, wlf);
-		if (wlf->event.window.event == SDL_WINDOWEVENT_RESIZED || wlf->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-			resize_window(wlf);
-		if (wlf->event.key.state == SDL_PRESSED)
-			key_hold(wlf->event.key.keysym.scancode, wlf);
-		if (wlf->event.key.state == SDL_RELEASED)
-			key_release(wlf->event.key.keysym.scancode, wlf);
-		//if (wlf->event.cbutton.state == SDL_PRESSED)
-		//	key_hold(wlf->event.cbutton.button, wlf);
-		//if (wlf->event.cbutton.state == SDL_RELEASED)
-		//	key_release(wlf->event.cbutton.button, wlf);
-		if (wlf->event.button.state == SDL_PRESSED)
+		if (dm->event.type == SDL_QUIT)
+			error_out(FINE, dm);
+		if (dm->event.window.event == SDL_WINDOWEVENT_RESIZED || dm->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			resize_window(dm);
+		if (dm->event.key.state == SDL_PRESSED)
+			key_hold(dm->event.key.keysym.scancode, dm);
+		if (dm->event.key.state == SDL_RELEASED)
+			key_release(dm->event.key.keysym.scancode, dm);
+		//if (dm->event.cbutton.state == SDL_PRESSED)
+		//	key_hold(dm->event.cbutton.button, dm);
+		//if (dm->event.cbutton.state == SDL_RELEASED)
+		//	key_release(dm->event.cbutton.button, dm);
+		if (dm->event.button.state == SDL_PRESSED)
 		{
-			if (wlf->event.button.button == SDL_BUTTON_MIDDLE)
-				wlf->mousemovement = (wlf->mousemovement * wlf->mousemovement) - 1;
-			else if (wlf->event.button.button == SDL_BUTTON_RIGHT)
-				interact(wlf);
-			else if (wlf->event.button.state == SDL_BUTTON_LEFT && wlf->shooting == 0 && wlf->magazine > 0 && !wlf->reloading)
-				wlf->shooting = 1;
-			if (wlf->mousemovement)
+			if (dm->event.button.button == SDL_BUTTON_MIDDLE)
+				dm->mousemovement = (dm->mousemovement * dm->mousemovement) - 1;
+			else if (dm->event.button.button == SDL_BUTTON_RIGHT)
+				interact(dm);
+			else if (dm->event.button.state == SDL_BUTTON_LEFT && dm->shooting == 0 && dm->magazine > 0 && !dm->reloading)
+				dm->shooting = 1;
+			if (dm->mousemovement)
 				SDL_SetRelativeMouseMode(SDL_TRUE);
 			else
 				SDL_SetRelativeMouseMode(SDL_FALSE);
 		}
-		if (wlf->mousemovement)
-			mouse_move(wlf->event.motion.xrel, wlf->event.motion.yrel, wlf);
+		if (dm->mousemovement)
+			mouse_move(dm->event.motion.xrel, dm->event.motion.yrel, dm);
 	}
-	move(wlf);
+	move(dm);
 }
 
-void	key_state_menu(t_doom *wlf)
+void	key_state_menu(t_doom *dm)
 {
-	if (SDL_PollEvent(&(wlf->event)))
+	if (SDL_PollEvent(&(dm->event)))
 	{
-		if (wlf->event.type == SDL_QUIT || wlf->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-			error_out(FINE, wlf);
-		if (wlf->event.window.event == SDL_WINDOWEVENT_RESIZED || wlf->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-			resize_window(wlf);
-		if (wlf->event.key.state == SDL_RELEASED)
-			key_release_menu(wlf->event.key.keysym.scancode, wlf);
+		if (dm->event.type == SDL_QUIT || dm->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+			error_out(FINE, dm);
+		if (dm->event.window.event == SDL_WINDOWEVENT_RESIZED || dm->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			resize_window(dm);
+		if (dm->event.key.state == SDL_RELEASED)
+			key_release_menu(dm->event.key.keysym.scancode, dm);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/15 14:48:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:32:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,40 +34,40 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->minval[4] = 1;
 }
 
-void	render_editor(t_doom *wlf, t_editor *le)
+void	render_editor(t_doom *dm, t_editor *le)
 {
-	draw_bg(wlf, wlf->gfx[0]);
-	draw_level_screen(wlf, le, 0, 0);
-	draw_editor_cursor(wlf, le, wlf->winw * 0.5, 0);
-	draw_sliders(wlf, le, wlf->winw * 0.5, 0);
-	//draw_blocks(wlf, le);
-	//wlf->tex = SDL_CreateTextureFromSurface(wlf->rend, wlf->img.tex);
-	//SDL_RenderCopy(wlf->rend, wlf->tex, NULL, NULL);
-	//SDL_UpdateWindowSurface(wlf->win);
-	SDL_RenderPresent(wlf->rend);
-	//mouse_move(2, 0, wlf);
-	//wlf->keyck(wlf);
+	draw_bg(dm, dm->gfx[0]);
+	draw_level_screen(dm, le, 0, 0);
+	draw_editor_cursor(dm, le, dm->winw * 0.5, 0);
+	draw_sliders(dm, le, dm->winw * 0.5, 0);
+	//draw_blocks(dm, le);
+	//dm->tex = SDL_CreateTextureFromSurface(dm->rend, dm->img.tex);
+	//SDL_RenderCopy(dm->rend, dm->tex, NULL, NULL);
+	//SDL_UpdateWindowSurface(dm->win);
+	SDL_RenderPresent(dm->rend);
+	//mouse_move(2, 0, dm);
+	//dm->keyck(dm);
 }
 
-void	editor_main(t_doom *wlf)
+void	editor_main(t_doom *dm)
 {
 	t_editor	*le;
 
 	if (!(le = (t_editor*)malloc(sizeof(t_editor))))
-		error_out(MEM_ERROR, wlf);
-	defaults(le, wlf);
-	SDL_SetWindowSize(wlf->win, 1500, 750);
-	printf("Dim %d %d", wlf->width, wlf->height);
+		error_out(MEM_ERROR, dm);
+	defaults(le, dm);
+	SDL_SetWindowSize(dm->win, 1500, 750);
+	printf("Dim %d %d", dm->width, dm->height);
 	while (!le->quit)
 	{
-		key_state_editor(le, wlf);
-		render_editor(wlf, le);
-		wlf->fps++;
+		key_state_editor(le, dm);
+		render_editor(dm, le);
+		dm->fps++;
 	}
-	SDL_SetWindowSize(wlf->win, WINX, WINY);
-	wlf->tile = le->options[4];
-	destroy_gfx(wlf, -1);
-	comp_gfx(wlf, 0);
+	SDL_SetWindowSize(dm->win, WINX, WINY);
+	dm->tile = le->options[4];
+	destroy_gfx(dm, -1);
+	comp_gfx(dm, 0);
 	free(le);
-	wlf->pos = wlf->spawn;
+	dm->pos = dm->spawn;
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 12:12:01 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:35:51 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,51 +15,51 @@
 
 int		fps_capper(void* ptr)
 {
-	t_doom	*wlf;
+	t_doom	*dm;
 
-	wlf = (t_doom*)ptr;
-	wlf->limit = 1;
-	if (wlf->fpscap < 1)
-		wlf->fpscap = 1;
-	if (wlf->isfpscap)
-		SDL_Delay(1000 / wlf->fpscap / 6);
+	dm = (t_doom*)ptr;
+	dm->limit = 1;
+	if (dm->fpscap < 1)
+		dm->fpscap = 1;
+	if (dm->isfpscap)
+		SDL_Delay(1000 / dm->fpscap / 6);
 	return (1);
 }
 
 int		fps_counter(void* ptr)
 {
-	t_doom	*wlf;
+	t_doom	*dm;
 
-	wlf = (t_doom*)ptr;
-	while (!wlf->killthread)
+	dm = (t_doom*)ptr;
+	while (!dm->killthread)
 	{
 		SDL_Delay(1000);
-		//printf("FPS: %d\n", wlf->fps / wlf->trx);
-		printf("FPS: %d\n", wlf->fps);
-		if (wlf->fps > 0 && !wlf->ismenu)
-			wlf->prefps = wlf->fps;
-		wlf->fallsp.z = (0.65 * (30.0 / wlf->buffer / wlf->prefps)) / wlf->prefps / (wlf->buffer / 5.0);
-		wlf->fps = 0;
+		//printf("FPS: %d\n", dm->fps / dm->trx);
+		printf("FPS: %d\n", dm->fps);
+		if (dm->fps > 0 && !dm->ismenu)
+			dm->prefps = dm->fps;
+		dm->fallsp.z = (0.65 * (30.0 / dm->buffer / dm->prefps)) / dm->prefps / (dm->buffer / 5.0);
+		dm->fps = 0;
 	}
 	return (1);
 }
 
-Uint32	color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret)
+Uint32	color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret)
 {
 	Uint8	r;
 	Uint8	g;
 	Uint8	b;
 
-	ret = (int)(shift * wlf->shift);
-	if (ret > 10 * wlf->shift)
-		ret = 10 * wlf->shift;
+	ret = (int)(shift * dm->shift);
+	if (ret > 10 * dm->shift)
+		ret = 10 * dm->shift;
 	if (ret < 1)
 		return (color);
-	SDL_GetRGB(color, wlf->img.tex->format, &r, &b, &g);
+	SDL_GetRGB(color, dm->img.tex->format, &r, &b, &g);
 	r /= ret;
 	g /= ret;
 	b /= ret;
-	ret = SDL_MapRGB(wlf->img.tex->format, r, b, g);
+	ret = SDL_MapRGB(dm->img.tex->format, r, b, g);
 	return (ret);
 }
 
@@ -73,15 +73,15 @@ int		arr_len(char **arr)
 	return (i);
 }
 
-void	free_map(t_doom *wlf, int f, int y)
+void	free_map(t_doom *dm, int f, int y)
 {
-	while (++f < wlf->mxflr)
+	while (++f < dm->mxflr)
 	{
 		y = -1;
-		while (++y < wlf->height)
+		while (++y < dm->height)
 		{
-			free(wlf->area[f][y]);
+			free(dm->area[f][y]);
 		}
-		free(wlf->area[f]);
+		free(dm->area[f]);
 	}
 }

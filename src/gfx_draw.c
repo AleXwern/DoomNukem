@@ -6,73 +6,73 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/07 13:51:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:34:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y) //DO NO USE
+void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int x, int y) //DO NO USE
 {
 	t_vector	g;
 	t_vector	i;
 
 	g.y = 0;
 	i.y = 1;
-	while (g.y < gfx.hgt && (y + g.y) < wlf->winh)
+	while (g.y < gfx.hgt && (y + g.y) < dm->winh)
 	{
 		i.y = 0;
 		g.x = 1;
-		while (g.x < gfx.wid && (x + g.x) < wlf->winw)
+		while (g.x < gfx.wid && (x + g.x) < dm->winw)
 		{
 			if (gfx.data[(int)(gfx.wid * g.y + g.x)] != -65281)
-				wlf->img.data[(int)(wlf->winw * (y + g.y) + (x + g.x))] = gfx.data[(int)(gfx.wid *
+				dm->img.data[(int)(dm->winw * (y + g.y) + (x + g.x))] = gfx.data[(int)(gfx.wid *
 					g.y + g.x)];
-			g.x += g.x * (gfx.wid / wlf->winw);
+			g.x += g.x * (gfx.wid / dm->winw);
 			g.x++;
 		}
-		g.y += g.y * (gfx.hgt / wlf->winh);
+		g.y += g.y * (gfx.hgt / dm->winh);
 		g.y++;
 	}
 }
 
-void	draw_menu(t_doom *wlf, int x, int y, int cur)
+void	draw_menu(t_doom *dm, int x, int y, int cur)
 {
 	int		gy;
 	int		gx;
 
 	gy = -1;
-	while (++gy < wlf->winh)
+	while (++gy < dm->winh)
 	{
-		y = gy * (wlf->gfx[9].hgt / (double)wlf->winh);
+		y = gy * (dm->gfx[9].hgt / (double)dm->winh);
 		gx = -1;
-		while (++gx < wlf->winw / 2)
+		while (++gx < dm->winw / 2)
 		{
-			x = gx * (wlf->gfx[9].wid / ((double)wlf->winw / 2));
-			if (gy > (cur * wlf->winh / 10) && gy < ((cur + 1) * wlf->winh / 10))
-				wlf->img.data[wlf->winw * gy + gx] = wlf->gfx[9].data[wlf->gfx[9].wid * y + x] + 0x00252525;
+			x = gx * (dm->gfx[9].wid / ((double)dm->winw / 2));
+			if (gy > (cur * dm->winh / 10) && gy < ((cur + 1) * dm->winh / 10))
+				dm->img.data[dm->winw * gy + gx] = dm->gfx[9].data[dm->gfx[9].wid * y + x] + 0x00252525;
 			else
-				wlf->img.data[wlf->winw * gy + gx] = wlf->gfx[9].data[wlf->gfx[9].wid * y + x];
+				dm->img.data[dm->winw * gy + gx] = dm->gfx[9].data[dm->gfx[9].wid * y + x];
 		}
-		while (++gx < wlf->winw)
-			wlf->img.data[wlf->winw * gy + gx] = 0xff1821ac;
+		while (++gx < dm->winw)
+			dm->img.data[dm->winw * gy + gx] = 0xff1821ac;
 	}
 }
 
-void	draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y)
+void	draw_gfx(t_doom *dm, t_gfx gfx, int x, int y)
 {
 	int	gx;
 	int	gy;
 
 	gy = 0;
-	while (gy < gfx.hgt && (y + gy) < wlf->winh)
+	while (gy < gfx.hgt && (y + gy) < dm->winh)
 	{
 		gx = 0;
-		while (gx < gfx.wid && (x + gx) < wlf->winw)
+		while (gx < gfx.wid && (x + gx) < dm->winw)
 		{
 			if (gfx.data[gfx.wid * gy + gx] != 0xffff00ff)
-				wlf->img.data[wlf->winw * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
+				dm->img.data[dm->winw * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
 					gy + gx];
 			gx++;
 		}

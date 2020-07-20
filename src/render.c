@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/17 18:15:09 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:35:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,286 +15,289 @@
 
 #include <stdio.h>//
 
-void	dda_sys(t_doom *wlf)
+void	dda_sys(t_doom *dm)
 {
-	wlf->hit = 0;
-	while (wlf->hit == 0)
+	dm->hit = 0;
+	while (dm->hit == 0)
 	{
-		//printf("--before--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", wlf->hit, wlf->mapz, wlf->mapy, wlf->mapx, wlf->sidedz, wlf->sidedy, wlf->sidedx);
-		if (wlf->sidedx < wlf->sidedy && wlf->sidedx < wlf->sidedz)
+		//printf("--before--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", dm->hit, dm->mapz, dm->mapy, dm->mapx, dm->sidedz, dm->sidedy, dm->sidedx);
+		if (dm->sidedx < dm->sidedy && dm->sidedx < dm->sidedz)
 		{
-			wlf->sidedx += wlf->deltadx;
-			wlf->map.x += wlf->stepx;
-			wlf->side = 0;
+			dm->sidedx += dm->deltadx;
+			dm->map.x += dm->stepx;
+			dm->side = 0;
 		}
-		else if (wlf->sidedy < wlf->sidedx && wlf->sidedy < wlf->sidedz)
+		else if (dm->sidedy < dm->sidedx && dm->sidedy < dm->sidedz)
 		{
-			wlf->sidedy += wlf->deltady;
-			wlf->map.y += wlf->stepy;
-			wlf->side = 1;
+			dm->sidedy += dm->deltady;
+			dm->map.y += dm->stepy;
+			dm->side = 1;
 		}
 		else
 		{
-			wlf->sidedz += wlf->deltadz;
-			wlf->map.z += wlf->stepz;
-			wlf->side = 2;
+			dm->sidedz += dm->deltadz;
+			dm->map.z += dm->stepz;
+			dm->side = 2;
 		}
-		//printf("--after--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", wlf->hit, wlf->mapz, wlf->mapy, wlf->mapx, wlf->sidedz, wlf->sidedy, wlf->sidedx);
-		if (wlf->map.z < 0 || wlf->map.y < 0 || wlf->map.x < 0 || wlf->map.z >= 9 || wlf->map.y >= 25 || wlf->map.x >= 25)
-			wlf->hit = 2;
-		else if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] == 7)
-			wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] == 1;
-		else if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] > 1)
+		//printf("--after--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", dm->hit, dm->mapz, dm->mapy, dm->mapx, dm->sidedz, dm->sidedy, dm->sidedx);
+		if (dm->map.z < 0 || dm->map.y < 0 || dm->map.x < 0 || dm->map.z >= 9 || dm->map.y >= 25 || dm->map.x >= 25)
+			dm->hit = 2;
+		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 7)
+			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] = 1;
+		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1)
 		{
-			wlf->hit = 1;
-			if (wlf->area[(int)wlf->map.z][(int)wlf->map.y][(int)wlf->map.x] == 9)//distance from player to sprite (sprite is 9 on the map)
+			dm->hit = 1;
+			if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 9)//distance from player to sprite (sprite is 9 on the map)
 			{
-				wlf->spriteLoc.x = wlf->map.x;
-				wlf->spriteLoc.y = wlf->map.y;
-				wlf->spriteLoc.z = wlf->map.z;
-				wlf->disttosprite = ((wlf->pos.x - wlf->map.x) * (wlf->pos.x - wlf->map.x) + (wlf->pos.y - wlf->map.y) * (wlf->pos.y - wlf->map.y));//initialize disttosprite
+				dm->spriteLoc.x = dm->map.x;
+				dm->spriteLoc.y = dm->map.y;
+				dm->spriteLoc.z = dm->map.z;
+				dm->disttosprite = ((dm->pos.x - dm->map.x) * (dm->pos.x - dm->map.x) + (dm->pos.y - dm->map.y) * (dm->pos.y - dm->map.y));//initialize disttosprite
 			}
 		}
 	}
 }
 
-void	dda_prep(t_doom *wlf)
+void	dda_prep(t_doom *dm)
 {
-	wlf->deltadx = fabs(1 / wlf->raydx);
-	wlf->deltady = fabs(1 / wlf->raydy);
-	wlf->deltadz = fabs(1 / wlf->raydz);
-	//wlf->deltadx = (1 / wlf->raydx);
-	//*((long*)&wlf->deltadx) &= 0x7FFFFFFFFFFFFFFF;
-	//wlf->deltady = (1 / wlf->raydy);
-	//*((long*)&wlf->deltady) &= 0x7FFFFFFFFFFFFFFF;
-	//wlf->deltadz = (1 / wlf->raydz);
-	//*((long*)&wlf->deltadz) &= 0x7FFFFFFFFFFFFFFF;
-	if (wlf->raydx < 0)
+	dm->deltadx = fabs(1 / dm->raydx);
+	dm->deltady = fabs(1 / dm->raydy);
+	dm->deltadz = fabs(1 / dm->raydz);
+	//dm->deltadx = (1 / dm->raydx);
+	//*((long*)&dm->deltadx) &= 0x7FFFFFFFFFFFFFFF;
+	//dm->deltady = (1 / dm->raydy);
+	//*((long*)&dm->deltady) &= 0x7FFFFFFFFFFFFFFF;
+	//dm->deltadz = (1 / dm->raydz);
+	//*((long*)&dm->deltadz) &= 0x7FFFFFFFFFFFFFFF;
+	if (dm->raydx < 0)
 	{
-		wlf->stepx = -1;
-		wlf->sidedx = (wlf->pos.x - wlf->map.x) * wlf->deltadx;
+		dm->stepx = -1;
+		dm->sidedx = (dm->pos.x - dm->map.x) * dm->deltadx;
 	}
 	else
 	{
-		wlf->stepx = 1;
-		wlf->sidedx = (wlf->map.x + 1.0 - wlf->pos.x) * wlf->deltadx;
+		dm->stepx = 1;
+		dm->sidedx = (dm->map.x + 1.0 - dm->pos.x) * dm->deltadx;
 	}
-	if (wlf->raydy < 0)
+	if (dm->raydy < 0)
 	{
-		wlf->stepy = -1;
-		wlf->sidedy = (wlf->pos.y - wlf->map.y) * wlf->deltady;
-	}
-	else
-	{
-		wlf->stepy = 1;
-		wlf->sidedy = (wlf->map.y + 1.0 - wlf->pos.y) * wlf->deltady;
-	}
-	if (wlf->raydz < 0)
-	{
-		wlf->stepz = -1;
-		wlf->sidedz = (wlf->pos.z - wlf->map.z) * wlf->deltadz;
+		dm->stepy = -1;
+		dm->sidedy = (dm->pos.y - dm->map.y) * dm->deltady;
 	}
 	else
 	{
-		wlf->stepz = 1;
-		wlf->sidedz = (wlf->map.z + 1.0 - wlf->pos.z) * wlf->deltadz;
+		dm->stepy = 1;
+		dm->sidedy = (dm->map.y + 1.0 - dm->pos.y) * dm->deltady;
+	}
+	if (dm->raydz < 0)
+	{
+		dm->stepz = -1;
+		dm->sidedz = (dm->pos.z - dm->map.z) * dm->deltadz;
+	}
+	else
+	{
+		dm->stepz = 1;
+		dm->sidedz = (dm->map.z + 1.0 - dm->pos.z) * dm->deltadz;
 	}
 }
 
-void	rc_init(t_doom *wlf)
+void	rc_init(t_doom *dm)
 {
-	wlf->camx = 2.0 * wlf->x / (double)(wlf->winw) - 1.0;
-	wlf->camy = 2.0 * wlf->y / (double)(wlf->winh) - 1.0;
-	wlf->raydx = wlf->dir.x + wlf->plane.x * wlf->camx;
-	wlf->raydy = wlf->dir.y + wlf->plane.y * wlf->camx;
-	wlf->raydz = wlf->dir.z + wlf->plane.z * wlf->camy;
-	wlf->map.x = ((int)wlf->pos.x) & 0x0fffffff;
-	wlf->map.y = ((int)wlf->pos.y) & 0x0fffffff;
-	wlf->map.z = ((int)wlf->pos.z) & 0x0fffffff;
-	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %f %f %f\n", wlf->camx, wlf->camy, wlf->raydz, wlf->raydy, wlf->raydx, wlf->map.z, wlf->map.y, wlf->map.x);
-	dda_prep(wlf);
-	dda_sys(wlf);
-	if (wlf->side == 0)
-		wlf->walldist = (wlf->map.x - wlf->pos.x + (1 - wlf->stepx) * 0.5) / wlf->raydx;
-	else if (wlf->side == 1)
-		wlf->walldist = (wlf->map.y - wlf->pos.y + (1 - wlf->stepy) * 0.5) / wlf->raydy;
+	dm->camx = 2.0 * dm->x / (double)(dm->winw) - 1.0;
+	dm->camy = 2.0 * dm->y / (double)(dm->winh) - 1.0;
+	dm->raydx = dm->dir.x + dm->plane.x * dm->camx;
+	dm->raydy = dm->dir.y + dm->plane.y * dm->camx;
+	dm->raydz = dm->dir.z + dm->plane.z * dm->camy;
+	dm->map.x = ((int)dm->pos.x) & 0x0fffffff;
+	dm->map.y = ((int)dm->pos.y) & 0x0fffffff;
+	dm->map.z = ((int)dm->pos.z) & 0x0fffffff;
+	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %f %f %f\n", dm->camx, dm->camy, dm->raydz, dm->raydy, dm->raydx, dm->map.z, dm->map.y, dm->map.x);
+	dda_prep(dm);
+	dda_sys(dm);
+	if (dm->side == 0)
+		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->raydx;
+	else if (dm->side == 1)
+		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->raydy;
 	else
-		wlf->walldist = (wlf->map.z - wlf->pos.z + (1 - wlf->stepz) * 0.5) / wlf->raydz;
-	if (wlf->walldist < 0.0001)
-		wlf->walldist += 0.01;
+		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->raydz;
+	if (dm->walldist < 0.0001)
+		dm->walldist += 0.01;
 }
 
-void	side_check(t_doom* wlf)
+void	side_check(t_doom* dm)
 {
 	int	delta;
 
-	if (wlf->side == 0)
-		delta = wlf->pos.x - wlf->map.x;
-	else if (wlf->side == 1)
-		delta = wlf->pos.y - wlf->map.y;
+	if (dm->side == 0)
+		delta = dm->pos.x - dm->map.x;
+	else if (dm->side == 1)
+		delta = dm->pos.y - dm->map.y;
 	else
-		delta = wlf->pos.z - wlf->map.z;
+		delta = dm->pos.z - dm->map.z;
 	if (delta > 0)
-		wlf->side += 3;
+		dm->side += 3;
 }
 
 int		renthread(void *ptr)
 {
-	t_doom	*wlf;
+	t_doom	*dm;
+	int		x;
 	int		i;
 	int		j;
 	int		d;
 
-	wlf = (t_doom*)ptr;
-	//SDL_TryLockMutex(wlf->mutex);
-	while (wlf->x < wlf->winw)
+	dm = (t_doom*)ptr;
+	x = dm->x;
+	//SDL_TryLockMutex(dm->lock);
+	while (dm->x < dm->winw)
 	{
-		wlf->y = -1;
-		while (++wlf->y < wlf->winh)
+		dm->y = -1;
+		while (++dm->y < dm->winh)
 		{
-			rc_init(wlf);
-			wlf->lineh = (wlf->winh / wlf->walldist);
-			side_check(wlf);
-			if (wlf->side % 3 == 1)
-				wlf->testcolor = 0xff3679ff;
-			else if (wlf->side % 3 == 2)
-				wlf->testcolor = 0xffb01cff;
+			rc_init(dm);
+			dm->lineh = (dm->winh / dm->walldist);
+			side_check(dm);
+			if (dm->side % 3 == 1)
+				dm->testcolor = 0xff3679ff;
+			else if (dm->side % 3 == 2)
+				dm->testcolor = 0xffb01cff;
 			else
-				wlf->testcolor = 0xffF0330A;
-			wlf->wallarr[wlf->winw * wlf->y + wlf->x] = wlf->walldist;
-			//wlf->maparr[wlf->winw * wlf->y + wlf->x] = (wlf->side + 1) * wlf->map[wlf->mapz][wlf->mapy][wlf->mapx];
-			wlf->maparr[wlf->winw * wlf->y + wlf->x] = wlf->side + 1 + wlf->map.z + wlf->map.y + wlf->map.x;
-			if (wlf->hit == 2)
-				draw_sky(wlf, wlf->sboy, wlf->sbox);
-			else if (wlf->side == 2 || wlf->side == 5)
-				render_floor(wlf);
+				dm->testcolor = 0xffF0330A;
+			dm->wallarr[dm->winw * dm->y + dm->x] = dm->walldist;
+			//dm->maparr[dm->winw * dm->y + dm->x] = (dm->side + 1) * dm->map[dm->mapz][dm->mapy][dm->mapx];
+			dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
+			if (dm->hit == 2)
+				draw_sky(dm);
+			else if (dm->side == 2 || dm->side == 5)
+				render_floor(dm);
 			else
-				wall_stripe(wlf);
+				wall_stripe(dm);
 			/*
 			//trying to draw stationary sprite in map:
 
 			//saving the depth for each raycast
-			wlf->depthbuffer[wlf->x] = wlf->walldist;
+			dm->depthbuffer[dm->x] = dm->walldist;
 
 			//sprites relative location to the player.
-			wlf->spriteRelLoc.x = wlf->spriteLoc.x - wlf->posx;
-			wlf->spriteRelLoc.y = wlf->spriteLoc.y - wlf->posy;
-			wlf->spriteRelLoc.z = wlf->spriteLoc.z - wlf->posz;
+			dm->spriteRelLoc.x = dm->spriteLoc.x - dm->posx;
+			dm->spriteRelLoc.y = dm->spriteLoc.y - dm->posy;
+			dm->spriteRelLoc.z = dm->spriteLoc.z - dm->posz;
 
-			wlf->invDet = 1.0 / (wlf->plane.x * wlf->dir.y - wlf->plane.y * wlf->dir.x);
+			dm->invDet = 1.0 / (dm->plane.x * dm->dir.y - dm->plane.y * dm->dir.x);
 
-			wlf->transformX = wlf->invDet * (wlf->dir.y * wlf->spriteRelLoc.x - wlf->dir.x * wlf->spriteRelLoc.y);
-			wlf->transformY = wlf->invDet * (-wlf->plane.y * wlf->spriteRelLoc.x + wlf->plane.x * wlf->spriteRelLoc.y);
+			dm->transformX = dm->invDet * (dm->dir.y * dm->spriteRelLoc.x - dm->dir.x * dm->spriteRelLoc.y);
+			dm->transformY = dm->invDet * (-dm->plane.y * dm->spriteRelLoc.x + dm->plane.x * dm->spriteRelLoc.y);
 
-			wlf->spriteScreenX = (int)((WINX / 2) * (1 + wlf->transformX / wlf->transformY));
-			wlf->spriteHeight = abs((int)(WINY / (wlf->transformY)));
+			dm->spriteScreenX = (int)((WINX / 2) * (1 + dm->transformX / dm->transformY));
+			dm->spriteHeight = abs((int)(WINY / (dm->transformY)));
 
-			wlf->drawStartY = -wlf->spriteHeight / 2 + WINY / 2;
-			if (wlf->drawStartY < 0)
-				wlf->drawStartY = 0;
-			wlf->drawEndY = wlf->spriteHeight / 2 + WINY / 2;
-			if (wlf->drawEndY >= WINY)
-				wlf->drawEndY = WINY - 1;
-			wlf->spriteWidth = abs((int)(WINY / wlf->transformY));
+			dm->drawStartY = -dm->spriteHeight / 2 + WINY / 2;
+			if (dm->drawStartY < 0)
+				dm->drawStartY = 0;
+			dm->drawEndY = dm->spriteHeight / 2 + WINY / 2;
+			if (dm->drawEndY >= WINY)
+				dm->drawEndY = WINY - 1;
+			dm->spriteWidth = abs((int)(WINY / dm->transformY));
 
-			wlf->drawStartX = -wlf->spriteWidth / 2 + wlf->spriteScreenX;
-			if (wlf->drawStartX < 0)
-				wlf->drawStartX = 0;
-			wlf->drawEndX = wlf->spriteWidth / 2 + wlf->spriteScreenX;
-			if (wlf->drawEndX >= WINX)
-				wlf->drawEndX = WINX - 1;
-			i = wlf->drawStartX;
-			while (i < wlf->drawEndX)// && wlf->transformY > 0 && wlf->transformY < wlf->depthbuffer[i])	//enderdragon: 564w 396h		GreyDragon: 384w384h
+			dm->drawStartX = -dm->spriteWidth / 2 + dm->spriteScreenX;
+			if (dm->drawStartX < 0)
+				dm->drawStartX = 0;
+			dm->drawEndX = dm->spriteWidth / 2 + dm->spriteScreenX;
+			if (dm->drawEndX >= WINX)
+				dm->drawEndX = WINX - 1;
+			i = dm->drawStartX;
+			while (i < dm->drawEndX)// && dm->transformY > 0 && dm->transformY < dm->depthbuffer[i])	//enderdragon: 564w 396h		GreyDragon: 384w384h
 			{
-				//wlf->textureX = (int)(2256 * (i - (-wlf->spriteWidth / 2 + wlf->spriteScreenX)) * 564 / wlf->spriteWidth) / 2256;//EnderDragon
-				wlf->textureX = (int)(1536 * (i - (-wlf->spriteWidth / 2 + wlf->spriteScreenX)) * 384 / wlf->spriteWidth) / 1536;//GreyDragon
-				if (wlf->transformY > 0 && i > 0 && i < WINX && wlf->transformY < wlf->depthbuffer[i])
+				//dm->textureX = (int)(2256 * (i - (-dm->spriteWidth / 2 + dm->spriteScreenX)) * 564 / dm->spriteWidth) / 2256;//EnderDragon
+				dm->textureX = (int)(1536 * (i - (-dm->spriteWidth / 2 + dm->spriteScreenX)) * 384 / dm->spriteWidth) / 1536;//GreyDragon
+				if (dm->transformY > 0 && i > 0 && i < WINX && dm->transformY < dm->depthbuffer[i])
 				{
-					j = wlf->drawStartY;
-					while (j < wlf->drawEndY)
+					j = dm->drawStartY;
+					while (j < dm->drawEndY)
 					{
-						d = j * 1536 - WINY * 768 + wlf->spriteHeight * 768;//GreyDragon
-						//d = j * 2256 - WINY * 1128 + wlf->spriteHeight * 1128;//EnderDragon
-						wlf->textureY = ((d * 384) / wlf->spriteHeight) / 1536;//GreyDragon
-						//wlf->textureY = ((d * 396) / wlf->spriteHeight) / 1584;//EnderDragon
-						//wlf->spriteColor = wlf->gfx[15].data[564 * wlf->textureY + wlf->textureX];//EnderDragon
-						wlf->spriteColor = wlf->gfx[23].data[384 * wlf->textureY + wlf->textureX];//GreyDragon
-						if (wlf->spriteColor != 0xffff00ff || wlf->spriteColor != 4294902015)//Used to not draw EnderDragons pink background && transparent background in GreyDragon(?)
-							wlf->img.data[WINX * j + i] = wlf->spriteColor;
+						d = j * 1536 - WINY * 768 + dm->spriteHeight * 768;//GreyDragon
+						//d = j * 2256 - WINY * 1128 + dm->spriteHeight * 1128;//EnderDragon
+						dm->textureY = ((d * 384) / dm->spriteHeight) / 1536;//GreyDragon
+						//dm->textureY = ((d * 396) / dm->spriteHeight) / 1584;//EnderDragon
+						//dm->spriteColor = dm->gfx[15].data[564 * dm->textureY + dm->textureX];//EnderDragon
+						dm->spriteColor = dm->gfx[23].data[384 * dm->textureY + dm->textureX];//GreyDragon
+						if (dm->spriteColor != 0xffff00ff || dm->spriteColor != 4294902015)//Used to not draw EnderDragons pink background && transparent background in GreyDragon(?)
+							dm->img.data[WINX * j + i] = dm->spriteColor;
 						j++;
 					}
 				}
 				i++;
 			}*/
 		}
-		wlf->x += wlf->trx;
+		dm->x += dm->trx;
 	}
-	//printf("Thread ID %d drew %d threads\nClaimline at %d\n", wlf->id, test, wlf->wlf->claimline[wlf->winw]);
-	//UnlockMutex(wlf->mutex);
+	//SDL_UnlockMutex(dm->lock);
+	//printf("Thread ID %d drew %d threads\nClaimline at %d\n", dm->id, test, dm->dm->claimline[dm->winw]);
+	//SDL_UnlockMutex(dm->lock);
 	return (1);
 }
 
-void	gravity(t_doom *wlf)
+void	gravity(t_doom *dm)
 {
-	if (wlf->key.two || wlf->isgravity || wlf->ismenu)
+	if (dm->key.two || dm->isgravity || dm->ismenu)
 		return ;
-	while (wlf->gravity.z >= 1.0 || wlf->gravity.z <= -1.0)
-		wlf->gravity.z += wlf->fallsp.z;
-	if (wlf->gravity.z < 0)
+	while (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)
+		dm->gravity.z += dm->fallsp.z;
+	if (dm->gravity.z < 0)
 	{
-		if (wlf->area[(int)(wlf->pos.z + wlf->gravity.z - 0.1)][(int)(wlf->pos.y)][(int)wlf->pos.x] <= 1)
-			wlf->pos.z += wlf->gravity.z;
+		if (dm->area[(int)(dm->pos.z + dm->gravity.z - 0.1)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
+			dm->pos.z += dm->gravity.z;
 	}
-	else if (wlf->area[(int)(wlf->pos.z + 1)][(int)(wlf->pos.y)][(int)wlf->pos.x] <= 1)
-		wlf->pos.z += wlf->gravity.z;
+	else if (dm->area[(int)(dm->pos.z + 1)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
+		dm->pos.z += dm->gravity.z;
 	else
 	{
-		wlf->airbrn = 0;
-		wlf->gravity.z = 0;
-		wlf->pos.z = floor(wlf->pos.z) + 0.5;
+		dm->airbrn = 0;
+		dm->gravity.z = 0;
+		dm->pos.z = floor(dm->pos.z) + 0.5;
 	}
-	wlf->gravity.z += wlf->fallsp.z;
-	if (wlf->gravity.z > 0.2 * (30.0 / wlf->buffer / wlf->prefps))
-		wlf->gravity.z = 0.2 * (30.0 / wlf->buffer / wlf->prefps);
-	if (wlf->area[(int)(wlf->pos.z + 0.5)][(int)(wlf->pos.y)][(int)wlf->pos.x] > 1)
-		wlf->pos.z -= 0.1;
+	dm->gravity.z += dm->fallsp.z;
+	if (dm->gravity.z > 0.2 * (30.0 / dm->buffer / dm->prefps))
+		dm->gravity.z = 0.2 * (30.0 / dm->buffer / dm->prefps);
+	if (dm->area[(int)(dm->pos.z + 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] > 1)
+		dm->pos.z -= 0.1;
 }
 
-void	pickupitem(t_doom *wlf)
+void	pickupitem(t_doom *dm)
 {
 	int			obj;
 
-	obj = wlf->area[(int)(wlf->pos.z + 0.5)][(int)wlf->pos.y][(int)wlf->pos.x];
+	obj = dm->area[(int)(dm->pos.z + 0.5)][(int)dm->pos.y][(int)dm->pos.x];
 	if (obj == 8)//this will be used when we have sprites.
 	{
-		wlf->keycard = 1;
+		dm->keycard = 1;
 	}
 	else if (obj == 5)
 	{
-		wlf->area[(int)(wlf->pos.z + 0.5)][(int)wlf->pos.y][(int)wlf->pos.x] = 0;
-		wlf->keycard = 1;
+		dm->area[(int)(dm->pos.z + 0.5)][(int)dm->pos.y][(int)dm->pos.x] = 0;
+		dm->keycard = 1;
 	}
 }
 
 /*
-void	drawinventory(t_doom *wlf, int endx, int endy)//work in progress. Now really slows down the game.
+void	drawinventory(t_doom *dm, int endx, int endy)//work in progress. Now really slows down the game.
 {
 	int	x;
 	int	y;
 
-	mlx_string_put(wlf->mlx, wlf->win, 710, 160, COLOR_ORANGE, "INVENTORY");
+	mlx_string_put(dm->mlx, dm->win, 710, 160, COLOR_ORANGE, "INVENTORY");
 	y = 149;
 	while (++y < endy)
 	{
 		x = 699;
 		while (++x < endx)
 		{
-			mlx_pixel_put(wlf->mlx, wlf->win, y, x, COLOR_WHITE);
+			mlx_pixel_put(dm->mlx, dm->win, y, x, COLOR_WHITE);
 		}
 	}
 }*/
 
-void	load_animsprite(t_doom *wlf)
+void	load_animsprite(t_doom *dm)
 {
 	//This will be good for use later when we have many sprites:
 	//SDL_QueryTexture() method gets the width and height of the texture
@@ -308,156 +311,158 @@ void	load_animsprite(t_doom *wlf)
 	//Height for each frame is the same as for the whole sheet/texture
 
 
-	//wlf->sprites = IMG_Load("./gfx/SpriteSheets/PokemonTrainer.png");
-	wlf->spriteSurface = IMG_Load("./gfx/SpriteSheets/GreyDragon.xpm");
-	wlf->spriteTexture = SDL_CreateTextureFromSurface(wlf->rend, wlf->spriteSurface);
-	SDL_FreeSurface(wlf->spriteSurface);
+	//dm->sprites = IMG_Load("./gfx/SpriteSheets/PokemonTrainer.png");
+	dm->spriteSurface = IMG_Load("./gfx/SpriteSheets/GreyDragon.xpm");
+	dm->spriteTexture = SDL_CreateTextureFromSurface(dm->rend, dm->spriteSurface);
+	SDL_FreeSurface(dm->spriteSurface);
 
-	wlf->frame = 0;
-	wlf->anim = 3;
+	dm->frame = 0;
+	dm->anim = 3;
 	//walking towards you
-	wlf->spriteRect[0][0].x = 0;//upper left corner x-coordinate
-	wlf->spriteRect[0][0].y = 0;//upper left corner y-coordinate
-	wlf->spriteRect[0][0].w = 96;//width of one animation part of the sheet
-	wlf->spriteRect[0][0].h = 96;//height of one animation part of the sheet
+	dm->spriteRect[0][0].x = 0;//upper left corner x-coordinate
+	dm->spriteRect[0][0].y = 0;//upper left corner y-coordinate
+	dm->spriteRect[0][0].w = 96;//width of one animation part of the sheet
+	dm->spriteRect[0][0].h = 96;//height of one animation part of the sheet
 
-	wlf->spriteRect[0][1].x = 96;
-	wlf->spriteRect[0][1].y = 0;
-	wlf->spriteRect[0][1].w = 96;
-	wlf->spriteRect[0][1].h = 96;
+	dm->spriteRect[0][1].x = 96;
+	dm->spriteRect[0][1].y = 0;
+	dm->spriteRect[0][1].w = 96;
+	dm->spriteRect[0][1].h = 96;
 
-	wlf->spriteRect[0][2].x = 192;
-	wlf->spriteRect[0][2].y = 0;
-	wlf->spriteRect[0][2].w = 96;
-	wlf->spriteRect[0][2].h = 96;
+	dm->spriteRect[0][2].x = 192;
+	dm->spriteRect[0][2].y = 0;
+	dm->spriteRect[0][2].w = 96;
+	dm->spriteRect[0][2].h = 96;
 
-	wlf->spriteRect[0][3].x = 288;
-	wlf->spriteRect[0][3].y = 0;
-	wlf->spriteRect[0][3].w = 96;
-	wlf->spriteRect[0][3].h = 96;
+	dm->spriteRect[0][3].x = 288;
+	dm->spriteRect[0][3].y = 0;
+	dm->spriteRect[0][3].w = 96;
+	dm->spriteRect[0][3].h = 96;
 
 	//walking to your left
-	wlf->spriteRect[1][0].x = 0;//upper left corner x-coordinate
-	wlf->spriteRect[1][0].y = 96;//upper left corner y-coordinate
-	wlf->spriteRect[1][0].w = 96;//width of one animation part of the sheet
-	wlf->spriteRect[1][0].h = 96;//height of one animation part of the sheet
+	dm->spriteRect[1][0].x = 0;//upper left corner x-coordinate
+	dm->spriteRect[1][0].y = 96;//upper left corner y-coordinate
+	dm->spriteRect[1][0].w = 96;//width of one animation part of the sheet
+	dm->spriteRect[1][0].h = 96;//height of one animation part of the sheet
 
-	wlf->spriteRect[1][1].x = 96;
-	wlf->spriteRect[1][1].y = 96;
-	wlf->spriteRect[1][1].w = 96;
-	wlf->spriteRect[1][1].h = 96;
+	dm->spriteRect[1][1].x = 96;
+	dm->spriteRect[1][1].y = 96;
+	dm->spriteRect[1][1].w = 96;
+	dm->spriteRect[1][1].h = 96;
 
-	wlf->spriteRect[1][2].x = 192;
-	wlf->spriteRect[1][2].y = 96;
-	wlf->spriteRect[1][2].w = 96;
-	wlf->spriteRect[1][2].h = 96;
+	dm->spriteRect[1][2].x = 192;
+	dm->spriteRect[1][2].y = 96;
+	dm->spriteRect[1][2].w = 96;
+	dm->spriteRect[1][2].h = 96;
 
-	wlf->spriteRect[1][3].x = 288;
-	wlf->spriteRect[1][3].y = 96;
-	wlf->spriteRect[1][3].w = 96;
-	wlf->spriteRect[1][3].h = 96;
+	dm->spriteRect[1][3].x = 288;
+	dm->spriteRect[1][3].y = 96;
+	dm->spriteRect[1][3].w = 96;
+	dm->spriteRect[1][3].h = 96;
 
 	//walking to your right
-	wlf->spriteRect[2][0].x = 0;//upper left corner x-coordinate
-	wlf->spriteRect[2][0].y = 192;//upper left corner y-coordinate
-	wlf->spriteRect[2][0].w = 96;//width of one animation part of the sheet
-	wlf->spriteRect[2][0].h = 96;//height of one animation part of the sheet
+	dm->spriteRect[2][0].x = 0;//upper left corner x-coordinate
+	dm->spriteRect[2][0].y = 192;//upper left corner y-coordinate
+	dm->spriteRect[2][0].w = 96;//width of one animation part of the sheet
+	dm->spriteRect[2][0].h = 96;//height of one animation part of the sheet
 
-	wlf->spriteRect[2][1].x = 96;
-	wlf->spriteRect[2][1].y = 192;
-	wlf->spriteRect[2][1].w = 96;
-	wlf->spriteRect[2][1].h = 96;
+	dm->spriteRect[2][1].x = 96;
+	dm->spriteRect[2][1].y = 192;
+	dm->spriteRect[2][1].w = 96;
+	dm->spriteRect[2][1].h = 96;
 
-	wlf->spriteRect[2][2].x = 192;
-	wlf->spriteRect[2][2].y = 192;
-	wlf->spriteRect[2][2].w = 96;
-	wlf->spriteRect[2][2].h = 96;
+	dm->spriteRect[2][2].x = 192;
+	dm->spriteRect[2][2].y = 192;
+	dm->spriteRect[2][2].w = 96;
+	dm->spriteRect[2][2].h = 96;
 
-	wlf->spriteRect[2][3].x = 288;
-	wlf->spriteRect[2][3].y = 192;
-	wlf->spriteRect[2][3].w = 96;
-	wlf->spriteRect[2][3].h = 96;
+	dm->spriteRect[2][3].x = 288;
+	dm->spriteRect[2][3].y = 192;
+	dm->spriteRect[2][3].w = 96;
+	dm->spriteRect[2][3].h = 96;
 
 	//walking away from you
-	wlf->spriteRect[3][0].x = 0;//upper left corner x-coordinate
-	wlf->spriteRect[3][0].y = 288;//upper left corner y-coordinate
-	wlf->spriteRect[3][0].w = 96;//width of one animation part of the sheet
-	wlf->spriteRect[3][0].h = 96;//height of one animation part of the sheet
+	dm->spriteRect[3][0].x = 0;//upper left corner x-coordinate
+	dm->spriteRect[3][0].y = 288;//upper left corner y-coordinate
+	dm->spriteRect[3][0].w = 96;//width of one animation part of the sheet
+	dm->spriteRect[3][0].h = 96;//height of one animation part of the sheet
 
-	wlf->spriteRect[3][1].x = 96;
-	wlf->spriteRect[3][1].y = 288;
-	wlf->spriteRect[3][1].w = 96;
-	wlf->spriteRect[3][1].h = 96;
+	dm->spriteRect[3][1].x = 96;
+	dm->spriteRect[3][1].y = 288;
+	dm->spriteRect[3][1].w = 96;
+	dm->spriteRect[3][1].h = 96;
 
-	wlf->spriteRect[3][2].x = 192;
-	wlf->spriteRect[3][2].y = 288;
-	wlf->spriteRect[3][2].w = 96;
-	wlf->spriteRect[3][2].h = 96;
+	dm->spriteRect[3][2].x = 192;
+	dm->spriteRect[3][2].y = 288;
+	dm->spriteRect[3][2].w = 96;
+	dm->spriteRect[3][2].h = 96;
 
-	wlf->spriteRect[3][3].x = 288;
-	wlf->spriteRect[3][3].y = 288;
-	wlf->spriteRect[3][3].w = 96;
-	wlf->spriteRect[3][3].h = 96;
+	dm->spriteRect[3][3].x = 288;
+	dm->spriteRect[3][3].y = 288;
+	dm->spriteRect[3][3].w = 96;
+	dm->spriteRect[3][3].h = 96;
 
-	wlf->screenRect.x = (WINX - 200) / 2;//where on screen the upper left corner of the sprite should be drawn
-	wlf->screenRect.y = (WINY - 200) / 2;//where on screen the upper left corner of the sprite should be drawn
-	wlf->screenRect.w = 200;//width of the final sprite on screen
-	wlf->screenRect.h = 200;//height of the final sprite on screen
+	dm->screenRect.x = (WINX - 200) / 2;//where on screen the upper left corner of the sprite should be drawn
+	dm->screenRect.y = (WINY - 200) / 2;//where on screen the upper left corner of the sprite should be drawn
+	dm->screenRect.w = 200;//width of the final sprite on screen
+	dm->screenRect.h = 200;//height of the final sprite on screen
 }
 
-void	draw_sprite(t_doom *wlf)
+void	draw_sprite(t_doom *dm)
 {
-	SDL_RenderCopy(wlf->rend, wlf->spriteTexture, &wlf->spriteRect[wlf->anim][wlf->frame / 4], &wlf->screenRect);
-	wlf->frame++;
-	if (wlf->screenRect.w < 550)
-		wlf->screenRect.w += 3;
-	if (wlf->screenRect.x > 200)//440
-		wlf->screenRect.x -= 3;
-	if (wlf->screenRect.w < 550)
-		wlf->screenRect.h += 3;
-	if (wlf->screenRect.y > 200)
-		wlf->screenRect.y -= 3;
-	if ((wlf->frame / 4) > 3)
+	SDL_RenderCopy(dm->rend, dm->spriteTexture, &dm->spriteRect[dm->anim][dm->frame / 4], &dm->screenRect);
+	dm->frame++;
+	if (dm->screenRect.w < 550)
+		dm->screenRect.w += 3;
+	if (dm->screenRect.x > 200)//440
+		dm->screenRect.x -= 3;
+	if (dm->screenRect.w < 550)
+		dm->screenRect.h += 3;
+	if (dm->screenRect.y > 200)
+		dm->screenRect.y -= 3;
+	if ((dm->frame / 4) > 3)
 	{
-		if (wlf->anim != 0)
-			wlf->anim--;
-		wlf->frame = 0;
+		if (dm->anim != 0)
+			dm->anim--;
+		dm->frame = 0;
 	}
 }
 
-void	render(t_doom *wlf)
+void	render(t_doom *dm)
 {
-	int	x;
+	static int	x;
 	int	i;
 
-	x = 0;
-	if (wlf->trx < 0)
-		wlf->trx = 1;
-	while (x < wlf->trx)
+	//x = 0;
+	if (dm->trx < 1)
+		dm->trx = 1;
+	while (x < dm->trx)
 	{
-		wlf->data_r[x] = *wlf;
-		wlf->data_r[x].x = x;
-		wlf->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&wlf->data_r[x]);
+		dm->data_r[x] = *dm;
+		dm->data_r[x].x = x;
+		dm->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&dm->data_r[x]);
 		x++;
 	}
-	while (--x >= 0)
+	while (x > 0)
 	{
-		if (wlf->threads[x] == NULL)
+		x--;
+		if (dm->threads[x] == NULL)
 			ft_putendl("Thread failure.");
 		else
-			SDL_WaitThread(wlf->threads[x], NULL);
+			SDL_WaitThread(dm->threads[x], NULL);
 	}
-	draw_gun(wlf);
-	draw_crosshair(wlf);
-	draw_ammo(wlf);
-	draw_inventory(wlf);
-	if (wlf->keycard)
-		draw_keycard(wlf);
-	/*if (wlf->key.i)
-		draw_sprite(wlf);*/
-	if (wlf->isoutline)
-		post_effects(wlf);
-	//SDL_UpdateWindowSurface(wlf->win);
-	SDL_RenderPresent(wlf->rend);
-	wlf->fps++;
+	//SDL_RenderPresent(dm->rend);
+	draw_gun(dm);
+	draw_crosshair(dm);
+	draw_ammo(dm);
+	draw_inventory(dm);
+	if (dm->keycard)
+		draw_keycard(dm);
+	/*if (dm->key.i)
+		draw_sprite(dm);*/
+	if (dm->isoutline)
+		post_effects(dm);
+	//SDL_UpdateWindowSurface(dm->win);
+	SDL_RenderPresent(dm->rend);
+	dm->fps++;
 }

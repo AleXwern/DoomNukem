@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2020/07/16 17:17:27 by AleXwern         ###   ########.fr        #
-=======
-#    Updated: 2020/07/17 14:20:34 by tbergkul         ###   ########.fr        #
->>>>>>> 509631dfda84855d3da89f995bfe50fd77fc488b
+#    Updated: 2020/07/20 12:43:13 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/10 15:00:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:35:14 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,28 @@
 
 #include <stdio.h>//
 
-void	set_yroation(t_doom *wlf)
+void	set_yroation(t_doom *dm)
 {
-	if (wlf->dir.y > 0)
-		wlf->rotation = 180 - (wlf->dir.x + 1) * 90;
+	if (dm->dir.y > 0)
+		dm->rotation = 180 - (dm->dir.x + 1) * 90;
 	else
-		wlf->rotation = 360 - fabs(wlf->dir.x - 1) * 90;
+		dm->rotation = 360 - fabs(dm->dir.x - 1) * 90;
 
 
 }
 
-void	set_reverse(t_doom *wlf)
+void	set_reverse(t_doom *dm)
 {
 	t_vector	test;
 
-	if (wlf->rotation < 180)
-		test.x = (double)(-wlf->rotation / 90.0) + 1.0;
+	if (dm->rotation < 180)
+		test.x = (double)(-dm->rotation / 90.0) + 1.0;
 	else
-		test.x = fabs((double)(-wlf->rotation / 90.0)) - 3.0;
-	if (wlf->rotation < 180)
-		test.y = (fabs((fabs(wlf->rotation - 90.0) / 90.0) - 1));
+		test.x = fabs((double)(-dm->rotation / 90.0)) - 3.0;
+	if (dm->rotation < 180)
+		test.y = (fabs((fabs(dm->rotation - 90.0) / 90.0) - 1));
 	else
-		test.y = fabs((double)(-(wlf->rotation - 90) / 90.0)) - 3.0;
+		test.y = fabs((double)(-(dm->rotation - 90) / 90.0)) - 3.0;
 	//printf("Rot %f %f\n", test.x, test.y);
 }
 
@@ -53,165 +53,165 @@ int		checkrota(double dir, double plane)
 	return (1);
 }
 
-void	cam_udy(t_doom *wlf)
+void	cam_udy(t_doom *dm)
 {
 	t_vector	oldplane;
 	t_vector	olddir;
 
-	oldplane = wlf->plane;
-	olddir = wlf->dir;
-	if (wlf->key.w)
+	oldplane = dm->plane;
+	olddir = dm->dir;
+	if (dm->key.w)
 	{
-		if (wlf->dir.z > -0.6)
-			wlf->dir.z -= 0.05;
+		if (dm->dir.z > -0.6)
+			dm->dir.z -= 0.05;
 	}
-	if (wlf->key.s)
+	if (dm->key.s)
 	{
-		if (wlf->dir.z < 0.6)
-			wlf->dir.z += 0.05;
+		if (dm->dir.z < 0.6)
+			dm->dir.z += 0.05;
 	}
-	wlf->camshift = 1.0 - (wlf->dir.z * 2);
+	dm->camshift = 1.0 - (dm->dir.z * 2);
 }
 
-void	move_l(t_doom *wlf, t_vector olddir, t_vector oldplane)
+void	move_l(t_doom *dm, t_vector olddir, t_vector oldplane)
 {
 	double	rota;
 
-	oldplane = wlf->plane;
-	olddir = wlf->dir;
-	rota = wlf->rotsp * ((30.0 / wlf->buffer) / wlf->prefps);
-	if (wlf->key.right)
+	oldplane = dm->plane;
+	olddir = dm->dir;
+	rota = dm->rotsp * ((30.0 / dm->buffer) / dm->prefps);
+	if (dm->key.right)
 	{
-		wlf->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
-		wlf->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
-		wlf->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
-		wlf->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
-		wlf->sbox -= (wlf->winw / 64.0) * (rota / wlf->rotsp);
+		dm->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
+		dm->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
+		dm->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
+		dm->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
+		dm->sbox -= (dm->winw / 64.0) * (rota / dm->rotsp);
 	}
 }
 
-int		move_lr(t_doom *wlf)
+int		move_lr(t_doom *dm)
 {
 	t_vector	olddir;
 	t_vector	oldplane;
 	double		rota;
 
-	oldplane = wlf->plane;
-	olddir = wlf->dir;
-	rota = -wlf->rotsp * ((30.0 / wlf->buffer) / wlf->prefps);
-	if (wlf->key.left)
+	oldplane = dm->plane;
+	olddir = dm->dir;
+	rota = -dm->rotsp * ((30.0 / dm->buffer) / dm->prefps);
+	if (dm->key.left)
 	{
-		wlf->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
-		wlf->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
-		wlf->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
-		wlf->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
-		wlf->sbox -= (wlf->winw / 64) * (rota / wlf->rotsp);
+		dm->dir.x = olddir.x * cos(rota) - olddir.y * sin(rota);
+		dm->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
+		dm->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
+		dm->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
+		dm->sbox -= (dm->winw / 64) * (rota / dm->rotsp);
 	}
-	set_yroation(wlf);
-	set_reverse(wlf);
-	if (wlf->key.right)
-		move_l(wlf, olddir, oldplane);
-	if (wlf->sbox < 0)
-		wlf->sbox += wlf->winw;
-	if (wlf->sbox > wlf->winw)
-		wlf->sbox -= wlf->winw;
+	set_yroation(dm);
+	set_reverse(dm);
+	if (dm->key.right)
+		move_l(dm, olddir, oldplane);
+	if (dm->sbox < 0)
+		dm->sbox += dm->winw;
+	if (dm->sbox > dm->winw)
+		dm->sbox -= dm->winw;
 	return (0);
 }
 
-int		move_fb(t_doom *wlf)
+int		move_fb(t_doom *dm)
 {
 	double	mov;
 	
-	mov = wlf->movsp * ((30.0 / wlf->buffer) / wlf->prefps);
+	mov = dm->movsp * ((30.0 / dm->buffer) / dm->prefps);
 	if (mov > 1.0)
 		mov = 0.99;
-	if (wlf->key.up)
+	if (dm->key.up)
 	{
-		if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y + wlf->dir.y * mov)][(int)wlf->pos.x] <= 1)
-			wlf->pos.y += wlf->dir.y * mov;
-		if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x + wlf->dir.x * mov)] <= 1)
-			wlf->pos.x += wlf->dir.x * mov;
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x] <= 1)
+			dm->pos.y += dm->dir.y * mov;
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)] <= 1)
+			dm->pos.x += dm->dir.x * mov;
 	}
-	if (wlf->key.down)
+	if (dm->key.down)
 	{
-		if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y - wlf->dir.y * mov)][(int)wlf->pos.x] <= 1)
-			wlf->pos.y -= wlf->dir.y * mov;
-		if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x - wlf->dir.x * mov)] <= 1)
-			wlf->pos.x -= wlf->dir.x * mov;
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y * mov)][(int)dm->pos.x] <= 1)
+			dm->pos.y -= dm->dir.y * mov;
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.x * mov)] <= 1)
+			dm->pos.x -= dm->dir.x * mov;
 	}
 	return (0);
 }
 
-void	strafe(t_doom *wlf, double dirxtemp, double dirytemp)
+void	strafe(t_doom *dm, double dirxtemp, double dirytemp)
 {
 	double	mov;
 
-	mov = wlf->movsp * ((30.0 / wlf->buffer) / wlf->prefps);
+	mov = dm->movsp * ((30.0 / dm->buffer) / dm->prefps);
 	if (mov > 1.0)
 		mov = 0.99;
-	if (wlf->key.q)
+	if (dm->key.q)
 	{
-		if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y + wlf->dir.x * mov)][(int)wlf->pos.x] <= 1)
-			wlf->pos.y += wlf->dir.x * mov;
-		if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x + wlf->dir.y * mov)] <= 1)
-			wlf->pos.x += wlf->dir.y * mov;
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.x * mov)][(int)dm->pos.x] <= 1)
+			dm->pos.y += dm->dir.x * mov;
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.y * mov)] <= 1)
+			dm->pos.x += dm->dir.y * mov;
 	}
-	if (wlf->key.e)
+	if (dm->key.e)
 	{
-		if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y - wlf->dir.x * mov)][(int)wlf->pos.x] <= 1)
-			wlf->pos.y -= wlf->dir.x * mov;
-		if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x - wlf->dir.y * mov)] <= 1)
-			wlf->pos.x -= wlf->dir.y * mov;
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.x * mov)][(int)dm->pos.x] <= 1)
+			dm->pos.y -= dm->dir.x * mov;
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.y * mov)] <= 1)
+			dm->pos.x -= dm->dir.y * mov;
 	}
 	return ;
 
 
-	if (wlf->key.q)
+	if (dm->key.q)
 	{
-		if (wlf->dir.y < 0)
+		if (dm->dir.y < 0)
 		{
-			if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y - wlf->dir.y
-					* wlf->movsp)][(int)wlf->pos.x] <= 1)
-				wlf->pos.y -= (wlf->dir.y + 1) * wlf->movsp;
+			if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y
+					* dm->movsp)][(int)dm->pos.x] <= 1)
+				dm->pos.y -= (dm->dir.y + 1) * dm->movsp;
 		}
 		else
 		{
-			if (wlf->area[(int)wlf->pos.z][(int)(wlf->pos.y - wlf->dir.y
-					* wlf->movsp)][(int)wlf->pos.x] <= 1)
-				wlf->pos.y += (wlf->dir.y - 1) * wlf->movsp;
+			if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y
+					* dm->movsp)][(int)dm->pos.x] <= 1)
+				dm->pos.y += (dm->dir.y - 1) * dm->movsp;
 		}
-		if (wlf->dir.x < 0)
+		if (dm->dir.x < 0)
 		{
-			if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x
-					- wlf->dir.x * wlf->movsp)] <= 1)
-				wlf->pos.x -= (wlf->dir.x + 1) * wlf->movsp;
+			if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x
+					- dm->dir.x * dm->movsp)] <= 1)
+				dm->pos.x -= (dm->dir.x + 1) * dm->movsp;
 		}
 		else
 		{
-			if (wlf->area[(int)wlf->pos.z][(int)wlf->pos.y][(int)(wlf->pos.x
-					- wlf->dir.x * wlf->movsp)] <= 1)
-				wlf->pos.x += (wlf->dir.x - 1) * wlf->movsp;
+			if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x
+					- dm->dir.x * dm->movsp)] <= 1)
+				dm->pos.x += (dm->dir.x - 1) * dm->movsp;
 		}
 	}
-	if (wlf->key.e)
+	if (dm->key.e)
 	{
-		if (wlf->dir.y >= 0)
+		if (dm->dir.y >= 0)
 		{
-			dirxtemp = wlf->dir.x - 1;
+			dirxtemp = dm->dir.x - 1;
 		}
-		else if (wlf->dir.y < 0)
+		else if (dm->dir.y < 0)
 		{
-			dirxtemp = wlf->dir.x + 1;
+			dirxtemp = dm->dir.x + 1;
 		}
-		if (wlf->dir.x >= 0)
+		if (dm->dir.x >= 0)
 		{
-			dirytemp = wlf->dir.y - 1;
+			dirytemp = dm->dir.y - 1;
 		}
-		else if (wlf->dir.x < 0)
+		else if (dm->dir.x < 0)
 		{
-			dirytemp = wlf->dir.y + 1;
+			dirytemp = dm->dir.y + 1;
 		}
-		wlf->pos.x += dirxtemp * wlf->movsp;
-		wlf->pos.y += dirytemp * wlf->movsp;
+		dm->pos.x += dirxtemp * dm->movsp;
+		dm->pos.y += dirytemp * dm->movsp;
 	}
 }
