@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gun.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/07/20 15:38:21 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/22 11:13:01 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
 
 void	load_gun4(t_doom *dm)
 {

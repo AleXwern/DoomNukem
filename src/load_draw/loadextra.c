@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   loadextra.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:40:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/07/20 15:38:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/22 11:13:12 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
 
 void	load_numbers3(t_doom *dm)
 {

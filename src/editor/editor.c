@@ -40,7 +40,7 @@ void	render_editor(t_doom *dm, t_editor *le)
 	draw_level_screen(dm, le, 0, 0);
 	draw_editor_cursor(dm, le, dm->winw * 0.5, 0);
 	draw_sliders(dm, le, dm->winw * 0.5, 0);
-	//draw_blocks(dm, le);
+	draw_blk_select(dm, le, 0, 0);
 	//dm->tex = SDL_CreateTextureFromSurface(dm->rend, dm->img.tex);
 	//SDL_RenderCopy(dm->rend, dm->tex, NULL, NULL);
 	//SDL_UpdateWindowSurface(dm->win);

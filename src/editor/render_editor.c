@@ -13,6 +13,30 @@
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+void	draw_blk_select(t_doom* dm, t_editor *le, int x, int y)
+{
+	int		tx;
+
+	tx = 0;
+	while (x < dm->winw - 750)
+	{
+		y = 0;
+		while (y <= 107)
+		{
+			if (x % 107 == 0 || y % 107 == 0)
+				dm->img.data[dm->winw * (y + 375) + (x + 750)] = 0xfffcba03;
+			else if (x >= ((le->blk - 1) * 107) && x < (le->blk * 107))
+				dm->img.data[dm->winw * (y + 375) + (x + 750)] = dm->gfx[le->blk].data[(int)(dm->gfx[le->blk].wid * y + tx)];
+			else
+				dm->img.data[dm->winw * (y + 375) + (x + 750)] = 0xff000000;
+			y++;
+		}
+		x++;
+		if (x >= ((le->blk - 1) * 107) && x < (le->blk * 107))
+			tx++;
+	}
+}
+
 void	draw_bg(t_doom *dm, t_gfx gfx)
 {
 	int		gy;
@@ -38,40 +62,47 @@ void	draw_block(t_doom *dm, t_gfx blk, double x, double y)
 {
 	double		gx;
 	double		gy;
+	int			ckflr;
 
 	gy = -1;
+	ckflr = dm->flr + 1;
+	if (ckflr >= dm->mxflr)
+		ckflr = dm->mxflr - 1;
 	while (++gy < dm->winh / dm->height)
 	{
 		gx = -1;
 		while (++gx < dm->winw / dm->width * 0.5)
 		{
-			dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = blk.data[(int)(blk.wid * (gy * (blk.hgt / (dm->winh / dm->height))) + gx * (blk.wid / (dm->winw / dm->width * 0.5)))];
+			if (dm->flr == dm->mxflr - 1 && dm->area[dm->flr][dm->y][dm->x] == 1)
+				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = 0xff696969;
+			else if (dm->area[ckflr][dm->y][dm->x] == 1 && dm->area[dm->flr][dm->y][dm->x] == 1)
+				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = 0xff696969;
+			else
+				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = blk.data[(int)(blk.wid * (gy * (blk.hgt / (dm->winh / dm->height))) + gx * (blk.wid / (dm->winw / dm->width * 0.5)))];
 		}
 	}
 }
 
 void	draw_level_screen(t_doom *dm, t_editor *le, double x, double y)
 {
-	int		gx;
-	int		gy;
-
-	gy = 0;
-	while (gy < dm->height)
+	dm->y = 0;
+	dm->flr = le->options[3];
+	while (dm->y < dm->height)
 	{
-		gx = 0;
+		dm->x = 0;
 		x = 0;
-		while (gx < dm->width)
+		while (dm->x < dm->width)
 		{
-			if (dm->area[le->options[3]][gy][gx] == 7)
-				dm->area[le->options[3]][gy][gx] = 1;
-			if (dm->area[le->options[3]][gy][gx] > 6 || dm->area[le->options[3]][gy][gx] < 1)
-				dm->area[le->options[3]][gy][gx] = 2;
-			draw_block(dm, dm->gfx[dm->area[le->options[3]][gy][gx]], x, y);
+			if (dm->area[le->options[3]][dm->y][dm->x] == 7)
+				dm->area[le->options[3]][dm->y][dm->x] = 1;
+			if (dm->area[le->options[3]][dm->y][dm->x] > 6 || dm->area[le->options[3]][dm->y][dm->x] < 1)
+				dm->area[le->options[3]][dm->y][dm->x] = 2;
+			draw_block(dm, dm->gfx[dm->area[dm->flr][dm->y][dm->x]], x, y);
 			x += dm->winw / dm->width * 0.5;
-			gx++;
+			dm->x++;
 		}
 		y += dm->winh / dm->height;
-		gy++;
+		dm->y++;
 	}
 }
 

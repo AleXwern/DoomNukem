@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gunextra.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:34:23 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/07/20 15:38:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/22 11:13:08 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
 
 void	draw_ammo(t_doom *dm)
 {

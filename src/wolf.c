@@ -113,7 +113,7 @@ void	setup(t_doom *dm)
 	}
 }
 
-int		main(void)//int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_doom	*dm;
 
