@@ -93,7 +93,7 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 
 void	comp_hud_gfx(t_doom *dm, char *bpath, int i)
 {
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/notifup.xpm"), 41, 57);
+	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "misc/spawn.xpm"), 128, 128);
 	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/notifdown.xpm"), 441, 57);
 	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/options.xpm"), 540, 720);
 	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe3.xpm"), 564, 396);

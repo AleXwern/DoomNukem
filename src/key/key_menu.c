@@ -31,6 +31,7 @@ void	key_release_menu(int key, t_doom *dm)
 			ft_bzero(&dm->key, sizeof(t_key));
 			reset_position(dm);
 			dm->ismenu = 0;
+			dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x] = 1;
 			//Mix_PlayChannel(-1, dm->readyForAction, 0);
 			dm->mousemovement = 1;
 			SDL_SetRelativeMouseMode(SDL_TRUE);

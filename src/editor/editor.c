@@ -16,6 +16,7 @@
 void	defaults(t_editor *le, t_doom *dm)
 {
 	ft_bzero(le, sizeof(t_editor));
+	dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x] = 7;
 	le->blk = 2;
 	le->options[0] = dm->width;
 	le->options[1] = dm->height;

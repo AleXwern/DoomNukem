@@ -26,7 +26,7 @@ void	draw_blk_select(t_doom* dm, t_editor *le, int x, int y)
 			if (x % 107 == 0 || y % 107 == 0)
 				dm->img.data[dm->winw * (y + 375) + (x + 750)] = 0xfffcba03;
 			else if (x >= ((le->blk - 1) * 107) && x < (le->blk * 107))
-				dm->img.data[dm->winw * (y + 375) + (x + 750)] = dm->gfx[le->blk].data[(int)(dm->gfx[le->blk].wid * y + tx)];
+				dm->img.data[dm->winw * (y + 375) + (x + 750)] = dm->gfx[le->blk].data[dm->gfx[le->blk].wid * y + tx];
 			else
 				dm->img.data[dm->winw * (y + 375) + (x + 750)] = 0xff000000;
 			y++;
@@ -85,6 +85,8 @@ void	draw_block(t_doom *dm, t_gfx blk, double x, double y)
 
 void	draw_level_screen(t_doom *dm, t_editor *le, double x, double y)
 {
+	int		blk;
+
 	dm->y = 0;
 	dm->flr = le->options[3];
 	while (dm->y < dm->height)
@@ -93,11 +95,10 @@ void	draw_level_screen(t_doom *dm, t_editor *le, double x, double y)
 		x = 0;
 		while (dm->x < dm->width)
 		{
-			if (dm->area[le->options[3]][dm->y][dm->x] == 7)
-				dm->area[le->options[3]][dm->y][dm->x] = 1;
-			if (dm->area[le->options[3]][dm->y][dm->x] > 6 || dm->area[le->options[3]][dm->y][dm->x] < 1)
-				dm->area[le->options[3]][dm->y][dm->x] = 2;
-			draw_block(dm, dm->gfx[dm->area[dm->flr][dm->y][dm->x]], x, y);
+			blk = dm->area[dm->flr][dm->y][dm->x];
+			if (dm->area[dm->flr][dm->y][dm->x] < 1)
+				dm->area[le->options[3]][dm->y][dm->x] = 5;
+			draw_block(dm, dm->gfx[blk], x, y);
 			x += dm->winw / dm->width * 0.5;
 			dm->x++;
 		}
