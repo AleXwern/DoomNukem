@@ -63,6 +63,7 @@ void	draw_block(t_doom *dm, t_gfx blk, double x, double y)
 	double		gx;
 	double		gy;
 	int			ckflr;
+	Uint32		color;
 
 	gy = -1;
 	ckflr = dm->flr + 1;
@@ -73,12 +74,13 @@ void	draw_block(t_doom *dm, t_gfx blk, double x, double y)
 		gx = -1;
 		while (++gx < dm->winw / dm->width * 0.5)
 		{
+			color = blk.data[(int)(blk.wid * (gy * (blk.hgt / (dm->winh / dm->height))) + gx * (blk.wid / (dm->winw / dm->width * 0.5)))];
 			if (dm->flr == dm->mxflr - 1 && dm->area[dm->flr][dm->y][dm->x] == 1)
-				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = 0xff696969;
+				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = (color >> 1) & DARKEN;
 			else if (dm->area[ckflr][dm->y][dm->x] == 1 && dm->area[dm->flr][dm->y][dm->x] == 1)
-				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = 0xff696969;
+				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = (color >> 1) & DARKEN;
 			else
-				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = blk.data[(int)(blk.wid * (gy * (blk.hgt / (dm->winh / dm->height))) + gx * (blk.wid / (dm->winw / dm->width * 0.5)))];
+				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = color;
 		}
 	}
 }

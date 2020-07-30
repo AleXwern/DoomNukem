@@ -123,8 +123,8 @@ int		move_fb(t_doom *dm)
 	double	mov;
 	
 	mov = dm->movsp * ((30.0 / dm->buffer) / dm->prefps);
-	if (mov > 1.0)
-		mov = 0.99;
+	if (mov > 1.0 || mov < -1.0)
+		mov /= fabs(mov);
 	if (dm->key.up)
 	{
 		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x] <= 1)

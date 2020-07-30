@@ -17,9 +17,9 @@ void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 {
 	int		gy;
 	int		gx;
+	Uint32	col;
 
 	gy = -1;
-	//printf("%#010x\n", dm->gfx[15].data[dm->gfx[15].wid * 0 + 0]);
 	while (++gy < dm->winh)
 	{
 		y = gy * (dm->gfx[15].hgt / (double)dm->winh);
@@ -27,12 +27,19 @@ void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 		while (++gx < dm->winw)
 		{
 			x = gx * (dm->gfx[15].wid / ((double)dm->winw));
-			if (gy > (cur * dm->winh / 7) + dm->winh / 4 && gy < ((cur + 1) * dm->winh / 7) + dm->winh / 4)
-				dm->img.data[dm->winw * gy + gx] = dm->gfx[15].data[dm->gfx[15].wid * y + x] + 0x00252525;
-			else if (dm->gfx[15].data[dm->gfx[15].wid * y + x] == 0xffff00ff || dm->gfx[15].data[dm->gfx[15].wid * y + x] == 0x00ff00ff)
+			col = dm->gfx[15].data[dm->gfx[15].wid * y + x];
+			if (col == 0xffff00ff || col == 0x00ff00ff)
 				x += 0;
+			else if (gy > (cur * dm->winh / 7) + dm->winh / 4 && gy < ((cur + 1) * dm->winh / 7) + dm->winh / 4)
+			{
+				dm->img.data[dm->winw * gy + gx] = col;
+				if (col == 0xf00)
+					dm->img.data[dm->winw * gy + gx] = 0xfff9ff53;
+				else if (col == 0xc0ceca)
+					dm->img.data[dm->winw * gy + gx] = 0xffbab522;
+			}
 			else
-				dm->img.data[dm->winw * gy + gx] = dm->gfx[15].data[dm->gfx[15].wid * y + x];
+				dm->img.data[dm->winw * gy + gx] = col;
 		}
 	}
 }

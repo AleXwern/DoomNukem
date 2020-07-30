@@ -241,8 +241,9 @@ void	gravity(t_doom *dm)
 {
 	if (dm->key.two || dm->isgravity || dm->ismenu)
 		return ;
-	while (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)
-		dm->gravity.z += dm->fallsp.z;
+	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)
+		dm->gravity.z /= fabs(dm->gravity.z);
+	//dm->gravity.z += dm->fallsp.z;
 	if (dm->gravity.z < 0)
 	{
 		if (dm->area[(int)(dm->pos.z + dm->gravity.z - 0.1)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
