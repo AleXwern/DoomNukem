@@ -100,6 +100,8 @@ void	draw_level_screen(t_doom *dm, t_editor *le, double x, double y)
 			blk = dm->area[dm->flr][dm->y][dm->x];
 			if (dm->area[dm->flr][dm->y][dm->x] < 1)
 				dm->area[le->options[3]][dm->y][dm->x] = 5;
+			if (dm->area[dm->flr][dm->y][dm->x] > 7)
+				dm->area[le->options[3]][dm->y][dm->x] = 2;
 			draw_block(dm, dm->gfx[blk], x, y);
 			x += dm->winw / dm->width * 0.5;
 			dm->x++;

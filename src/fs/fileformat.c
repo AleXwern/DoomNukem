@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:33:49 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/07/31 17:22:22 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
+
+// Remember to clear Windows spesific open functions for final version.
 
 void	validate_map(t_doom *dm, int i, int a)
 {
@@ -60,6 +62,15 @@ int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 	while (temp[x])
 	{
 		dm->area[dm->flr][y][x] = ft_atoi(temp[x]);
+		if (dm->area[dm->flr][y][x] == 7)
+		{
+			dm->spawn.x = x + 0.51;
+			dm->spawn.y = y + 0.51;
+			dm->spawn.z = dm->flr + 0.5;
+			dm->area[dm->flr][y][x] = 1;
+		}
+		if (dm->area[dm->flr][y][x] > 7)
+			dm->area[dm->flr][y][x] = 2;
 		if (dm->area[dm->flr][y][x] == 0)
 			return (0);
 		x++;

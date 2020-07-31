@@ -77,12 +77,9 @@ void	init_audio(t_doom *dm)
 void	setup(t_doom *dm)
 {
 	//SDL_Thread* capper;
-
-	dm->spawn.x = 2.51;
-	dm->spawn.y = 2.51;
-	dm->spawn.z = 2.5;
 	init_audio(dm);
 	doom_default(dm);
+	printf("Spawn at %d\n", dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x]);
 	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x] != 1)
 		error_out(SPW_ERROR, dm);
 	dm->fpsthread = SDL_CreateThread(fps_counter, "fps counter", (void*)dm);
@@ -151,6 +148,9 @@ int		main(int ac, char **av)
 	dm->winh = dm->img.tex->h;
 	dm->winw = dm->img.tex->w;
 	printf("Comp map\n");
+	dm->spawn.x = 2.51;
+	dm->spawn.y = 2.51;
+	dm->spawn.z = 2.5;
 	comp_map(dm);//, "Null");
 	printf("Comp GFX\n");
 	comp_gfx(dm, 0);

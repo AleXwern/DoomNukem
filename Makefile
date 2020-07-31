@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/20 12:43:13 by anystrom         ###   ########.fr        #
+#    Updated: 2020/07/31 17:28:23 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,12 @@ OEXT = .o
 LEXT = .a
 endif
 FLG =
-SRCFILE =	wolf.c fileformat.c gfx.c loop.c render.c draw.c move.c \
+SRCFILE =	wolf.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
 			main_menu.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
 LOADDRAW =	gun.c gunextra.c loadextra.c
+FILESYS =	fileformat.c save_level.c
 EDTFILE =	editor.c render_editor.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
@@ -75,7 +76,13 @@ else
 	@gcc -g $(OBJFRAME) $(FLG) $(INCL) -o $@ -c $<
 endif
 
-$(NAME): $(OBJ) $(LIBFT)
+objfolder:
+	@mkdir obj/editor
+	@mkdir obj/key
+	@mkdir obj/fs
+	@mkdir obj/load_draw
+
+$(NAME): objfolder $(OBJ) $(LIBFT)
 ifeq ($(OS),Windows_NT)
 	#clang $(WINSDLL) $(WININC) $(INCL) $(WINSDLI) -o $(NAME).exe $(OBJ) $(LIBFT)
 	@clang $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
@@ -94,14 +101,18 @@ clean:
 	@/bin/rm -f $(OBJ)
 	@echo Removing Libft libraries.
 	@make -C ./libft fclean
+	@rm -rf obj/editor
+	@rm -rf obj/key
+	@rm -rf obj/fs
+	@rm -rf obj/load_draw
 
 fclean: clean
 	@echo Removing binaries.
 	@/bin/rm -f $(NAME)
 
 merge:
-	git checkout master
-	git pull https://github.com/AleXwern/DoomNukem.git master
+	@git checkout master
+	@git pull https://github.com/AleXwern/DoomNukem.git master
 
 winup:
 	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/gfx

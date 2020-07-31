@@ -38,7 +38,7 @@
 # define WLF_ERROR	"Cannot create corestruct."
 # define PAD_ERROR	"Game controller was not found!"
 # define LOD_ERROR	"Could not load the level"
-# define GAME_OVER	"Your party has fallen. Game over!"
+# define VOID_OVER	"You fell off the world. Game over!"
 
 # define HIT_OPP	" dealt damage to "
 # define CHA_OPP	" charged at "

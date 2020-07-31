@@ -44,7 +44,7 @@
 # include <string.h>
 
 # define main(X, Y)			wmain(X, Y)
-# define open(W, X, Y)		_sopen_s(W, X, Y, _SH_DENYWR, _S_IREAD);
+//# define open(W, X, Y)		_sopen_s(W, X, Y, _SH_DENYWR, _S_IREAD);
 #elif __APPLE__
 /*
 ** Apple Mac OS specific includes
