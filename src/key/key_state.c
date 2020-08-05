@@ -87,7 +87,7 @@ void	key_state_editor(t_editor *le, t_doom *dm)
 		if (dm->event.key.state == SDL_PRESSED)
 			editor_key_press(dm->event.key.keysym.scancode, le);
 		if (dm->event.key.state == SDL_RELEASED)
-			editor_key_release(dm->event.key.keysym.scancode, le);
+			editor_key_release(dm->event.key.keysym.scancode, le, dm);
 	}
 	draw_screen(le, dm, 0, 0);
 }

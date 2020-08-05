@@ -57,7 +57,7 @@ void	check_area(t_editor* le, SDL_Event ev)
 	}
 }
 
-void	editor_key_release(Uint32 key, t_editor *le)
+void	editor_key_release(Uint32 key, t_editor *le, t_doom* dm)
 {
 	if (key == ESC)
 		le->quit = 1;
@@ -65,6 +65,8 @@ void	editor_key_release(Uint32 key, t_editor *le)
 		le->cur++;
 	if (key == UP)
 		le->cur--;
+	if (key == KEY_S)
+		save_file(dm, 0, "1s", -1);
 	if (le->cur > 4)
 		le->cur = 0;
 	if (le->cur < 0)

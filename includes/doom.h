@@ -450,6 +450,7 @@ int				move(t_doom *wlf);
 int				move_fb(t_doom *wlf);
 int				move_lr(t_doom *wlf);
 int				renthread(void *ptr);
+int				save_file(t_doom* dm, int fd, char* file, int i);
 int				x_press(t_doom *wolf);
 
 char			*get_syssmgone(t_doom *wlf, int pc);
@@ -475,7 +476,7 @@ void			draw_screen(t_editor* le, t_doom* dm, int x, int y);
 void			draw_sliders(t_doom *dm, t_editor *le, int x, int y);
 void			draw_sky(t_doom *wlf);
 void			editor_key_press(Uint32 key, t_editor *le);
-void			editor_key_release(Uint32 key, t_editor *le);
+void			editor_key_release(Uint32 key, t_editor *le, t_doom* dm);
 void			editor_main(t_doom *wlf);
 void			encounter(t_doom *wlf);
 void			error_out(char *msg, t_doom *wolf);
