@@ -42,11 +42,11 @@ void	draw_stripe(t_doom *dm)
 		dm->texy = (int)((((dm->y * 256 - dm->winh * 128 * dm->camshift - dm->lineh * 128) * 128) / dm->lineh) / 256) % 128;
 		if (dm->texy < 0)
 			dm->texy += 128;
-		dm->testcolor = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * dm->gfx[dm->texnum].tex->pitch / 4 + dm->texx % 128 * dm->gfx[2].tex->format->BitsPerPixel / 32], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * dm->gfx[dm->texnum].tex->pitch / 4 + dm->texx % 128 * dm->gfx[2].tex->format->BitsPerPixel / 32], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 	}
 	if (dm->side > 2)
-		dm->testcolor = (dm->testcolor >> 1) & DARKEN;
-	dm->img.data[dm->winw * dm->y + dm->x] = dm->testcolor;
+		dm->col = (dm->col >> 1) & DARKEN;
+	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
 
 }
 
@@ -58,18 +58,18 @@ void	wall_stripe(t_doom *dm)
 		if (dm->texnum > 6)//This is a (temporary) fix for the issue where having a value higher than 5 on the map creating a wal with a weird texture.
 			dm->texnum = 2;
 		if (dm->side % 3 == 0)
-			dm->wallx = (dm->pos.y + dm->walldist * dm->raydy);
+			dm->wallx = (dm->pos.y + dm->walldist * dm->rayd.y);
 		else
-			dm->wallx = (dm->pos.x + dm->walldist * dm->raydx);
+			dm->wallx = (dm->pos.x + dm->walldist * dm->rayd.x);
 		dm->wallx -= floor(dm->wallx);
 		dm->texx = (int)(dm->wallx * 128.0);
-		if (dm->side == 0 && dm->raydx > 0)
+		if (dm->side == 0 && dm->rayd.x > 0)
 			dm->texx = 128 - dm->texx - 1;
-		if (dm->side == 1 && dm->raydy < 0)
+		else if (dm->side == 1 && dm->rayd.y < 0)
 			dm->texx = 128 - dm->texx - 1;
 	}
 	else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] != 2)
-		dm->testcolor = 0xff22a800;
+		dm->col = 0xff22a800;
 	draw_stripe(dm);
 }
 
@@ -77,30 +77,30 @@ void	draw_floor(t_doom *dm)
 {
 	if (dm->texbool)
 	{
-		dm->cellx = (int)dm->floorx;
-		dm->celly = (int)dm->floory;
-		dm->tx = (int)(128 * (dm->floorx - dm->cellx)) & (128 - 1);
-		dm->ty = (int)(128 * (dm->floory - dm->celly)) & (128 - 1);
-		dm->testcolor = color_shift(dm->gfx[1].data[128 * dm->ty + dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		dm->cellx = (int)dm->floor.x;
+		dm->celly = (int)dm->floor.y;
+		dm->tx = (int)(128 * (dm->floor.x - dm->cellx)) & (128 - 1);
+		dm->ty = (int)(128 * (dm->floor.y - dm->celly)) & (128 - 1);
+		dm->col = color_shift(dm->gfx[1].data[128 * dm->ty + dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		//dm->testcolor = dm->gfx[1].data[128 * dm->ty + dm->tx];
 	}
 	else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 2)
-		dm->testcolor = 0xff22a800;
+		dm->col = 0xff22a800;
 	if (dm->side > 2)
-		dm->testcolor = (dm->testcolor >> 1) & DARKEN;
-	dm->img.data[dm->winw * dm->y + dm->x] = dm->testcolor;
+		dm->col = (dm->col >> 1) & DARKEN;
+	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
 }
 
 void	render_floor(t_doom *dm)
 {
-	dm->raydx0 = dm->dir.x - dm->plane.x;
-	dm->raydy0 = dm->dir.y - dm->plane.y;
-	dm->raydx1 = dm->dir.x + dm->plane.x;
-	dm->raydy1 = dm->dir.y + dm->plane.y;
+	dm->rayd0.x = dm->dir.x - dm->plane.x;
+	dm->rayd0.y = dm->dir.y - dm->plane.y;
+	dm->rayd1.x = dm->dir.x + dm->plane.x;
+	dm->rayd1.y = dm->dir.y + dm->plane.y;
 	dm->rowdist = dm->walldist;
-	dm->flstepx = dm->rowdist * (dm->raydx1 - dm->raydx0) / dm->winw;
-	dm->flstepy = dm->rowdist * (dm->raydy1 - dm->raydy0) / dm->winw;
-	dm->floorx = (dm->pos.x + dm->rowdist * dm->raydx0) + (dm->flstepx * dm->x);
-	dm->floory = (dm->pos.y + dm->rowdist * dm->raydy0) + (dm->flstepy * dm->x);
+	dm->flstep.x = dm->rowdist * (dm->rayd1.x - dm->rayd0.x) / dm->winw;
+	dm->flstep.y = dm->rowdist * (dm->rayd1.y - dm->rayd0.y) / dm->winw;
+	dm->floor.x = (dm->pos.x + dm->rowdist * dm->rayd0.x) + (dm->flstep.x * dm->x);
+	dm->floor.y = (dm->pos.y + dm->rowdist * dm->rayd0.y) + (dm->flstep.y * dm->x);
 	draw_floor(dm);
 }

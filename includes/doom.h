@@ -181,6 +181,14 @@ typedef struct	s_editor
 	Sint8		mblock;
 }				t_editor;
 
+typedef struct	s_block
+{
+	int			t;
+	int			sid;
+	int			meta;
+	t_vector	p[3];
+}				t_block;
+
 /*
 ** mlx	= MLX pointer
 ** win	= WIN pointer
@@ -244,6 +252,7 @@ typedef struct	s_doom
 	char		*syssmg[2];
 	int			cur;
 	int			sel;
+	int			health;
 	int			plr;
 	int			plrck;
 	int			x;
@@ -272,7 +281,7 @@ typedef struct	s_doom
 	int			texnum;
 	int			texx;
 	int			texy;
-	Uint32		testcolor;
+	Uint32		col;
 	int			sbox;
 	int			sboy;
 	int			cellx;
@@ -282,9 +291,6 @@ typedef struct	s_doom
 	int			ty;
 	int			tz;
 	int			rotation;
-	//double		posx;
-	//double		posy;
-	//double		posz;
 	double		poszz;
 	int			airbrn;
 	t_vector	spawn;
@@ -294,31 +300,17 @@ typedef struct	s_doom
 	t_vector	dir;
 	t_vector	plane;
 	t_vector	map;
-	double		camx;
-	double		camy;
-	double		raydx;
-	double		raydy;
-	double		raydz;
-	double		raydx0;
-	double		raydy0;
-	double		raydz0;
-	double		raydx1;
-	double		raydy1;
-	double		raydz1;
-	double		sidedx;
-	double		sidedy;
-	double		sidedz;
-	double		deltadx;
-	double		deltady;
-	double		deltadz;
+	t_vector	cam;
+	t_vector	rayd;
+	t_vector	rtex;
+	t_vector	rayd0;
+	t_vector	rayd1;
+	t_vector	sided;
+	t_vector	deltad;
+	t_vector	flstep;
+	t_vector	floor;
 	double		walldist;
 	double		rowdist;
-	double		flstepx;
-	double		flstepy;
-	double		flstepz;
-	double		floorx;
-	double		floory;
-	double		floorz;
 	double		movsp;
 	double		rotsp;
 	double		step;

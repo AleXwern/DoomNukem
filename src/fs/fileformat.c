@@ -55,7 +55,7 @@ int		templen(char **temp)
 	return (i);
 }
 
-int		get_next_matrix(t_doom *dm, char **temp, int x, int* y)
+int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 {
 	int		wid;
 
@@ -66,25 +66,25 @@ int		get_next_matrix(t_doom *dm, char **temp, int x, int* y)
 		return (0);
 	if (temp[0][0] == 'z')
 		return (0);
-	if (!(dm->area[dm->flr][*y] = (int*)malloc(sizeof(int) * 25)))
+	if (!(dm->area[dm->flr][y] = (int*)malloc(sizeof(int) * 25)))
 		error_out(MEM_ERROR, dm);
 	while (temp[x] && x < 25)
 	{
-		dm->area[dm->flr][*y][x] = ft_atoi(temp[x]);
-		if (dm->area[dm->flr][*y][x] == 7)
+		dm->area[dm->flr][y][x] = ft_atoi(temp[x]);
+		if (dm->area[dm->flr][y][x] == 7)
 		{
 			dm->spawn.x = x + 0.51;
-			dm->spawn.y = *y + 0.51;
+			dm->spawn.y = y + 0.51;
 			dm->spawn.z = dm->flr + 0.5;
-			dm->area[dm->flr][*y][x] = 1;
+			dm->area[dm->flr][y][x] = 1;
 		}
-		if (dm->area[dm->flr][*y][x] > 7 || dm->area[dm->flr][*y][x] < 1)
-			dm->area[dm->flr][*y][x] = 2;
+		if (dm->area[dm->flr][y][x] > 7 || dm->area[dm->flr][y][x] < 1)
+			dm->area[dm->flr][y][x] = 2;
 		x++;
 	}
 	x--;
 	while (++x < 25)
-		dm->area[dm->flr][*y][x] = 2;
+		dm->area[dm->flr][y][x] = 2;
 	return (1);
 }
 
@@ -99,7 +99,7 @@ void	fileformat(int fd, t_doom *dm, int y)
 			error_out(FIL_ERROR, dm);
 		temp = ft_strsplit(gnl, ' ');
 		free(gnl);
-		if (get_next_matrix(dm, temp, 0, &y) == 0)
+		if (get_next_matrix(dm, temp, 0, y) == 0)
 		{
 			free_memory(temp);
 			break;
