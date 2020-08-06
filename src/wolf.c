@@ -80,8 +80,7 @@ void	setup(t_doom *dm)
 	init_audio(dm);
 	doom_default(dm);
 	printf("Spawn at %d\n", dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x]);
-	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x] != 1)
-		error_out(SPW_ERROR, dm);
+	dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x] = 1;
 	dm->fpsthread = SDL_CreateThread(fps_counter, "fps counter", (void*)dm);
 	char* path = SDL_GetBasePath();
 	printf("Exec path: %s\n", path);
@@ -125,7 +124,7 @@ int		main(int ac, char **av)
 	//	error_out(IMG_ERROR, dm);
 	//if (ac != 4 && ac != 0)
 	//	error_out(USAGE, dm);
-	dm->tile = 2;
+	dm->tile = 3;
 	if (dm->tile < 1 || dm->tile > 6)
 		error_out(USAGE, dm);
 	dm->mxflr = 9;

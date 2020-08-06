@@ -15,28 +15,44 @@
 
 #include <stdio.h>
 
-void	lab_move(t_doom *dm, int obj)
+int		get_warpdest(t_doom* dm, t_vector pos, t_vector warp)
 {
-	if (obj == 3 && dm->area[(int)dm->pos.z -
-			1][(int)dm->pos.y][(int)dm->pos.x] == 1)
-	{
-		printf("stairs\n");
-		dm->pos.z -= 1;
-		dm->pos.y += dm->dir.y * 0.5;
-		dm->pos.x += dm->dir.x * 0.5;
-	}
-	else if (obj == 4 && (int)dm->pos.z > 0 && dm->area[(int)dm->pos.z -
-			1][(int)dm->pos.y][(int)dm->pos.x] == 1)
-		dm->pos.z += 0.5;
-	else if ((obj == 3 && (int)dm->pos.z == dm->mxflr) ||
-			(obj == 4 && dm->flr == 0))
+	t_vector	relative;
+
+	relative.x = round(pos.x - warp.x);
+	relative.y = round(pos.y - warp.y);
+	if (relative.y != 0 && relative.x != 0)
+		return (0);
+	warp.x = dm->pos.x + (-relative.x * 2.0);
+	warp.y = dm->pos.y + (-relative.y * 2.0);
+	warp.z = dm->pos.z;
+	if (dm->area[(int)warp.z][(int)warp.y][(int)warp.x] == 1)
+		dm->pos = warp;
+	return (1);
+}
+
+int		get_stairdest(t_doom* dm, int obj, t_vector pos, t_vector stair)
+{
+	t_vector	relative;
+
+	relative.x = round(pos.x - stair.x);
+	relative.y = round(pos.y - stair.y);
+	if (relative.y != 0 && relative.x != 0)
+		return (0);
+	stair.x = dm->pos.x + (-relative.x * 2.0);
+	stair.y = dm->pos.y + (-relative.y * 2.0);
+	stair.z = dm->pos.z + obj;
+	if (dm->area[(int)stair.z][(int)stair.y][(int)stair.x] == 1)
+		dm->pos = stair;
+	return (1);
+}
+
+void	lab_move(t_doom *dm, int obj, t_vector stair)
+{
+	if (!get_stairdest(dm, (obj - 3.5) * 2, dm->pos, stair))
+		return;
+	if ((int)dm->pos.z == dm->mxflr - 1 && (int)dm->pos.z == 0)
 		error_out(LAB_OUT, dm);
-	dm->dir.x *= -1.0;
-	dm->dir.y *= -1.0;
-	dm->plane.x *= -1.0;
-	dm->plane.y *= -1.0;
-	//dm->cycle(dm);
-	//mlx_put_image_to_window(dm->mlx, dm->win, dm->gfx[obj + 4].img, 0, 0);
 }
 
 int		interact(t_doom *dm)
@@ -48,15 +64,13 @@ int		interact(t_doom *dm)
 	tarpos.y = dm->pos.y + dm->dir.y * 0.9;
 	obj = dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x];
 	if (obj == 3 || obj == 4)
-		lab_move(dm, obj);
+		lab_move(dm, obj, tarpos);
 	else if (obj == 5)
-	{
 		dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x] = 0;
-	}
 	else if (obj == 0)
-	{
 		dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x] = 5;
-	}
+	else if (obj == 6)
+		get_warpdest(dm, dm->pos, tarpos);
 	if (obj == 5 || obj == 0)
 		dm->cycle(dm);
 	return (0);

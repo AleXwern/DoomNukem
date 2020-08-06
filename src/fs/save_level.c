@@ -49,10 +49,14 @@ int		save_file(t_doom* dm, int fd, char* file, int i)
 	#elif __APPLE__
 		fd = open(path, O_WRONLY | O_CREAT | O_EXCL, 0644);
 	#endif
-	printf("%s FD %d %d %d\n", path, fd, ft_strlen(file), err);
+	//printf("%s FD %d %d %d\n", path, fd, ft_strlen(file), err);
 	free(path);
+	SDL_free(bpath);
 	if (fd == -1)
+	{
+		ft_putendl("Error saving the map!");
 		return (0);
+	}
 	while (++i < dm->mxflr)
 	{
 		dm->flr = i;
@@ -60,6 +64,6 @@ int		save_file(t_doom* dm, int fd, char* file, int i)
 		_write(fd, "z\n", 2);
 	}
 	_close(fd);
-	SDL_free(bpath);
+	ft_putendl("Saving successful!");
 	return (1);
 }

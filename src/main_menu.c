@@ -79,7 +79,7 @@ void	main_menu(t_doom *dm)
 	//SDL_RenderCopy(dm->rend, dm->tex, NULL, NULL);
 	//SDL_UpdateWindowSurface(dm->win);
 	SDL_RenderPresent(dm->rend);
-	mouse_move(2, 0, dm);
+	mouse_move(1, 0, dm);
 	dm->fps++;
 	dm->keyck(dm);
 }
