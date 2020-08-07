@@ -23,9 +23,9 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->options[2] = dm->mxflr;
 	le->options[3] = 2;
 	le->options[4] = dm->tile;
-	le->maxval[0] = 35.0;
-	le->maxval[1] = 35.0;
-	le->maxval[2] = 35.0;
+	le->maxval[0] = 25.0;
+	le->maxval[1] = 25.0;
+	le->maxval[2] = 9.0;
 	le->maxval[3] = dm->mxflr - 1;
 	le->maxval[4] = 6.0;
 	le->minval[0] = 5;
@@ -58,7 +58,7 @@ void	editor_main(t_doom *dm)
 		error_out(MEM_ERROR, dm);
 	defaults(le, dm);
 	SDL_SetWindowSize(dm->win, 1500, 750);
-	printf("Dim %d %d", dm->width, dm->height);
+	printf("Dim %d %d\n", dm->width, dm->height);
 	while (!le->quit)
 	{
 		key_state_editor(le, dm);

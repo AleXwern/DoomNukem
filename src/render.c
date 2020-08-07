@@ -15,14 +15,60 @@
 
 #include <stdio.h>//
 
+void	single_loop(t_doom* dm)
+{
+	if (dm->sided.x < dm->sided.y && dm->sided.x < dm->sided.z)
+	{
+		dm->sided.x += dm->deltad.x;
+		dm->map.x += dm->stepx;
+		dm->side = 0;
+	}
+	else if (dm->sided.y < dm->sided.x && dm->sided.y < dm->sided.z)
+	{
+		dm->sided.y += dm->deltad.y;
+		dm->map.y += dm->stepy;
+		dm->side = 1;
+	}
+	else
+	{
+		dm->sided.z += dm->deltad.z;
+		dm->map.z += dm->stepz;
+		dm->side = 2;
+	}
+	if (dm->side == 0)
+		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
+	else if (dm->side == 1)
+		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
+	else
+		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
+	dm->rmap2.z = dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->map.z;
+}
+
 void	part_dda(t_doom* dm)
 {
-	dm->sided.x += dm->deltad.x * 0.5;
-	dm->map.x += dm->stepx;
-	dm->sided.y += dm->deltad.y * 0.5;
-	dm->map.y += dm->stepy;
-	dm->sided.z += dm->deltad.z * 0.5;
-	dm->map.z += dm->stepz;
+	dm->hithalf = 0;
+	if (dm->side == 0)
+		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
+	else if (dm->side == 1)
+		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
+	else
+		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
+	if (dm->pos.z + (dm->rayd.z * dm->walldist) - dm->map.z >= 0.5)
+		dm->hit = 1;
+	else if (dm->rayd.z > 0)
+	{
+		dm->rmap1.z = dm->pos.z + (dm->rayd.z * dm->walldist);
+		dm->rmap1.y = dm->pos.y + (dm->rayd.y * dm->walldist);
+		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
+		single_loop(dm);
+		if (dm->rmap2.z < 0.5)
+			return;
+		dm->sided.z += dm->deltad.z;
+		dm->map.z += dm->stepz * 0.5;
+		dm->side = 2;
+		dm->hit = 1;
+		dm->hithalf = 1;
+	}
 }
 
 void	dda_sys(t_doom *dm)
@@ -55,7 +101,9 @@ void	dda_sys(t_doom *dm)
 			dm->hit = 2;
 			return;
 		}
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 6)
+		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
+			part_dda(dm);
+		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 6)
 			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] = 1;
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1)
 		{
@@ -67,6 +115,12 @@ void	dda_sys(t_doom *dm)
 				dm->spriteLoc.z = dm->map.z;
 				dm->disttosprite = ((dm->pos.x - dm->map.x) * (dm->pos.x - dm->map.x) + (dm->pos.y - dm->map.y) * (dm->pos.y - dm->map.y));//initialize disttosprite
 			}
+		}
+		if (dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x] != 6 && dm->hithalf)
+		{
+			dm->map.z += dm->stepz * 0.5;
+			dm->hit = 0;
+			dm->hithalf = 0;
 		}
 	}
 }
@@ -183,7 +237,7 @@ int		renthread(void *ptr)
 			dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
 			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			{
-				//printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side % 3);
+				printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side % 3, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x]);
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
 			}
 			else

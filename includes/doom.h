@@ -120,6 +120,13 @@ typedef struct	s_vector
 	double	z;
 }				t_vector;
 
+typedef struct	s_ivector
+{
+	int		x;
+	int		y;
+	int		z;
+}				t_ivector;
+
 /*
 ** Party member info
 ** name		= party member name
@@ -274,6 +281,8 @@ typedef struct	s_doom
 	int			stepy;
 	int			stepz;
 	int			hit;
+	int			hithalf;
+	t_vector	hitpos;
 	int			side;
 	double		lineh;
 	int			start;
@@ -302,6 +311,8 @@ typedef struct	s_doom
 	t_vector	map;
 	t_vector	cam;
 	t_vector	rayd;
+	t_vector	rmap1;
+	t_vector	rmap2;
 	t_vector	rtex;
 	t_vector	rayd0;
 	t_vector	rayd1;
@@ -410,6 +421,9 @@ t_gfx			init_image(t_doom *wolf);
 t_gfx			gfx_get(t_doom *wolf, char *file, int x, int y);
 t_chara			*generate_party(t_doom *wlf);
 t_chara			generate_foe(t_doom *wlf);
+t_vector		cross_prd(t_vector v, t_vector u);
+t_vector		oper_vect(t_vector v, t_vector u, char o);
+
 void			load_animsprite(t_doom *wlf);
 void			draw_sprite(t_doom *wlf);
 void			load_gun(t_doom *wlf);
@@ -496,5 +510,7 @@ void			resize_window(t_doom *wlf);
 void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
 void			wall_stripe(t_doom *wlf);
 void			wind_default(t_doom *wlf);
+
+double			dot_prd(t_vector v, t_vector u);
 
 #endif
