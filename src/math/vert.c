@@ -12,7 +12,6 @@
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-#include "vert.h"
 
 double		dot_prd(t_vector v, t_vector u)
 {
