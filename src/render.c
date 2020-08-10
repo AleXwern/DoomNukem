@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:35:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/10 16:32:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	single_loop(t_doom* dm)
 		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
 	else
 		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	dm->rmap2.z = dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->map.z;
+	dm->rmap2.z = fabs(dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->map.z);
 }
 
 void	part_dda(t_doom* dm)
@@ -58,6 +58,8 @@ void	part_dda(t_doom* dm)
 	else if (dm->rayd.z > 0)
 	{
 		dm->rmap1.z = dm->pos.z + (dm->rayd.z * dm->walldist);
+		if (dm->rmap1.z - (int)dm->map.z)
+			dm->rmap1.z = dm->map.z + fabs(dm->rmap1.z - (int)dm->map.z);
 		dm->rmap1.y = dm->pos.y + (dm->rayd.y * dm->walldist);
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop(dm);
@@ -171,9 +173,9 @@ void	rc_init(t_doom *dm)
 	dm->rayd.x = dm->dir.x + dm->plane.x * dm->cam.x;
 	dm->rayd.y = dm->dir.y + dm->plane.y * dm->cam.x;
 	dm->rayd.z = dm->dir.z + dm->plane.z * dm->cam.y;
-	dm->map.x = ((int)dm->pos.x) & 0x0fffffff;
-	dm->map.y = ((int)dm->pos.y) & 0x0fffffff;
-	dm->map.z = ((int)dm->pos.z) & 0x0fffffff;
+	dm->map.x = ((int)dm->pos.x) & 0x7fffffff;
+	dm->map.y = ((int)dm->pos.y) & 0x7fffffff;
+	dm->map.z = ((int)dm->pos.z) & 0x7fffffff;
 	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %f %f %f\n", dm->camx, dm->camy, dm->raydz, dm->raydy, dm->raydx, dm->map.z, dm->map.y, dm->map.x);
 	dda_prep(dm);
 	dda_sys(dm);
@@ -239,7 +241,7 @@ int		renthread(void *ptr)
 			dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
 			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			{
-				//printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side % 3, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x]);
+				printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\nRmapZ %f %f\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side % 3, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x], dm->rmap1.z - (int)dm->map.z, dm->rmap2.z);
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
 			}
 			else

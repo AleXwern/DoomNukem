@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/31 17:28:23 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/08/10 14:16:45 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ endif
 FLG =
 SRCFILE =	wolf.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
-			main_menu.c
+			main_menu.c gravity.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
 LOADDRAW =	gun.c gunextra.c loadextra.c
 FILESYS =	fileformat.c save_level.c
@@ -30,13 +30,15 @@ EDTFILE =	editor.c render_editor.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
-			$(addprefix ./src/editor/,$(EDTFILE))
+			$(addprefix ./src/editor/,$(EDTFILE)) \
+			$(addprefix ./src/fs/,$(FILESYS))
 LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/key/,$(KEYFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/load_draw/,$(LOADDRAW:.c=$(OEXT))) \
-			$(addprefix ./obj/editor/,$(EDTFILE:.c=$(OEXT)))
+			$(addprefix ./obj/editor/,$(EDTFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/fs/,$(FILESYS:.c=$(OEXT)))
 OBJDIR =	./obj/
 SRCDIR =	./src/
 INCL =		-I ./SDL2 -I ./libft -I ./includes
@@ -77,6 +79,10 @@ else
 endif
 
 objfolder:
+	@rm -rf obj/editor
+	@rm -rf obj/key
+	@rm -rf obj/fs
+	@rm -rf obj/load_draw
 	@mkdir obj/editor
 	@mkdir obj/key
 	@mkdir obj/fs

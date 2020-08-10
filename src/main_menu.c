@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 13:23:46 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:34:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/10 14:20:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 			else if (gy > (cur * dm->winh / 7) + dm->winh / 4 && gy < ((cur + 1) * dm->winh / 7) + dm->winh / 4)
 			{
 				dm->img.data[dm->winw * gy + gx] = col;
-				if (col == 0xf00)
+				if ((col & 0xfff) == 0xf00)
 					dm->img.data[dm->winw * gy + gx] = 0xfff9ff53;
-				else if (col == 0xc0ceca)
+				else if (col == 0xffc0ceca)
 					dm->img.data[dm->winw * gy + gx] = 0xffbab522;
 			}
 			else

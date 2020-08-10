@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:17:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/10 12:58:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -497,7 +497,7 @@ void			key_release_menu(int key, t_doom *wlf);
 void			key_state_editor(t_editor *le, t_doom *dm);
 void			key_state_game(t_doom *wlf);
 void			key_state_menu(t_doom* wlf);
-void			lab_move(t_doom *wlf, int obj);
+void			lab_move(t_doom *wlf, int obj, t_vector stair);
 void			main_menu(t_doom *wlf);
 void			options_menu(t_doom *wlf);
 void			place_pc(t_doom *wlf, int pc);
