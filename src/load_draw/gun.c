@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gun.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/07/22 11:13:01 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/08/12 13:29:13 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	load_gun2(t_doom *dm)
 
 void	load_gun(t_doom *dm)
 {
-	dm->gunSurface = IMG_Load("/gfx/SpriteSheets/gun.xpm");
+	dm->gunSurface = IMG_Load("/gfx/SpriteSheets/gun.png");
 	dm->gunTexture = SDL_CreateTextureFromSurface(dm->rend, dm->gunSurface);
 	SDL_FreeSurface(dm->gunSurface);
 	dm->shooting = 0;

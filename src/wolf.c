@@ -72,6 +72,9 @@ void	init_audio(t_doom *dm)
 	//dm->doorOpen = Mix_LoadWAV("Audio/SoundEffects/dooropen.wav");
 	dm->reload = Mix_LoadWAV("Audio/SoundEffects/reload.wav");
 	dm->gunshot = Mix_LoadWAV("Audio/SoundEffects/gunshot.wav");
+	dm->jetpack = Mix_LoadWAV("Audio/SoundEffects/jetpack.wav");
+	dm->jetpackOn = 0;
+	dm->jetpackChannel = 0;
 }
 
 void	setup(t_doom *dm)

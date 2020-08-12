@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/10 12:58:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/12 15:17:00 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -415,6 +415,9 @@ typedef struct	s_doom
 	Mix_Chunk	*doorClose;
 	Mix_Chunk	*reload;
 	Mix_Chunk	*gunshot;
+	Mix_Chunk	*jetpack;
+	int			jetpackOn;
+	int			jetpackChannel;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);

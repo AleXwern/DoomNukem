@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:30:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/12 15:23:29 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,10 @@ int				key_release(int key, t_doom *dm)
 	if (key == KEY_ONE)
 		dm->key.one = 0;
 	if (key == KEY_TWO)
+	{
+		Mix_HaltChannel(dm->jetpackChannel);
 		dm->key.two = 0;
+	}
 	if (key == KEY_Q)
 		dm->key.q = 0;
 	if (key == KEY_E)
@@ -198,11 +201,29 @@ int				x_press(t_doom *wolf)
 void			jetpack(t_doom *dm)
 {
 	if (dm->key.one)
+	{
 		if (dm->area[(int)(dm->pos.z + 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
 			dm->pos.z += 0.05 * (30.0 / dm->buffer / dm->prefps);
+	}
 	if (dm->key.two)
+	{
+		if (!dm->jetpackOn)
+		{
+			dm->jetpackOn = 1;
+			if (!dm->jetpackChannel)
+			{
+				dm->jetpackChannel = Mix_PlayChannel(-1, dm->jetpack, -1);
+				printf("jetpackChannel = %d\n", dm->jetpackChannel);
+			}
+			else
+			{
+				//Mix_PlayChannel(dm->jetpackChannel, dm->jetpack, -1);
+				Mix_Resume(dm->jetpackChannel);
+			}
+		}
 		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
 			dm->pos.z -= 0.05 * (30.0 / dm->buffer / dm->prefps);
+	}
 }
 
 int				mouse_move(int x, int y, t_doom *dm)
