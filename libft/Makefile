@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/30 16:09:13 by anystrom          #+#    #+#              #
-#    Updated: 2020/07/15 19:02:42 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/08/13 12:53:43 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,6 @@ else
 endif
 	@mv $(OBJS) ../obj
 	@mv $(NAME) ../obj
-	echo $(OS)
 
 clean:
 	@/bin/rm -f $(addprefix $(OBJFLD),$(OBJS))

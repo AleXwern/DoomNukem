@@ -66,15 +66,13 @@ void	init_audio(t_doom *dm)
 	{
 		ft_putendl("Failed to initialize SDL_Mixer!");
 	}
-	dm->music = Mix_LoadMUS("Audio/Music/scapemain.wav");
-	dm->readyForAction = Mix_LoadWAV("Audio/SoundEffects/ready_for_action.wav");
-	//dm->doorClose = Mix_LoadWAV("Audio/SoundEffects/doorclose.wav");
-	//dm->doorOpen = Mix_LoadWAV("Audio/SoundEffects/dooropen.wav");
+	dm->osrsMusic = Mix_LoadMUS("Audio/Music/scapemain.wav");
 	dm->reload = Mix_LoadWAV("Audio/SoundEffects/reload.wav");
 	dm->gunshot = Mix_LoadWAV("Audio/SoundEffects/gunshot.wav");
 	dm->jetpack = Mix_LoadWAV("Audio/SoundEffects/jetpack.wav");
-	dm->jetpackOn = 0;
-	dm->jetpackChannel = 0;
+	dm->doorsound = Mix_LoadWAV("Audio/SoundEffects/door.wav");
+	dm->teleport = Mix_LoadWAV("Audio/SoundEffects/teleport.wav");
+	dm->doorknob = Mix_LoadWAV("Audio/SoundEffects/doorknob.wav");
 }
 
 void	setup(t_doom *dm)

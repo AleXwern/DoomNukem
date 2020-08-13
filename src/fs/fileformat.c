@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/31 17:22:22 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/08/13 12:48:04 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ void	validate_map(t_doom *dm, int i, int a)
 	}
 }
 
-void	fill_area(t_doom* dm, int* y, int x)
+void	fill_area(t_doom* dm, int y, int x)
 {
 	while (++x < 25)
-		dm->area[dm->flr][*y][x] = 2;
-	*y++;
+		dm->area[dm->flr][y][x] = 2;
 }
 
 int		templen(char **temp)
@@ -108,10 +107,9 @@ void	fileformat(int fd, t_doom *dm, int y)
 		free_memory(temp);
 		dm->height = y;
 	}
-	while (y < 25)
-		fill_area(dm, &y, 0);
-	//if (dm->height == -1)
-	//	dm->height = y;
+	y--;
+	while (++y < 25)
+		fill_area(dm, y, 0);
 	if (dm->height < 4)
 		error_out(FIL_ERROR, dm);
 }

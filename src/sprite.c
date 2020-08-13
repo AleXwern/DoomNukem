@@ -29,24 +29,6 @@ void	pickupitem(t_doom* dm)
 	}
 }
 
-/*
-void	drawinventory(t_doom *dm, int endx, int endy)//work in progress. Now really slows down the game.
-{
-	int	x;
-	int	y;
-
-	mlx_string_put(dm->mlx, dm->win, 710, 160, COLOR_ORANGE, "INVENTORY");
-	y = 149;
-	while (++y < endy)
-	{
-		x = 699;
-		while (++x < endx)
-		{
-			mlx_pixel_put(dm->mlx, dm->win, y, x, COLOR_WHITE);
-		}
-	}
-}*/
-
 void	load_animsprite(t_doom* dm)
 {
 	//This will be good for use later when we have many sprites:
@@ -213,7 +195,7 @@ void	draw_sprite(t_doom* dm)
 				render_floor(dm);
 			else
 				wall_stripe(dm);
-			
+
 			//trying to draw stationary sprite in map:
 
 			//saving the depth for each raycast

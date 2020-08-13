@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:34:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/12 12:47:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ t_gfx	gfx_get(t_doom *dm, char *file, int x, int y)
 	gfx.data = (Uint32*)gfx.tex->pixels;
 	free(file);
 	SDL_FreeRW(dm->rwops);
+	write(dm->cur, gfx.data, sizeof(Uint32) * gfx.wid * gfx.hgt);
+	write(dm->cur, "\nZZZ\n", 5);
 	return (gfx);
 }
 
@@ -83,6 +85,7 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "SpriteSheets/GreyDragon.xpm"), 384, 384);
 	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "misc/icon.xpm"), 157, 157);
 	dm->gfxcount = i;
+	close(dm->cur);
 	if (i != GFXCOUNT)
 		error_out(GFX_ERROR, dm);
 }
@@ -122,6 +125,7 @@ void	comp_gfx(t_doom *dm, int i)
 	bpath = ft_strjoin(path, "gfx/");
 	if (!(dm->gfx = (t_gfx*)malloc(sizeof(t_gfx) * GFXCOUNT)))
 		error_out(MEM_ERROR, dm);
+	dm->cur = open("gfx/dump", O_WRONLY/* | O_CREAT | O_EXCL, 0644*/);
 	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/sky.xpm", ""), 1080, 360);
 	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/floor.xpm", ""), 128, 128);
 	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/wall.xpm", ""), 128, 128);

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/12 15:23:29 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/13 15:04:50 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,21 +149,15 @@ int				key_release(int key, t_doom *dm)
 	if (key == KEY_ONE)
 		dm->key.one = 0;
 	if (key == KEY_TWO)
-	{
-		Mix_HaltChannel(dm->jetpackChannel);
 		dm->key.two = 0;
-	}
+	if (key == KEY_TRE)
+		dm->key.three = (dm->key.three == 0 ? 1 : 0);
 	if (key == KEY_Q)
 		dm->key.q = 0;
 	if (key == KEY_E)
 		dm->key.e = 0;
 	if (key == KEY_I || key == SDL_SCANCODE_I)
-	{
-		/*ft_putendl("I pressed");
-		load_animsprite(dm);
-		dm->key.i = dm->key.i == 1 ? 0 : 1;*/
 		dm->keycard = (dm->keycard == 0 ? 1 : 0);
-	}
 	if (key == KEY_SHIFT)
 		dm->movsp -= 0.06;
 	if (key == KEY_L)
@@ -207,20 +201,7 @@ void			jetpack(t_doom *dm)
 	}
 	if (dm->key.two)
 	{
-		if (!dm->jetpackOn)
-		{
-			dm->jetpackOn = 1;
-			if (!dm->jetpackChannel)
-			{
-				dm->jetpackChannel = Mix_PlayChannel(-1, dm->jetpack, -1);
-				printf("jetpackChannel = %d\n", dm->jetpackChannel);
-			}
-			else
-			{
-				//Mix_PlayChannel(dm->jetpackChannel, dm->jetpack, -1);
-				Mix_Resume(dm->jetpackChannel);
-			}
-		}
+		Mix_PlayChannel(-1, dm->jetpack, 0);
 		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
 			dm->pos.z -= 0.05 * (30.0 / dm->buffer / dm->prefps);
 	}

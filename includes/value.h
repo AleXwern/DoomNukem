@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/16 14:42:14 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/13 13:26:40 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,5 +182,11 @@
 # define			COLOR_ORANGE 16742400
 # define			COLOR_SKIP	0xffff00ff
 # define			DARKEN	0xff7f7f7f
+# define			DARKEN2	0xff3f3f3f
+# define			DARKEN3	0xff1F1F1F
+
+# define DARK1(X)	(X >> 1) & DARKEN;
+# define DARK2(X)	(X >> 2) & DARKEN2;
+# define DARK3(X)	(X >> 3) & DARKEN3;
 
 #endif

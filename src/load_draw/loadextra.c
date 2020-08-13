@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loadextra.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:40:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/07/22 11:13:12 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/08/13 12:50:07 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	load_numbers(t_doom *dm)
 
 void	load_keycard(t_doom *dm)
 {
+	char *test;
 	dm->keycardSurface = IMG_Load("./gfx/SpriteSheets/keycard.png");
 	dm->keycardTexture = SDL_CreateTextureFromSurface(dm->rend, dm->keycardSurface);
 	SDL_FreeSurface(dm->keycardSurface);
@@ -100,10 +101,10 @@ void	load_keycard(t_doom *dm)
 	dm->keycardRect.y = 0;
 	dm->keycardRect.w = 200;
 	dm->keycardRect.h = 140;
-	dm->screenkeycardRect.x = 20;
-	dm->screenkeycardRect.y = dm->winh - 55;
-	dm->screenkeycardRect.w = 50;
-	dm->screenkeycardRect.h = 50;
+	dm->screenkeycardRect.x = 15;
+	dm->screenkeycardRect.y = dm->winh - 78;
+	dm->screenkeycardRect.w = 70;
+	dm->screenkeycardRect.h = 55;
 }
 
 void	draw_keycard(t_doom *dm)

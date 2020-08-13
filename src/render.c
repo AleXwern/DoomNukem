@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/13 13:28:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/13 16:10:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,15 +284,14 @@ void	render(t_doom *dm)
 		else
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
-	//SDL_RenderPresent(dm->rend);
 	draw_gun(dm);
 	draw_crosshair(dm);
 	draw_ammo(dm);
 	draw_inventory(dm);
 	if (dm->keycard)
 		draw_keycard(dm);
-	/*if (dm->key.i)
-		draw_sprite(dm);*/
+	if (dm->key.three)
+		draw_sprite(dm);
 	if (dm->isoutline)
 		post_effects(dm);
 	//SDL_UpdateWindowSurface(dm->win);

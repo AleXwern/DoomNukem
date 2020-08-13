@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:32:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/13 13:19:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 void	draw_blk_select(t_doom* dm, t_editor *le, int x, int y)
 {
 	int		tx;
+	int		blk;
 
 	tx = 0;
+	blk = 1;
 	while (x < dm->winw - 750)
 	{
 		y = 0;
@@ -25,15 +27,19 @@ void	draw_blk_select(t_doom* dm, t_editor *le, int x, int y)
 		{
 			if (x % 107 == 0 || y % 107 == 0)
 				dm->img.data[dm->winw * (y + 375) + (x + 750)] = 0xfffcba03;
-			else if (x >= ((le->blk - 1) * 107) && x < (le->blk * 107))
-				dm->img.data[dm->winw * (y + 375) + (x + 750)] = dm->gfx[le->blk].data[dm->gfx[le->blk].wid * y + tx];
+			else if (le->blk == blk)
+				dm->img.data[dm->winw * (y + 375) + (x + 750)] = dm->gfx[blk].data[dm->gfx[blk].wid * y + tx];
 			else
-				dm->img.data[dm->winw * (y + 375) + (x + 750)] = 0xff000000;
+				dm->img.data[dm->winw * (y + 375) + (x + 750)] = DARK2(dm->gfx[blk].data[dm->gfx[blk].wid * y + tx]);
 			y++;
 		}
 		x++;
-		if (x >= ((le->blk - 1) * 107) && x < (le->blk * 107))
-			tx++;
+		tx++;
+		if (tx >= 107)//x >= ((le->blk - 1) * 107) && x < (le->blk * 107))
+		{
+			tx = 0;
+			blk++;
+		}
 	}
 }
 
