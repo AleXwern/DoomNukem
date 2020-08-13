@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/10 14:16:45 by anystrom         ###   ########.fr        #
+#    Updated: 2020/08/13 12:52:11 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,17 +78,7 @@ else
 	@gcc -g $(OBJFRAME) $(FLG) $(INCL) -o $@ -c $<
 endif
 
-objfolder:
-	@rm -rf obj/editor
-	@rm -rf obj/key
-	@rm -rf obj/fs
-	@rm -rf obj/load_draw
-	@mkdir obj/editor
-	@mkdir obj/key
-	@mkdir obj/fs
-	@mkdir obj/load_draw
-
-$(NAME): objfolder $(OBJ) $(LIBFT)
+$(NAME): $(OBJ) $(LIBFT)
 ifeq ($(OS),Windows_NT)
 	#clang $(WINSDLL) $(WININC) $(INCL) $(WINSDLI) -o $(NAME).exe $(OBJ) $(LIBFT)
 	@clang $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
@@ -107,10 +97,6 @@ clean:
 	@/bin/rm -f $(OBJ)
 	@echo Removing Libft libraries.
 	@make -C ./libft fclean
-	@rm -rf obj/editor
-	@rm -rf obj/key
-	@rm -rf obj/fs
-	@rm -rf obj/load_draw
 
 fclean: clean
 	@echo Removing binaries.
