@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/10 14:16:45 by anystrom         ###   ########.fr        #
+#    Updated: 2020/08/13 14:58:39 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ endif
 FLG =
 SRCFILE =	wolf.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
-			main_menu.c gravity.c
+			main_menu.c gravity.c sprite.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
 LOADDRAW =	gun.c gunextra.c loadextra.c
 FILESYS =	fileformat.c save_level.c

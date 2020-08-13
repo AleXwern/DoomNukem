@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/12 15:17:00 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/13 14:43:18 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,15 +409,13 @@ typedef struct	s_doom
 	/*
 	**	Variables for playing some sounds and music!
 	*/
-	Mix_Music	*music;
-	Mix_Chunk	*readyForAction;
-	Mix_Chunk	*doorOpen;
-	Mix_Chunk	*doorClose;
+	Mix_Music	*osrsMusic;
 	Mix_Chunk	*reload;
 	Mix_Chunk	*gunshot;
 	Mix_Chunk	*jetpack;
-	int			jetpackOn;
-	int			jetpackChannel;
+	Mix_Chunk	*doorsound;
+	Mix_Chunk	*doorknob;
+	Mix_Chunk	*teleport;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);
