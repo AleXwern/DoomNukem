@@ -119,13 +119,12 @@ int		main(int ac, char **av)
 	ft_bzero(dm, sizeof(t_doom));
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		error_out(SDL_ERROR, dm);
-	ft_putstr("Args: ");
 	//ft_putnbrln(ac);
 	//if (!IMG_Init(IMG_INIT_XPM))
 	//	error_out(IMG_ERROR, dm);
 	//if (ac != 4 && ac != 0)
 	//	error_out(USAGE, dm);
-	dm->tile = 3;
+	dm->tile = 4;
 	if (dm->tile < 1 || dm->tile > 6)
 		error_out(USAGE, dm);
 	dm->mxflr = 9;
@@ -147,12 +146,10 @@ int		main(int ac, char **av)
 	dm->winb = 1;
 	dm->winh = dm->img.tex->h;
 	dm->winw = dm->img.tex->w;
-	printf("Comp map\n");
 	dm->spawn.x = 2.51;
 	dm->spawn.y = 2.51;
 	dm->spawn.z = 2.5;
 	comp_map(dm);//, "Null");
-	printf("Comp GFX\n");
 	comp_gfx(dm, 0);
 	setup(dm);
 	return (0);

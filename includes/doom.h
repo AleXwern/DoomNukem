@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/13 14:43:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/14 15:00:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@
 # include "../frameworks/SDL2_image.framework/Headers/SDL_image.h"
 # include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 #endif
+
+#define	MAPTYPE		long
 
 typedef struct	s_key
 {
@@ -268,7 +270,7 @@ typedef struct	s_doom
 	int			flr;
 	int			mxflr;
 	int			mapset;
-	int			***area;
+	MAPTYPE		***area;
 	int			winb;
 	int			texbool;
 	double		rng;
@@ -309,6 +311,7 @@ typedef struct	s_doom
 	t_vector	dir;
 	t_vector	plane;
 	t_vector	map;
+	t_vector	tmap;
 	t_vector	cam;
 	t_vector	rayd;
 	t_vector	rmap1;
@@ -317,6 +320,7 @@ typedef struct	s_doom
 	t_vector	rayd0;
 	t_vector	rayd1;
 	t_vector	sided;
+	t_vector	tsided;
 	t_vector	deltad;
 	t_vector	flstep;
 	t_vector	floor;
@@ -470,6 +474,8 @@ void			combat_key(int key, t_doom *wlf);
 void			comp_foe(t_doom *wlf, char *bpath, int i);
 void			comp_gfx(t_doom *wolf, int i);
 void			comp_map(t_doom *wolf);//, char *av);
+void			curt_down(t_doom *dm);
+void			curt_up(t_doom *dm);
 void			destroy_gfx(t_doom *wlf, int i);
 void			doom_default(t_doom *wlf);
 void			draw_bg(t_doom *wlf, t_gfx gfx);

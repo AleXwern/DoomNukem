@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/13 12:48:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:12:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 		return (0);
 	if (temp[0][0] == 'z')
 		return (0);
-	if (!(dm->area[dm->flr][y] = (int*)malloc(sizeof(int) * 25)))
+	if (!(dm->area[dm->flr][y] = (MAPTYPE*)malloc(sizeof(MAPTYPE) * 25)))
 		error_out(MEM_ERROR, dm);
 	while (temp[x] && x < 25)
 	{
@@ -121,7 +121,7 @@ void	comp_map(t_doom *dm)//, char *av)
 	char*	path;
 
 	dm->width = 25;
-	if (!(dm->area = (int***)malloc(sizeof(int**) * 9)))
+	if (!(dm->area = (MAPTYPE***)malloc(sizeof(MAPTYPE**) * 9)))
 		error_out(MEM_ERROR, dm);
 	path = SDL_GetBasePath();
 	fpath = ft_strjoin(path, "map/1s");
@@ -139,7 +139,7 @@ void	comp_map(t_doom *dm)//, char *av)
 	{
 		if (dm->flr >= dm->mxflr)
 			return ;
-		if (!(dm->area[dm->flr] = (int**)malloc(sizeof(int*) * 25)))
+		if (!(dm->area[dm->flr] = (MAPTYPE**)malloc(sizeof(MAPTYPE*) * 25)))
 			error_out(MEM_ERROR, dm);
 		//dm->flr += 49;
 		//flrfl = ft_strjoin(av, (char*)&(dm->flr));

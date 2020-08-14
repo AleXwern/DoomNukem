@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:35:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:37:43 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,10 @@ Uint32	color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret)
 		ret = 10 * dm->shift;
 	if (ret < 1)
 		return (color);
-	SDL_GetRGB(color, dm->img.tex->format, &r, &b, &g);
-	r /= ret;
-	g /= ret;
-	b /= ret;
-	ret = SDL_MapRGB(dm->img.tex->format, r, b, g);
+	r = R(color) / ret;
+	g = G(color) / ret;
+	b = B(color) / ret;
+	ret = ARGB(r, g, b);
 	return (ret);
 }
 

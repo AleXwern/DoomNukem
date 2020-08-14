@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/13 13:26:40 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:35:57 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,9 @@
 # define DARK1(X)	(X >> 1) & DARKEN;
 # define DARK2(X)	(X >> 2) & DARKEN2;
 # define DARK3(X)	(X >> 3) & DARKEN3;
+# define ARGB(R, B, G)	(0xff000000 | (R << 16) | (B << 8) | G)
+# define R(X)		((X >> 16) & 0xff)
+# define G(X)		((X >> 8) & 0xff)
+# define B(X)		(X & 0xff)
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/10 14:47:39 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:04:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_sky(t_doom *dm)
 	if (dm->sboy < 0)
 		dm->sboy += dm->winh;
 	if (dm->texbool)
-		dm->img.data[dm->winw * dm->y + dm->x] = dm->gfx[0].data[dm->winw * ((dm->y + dm->sboy) % 360) + (dm->x + dm->sbox)];
+		dm->img.data[dm->winw * dm->y + dm->x] = dm->gfx[0].data[dm->winw * ((dm->y + dm->sboy) % 360) + (dm->x + dm->sbox) % 1080];
 	else
 		dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
 }
