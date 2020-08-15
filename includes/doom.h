@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:17:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/14 15:00:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # include <string.h>
 
 # define main(X, Y)			wmain(X, Y)
+# define close(X)			_close(X)
 //# define open(W, X, Y)		_sopen_s(W, X, Y, _SH_DENYWR, _S_IREAD);
 #elif __APPLE__
 /*
@@ -53,6 +54,8 @@
 # include "../frameworks/SDL2_image.framework/Headers/SDL_image.h"
 # include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 #endif
+
+#define	MAPTYPE		long
 
 typedef struct	s_key
 {
@@ -268,7 +271,7 @@ typedef struct	s_doom
 	int			flr;
 	int			mxflr;
 	int			mapset;
-	int			***area;
+	MAPTYPE		***area;
 	int			winb;
 	int			texbool;
 	double		rng;
@@ -309,6 +312,7 @@ typedef struct	s_doom
 	t_vector	dir;
 	t_vector	plane;
 	t_vector	map;
+	t_vector	tmap;
 	t_vector	cam;
 	t_vector	rayd;
 	t_vector	rmap1;
@@ -317,6 +321,7 @@ typedef struct	s_doom
 	t_vector	rayd0;
 	t_vector	rayd1;
 	t_vector	sided;
+	t_vector	tsided;
 	t_vector	deltad;
 	t_vector	flstep;
 	t_vector	floor;
@@ -409,12 +414,13 @@ typedef struct	s_doom
 	/*
 	**	Variables for playing some sounds and music!
 	*/
-	Mix_Music	*music;
-	Mix_Chunk	*readyForAction;
-	Mix_Chunk	*doorOpen;
-	Mix_Chunk	*doorClose;
+	Mix_Music	*osrsMusic;
 	Mix_Chunk	*reload;
 	Mix_Chunk	*gunshot;
+	Mix_Chunk	*jetpack;
+	Mix_Chunk	*doorsound;
+	Mix_Chunk	*doorknob;
+	Mix_Chunk	*teleport;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);
@@ -469,6 +475,8 @@ void			combat_key(int key, t_doom *wlf);
 void			comp_foe(t_doom *wlf, char *bpath, int i);
 void			comp_gfx(t_doom *wolf, int i);
 void			comp_map(t_doom *wolf);//, char *av);
+void			curt_down(t_doom *dm);
+void			curt_up(t_doom *dm);
 void			destroy_gfx(t_doom *wlf, int i);
 void			doom_default(t_doom *wlf);
 void			draw_bg(t_doom *wlf, t_gfx gfx);
@@ -497,7 +505,7 @@ void			key_release_menu(int key, t_doom *wlf);
 void			key_state_editor(t_editor *le, t_doom *dm);
 void			key_state_game(t_doom *wlf);
 void			key_state_menu(t_doom* wlf);
-void			lab_move(t_doom *wlf, int obj);
+void			lab_move(t_doom *wlf, int obj, t_vector stair);
 void			main_menu(t_doom *wlf);
 void			options_menu(t_doom *wlf);
 void			place_pc(t_doom *wlf, int pc);

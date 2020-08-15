@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:30:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/13 15:04:50 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,17 +150,14 @@ int				key_release(int key, t_doom *dm)
 		dm->key.one = 0;
 	if (key == KEY_TWO)
 		dm->key.two = 0;
+	if (key == KEY_TRE)
+		dm->key.three = (dm->key.three == 0 ? 1 : 0);
 	if (key == KEY_Q)
 		dm->key.q = 0;
 	if (key == KEY_E)
 		dm->key.e = 0;
 	if (key == KEY_I || key == SDL_SCANCODE_I)
-	{
-		/*ft_putendl("I pressed");
-		load_animsprite(dm);
-		dm->key.i = dm->key.i == 1 ? 0 : 1;*/
 		dm->keycard = (dm->keycard == 0 ? 1 : 0);
-	}
 	if (key == KEY_SHIFT)
 		dm->movsp -= 0.06;
 	if (key == KEY_L)
@@ -198,11 +195,16 @@ int				x_press(t_doom *wolf)
 void			jetpack(t_doom *dm)
 {
 	if (dm->key.one)
+	{
 		if (dm->area[(int)(dm->pos.z + 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
 			dm->pos.z += 0.05 * (30.0 / dm->buffer / dm->prefps);
+	}
 	if (dm->key.two)
+	{
+		Mix_PlayChannel(-1, dm->jetpack, 0);
 		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
 			dm->pos.z -= 0.05 * (30.0 / dm->buffer / dm->prefps);
+	}
 }
 
 int				mouse_move(int x, int y, t_doom *dm)

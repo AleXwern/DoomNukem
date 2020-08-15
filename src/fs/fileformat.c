@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/31 17:22:22 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:12:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ void	validate_map(t_doom *dm, int i, int a)
 	}
 }
 
-void	fill_area(t_doom* dm, int* y, int x)
+void	fill_area(t_doom* dm, int y, int x)
 {
 	while (++x < 25)
-		dm->area[dm->flr][*y][x] = 2;
-	*y++;
+		dm->area[dm->flr][y][x] = 2;
 }
 
 int		templen(char **temp)
@@ -66,7 +65,7 @@ int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 		return (0);
 	if (temp[0][0] == 'z')
 		return (0);
-	if (!(dm->area[dm->flr][y] = (int*)malloc(sizeof(int) * 25)))
+	if (!(dm->area[dm->flr][y] = (MAPTYPE*)malloc(sizeof(MAPTYPE) * 25)))
 		error_out(MEM_ERROR, dm);
 	while (temp[x] && x < 25)
 	{
@@ -108,10 +107,9 @@ void	fileformat(int fd, t_doom *dm, int y)
 		free_memory(temp);
 		dm->height = y;
 	}
-	while (y < 25)
-		fill_area(dm, &y, 0);
-	//if (dm->height == -1)
-	//	dm->height = y;
+	y--;
+	while (++y < 25)
+		fill_area(dm, y, 0);
 	if (dm->height < 4)
 		error_out(FIL_ERROR, dm);
 }
@@ -123,7 +121,7 @@ void	comp_map(t_doom *dm)//, char *av)
 	char*	path;
 
 	dm->width = 25;
-	if (!(dm->area = (int***)malloc(sizeof(int**) * 9)))
+	if (!(dm->area = (MAPTYPE***)malloc(sizeof(MAPTYPE**) * 9)))
 		error_out(MEM_ERROR, dm);
 	path = SDL_GetBasePath();
 	fpath = ft_strjoin(path, "map/1s");
@@ -141,7 +139,7 @@ void	comp_map(t_doom *dm)//, char *av)
 	{
 		if (dm->flr >= dm->mxflr)
 			return ;
-		if (!(dm->area[dm->flr] = (int**)malloc(sizeof(int*) * 25)))
+		if (!(dm->area[dm->flr] = (MAPTYPE**)malloc(sizeof(MAPTYPE*) * 25)))
 			error_out(MEM_ERROR, dm);
 		//dm->flr += 49;
 		//flrfl = ft_strjoin(av, (char*)&(dm->flr));
@@ -165,10 +163,6 @@ void	comp_map(t_doom *dm)//, char *av)
 		dm->flr++;
 	}
 	dm->height = 25;
-	#if _WIN64
-		_close(fd);
-	#elif __APPLE__
-		close(fd);
-	#endif
+	close(fd);
 	//validate_map(dm, -1, -1);
 }

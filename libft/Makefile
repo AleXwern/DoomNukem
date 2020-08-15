@@ -6,7 +6,7 @@
 #    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/30 16:09:13 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/06 22:07:39 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/08/14 21:43:19 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,6 @@ else
 endif
 	@mv $(OBJS) ../obj
 	@mv $(NAME) ../obj
-	echo $(OS)
 
 clean:
 	@/bin/rm -f $(addprefix $(OBJFLD),$(OBJS))
