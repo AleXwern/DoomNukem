@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/14 14:09:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/17 16:04:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,75 +15,12 @@
 
 #include <stdio.h>//
 
-#define	DATA_BLK	(7 / 15.0)
-
-void	single_loop(t_doom* dm)
-{
-	dm->tmap = dm->map;
-	dm->tsided = dm->sided;
-	if (dm->sided.x < dm->sided.y && dm->sided.x < dm->sided.z)
-	{
-		dm->tsided.x += dm->deltad.x;
-		dm->tmap.x += dm->stepx;
-		dm->side = 0;
-	}
-	else if (dm->sided.y < dm->sided.x && dm->sided.y < dm->sided.z)
-	{
-		dm->tsided.y += dm->deltad.y;
-		dm->tmap.y += dm->stepy;
-		dm->side = 1;
-	}
-	else
-	{
-		dm->tsided.z += dm->deltad.z;
-		dm->tmap.z += dm->stepz;
-		dm->side = 2;
-	}
-	if (dm->side == 0)
-		dm->walldist = (dm->tmap.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
-	else if (dm->side == 1)
-		dm->walldist = (dm->tmap.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
-	else
-		dm->walldist = (dm->tmap.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	dm->rmap2.z = dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->tmap.z;
-}
-
-void	part_dda(t_doom* dm)
-{
-	dm->hithalf = 0;
-	if (dm->side == 0)
-		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
-	else if (dm->side == 1)
-		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
-	else
-		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	if (dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->map.z >= DATA_BLK)
-		dm->hit = 1;
-	else if (dm->rayd.z > 0 && dm->hit != 1)
-	{
-		dm->rmap1.z = dm->pos.z + (dm->rayd.z * dm->walldist);
-		dm->rmap1.y = dm->pos.y + (dm->rayd.y * dm->walldist);
-		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
-		single_loop(dm);
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] < 6)
-			dm->hit = 1;
-		if (dm->rmap2.z < DATA_BLK && dm->rmap2.z > 0)
-			return;
-		dm->sided.z += dm->deltad.z;
-		dm->map.z += dm->stepz * DATA_BLK;
-		dm->side = 2;
-		dm->hit = 1;
-		dm->hithalf = 1;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
-			part_dda(dm);
-	}
-}
-
 void	dda_sys(t_doom *dm)
 {
 	int	map;
 
 	dm->hit = 0;
+	ft_bzero(&dm->texshift, sizeof(t_ivector));
 	while (dm->hit == 0)
 	{
 		if (dm->sided.x < dm->sided.y && dm->sided.x < dm->sided.z)
@@ -111,7 +48,16 @@ void	dda_sys(t_doom *dm)
 			return;
 		}
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
-			part_dda(dm);
+		{
+			part_dda_zp(dm);	//Z plane, filled top - Rays go through the block sometimes
+			//part_dda_zn(dm);	//Z plane, filled bottom
+			//part_dda_yp(dm);	//Y plane, filled top
+			//part_dda_yn(dm);	//Y plane, filled bottom
+			//part_dda_xp(dm);	//X plane, filled top
+			//part_dda_xn(dm);	//X plane, filled bottom
+			//slope_dda_xzn(dm);	//XZ slope, filled bottom
+			//slope_dda_xzp(dm);	//XZ slope, filled top
+		}
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 6)
 			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] = 1;
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1)
@@ -125,12 +71,6 @@ void	dda_sys(t_doom *dm)
 				dm->disttosprite = ((dm->pos.x - dm->map.x) * (dm->pos.x - dm->map.x) + (dm->pos.y - dm->map.y) * (dm->pos.y - dm->map.y));//initialize disttosprite
 			}
 		}
-		/*if (dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x] != 6 && dm->hithalf)
-		{
-			dm->map.z += dm->stepz * 0.5;
-			dm->hit = 0;
-			dm->hithalf = 0;
-		}*/
 	}
 }
 
@@ -246,7 +186,7 @@ int		renthread(void *ptr)
 			dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
 			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			{
-				//printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\nRmapZ %f %f\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->rayd.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side % 3, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x], dm->rmap1.z, dm->rmap2.z);
+				printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\nRmapZ %f %f\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->rayd.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x], dm->rmap1.z, dm->rmap2.z);
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
 			}
 			else

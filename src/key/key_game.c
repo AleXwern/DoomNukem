@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/13 15:04:50 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/17 14:02:40 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ int				mouse_move(int x, int y, t_doom *dm)
 	if (y && abs(y) < dm->winh)
 	{
 		rota.y = (double)y / dm->winh * OSCAM;
-		if (dm->dir.z + rota.y > -0.5 && dm->dir.z + rota.y < 0.5)
+		if (dm->dir.z + rota.y > -0.7 && dm->dir.z + rota.y < 0.7)
 			dm->dir.z += rota.y;
 		dm->camshift = 1.0 - (dm->dir.z * 2);
 		dm->sboy = dm->winh * (dm->dir.z + 0.5);

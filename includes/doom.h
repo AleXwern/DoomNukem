@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/14 15:00:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/17 15:58:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,10 +193,14 @@ typedef struct	s_editor
 
 typedef struct	s_block
 {
-	int			t;
-	int			sid;
-	int			meta;
-	t_vector	p[3];
+	Uint8		blk;
+	Uint8		zhal;
+	Uint8		xhal;
+	Uint8		yhal;
+	Uint8		zslp;
+	Uint8		xslp;
+	Uint8		yslp;
+	Uint8		meta;
 }				t_block;
 
 /*
@@ -325,6 +329,7 @@ typedef struct	s_doom
 	t_vector	deltad;
 	t_vector	flstep;
 	t_vector	floor;
+	t_ivector	texshift;
 	double		walldist;
 	double		rowdist;
 	double		movsp;
@@ -518,6 +523,18 @@ void			resize_window(t_doom *wlf);
 void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
 void			wall_stripe(t_doom *wlf);
 void			wind_default(t_doom *wlf);
+
+void			part_dda_zn(t_doom* dm);
+void			part_dda_zp(t_doom* dm);
+void			part_dda_yn(t_doom* dm);
+void			part_dda_yp(t_doom* dm);
+void			part_dda_xn(t_doom* dm);
+void			part_dda_xp(t_doom* dm);
+void			slope_dda_xzn(t_doom* dm);
+void			slope_dda_xzp(t_doom* dm);
+void			single_loop_z(t_doom* dm);
+void			single_loop_y(t_doom* dm);
+void			single_loop_x(t_doom* dm);
 
 double			dot_prd(t_vector v, t_vector u);
 

@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/14 14:56:00 by anystrom         ###   ########.fr        #
+#    Updated: 2020/08/17 15:17:42 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,16 @@ LOADDRAW =	gun.c gunextra.c loadextra.c
 FILESYS =	fileformat.c save_level.c
 EDTFILE =	editor.c render_editor.c
 ANMFILE =	staireff.c
+RNDFILE =	plane_z.c plane_y.c plane_x.c \
+			slope_z.c \
+			part_dda.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
 			$(addprefix ./src/editor/,$(EDTFILE)) \
 			$(addprefix ./src/fs/,$(FILESYS)) \
-			$(addprefix ./src/animation/,$(ANMFILE))
+			$(addprefix ./src/animation/,$(ANMFILE)) \
+			$(addprefix ./src/render/,$(RNDFILE))
 LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
@@ -41,7 +45,8 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/load_draw/,$(LOADDRAW:.c=$(OEXT))) \
 			$(addprefix ./obj/editor/,$(EDTFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/fs/,$(FILESYS:.c=$(OEXT))) \
-			$(addprefix ./obj/animation/,$(ANMFILE:.c=$(OEXT)))
+			$(addprefix ./obj/animation/,$(ANMFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/render/,$(RNDFILE:.c=$(OEXT)))
 OBJDIR =	./obj/
 SRCDIR =	./src/
 INCL =		-I ./SDL2 -I ./libft -I ./includes
