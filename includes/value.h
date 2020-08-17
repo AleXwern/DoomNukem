@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/14 14:35:57 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/17 15:50:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # define WINDOW		"DoomNukem"
 
 # include "doom.h"
+
+//Data block is used to test how plane cuts. Replaced by t_block.zhal when ready.
+#define	DATA_BLK	(11 / 15.0)
+//#define	DATA_BLK	(0.5)
 
 # define G_ERROR	"General error happened. Exiting program."
 # define B_ARG		"Error: Bad argument."

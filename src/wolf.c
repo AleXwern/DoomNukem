@@ -44,6 +44,7 @@ void	error_out(char *msg, t_doom *dm)
 	SDL_Quit();
 	ft_bzero(dm, sizeof(dm));
 	system("leaks doom-nukem");
+	//printf("%d %ld\n", sizeof(t_block), sizeof(long));
 	exit(0);
 }
 
@@ -81,7 +82,7 @@ void	setup(t_doom *dm)
 	//SDL_Thread* capper;
 	init_audio(dm);
 	doom_default(dm);
-	printf("Spawn at %d\n", dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x]);
+	printf("Spawn at %ld\n", dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x]);
 	dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x] = 1;
 	dm->fpsthread = SDL_CreateThread(fps_counter, "fps counter", (void*)dm);
 	char* path = SDL_GetBasePath();
