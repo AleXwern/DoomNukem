@@ -18,6 +18,7 @@
 void	error_out(char *msg, t_doom *dm)
 {
 	ft_putendl(msg);
+	ft_putendl(__TIME__);
 	//ft_putendl(SDL_GetError());
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	dm->killthread = 1;
@@ -119,11 +120,6 @@ int		main(int ac, char **av)
 	ft_bzero(dm, sizeof(t_doom));
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		error_out(SDL_ERROR, dm);
-	//ft_putnbrln(ac);
-	//if (!IMG_Init(IMG_INIT_XPM))
-	//	error_out(IMG_ERROR, dm);
-	//if (ac != 4 && ac != 0)
-	//	error_out(USAGE, dm);
 	dm->tile = 4;
 	if (dm->tile < 1 || dm->tile > 6)
 		error_out(USAGE, dm);
@@ -137,12 +133,6 @@ int		main(int ac, char **av)
 		if (!(dm->rend = SDL_GetRenderer(dm->win)))
 			error_out(REN_ERROR, dm);
 	dm->img = init_image(dm);
-	/*if (!(dm->gpad = SDL_GameControllerOpen(0)))
-		ft_putendl(PAD_ERROR);
-	else
-		ft_putendl(SDL_GameControllerName(dm->gpad));
-	if (SDL_GameControllerAddMappingsFromFile("mapping.txt") == -1)
-		ft_putendl("UWU");*/
 	dm->winb = 1;
 	dm->winh = dm->img.tex->h;
 	dm->winw = dm->img.tex->w;
