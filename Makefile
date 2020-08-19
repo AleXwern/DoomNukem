@@ -3,23 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/17 15:17:42 by anystrom         ###   ########.fr        #
+#    Updated: 2020/08/19 22:19:19 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME =		doom-nukem
-ifeq ($(OS),Windows_NT)
-OEXT = .obj
-LEXT = .lib
-else
-OEXT = .o
-LEXT = .a
-endif
-FLG = -O2
+OEXT = 		.o
+LEXT = 		.a
+FLG = 		-O2
 SRCFILE =	wolf.c gfx.c loop.c render.c draw.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
 			main_menu.c gravity.c sprite.c
@@ -47,6 +42,7 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/fs/,$(FILESYS:.c=$(OEXT))) \
 			$(addprefix ./obj/animation/,$(ANMFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/render/,$(RNDFILE:.c=$(OEXT)))
+DEPNS =		$(OBJ:.c=.d)
 OBJDIR =	./obj/
 SRCDIR =	./src/
 INCL =		-I ./SDL2 -I ./libft -I ./includes
@@ -77,20 +73,13 @@ $(LIBFT):
 	@echo Compiling Libft libraries.
 	@make -C ./libft
 
-$(OBJDIR)%$(OEXT):$(SRCDIR)%.c
-ifeq ($(OS),Windows_NT)
-	@echo "Compiling Wolf3D -> $@"
-	clang $(WININC) $(WINSDLI) -o $@ -c $<
-else
+-include $(DEPNS)
+
+$(OBJDIR)%.o:$(SRCDIR)%.c
 	@echo "Compiling Wolf3D -> $(RED)$@$(STOP)"
-	@gcc -g $(OBJFRAME) $(FLG) $(INCL) -o $@ -c $<
-endif
+	@gcc -g $(OBJFRAME) $(FLG) -MMD $(INCL) -o $@ -c $<
 
 $(NAME): $(OBJ) $(LIBFT)
-ifeq ($(OS),Windows_NT)
-	#clang $(WINSDLL) $(WININC) $(INCL) $(WINSDLI) -o $(NAME).exe $(OBJ) $(LIBFT)
-	@clang $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
-else
 	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
 	@Rez -a icon.rsrc -o $(NAME)
@@ -98,7 +87,6 @@ else
 	@rm icon.rsrc
 	@echo Executable created successfully. Get maps with 'make git'.
 	@echo Run the executable as ./doom-nukem. No args.
-endif
 
 clean:
 	@echo "Removing Wolf3D libraries."
