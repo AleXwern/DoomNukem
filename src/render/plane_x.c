@@ -38,8 +38,6 @@ void	part_dda_xn(t_doom* dm)
 		dm->side = 0;
 		dm->hit = 1;
 		dm->hithalf++;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
-			part_dda_xn(dm);
 	}
 }
 
@@ -61,15 +59,13 @@ void	part_dda_xp(t_doom* dm)
 		single_loop_x(dm);
 		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] < 6)
 			dm->hit = 1;
-		if (dm->rmap2.x > (1 - DATA_BLK) && dm->rmap2.x < 1)
+		if (dm->rmap2.x > (1 - DATA_BLK) && dm->rmap2.x < LIM)
 			return;
 		dm->sided.x += dm->deltad.x;
 		dm->map.x += dm->stepx * DATA_BLK;
 		dm->side = 0;
 		dm->hit = 1;
 		dm->hithalf++;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
-			part_dda_xp(dm);
 		dm->texshift.x = 1;
 	}
 }

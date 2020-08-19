@@ -227,7 +227,7 @@ int				mouse_move(int x, int y, t_doom *dm)
 	if (y && abs(y) < dm->winh)
 	{
 		rota.y = (double)y / dm->winh * OSCAM;
-		if (dm->dir.z + rota.y > -0.7 && dm->dir.z + rota.y < 0.7)
+		if (dm->dir.z + rota.y > -0.5 && dm->dir.z + rota.y < 0.5)
 			dm->dir.z += rota.y;
 		dm->camshift = 1.0 - (dm->dir.z * 2);
 		dm->sboy = dm->winh * (dm->dir.z + 0.5);

@@ -61,6 +61,7 @@
 # define GFXCOUNT	26
 # define THREADS	6
 # define BUFFER		6
+# define LIM		0.999999
 
 #if __APPLE__
 # define OSCAM		1
@@ -118,7 +119,7 @@
 # define KEY_SHIFT	SDL_SCANCODE_LSHIFT
 # define KEY_CTRL	256// dont use this. its a shortcut key on mac which just messes up the program.
 #elif _WIN64
-# define OSCAM		10
+# define OSCAM		4
 
 # define ESC		SDL_SCANCODE_ESCAPE
 # define KEY_ONE	SDL_SCANCODE_1

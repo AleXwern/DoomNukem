@@ -54,7 +54,7 @@ void	wall_stripe(t_doom *dm)
 {
 	if (dm->texbool)
 	{
-		dm->texnum = dm->area[(int)dm->map.z + dm->texshift.z][(int)dm->map.y + dm->texshift.y][(int)dm->map.x + dm->texshift.x];
+		dm->texnum = dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)];
 		if (dm->texnum > 6)//This is a (temporary) fix for the issue where having a value higher than 5 on the map creating a wal with a weird texture.
 			dm->texnum = 2;
 		if (dm->side % 3 == 0)

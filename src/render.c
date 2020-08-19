@@ -49,13 +49,13 @@ void	dda_sys(t_doom *dm)
 		}
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
 		{
-			part_dda_zp(dm);	//Z plane, filled top - Rays go through the block sometimes
+			//part_dda_zp(dm);	//Z plane, filled top - Rays go through the block sometimes, fixed by 1 -> 0.99999
 			//part_dda_zn(dm);	//Z plane, filled bottom
 			//part_dda_yp(dm);	//Y plane, filled top
 			//part_dda_yn(dm);	//Y plane, filled bottom
 			//part_dda_xp(dm);	//X plane, filled top
 			//part_dda_xn(dm);	//X plane, filled bottom
-			//slope_dda_xzn(dm);	//XZ slope, filled bottom
+			slope_dda_xzn(dm);	//XZ slope, filled bottom
 			//slope_dda_xzp(dm);	//XZ slope, filled top
 		}
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 6)
@@ -187,6 +187,7 @@ int		renthread(void *ptr)
 			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			{
 				printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\nRmapZ %f %f\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->rayd.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x], dm->rmap1.z, dm->rmap2.z);
+				dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
 			}
 			else

@@ -38,8 +38,6 @@ void	part_dda_zn(t_doom* dm)
 		dm->side = 2;
 		dm->hit = 1;
 		dm->hithalf++;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
-			part_dda_zn(dm);
 	}
 }
 
@@ -61,9 +59,7 @@ void	part_dda_zp(t_doom* dm)
 		single_loop_z(dm);
 		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] < 6)
 			dm->hit = 1;
-		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("DATA %f %f\n", dm->rmap2.z, DATA_BLK);
-		if (dm->rmap2.z > (1 - DATA_BLK) && dm->rmap2.z < 1)
+		if (dm->rmap2.z > (1 - DATA_BLK) && dm->rmap2.z < LIM)
 			return;
 		dm->sided.z += dm->deltad.z;
 		dm->map.z += dm->stepz * DATA_BLK;
@@ -71,7 +67,5 @@ void	part_dda_zp(t_doom* dm)
 		dm->hit = 1;
 		dm->hithalf++;
 		dm->texshift.z = 1;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
-			part_dda_zp(dm);
 	}
 }
