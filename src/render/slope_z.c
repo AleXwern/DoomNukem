@@ -30,17 +30,15 @@ void	slope_dda_xzn(t_doom* dm)
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop_z(dm);
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] < 6)
-			dm->hit = 1;
-		if (dm->rmap2.z < dm->rmap2.y)// && dm->rmap2.z > 0)
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("RMAP %f <= %f\n", dm->rmap2.z, dm->rmap2.y);
+		if (dm->rmap2.z >= dm->rmap2.y || dm->rmap2.z < (1 - LIM))// || dm->rmap2.z > 0)
 			return;
 		dm->sided.z += dm->deltad.z;
-		dm->map.z += dm->stepz * (1 - dm->rmap2.y);
+		dm->map.z += dm->stepz * dm->rmap2.y;
 		dm->side = 2;
-		dm->hit = 1;
+		dm->hit = 3;
 		dm->hithalf++;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
-			slope_dda_xzn(dm);
 	}
 }
 

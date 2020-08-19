@@ -194,6 +194,8 @@ int		renthread(void *ptr)
 			{
 				if (dm->hit == 2)
 					draw_sky(dm);
+				else if (dm->hit == 3)
+					dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
 				else if (dm->side == 2 || dm->side == 5) // Uncomment these for normal render
 					render_floor(dm);
 				else
