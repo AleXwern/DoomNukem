@@ -13,6 +13,28 @@
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
+void	initSprite(t_sprite *sprite)
+{
+	sprite->id = 0;
+	sprite->pos.x = 0;
+	sprite->pos.y = 0;
+	sprite->pos.z = 1;
+	sprite->hp = 100;
+}
+
+void	damageSprite(t_doom *dm, int spriteId, int damage)
+{
+	dm->sprite.hp -= damage;
+	if (dm->sprite.hp <= 0)//sprite dies
+	{
+		//play sprite death-soundeffect here
+	}
+	else//sprite got hit but didn't die
+	{
+		Mix_PlayChannel(-1, dm->gettingHit, 0);
+	}
+}
+
 void	pickupitem(t_doom* dm)
 {
 	int			obj;

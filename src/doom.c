@@ -75,6 +75,7 @@ void	init_audio(t_doom *dm)
 	dm->doorsound = Mix_LoadWAV("Audio/SoundEffects/door.wav");
 	dm->teleport = Mix_LoadWAV("Audio/SoundEffects/teleport.wav");
 	dm->doorknob = Mix_LoadWAV("Audio/SoundEffects/doorknob.wav");
+	dm->gettingHit = Mix_LoadWAV("Audio/SoundEffects/gettinghit.wav");
 }
 
 void	setup(t_doom *dm)

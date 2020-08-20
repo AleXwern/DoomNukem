@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/08/14 15:01:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 13:12:56 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int		get_stairdest(t_doom* dm, int obj, t_vector pos, t_vector stair)
 	stair.z = dm->pos.z + obj;
 	if (dm->area[(int)stair.z][(int)stair.y][(int)stair.x] == 1)
 	{
+		Mix_PlayChannel(-1, dm->teleport, 0);
 		curt_down(dm);
 		dm->pos = stair;
 		curt_up(dm);
 	}
-	Mix_PlayChannel(-1, dm->teleport, 0);
 	return (1);
 }
 
