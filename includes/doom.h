@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 15:44:52 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 16:00:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,13 @@ typedef struct	s_block
 	Uint8		pln;
 	Uint8		meta;
 }				t_block;
+
+typedef struct	s_sprite
+{
+	int			id;//what kind of sprite it is
+	t_vector	pos;
+	int			hp;
+}				t_sprite;
 
 /*
 ** mlx	= MLX pointer
@@ -395,6 +402,8 @@ typedef struct	s_doom
 	int			anim;
 	int			frame;
 
+	t_sprite	sprite;//new
+
 	double		depthbuffer[1080];
 	double		disttosprite;
 	t_vector	spriteLoc;
@@ -423,6 +432,7 @@ typedef struct	s_doom
 	Mix_Chunk	*doorsound;
 	Mix_Chunk	*doorknob;
 	Mix_Chunk	*teleport;
+	Mix_Chunk	*gettingHit;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);
