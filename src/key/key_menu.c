@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/10 14:27:26 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 12:29:58 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	key_release_menu(int key, t_doom *dm)
 			ft_bzero(&dm->key, sizeof(t_key));
 			reset_position(dm);
 			dm->ismenu = 0;
-			dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x] = 1;
+			dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x].b = 1;
 			//Mix_PlayChannel(-1, dm->readyForAction, 0);
 		}
 		else if (dm->sel == 1)

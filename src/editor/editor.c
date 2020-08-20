@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:32:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 14:15:56 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@
 void	defaults(t_editor *le, t_doom *dm)
 {
 	ft_bzero(le, sizeof(t_editor));
-	dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x] = 7;
+	dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x].b = 7;
 	le->blk = 2;
-	le->options[0] = dm->width;
-	le->options[1] = dm->height;
-	le->options[2] = dm->mxflr;
-	le->options[3] = 2;
-	le->options[4] = dm->tile;
-	le->maxval[0] = 25.0;
-	le->maxval[1] = 25.0;
-	le->maxval[2] = 9.0;
-	le->maxval[3] = dm->mxflr - 1;
-	le->maxval[4] = 6.0;
-	le->minval[0] = 5;
-	le->minval[1] = 5;
+	le->options[0] = 2;				//floor
+	le->options[1] = 15;			//light
+	le->options[2] = 0;				//plane type, NULL-ZYX, PN
+	le->options[3] = 0;				//plane thickness
+	le->options[4] = 0;				//metadata
+	le->maxval[0] = dm->mxflr - 1;
+	le->maxval[1] = 15.0;
+	le->maxval[2] = 8.0;
+	le->maxval[3] = 15.0;
+	le->maxval[4] = 1.0;
+	le->minval[0] = 0;
+	le->minval[1] = 0;
 	le->minval[2] = 0;
 	le->minval[3] = 0;
-	le->minval[4] = 1;
+	le->minval[4] = 0;
 }
 
 void	render_editor(t_doom *dm, t_editor *le)
@@ -66,9 +66,6 @@ void	editor_main(t_doom *dm)
 		dm->fps++;
 	}
 	SDL_SetWindowSize(dm->win, WINX, WINY);
-	dm->tile = le->options[4];
-	destroy_gfx(dm, -1);
-	comp_gfx(dm, 0);
 	free(le);
 	dm->pos = dm->spawn;
 }

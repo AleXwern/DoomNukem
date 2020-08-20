@@ -6,12 +6,12 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/17 16:01:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 14:56:04 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
 
 void	draw_sky(t_doom *dm)
 {
@@ -43,6 +43,8 @@ void	draw_stripe(t_doom *dm)
 		if (dm->texy < 0)
 			dm->texy += 128;
 		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * dm->gfx[dm->texnum].tex->pitch / 4 + dm->texx % 128 * dm->gfx[2].tex->format->BitsPerPixel / 32], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		dm->map = light_map(dm->map, dm->side);
+		dm->col = rl_color(dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x], dm->col);
 	}
 	if (dm->side > 2)
 		dm->col = (dm->col >> 1) & DARKEN;
@@ -54,7 +56,7 @@ void	wall_stripe(t_doom *dm)
 {
 	if (dm->texbool)
 	{
-		dm->texnum = dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)];
+		dm->texnum = dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].b;
 		if (dm->texnum > 6)//This is a (temporary) fix for the issue where having a value higher than 5 on the map creating a wal with a weird texture.
 			dm->texnum = 2;
 		if (dm->side % 3 == 0)
@@ -68,7 +70,7 @@ void	wall_stripe(t_doom *dm)
 		else if (dm->side == 1 && dm->rayd.y < 0)
 			dm->texx = 128 - dm->texx - 1;
 	}
-	else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] != 2)
+	else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b != 2)
 		dm->col = 0xff22a800;
 	draw_stripe(dm);
 }
@@ -81,13 +83,14 @@ void	draw_floor(t_doom *dm)
 		dm->celly = (int)dm->floor.y;
 		dm->tx = (int)(128 * (dm->floor.x - dm->cellx)) & (128 - 1);
 		dm->ty = (int)(128 * (dm->floor.y - dm->celly)) & (128 - 1);
-		if ((dm->rayd.z < 0 && !dm->area[(int)dm->map.z + 1][(int)dm->map.y][(int)dm->map.x]) || (dm->rayd.z > 0 && !dm->area[(int)dm->map.z - 1][(int)dm->map.y][(int)dm->map.x]))
+		if ((dm->rayd.z < 0 && !dm->area[(int)dm->map.z + 1][(int)dm->map.y][(int)dm->map.x].b) || (dm->rayd.z > 0 && !dm->area[(int)dm->map.z - 1][(int)dm->map.y][(int)dm->map.x].b))
 			dm->col = color_shift(dm->gfx[5].data[128 * dm->ty + dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		else
 			dm->col = color_shift(dm->gfx[1].data[128 * dm->ty + dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
-		//dm->testcolor = dm->gfx[1].data[128 * dm->ty + dm->tx];
+		dm->map = light_map(dm->map, dm->side);
+		dm->col = rl_color(dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x], dm->col);
 	}
-	else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 2)
+	else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 2)
 		dm->col = 0xff22a800;
 	if (dm->side > 2)
 		dm->col = (dm->col >> 1) & DARKEN;

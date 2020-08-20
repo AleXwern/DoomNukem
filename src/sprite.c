@@ -39,14 +39,14 @@ void	pickupitem(t_doom* dm)
 {
 	int			obj;
 
-	obj = dm->area[(int)(dm->pos.z + 0.5)][(int)dm->pos.y][(int)dm->pos.x];
+	obj = dm->area[(int)(dm->pos.z + 0.5)][(int)dm->pos.y][(int)dm->pos.x].b;
 	if (obj == 8)//this will be used when we have sprites.
 	{
 		dm->keycard = 1;
 	}
 	else if (obj == 5)
 	{
-		dm->area[(int)(dm->pos.z + 0.5)][(int)dm->pos.y][(int)dm->pos.x] = 0;
+		dm->area[(int)(dm->pos.z + 0.5)][(int)dm->pos.y][(int)dm->pos.x].b = 0;
 		dm->keycard = 1;
 	}
 }

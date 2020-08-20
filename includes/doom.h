@@ -6,7 +6,11 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/08/20 13:26:31 by tbergkul         ###   ########.fr       */
+=======
+/*   Updated: 2020/08/20 15:23:39 by anystrom         ###   ########.fr       */
+>>>>>>> e731063ba9054b972aa0880eb48e7f37b7376ea2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +59,7 @@
 # include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 #endif
 
-#define	MAPTYPE		long
+#define	MAPTYPE		t_block
 
 typedef struct	s_key
 {
@@ -193,13 +197,10 @@ typedef struct	s_editor
 
 typedef struct	s_block
 {
-	Uint8		blk;
-	Uint8		zhal;
-	Uint8		xhal;
-	Uint8		yhal;
-	Uint8		zslp;
-	Uint8		xslp;
-	Uint8		yslp;
+	Uint8		b;
+	Uint8		lgt;
+	Uint8		pt;
+	Uint8		pln;
 	Uint8		meta;
 }				t_block;
 
@@ -443,6 +444,7 @@ t_gfx			gfx_get(t_doom *wolf, char *file, int x, int y);
 t_chara			*generate_party(t_doom *wlf);
 t_chara			generate_foe(t_doom *wlf);
 t_vector		cross_prd(t_vector v, t_vector u);
+t_vector		light_map(t_vector map, int side);
 t_vector		oper_vect(t_vector v, t_vector u, char o);
 
 void			load_animsprite(t_doom *wlf);
@@ -459,6 +461,7 @@ void			load_keycard(t_doom *wlf);
 void			draw_keycard(t_doom *wlf);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
+Uint32			rl_color(t_block blk, Uint32 col);
 
 int				tex_check(t_doom *wlf);
 int				fps_capper(void* ptr);
@@ -534,12 +537,13 @@ void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
 void			wall_stripe(t_doom *wlf);
 void			wind_default(t_doom *wlf);
 
-void			part_dda_zn(t_doom* dm);
-void			part_dda_zp(t_doom* dm);
-void			part_dda_yn(t_doom* dm);
-void			part_dda_yp(t_doom* dm);
-void			part_dda_xn(t_doom* dm);
-void			part_dda_xp(t_doom* dm);
+void			part_check(t_doom *dm);
+void			part_dda_zn(t_doom* dm, double plane);
+void			part_dda_zp(t_doom* dm, double plane);
+void			part_dda_yn(t_doom* dm, double plane);
+void			part_dda_yp(t_doom* dm, double plane);
+void			part_dda_xn(t_doom* dm, double plane);
+void			part_dda_xp(t_doom* dm, double plane);
 void			slope_dda_xzn(t_doom* dm);
 void			slope_dda_xzp(t_doom* dm);
 void			single_loop_z(t_doom* dm);

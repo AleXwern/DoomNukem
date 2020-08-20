@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:35:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 12:34:24 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,16 +127,16 @@ int		move_fb(t_doom *dm)
 		mov /= fabs(mov);
 	if (dm->key.up)
 	{
-		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x] <= 1)
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].b <= 1)
 			dm->pos.y += dm->dir.y * mov;
-		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)] <= 1)
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].b <= 1)
 			dm->pos.x += dm->dir.x * mov;
 	}
 	if (dm->key.down)
 	{
-		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y * mov)][(int)dm->pos.x] <= 1)
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y * mov)][(int)dm->pos.x].b <= 1)
 			dm->pos.y -= dm->dir.y * mov;
-		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.x * mov)] <= 1)
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.x * mov)].b <= 1)
 			dm->pos.x -= dm->dir.x * mov;
 	}
 	return (0);
@@ -151,16 +151,16 @@ void	strafe(t_doom *dm, double dirxtemp, double dirytemp)
 		mov = 0.99;
 	if (dm->key.q)
 	{
-		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.x * mov)][(int)dm->pos.x] <= 1)
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.x * mov)][(int)dm->pos.x].b <= 1)
 			dm->pos.y += dm->dir.x * mov;
-		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.y * mov)] <= 1)
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.y * mov)].b <= 1)
 			dm->pos.x += dm->dir.y * mov;
 	}
 	if (dm->key.e)
 	{
-		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.x * mov)][(int)dm->pos.x] <= 1)
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.x * mov)][(int)dm->pos.x].b <= 1)
 			dm->pos.y -= dm->dir.x * mov;
-		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.y * mov)] <= 1)
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.y * mov)].b <= 1)
 			dm->pos.x -= dm->dir.y * mov;
 	}
 	return ;
@@ -171,25 +171,25 @@ void	strafe(t_doom *dm, double dirxtemp, double dirytemp)
 		if (dm->dir.y < 0)
 		{
 			if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y
-					* dm->movsp)][(int)dm->pos.x] <= 1)
+					* dm->movsp)][(int)dm->pos.x].b <= 1)
 				dm->pos.y -= (dm->dir.y + 1) * dm->movsp;
 		}
 		else
 		{
 			if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y
-					* dm->movsp)][(int)dm->pos.x] <= 1)
+					* dm->movsp)][(int)dm->pos.x].b <= 1)
 				dm->pos.y += (dm->dir.y - 1) * dm->movsp;
 		}
 		if (dm->dir.x < 0)
 		{
 			if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x
-					- dm->dir.x * dm->movsp)] <= 1)
+					- dm->dir.x * dm->movsp)].b <= 1)
 				dm->pos.x -= (dm->dir.x + 1) * dm->movsp;
 		}
 		else
 		{
 			if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x
-					- dm->dir.x * dm->movsp)] <= 1)
+					- dm->dir.x * dm->movsp)].b <= 1)
 				dm->pos.x += (dm->dir.x - 1) * dm->movsp;
 		}
 	}

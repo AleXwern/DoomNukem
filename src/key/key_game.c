@@ -6,7 +6,11 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/08/20 15:27:06 by tbergkul         ###   ########.fr       */
+=======
+/*   Updated: 2020/08/20 12:38:47 by anystrom         ###   ########.fr       */
+>>>>>>> e731063ba9054b972aa0880eb48e7f37b7376ea2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,13 +200,17 @@ void			jetpack(t_doom *dm)
 {
 	if (dm->key.one)
 	{
-		if (dm->area[(int)(dm->pos.z + 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
+		if (dm->area[(int)(dm->pos.z + 0.5)][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1)
 			dm->pos.z += 0.05 * (30.0 / dm->buffer / dm->prefps);
 	}
 	if (dm->key.two)
 	{
 		Mix_PlayChannel(-1, dm->jetpack, 0);
+<<<<<<< HEAD
 		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] == 1)
+=======
+		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1)
+>>>>>>> e731063ba9054b972aa0880eb48e7f37b7376ea2
 			dm->pos.z -= 0.05 * (30.0 / dm->buffer / dm->prefps);
 	}
 }

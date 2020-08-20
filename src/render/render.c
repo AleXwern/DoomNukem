@@ -6,12 +6,16 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
+<<<<<<< HEAD:src/render.c
 /*   Updated: 2020/08/20 13:30:18 by tbergkul         ###   ########.fr       */
+=======
+/*   Updated: 2020/08/20 14:49:18 by anystrom         ###   ########.fr       */
+>>>>>>> e731063ba9054b972aa0880eb48e7f37b7376ea2:src/render/render.c
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
 
 #include <stdio.h>//
 
@@ -20,7 +24,6 @@ void	dda_sys(t_doom *dm)
 	int	map;
 
 	dm->hit = 0;
-	ft_bzero(&dm->texshift, sizeof(t_ivector));
 	while (dm->hit == 0)
 	{
 		if (dm->sided.x < dm->sided.y && dm->sided.x < dm->sided.z)
@@ -47,23 +50,15 @@ void	dda_sys(t_doom *dm)
 			dm->hit = 2;
 			return;
 		}
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
-		{
-			//part_dda_zp(dm);	//Z plane, filled top - Rays go through the block sometimes, fixed by 1 -> 0.99999
-			//part_dda_zn(dm);	//Z plane, filled bottom
-			//part_dda_yp(dm);	//Y plane, filled top
-			//part_dda_yn(dm);	//Y plane, filled bottom
-			//part_dda_xp(dm);	//X plane, filled top
-			//part_dda_xn(dm);	//X plane, filled bottom
-			slope_dda_xzn(dm);	//XZ slope, filled bottom
-			//slope_dda_xzp(dm);	//XZ slope, filled top
-		}
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 6)
-			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] = 1;
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1)
+		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt
+				&& dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
+			part_check(dm);
+		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 6)
+			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
+		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
 		{
 			dm->hit = 1;
-			if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 9)//distance from player to sprite (sprite is 9 on the map)
+			if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 9)//distance from player to sprite (sprite is 9 on the map)
 			{
 				dm->spriteLoc.x = dm->map.x;
 				dm->spriteLoc.y = dm->map.y;
@@ -136,7 +131,7 @@ void	rc_init(t_doom *dm)
 
 void	side_check(t_doom* dm)
 {
-	int	delta;
+	int			delta;
 
 	if (dm->side == 0)
 		delta = dm->pos.x - dm->map.x;
@@ -156,7 +151,7 @@ void	draw(t_doom* dm)
 	dm->texy = (int)((((dm->y * 256 - dm->winh * 128 * dm->camshift - dm->lineh * 128) * 128) / dm->lineh) / 256) % 128;
 	if (dm->texy < 0)
 		dm->texy += 128;
-	dm->texnum = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x];
+	dm->texnum = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b;
 	//dm->col = dm->gfx[dm->texnum].data[(int)(128 * (128 * dm->rtex.z) + (128 * dm->rtex.x))];
 	dm->col = dm->gfx[dm->texnum].data[(int)(dm->texy + (128 * dm->rtex.y))];
 	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
@@ -186,7 +181,11 @@ int		renthread(void *ptr)
 			dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
 			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			{
+<<<<<<< HEAD:src/render.c
 				//printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\nRmapZ %f %f\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->rayd.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x], dm->rmap1.z, dm->rmap2.z);
+=======
+				printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\nRmapZ %f %f\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->rayd.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x].b, dm->rmap1.z, dm->rmap2.z);
+>>>>>>> e731063ba9054b972aa0880eb48e7f37b7376ea2:src/render/render.c
 				dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
 			}
