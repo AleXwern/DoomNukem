@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/17 15:38:39 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 12:42:03 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	slope_dda_xzp(t_doom* dm)
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop_z(dm);
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] < 6)
-			dm->hit = 1;
 		if (dm->rmap2.z < dm->rmap2.y/* && dm->rmap2.z > 0*/)
 			return;
 		dm->sided.z += dm->deltad.z;
@@ -68,7 +66,5 @@ void	slope_dda_xzp(t_doom* dm)
 		dm->side = 2;
 		dm->hit = 1;
 		dm->hithalf++;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] == 6)
-			slope_dda_xzn(dm);
 	}
 }

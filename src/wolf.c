@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dm.c                                             :+:      :+:    :+:   */
+/*   wolf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:31:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 12:45:39 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	error_out(char *msg, t_doom *dm)
 	SDL_Quit();
 	ft_bzero(dm, sizeof(dm));
 	system("leaks doom-nukem");
-	//printf("%d %ld\n", sizeof(t_block), sizeof(long));
+	//printf("%lu %ld\n", sizeof(t_block), sizeof(long));
 	exit(0);
 }
 
@@ -82,8 +82,8 @@ void	setup(t_doom *dm)
 	//SDL_Thread* capper;
 	init_audio(dm);
 	doom_default(dm);
-	printf("Spawn at %ld\n", dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x]);
-	dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x] = 1;
+	printf("Spawn at %hhu\n", dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b);
+	dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b = 1;
 	dm->fpsthread = SDL_CreateThread(fps_counter, "fps counter", (void*)dm);
 	char* path = SDL_GetBasePath();
 	printf("Exec path: %s\n", path);
@@ -140,7 +140,7 @@ int		main(int ac, char **av)
 	dm->spawn.x = 2.51;
 	dm->spawn.y = 2.51;
 	dm->spawn.z = 2.5;
-	comp_map(dm);//, "Null");
+	comp_map(dm);
 	comp_gfx(dm, 0);
 	setup(dm);
 	return (0);

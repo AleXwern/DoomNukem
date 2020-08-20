@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/08/14 15:01:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 13:55:47 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		get_warpdest(t_doom* dm, t_vector pos, t_vector warp)
 	warp.x = dm->pos.x + (-relative.x * 2.0);
 	warp.y = dm->pos.y + (-relative.y * 2.0);
 	warp.z = dm->pos.z;
-	if (dm->area[(int)warp.z][(int)warp.y][(int)warp.x] == 1)
+	if (dm->area[(int)warp.z][(int)warp.y][(int)warp.x].b == 1)
 		dm->pos = warp;
 	return (1);
 }
@@ -42,7 +42,7 @@ int		get_stairdest(t_doom* dm, int obj, t_vector pos, t_vector stair)
 	stair.x = dm->pos.x + (-relative.x * 2.0);
 	stair.y = dm->pos.y + (-relative.y * 2.0);
 	stair.z = dm->pos.z + obj;
-	if (dm->area[(int)stair.z][(int)stair.y][(int)stair.x] == 1)
+	if (dm->area[(int)stair.z][(int)stair.y][(int)stair.x].b == 1)
 	{
 		curt_down(dm);
 		dm->pos = stair;
@@ -67,20 +67,22 @@ int		interact(t_doom *dm)
 
 	tarpos.x = dm->pos.x + dm->dir.x * 0.9;
 	tarpos.y = dm->pos.y + dm->dir.y * 0.9;
-	obj = dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x];
+	obj = dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].b;
+	if (dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].meta)
+		error_out(VOID_OVER, dm);
 	if (obj == 3 || obj == 4)
 		lab_move(dm, obj, tarpos);
 	else if (obj == 5 && dm->keycard)
 	{
 		Mix_PlayChannel(-1, dm->doorsound, 0);
-		dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x] = 0;
+		dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].b = 0;
 	}
 	else if (obj == 5 && !dm->keycard)
 		Mix_PlayChannel(-1, dm->doorknob, 0);
 	else if (obj == 0)
 	{
 		Mix_PlayChannel(-1, dm->doorsound, 0);
-		dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x] = 5;
+		dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].b = 5;
 	}
 	else if (obj == 6)
 	{

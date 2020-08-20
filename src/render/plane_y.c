@@ -6,14 +6,14 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:24:09 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/17 15:59:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 14:18:10 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	part_dda_yn(t_doom* dm)
+void	part_dda_yn(t_doom* dm, double plane)
 {
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
@@ -21,7 +21,7 @@ void	part_dda_yn(t_doom* dm)
 		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
 	else
 		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	if (dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->map.y >= DATA_BLK)
+	if (dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->map.y >= plane)
 		dm->hit = 1;
 	if (dm->rayd.y > 0 && dm->hit != 1)
 	{
@@ -29,19 +29,17 @@ void	part_dda_yn(t_doom* dm)
 		dm->rmap1.y = dm->pos.y + (dm->rayd.y * dm->walldist);
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop_y(dm);
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] < 6)
-			dm->hit = 1;
-		if (dm->rmap2.y < DATA_BLK && dm->rmap2.y > 0)
+		if (dm->rmap2.y < plane && dm->rmap2.y > 0)
 			return;
 		dm->sided.y += dm->deltad.y;
-		dm->map.y += dm->stepy * DATA_BLK;
+		dm->map.y += dm->stepy * plane;
 		dm->side = 1;
 		dm->hit = 1;
 		dm->hithalf++;
 	}
 }
 
-void	part_dda_yp(t_doom* dm)
+void	part_dda_yp(t_doom* dm, double plane)
 {
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
@@ -49,7 +47,7 @@ void	part_dda_yp(t_doom* dm)
 		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
 	else
 		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	if (dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->map.y <= (1 - DATA_BLK))
+	if (dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->map.y <= (1 - plane))
 		dm->hit = 1;
 	if (dm->rayd.y < 0 && dm->hit != 1)
 	{
@@ -57,12 +55,10 @@ void	part_dda_yp(t_doom* dm)
 		dm->rmap1.y = dm->pos.y + (dm->rayd.y * dm->walldist);
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop_y(dm);
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] > 1 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x] < 6)
-			dm->hit = 1;
-		if (dm->rmap2.y > (1 - DATA_BLK) && dm->rmap2.y < LIM)
+		if (dm->rmap2.y > (1 - plane) && dm->rmap2.y < LIM)
 			return;
 		dm->sided.y += dm->deltad.y;
-		dm->map.y += dm->stepy * DATA_BLK;
+		dm->map.y += dm->stepy * plane;
 		dm->side = 1;
 		dm->hit = 1;
 		dm->hithalf++;

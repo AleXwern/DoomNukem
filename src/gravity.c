@@ -22,10 +22,10 @@ void	gravity(t_doom* dm)
 	//dm->gravity.z += dm->fallsp.z;
 	if (dm->gravity.z < 0)
 	{
-		if (dm->area[(int)(dm->pos.z + dm->gravity.z - 0.1)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
+		if (dm->area[(int)(dm->pos.z + dm->gravity.z - 0.1)][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1)
 			dm->pos.z += dm->gravity.z;
 	}
-	else if (dm->area[(int)(dm->pos.z + 1)][(int)(dm->pos.y)][(int)dm->pos.x] <= 1)
+	else if (dm->area[(int)(dm->pos.z + 1)][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1)
 		dm->pos.z += dm->gravity.z;
 	else
 	{
@@ -36,6 +36,6 @@ void	gravity(t_doom* dm)
 	dm->gravity.z += dm->fallsp.z;
 	if (dm->gravity.z > 0.2 * (30.0 / dm->buffer / dm->prefps))
 		dm->gravity.z = 0.2 * (30.0 / dm->buffer / dm->prefps);
-	if (dm->area[(int)(dm->pos.z + 0.5)][(int)(dm->pos.y)][(int)dm->pos.x] > 1)
+	if (dm->area[(int)(dm->pos.z + 0.5)][(int)(dm->pos.y)][(int)dm->pos.x].b > 1)
 		dm->pos.z -= 0.1;
 }

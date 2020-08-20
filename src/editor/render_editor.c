@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/13 13:19:53 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 12:36:48 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ void	draw_block(t_doom *dm, t_gfx blk, double x, double y)
 		while (++gx < dm->winw / dm->width * 0.5)
 		{
 			color = blk.data[(int)(blk.wid * (gy * (blk.hgt / (dm->winh / dm->height))) + gx * (blk.wid / (dm->winw / dm->width * 0.5)))];
-			if (dm->flr == dm->mxflr - 1 && dm->area[dm->flr][dm->y][dm->x] == 1)
+			if (dm->flr == dm->mxflr - 1 && dm->area[dm->flr][dm->y][dm->x].b == 1)
 				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = (color >> 1) & DARKEN;
-			else if (dm->area[ckflr][dm->y][dm->x] == 1 && dm->area[dm->flr][dm->y][dm->x] == 1)
+			else if (dm->area[ckflr][dm->y][dm->x].b == 1 && dm->area[dm->flr][dm->y][dm->x].b == 1)
 				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = (color >> 1) & DARKEN;
 			else
 				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = color;
@@ -96,18 +96,18 @@ void	draw_level_screen(t_doom *dm, t_editor *le, double x, double y)
 	int		blk;
 
 	dm->y = 0;
-	dm->flr = le->options[3];
+	dm->flr = le->options[0];
 	while (dm->y < dm->height)
 	{
 		dm->x = 0;
 		x = 0;
 		while (dm->x < dm->width)
 		{
-			blk = dm->area[dm->flr][dm->y][dm->x];
-			if (dm->area[dm->flr][dm->y][dm->x] < 1)
-				dm->area[le->options[3]][dm->y][dm->x] = 5;
-			if (dm->area[dm->flr][dm->y][dm->x] > 7)
-				dm->area[le->options[3]][dm->y][dm->x] = 2;
+			blk = dm->area[dm->flr][dm->y][dm->x].b;
+			if (dm->area[dm->flr][dm->y][dm->x].b < 1)
+				dm->area[dm->flr][dm->y][dm->x].b = 5;
+			if (dm->area[dm->flr][dm->y][dm->x].b > 7)
+				dm->area[dm->flr][dm->y][dm->x].b = 2;
 			draw_block(dm, dm->gfx[blk], x, y);
 			x += dm->winw / dm->width * 0.5;
 			dm->x++;

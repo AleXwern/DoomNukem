@@ -18,6 +18,7 @@
 void	write_file(t_doom* dm, int fd, int x, int y)
 {
 	char	c;
+	char	*data;
 
 	while (++y < 25)
 	{
@@ -28,7 +29,21 @@ void	write_file(t_doom* dm, int fd, int x, int y)
 				write(fd, "2 ", 2);
 			else
 			{
-				c = dm->area[dm->flr][y][x] + 48;
+				c = dm->area[dm->flr][y][x].b + 48;
+				write(fd, &c, 1);
+				write(fd, ",", 1);
+				data = ft_itoa(dm->area[dm->flr][y][x].lgt);
+				write(fd, data, ft_strlen(data));
+				write(fd, ",", 1);
+				c = dm->area[dm->flr][y][x].pt + 48;
+				write(fd, &c, 1);
+				write(fd, ",", 1);
+				free(data);
+				data = ft_itoa(dm->area[dm->flr][y][x].pln);
+				write(fd, data, ft_strlen(data));
+				write(fd, ",", 1);
+				free(data);
+				c = dm->area[dm->flr][y][x].meta + 48;
 				write(fd, &c, 1);
 				write(fd, " ", 1);
 			}

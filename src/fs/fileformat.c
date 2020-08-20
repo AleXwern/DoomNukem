@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/14 14:12:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 13:46:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void	validate_map(t_doom *dm, int i, int a)
 		i = -1;
 		while (++i < dm->width)
 		{
-			if (dm->area[a][0][i] != 2)
+			if (dm->area[a][0][i].b != 2)
 				error_out(FIL_ERROR, dm);
-			if (dm->area[a][dm->height - 1][i] != 2)
+			if (dm->area[a][dm->height - 1][i].b != 2)
 				error_out(FIL_ERROR, dm);
 		}
 		i = -1;
 		while (++i < dm->height)
 		{
-			if (dm->area[a][i][0] != 2)
+			if (dm->area[a][i][0].b != 2)
 				error_out(FIL_ERROR, dm);
-			if (dm->area[a][i][dm->width - 1] != 2)
+			if (dm->area[a][i][dm->width - 1].b != 2)
 				error_out(FIL_ERROR, dm);
 		}
 	}
@@ -41,7 +41,7 @@ void	validate_map(t_doom *dm, int i, int a)
 void	fill_area(t_doom* dm, int y, int x)
 {
 	while (++x < 25)
-		dm->area[dm->flr][y][x] = 2;
+		dm->area[dm->flr][y][x].b = 2;
 }
 
 int		templen(char **temp)
@@ -54,13 +54,30 @@ int		templen(char **temp)
 	return (i);
 }
 
+void	comp_block(t_doom *dm, char **temp, int x, int y)
+{
+	dm->area[dm->flr][y][x].b = ft_atoi(temp[0]);
+	dm->area[dm->flr][y][x].lgt = ft_atoi(temp[1]);
+	dm->area[dm->flr][y][x].pt = ft_atoi(temp[2]);
+	dm->area[dm->flr][y][x].pln = ft_atoi(temp[3]);
+	dm->area[dm->flr][y][x].meta = ft_atoi(temp[4]);
+	if (dm->area[dm->flr][y][x].b == 7)
+	{
+		dm->spawn.x = x + 0.51;
+		dm->spawn.y = y + 0.51;
+		dm->spawn.z = dm->flr + 0.5;
+		dm->area[dm->flr][y][x].b = 1;
+	}
+	if (dm->area[dm->flr][y][x].b > 7 || dm->area[dm->flr][y][x].b < 1)
+		dm->area[dm->flr][y][x].b = 2;
+	free_memory(temp);
+}
+
 int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 {
 	int		wid;
 
 	wid = templen(temp);
-	//if (dm->width == -1)
-	//dm->width = 25;
 	if (wid < 4)
 		return (0);
 	if (temp[0][0] == 'z')
@@ -69,21 +86,12 @@ int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 		error_out(MEM_ERROR, dm);
 	while (temp[x] && x < 25)
 	{
-		dm->area[dm->flr][y][x] = ft_atoi(temp[x]);
-		if (dm->area[dm->flr][y][x] == 7)
-		{
-			dm->spawn.x = x + 0.51;
-			dm->spawn.y = y + 0.51;
-			dm->spawn.z = dm->flr + 0.5;
-			dm->area[dm->flr][y][x] = 1;
-		}
-		if (dm->area[dm->flr][y][x] > 7 || dm->area[dm->flr][y][x] < 1)
-			dm->area[dm->flr][y][x] = 2;
+		comp_block(dm, ft_strsplit(temp[x], ','), x, y);
 		x++;
 	}
 	x--;
 	while (++x < 25)
-		dm->area[dm->flr][y][x] = 2;
+		dm->area[dm->flr][y][x].b = 2;
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/17 15:50:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 12:11:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "doom.h"
 
 //Data block is used to test how plane cuts. Replaced by t_block.zhal when ready.
-#define	DATA_BLK	(11 / 15.0)
+#define	DATA_BLK	(14 / 15.0)
 //#define	DATA_BLK	(0.5)
 
 # define G_ERROR	"General error happened. Exiting program."
