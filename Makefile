@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/20 14:09:55 by anystrom         ###   ########.fr        #
+#    Updated: 2020/08/20 15:49:40 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,26 +44,14 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/animation/,$(ANMFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/render/,$(RNDFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/draw/,$(COLFILE:.c=$(OEXT)))
-DEPNS =		$(OBJ:.c=.d)
+DEPNS =		$(OBJ:.o=.d)
 OBJDIR =	./obj/
 SRCDIR =	./src/
 INCL =		-I ./SDL2 -I ./libft -I ./includes
 MLXLIB =	-L /usr/local/lib
-WININC =	-I "C:\Program Files (x86)Windows Kits\10\Include\10.0.18362.0\ucrt" -I /libft/ -I /includes/
-CLINC =		/I "C:\Program Files (x86)Windows Kits\10\Include\10.0.18362.0\ucrt" /I /libft/ /I /includes/
-WINLIB =	-L "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\ucrt\x64"
 PWD =		$(shell pwd)
 OBJFRAME =	-F ./frameworks
 FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
-WINSDLI =	-I C:/SDL/SDL2-2.0.12/include/ \
-			-I C:/SDL/SDL2_mixer-2.0.4/include/ \
-			-I C:/SDL/SDL2_image-2.0.5/include/
-DUMMY2 =	-L C:/SDL/SDL2-2.0.12/lib/x64 SDL2.lib SDL2main.lib\
-			-L C:/SDL/SDL2_mixer-2.0.4/lib/x64 SDL2_mixer.lib \
-			-L C:/SDL/SDL2_image-2.0.5/lib/x64 SDL2_image.lib
-WINSDLL =	-L C:/SDL/SDL2-2.0.12/lib/x64 \
-			-L C:/SDL/SDL2_mixer-2.0.4/lib/x64 \
-			-L C:/SDL/SDL2_image-2.0.5/lib/x64
 RED =		\033[0;31m
 STOP =		\033[0m
 
@@ -75,7 +63,7 @@ $(LIBFT):
 	@echo Compiling Libft libraries.
 	@make -C ./libft
 
-#-include $(DEPNS)
+-include $(DEPNS)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
 	@echo "Compiling Wolf3D -> $(RED)$@$(STOP)"
@@ -91,8 +79,9 @@ $(NAME): $(OBJ) $(LIBFT)
 	@echo Run the executable as ./doom-nukem. No args.
 
 clean:
-	@echo "Removing Wolf3D libraries."
+	@echo "Removing Doom-Nukem libraries."
 	@/bin/rm -f $(OBJ)
+	@/bin/rm -f $(DEPNS)
 	@echo Removing Libft libraries.
 	@make -C ./libft fclean
 
@@ -100,14 +89,14 @@ fclean: clean
 	@echo Removing binaries.
 	@/bin/rm -f $(NAME)
 
-merge:
-	@git checkout master
-	@git pull https://github.com/AleXwern/DoomNukem.git master
-
 winup:
+ifeq ($(OS),Windows_NT)
 	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/gfx
 	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/Audio
 	@cp -r gfx ../../../../source/repos/DoomNukem/x64/Debug/
 	@cp -r Audio ../../../../source/repos/DoomNukem/x64/Debug/
+else
+	@echo "Nothing to do."
+endif
 
 re: fclean all

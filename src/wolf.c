@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 12:45:39 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 15:58:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	error_out(char *msg, t_doom *dm)
 {
 	ft_putendl(msg);
 	ft_putendl(__TIME__);
-	//ft_putendl(SDL_GetError());
+	SDL_Quit();
+	system("leaks doom-nukem");
+	exit(0);
+	//Things below just in case.
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	dm->killthread = 1;
 	if (!ft_strcmp(msg, WLF_ERROR))

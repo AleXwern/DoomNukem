@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:56:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 14:18:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/20 15:38:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	part_check(t_doom *dm)
 	double	plane;
 	int		pt;
 
-	plane = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pln / 15.0;
+	plane = (1 - dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pln / 15.0);
 	pt = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt;
 	if (pt == 1)
 		part_dda_zp(dm, plane);	//Z plane, filled top - Rays go through the block sometimes, fixed by 1 -> 0.99999
