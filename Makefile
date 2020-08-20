@@ -3,17 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-<<<<<<< HEAD
 #    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/20 12:07:40 by tbergkul         ###   ########.fr        #
-=======
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/20 14:09:55 by anystrom         ###   ########.fr        #
->>>>>>> e731063ba9054b972aa0880eb48e7f37b7376ea2
+#    Updated: 2020/08/20 15:50:04 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +15,7 @@ NAME =		doom-nukem
 OEXT = 		.o
 LEXT = 		.a
 FLG = 		-O2
-<<<<<<< HEAD
-SRCFILE =	doom.c gfx.c loop.c render.c draw.c move.c \
-=======
-SRCFILE =	wolf.c gfx.c loop.c move.c \
->>>>>>> e731063ba9054b972aa0880eb48e7f37b7376ea2
+SRCFILE =	doom.c gfx.c loop.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
 			main_menu.c gravity.c sprite.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
@@ -89,7 +78,7 @@ $(LIBFT):
 #-include $(DEPNS)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-	@echo "Compiling Wolf3D -> $(RED)$@$(STOP)"
+	@echo "Compiling DoomNukem -> $(RED)$@$(STOP)"
 	@gcc -g $(OBJFRAME) $(FLG) -MMD $(INCL) -o $@ -c $<
 
 $(NAME): $(OBJ) $(LIBFT)
