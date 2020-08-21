@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/20 16:01:05 by anystrom         ###   ########.fr        #
+#    Updated: 2020/08/21 15:37:26 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,8 @@ NAME =		doom-nukem
 OEXT = 		.o
 LEXT = 		.a
 FLG = 		-O2
-SRCFILE =	doom.c gfx.c loop.c move.c \
-			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
-			main_menu.c gravity.c sprite.c
+SRCFILE =	doom.c gfx.c loop.c move.c main_menu.c sprite.c \
+			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
 LOADDRAW =	gun.c gunextra.c loadextra.c
 FILESYS =	fileformat.c save_level.c
@@ -26,6 +25,7 @@ ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
 			part_dda.c
+GRAFILE	=	gravity.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
@@ -33,7 +33,9 @@ SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/fs/,$(FILESYS)) \
 			$(addprefix ./src/animation/,$(ANMFILE)) \
 			$(addprefix ./src/render/,$(RNDFILE)) \
-			$(addprefix ./src/draw/,$(COLFILE))
+			$(addprefix ./src/draw/,$(COLFILE)) \
+			$(addprefix ./src/gravity/,$(GRAFILE)) \
+			$(addprefix ./src/randenc/,$(ENCFILE))
 LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
@@ -43,7 +45,9 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/fs/,$(FILESYS:.c=$(OEXT))) \
 			$(addprefix ./obj/animation/,$(ANMFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/render/,$(RNDFILE:.c=$(OEXT))) \
-			$(addprefix ./obj/draw/,$(COLFILE:.c=$(OEXT)))
+			$(addprefix ./obj/draw/,$(COLFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/gravity/,$(GRAFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/randenc/,$(ENCFILE:.c=$(OEXT)))
 DEPNS =		$(OBJ:.o=.d)
 OBJDIR =	./obj/
 SRCDIR =	./src/

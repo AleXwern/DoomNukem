@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 12:11:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:45:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 # define GFXCOUNT	26
 # define THREADS	6
 # define BUFFER		6
-# define LIM		0.999999
+# define LIM		0.9999999
 
 #if __APPLE__
 # define OSCAM		1

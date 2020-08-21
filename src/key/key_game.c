@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 15:43:36 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/21 14:51:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int				key_release(int key, t_doom *dm)
 		if (!dm->airbrn && !dm->isgravity)
 		{
 			dm->airbrn = 1;
-			dm->gravity.z = -0.55 * (30.0 / dm->buffer / dm->prefps);
+			dm->gravity.z = -0.5 * (30.0 / dm->buffer / dm->prefps);
 		}
 	}
 	return (0);

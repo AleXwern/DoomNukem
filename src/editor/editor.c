@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 14:15:56 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:16:48 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->options[0] = 2;				//floor
 	le->options[1] = 15;			//light
 	le->options[2] = 0;				//plane type, NULL-ZYX, PN
-	le->options[3] = 0;				//plane thickness
+	le->options[3] = 1;				//plane thickness
 	le->options[4] = 0;				//metadata
 	le->maxval[0] = dm->mxflr - 1;
 	le->maxval[1] = 15.0;
@@ -31,7 +31,7 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->minval[0] = 0;
 	le->minval[1] = 0;
 	le->minval[2] = 0;
-	le->minval[3] = 0;
+	le->minval[3] = 1;
 	le->minval[4] = 0;
 }
 

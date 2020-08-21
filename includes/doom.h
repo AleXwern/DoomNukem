@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 16:00:53 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:36:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -489,6 +489,8 @@ void			combat_key(int key, t_doom *wlf);
 void			comp_foe(t_doom *wlf, char *bpath, int i);
 void			comp_gfx(t_doom *wolf, int i);
 void			comp_map(t_doom *wolf);//, char *av);
+void			cur_zero(t_doom *dm, int tar);
+void			cur_two(t_doom *dm, int tar);
 void			curt_down(t_doom *dm);
 void			curt_up(t_doom *dm);
 void			destroy_gfx(t_doom *wlf, int i);
