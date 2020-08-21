@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 15:23:02 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:28:18 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	key_state_game(t_doom *dm)
 		//	key_hold(dm->event.cbutton.button, dm);
 		//if (dm->event.cbutton.state == SDL_RELEASED)
 		//	key_release(dm->event.cbutton.button, dm);
-		if (dm->event.button.state == SDL_PRESSED)
+		if (dm->event.button.state == SDL_PRESSED && dm->alive)
 		{
 			if (dm->event.button.button == SDL_BUTTON_MIDDLE)
 				dm->mousemovement = (dm->mousemovement * dm->mousemovement) - 1;
@@ -44,7 +44,7 @@ void	key_state_game(t_doom *dm)
 			else
 				SDL_SetRelativeMouseMode(SDL_FALSE);
 		}
-		if (dm->mousemovement)
+		if (dm->mousemovement && dm->alive)
 			mouse_move(dm->event.motion.xrel, dm->event.motion.yrel, dm);
 	}
 	move(dm);

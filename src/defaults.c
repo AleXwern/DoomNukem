@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/21 15:40:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:49:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ void	doom_default(t_doom *dm)
 	ft_putnbrln(dm->mxflr);
 	dm->prefps = 30;
 	dm->buffer = BUFFER;
-	dm->keycard = 0;
 	load_animsprite(dm);
 	load_gun(dm);
 	load_numbers(dm);
 	load_inventory(dm);
 	load_keycard(dm);
+	load_hp(dm);
 	dm->owinh = dm->winh;
 	dm->owinw = dm->winw;
 	wind_default(dm);

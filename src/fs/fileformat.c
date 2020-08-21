@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 13:46:41 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 12:36:48 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 	dm->area[dm->flr][y][x].pt = ft_atoi(temp[2]);
 	dm->area[dm->flr][y][x].pln = ft_atoi(temp[3]);
 	dm->area[dm->flr][y][x].meta = ft_atoi(temp[4]);
+	dm->area[dm->flr][y][x].hp = 100;
 	if (dm->area[dm->flr][y][x].b == 7)
 	{
 		dm->spawn.x = x + 0.51;
