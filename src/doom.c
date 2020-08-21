@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf.c                                             :+:      :+:    :+:   */
+/*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 15:58:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 13:05:33 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ void	init_audio(t_doom *dm)
 	dm->teleport = Mix_LoadWAV("Audio/SoundEffects/teleport.wav");
 	dm->doorknob = Mix_LoadWAV("Audio/SoundEffects/doorknob.wav");
 	dm->gettingHit = Mix_LoadWAV("Audio/SoundEffects/gettinghit.wav");
+	dm->osrsDeath = Mix_LoadWAV("Audio/SoundEffects/osrsDeath.wav");
+	dm->osrsMonsterDeath = Mix_LoadWAV("Audio/SoundEffects/osrsMonsterDeath.wav");
+	dm->windowShatter = Mix_LoadWAV("Audio/SoundEffects/windowShatter.wav");
 }
 
 void	setup(t_doom *dm)

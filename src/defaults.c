@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/13 14:57:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/21 14:59:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ void	doom_default(t_doom *dm)
 	ft_putnbrln(dm->mxflr);
 	dm->prefps = 30;
 	dm->buffer = BUFFER;
-	dm->keycard = 0;
 	load_animsprite(dm);
 	load_gun(dm);
 	load_numbers(dm);
 	load_inventory(dm);
 	load_keycard(dm);
+	load_hp(dm);
 	dm->owinh = dm->winh;
 	dm->owinw = dm->winw;
 	wind_default(dm);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 16:00:53 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 14:54:26 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ typedef struct	s_block
 	Uint8		pt;
 	Uint8		pln;
 	Uint8		meta;
+	Uint8		hp;
 }				t_block;
 
 typedef struct	s_sprite
@@ -270,7 +271,6 @@ typedef struct	s_doom
 	char		*syssmg[2];
 	int			cur;
 	int			sel;
-	int			health;
 	int			plr;
 	int			plrck;
 	int			x;
@@ -395,6 +395,14 @@ typedef struct	s_doom
 	SDL_Rect	screennbrsRect;
 	SDL_Rect	screennbrsTenRect;
 
+	SDL_Surface	*hpSurface;
+	SDL_Texture	*hpTexture;
+	SDL_Rect	hpRect[6];
+	SDL_Rect	screenhpRect;
+	int			hp;
+	int			alive;
+	int			healthBar[6];
+
 	SDL_Surface	*spriteSurface;
 	SDL_Texture	*spriteTexture;
 	SDL_Rect	spriteRect[4][4];
@@ -433,6 +441,9 @@ typedef struct	s_doom
 	Mix_Chunk	*doorknob;
 	Mix_Chunk	*teleport;
 	Mix_Chunk	*gettingHit;
+	Mix_Chunk	*osrsDeath;
+	Mix_Chunk	*osrsMonsterDeath;
+	Mix_Chunk	*windowShatter;
 }				t_doom;
 
 t_gfx			init_image(t_doom *wolf);
@@ -455,6 +466,8 @@ void			load_inventory(t_doom *wlf);
 void			draw_inventory(t_doom *wlf);
 void			load_keycard(t_doom *wlf);
 void			draw_keycard(t_doom *wlf);
+void			load_hp(t_doom *dm);
+void			draw_hp(t_doom *dm);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 Uint32			rl_color(t_block blk, Uint32 col);

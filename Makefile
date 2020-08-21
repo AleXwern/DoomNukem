@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/20 16:01:05 by anystrom         ###   ########.fr        #
+#    Updated: 2020/08/21 14:24:31 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCFILE =	doom.c gfx.c loop.c move.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
 			main_menu.c gravity.c sprite.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
-LOADDRAW =	gun.c gunextra.c loadextra.c
+LOADDRAW =	gun.c gunextra.c loadextra.c hp.c
 FILESYS =	fileformat.c save_level.c
 EDTFILE =	editor.c render_editor.c
 ANMFILE =	staireff.c
