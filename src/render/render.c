@@ -17,8 +17,6 @@
 
 void	dda_sys(t_doom *dm)
 {
-	int	map;
-
 	dm->hit = 0;
 	while (dm->hit == 0)
 	{

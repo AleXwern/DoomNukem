@@ -62,6 +62,7 @@
 # define THREADS	6
 # define BUFFER		6
 # define LIM		0.999999
+# define LIM0		(1 - LIM)
 
 #if __APPLE__
 # define OSCAM		1
