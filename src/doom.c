@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf.c                                             :+:      :+:    :+:   */
+/*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 15:58:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:49:47 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	error_out(char *msg, t_doom *dm)
 {
 	ft_putendl(msg);
 	ft_putendl(__TIME__);
+	dm->killthread = 1;
+	SDL_SetRelativeMouseMode(SDL_FALSE);
+	SDL_WaitThread(dm->fpsthread, NULL);
 	SDL_Quit();
 	system("leaks doom-nukem");
 	exit(0);
@@ -79,6 +82,9 @@ void	init_audio(t_doom *dm)
 	dm->teleport = Mix_LoadWAV("Audio/SoundEffects/teleport.wav");
 	dm->doorknob = Mix_LoadWAV("Audio/SoundEffects/doorknob.wav");
 	dm->gettingHit = Mix_LoadWAV("Audio/SoundEffects/gettinghit.wav");
+	dm->osrsDeath = Mix_LoadWAV("Audio/SoundEffects/osrsDeath.wav");
+	dm->osrsMonsterDeath = Mix_LoadWAV("Audio/SoundEffects/osrsMonsterDeath.wav");
+	dm->windowShatter = Mix_LoadWAV("Audio/SoundEffects/windowShatter.wav");
 }
 
 void	setup(t_doom *dm)

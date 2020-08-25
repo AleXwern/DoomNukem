@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:40:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/13 12:50:07 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/21 14:59:48 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	load_keycard(t_doom *dm)
 	dm->screenkeycardRect.y = dm->winh - 78;
 	dm->screenkeycardRect.w = 70;
 	dm->screenkeycardRect.h = 55;
+	dm->keycard = 0;
 }
 
 void	draw_keycard(t_doom *dm)

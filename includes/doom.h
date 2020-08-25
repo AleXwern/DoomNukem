@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 16:00:53 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/25 14:58:21 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define DOOM_H
 
 //DOOM
+
+#define _CRT_SECURE_NO_WARNINGS
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -164,13 +166,31 @@ typedef struct	s_chara
 ** 6 = Secret warp
 */
 
-typedef struct	s_gfx
+typedef struct	s_img
 {
 	SDL_Surface	*tex;
 	SDL_Texture	*img;
 	Uint32		*data;
 	int			wid;
 	int			hgt;
+}				t_img;
+
+/*typedef struct	s_gfx
+{
+	SDL_Surface* tex;
+	SDL_Texture* img;
+	Uint32* data;
+	int			wid;
+	int			hgt;
+}				t_gfx;*/
+
+typedef struct	s_gfx
+{
+	Uint32		*data;
+	Uint32		wid;
+	Uint32		hgt;
+	Uint32		bpp;
+	Uint32		pitch;
 }				t_gfx;
 
 typedef struct	s_editor
@@ -198,6 +218,7 @@ typedef struct	s_block
 	Uint8		pt;
 	Uint8		pln;
 	Uint8		meta;
+	Uint8		hp;
 }				t_block;
 
 typedef struct	s_sprite
@@ -238,7 +259,7 @@ typedef struct	s_doom
 	SDL_Renderer *rend;
 	SDL_Surface	*surf;
 	SDL_Texture *tex;
-	t_gfx		img;
+	t_img		img;
 	SDL_RWops	*rwops;
 	SDL_Event	event;
 	SDL_GameController *gpad;
@@ -270,7 +291,6 @@ typedef struct	s_doom
 	char		*syssmg[2];
 	int			cur;
 	int			sel;
-	int			health;
 	int			plr;
 	int			plrck;
 	int			x;
@@ -395,6 +415,14 @@ typedef struct	s_doom
 	SDL_Rect	screennbrsRect;
 	SDL_Rect	screennbrsTenRect;
 
+	SDL_Surface	*hpSurface;
+	SDL_Texture	*hpTexture;
+	SDL_Rect	hpRect[6];
+	SDL_Rect	screenhpRect;
+	int			hp;
+	int			alive;
+	int			healthBar[6];
+
 	SDL_Surface	*spriteSurface;
 	SDL_Texture	*spriteTexture;
 	SDL_Rect	spriteRect[4][4];
@@ -433,9 +461,12 @@ typedef struct	s_doom
 	Mix_Chunk	*doorknob;
 	Mix_Chunk	*teleport;
 	Mix_Chunk	*gettingHit;
+	Mix_Chunk	*osrsDeath;
+	Mix_Chunk	*osrsMonsterDeath;
+	Mix_Chunk	*windowShatter;
 }				t_doom;
 
-t_gfx			init_image(t_doom *wolf);
+t_img			init_image(t_doom *dm);
 t_gfx			gfx_get(t_doom *wolf, char *file, int x, int y);
 t_chara			*generate_party(t_doom *wlf);
 t_chara			generate_foe(t_doom *wlf);
@@ -455,6 +486,8 @@ void			load_inventory(t_doom *wlf);
 void			draw_inventory(t_doom *wlf);
 void			load_keycard(t_doom *wlf);
 void			draw_keycard(t_doom *wlf);
+void			load_hp(t_doom *dm);
+void			draw_hp(t_doom *dm);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 Uint32			rl_color(t_block blk, Uint32 col);
@@ -489,6 +522,8 @@ void			combat_key(int key, t_doom *wlf);
 void			comp_foe(t_doom *wlf, char *bpath, int i);
 void			comp_gfx(t_doom *wolf, int i);
 void			comp_map(t_doom *wolf);//, char *av);
+void			cur_zero(t_doom *dm, int tar);
+void			cur_two(t_doom *dm, int tar);
 void			curt_down(t_doom *dm);
 void			curt_up(t_doom *dm);
 void			destroy_gfx(t_doom *wlf, int i);
@@ -545,6 +580,8 @@ void			slope_dda_xzp(t_doom* dm);
 void			single_loop_z(t_doom* dm);
 void			single_loop_y(t_doom* dm);
 void			single_loop_x(t_doom* dm);
+
+t_gfx			*read_bmp(char* file, int fd);
 
 double			dot_prd(t_vector v, t_vector u);
 

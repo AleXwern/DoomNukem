@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 15:27:10 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:13:22 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ void	draw_screen(t_editor* le, t_doom* dm, int x, int y)
 			dm->area[le->options[0]][y][x].b = le->blk;
 			dm->area[le->options[0]][y][x].lgt = le->options[1];
 			dm->area[le->options[0]][y][x].pt = le->options[2];
-			dm->area[le->options[0]][y][x].pln = le->options[3];
+			if (le->blk == 1 || le->blk == 7)
+				dm->area[le->options[0]][y][x].pln = 0;
+			else
+				dm->area[le->options[0]][y][x].pln = le->options[3];
 			dm->area[le->options[0]][y][x].meta = le->options[4];
-			printf("Set block %d to %d %d with light %d\n", dm->area[le->options[0]][y][x].b, x, y, dm->area[le->options[0]][y][x].lgt);
 		}
 	}
 	else if (le->mslider && dm->event.motion.x < 750)

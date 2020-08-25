@@ -27,7 +27,7 @@ void	damageSprite(t_doom *dm, int spriteId, int damage)
 	dm->sprite.hp -= damage;
 	if (dm->sprite.hp <= 0)//sprite dies
 	{
-		//play sprite death-soundeffect here
+		Mix_PlayChannel(-1, dm->osrsMonsterDeath, 0);
 	}
 	else//sprite got hit but didn't die
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 12:11:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/24 13:25:31 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@
 # define GFXCOUNT	26
 # define THREADS	6
 # define BUFFER		6
-# define LIM		0.999999
-# define LIM0		(1 - LIM)
+# define LIM		0.9999999
 
 #if __APPLE__
 # define OSCAM		1
@@ -120,7 +119,7 @@
 # define KEY_SHIFT	SDL_SCANCODE_LSHIFT
 # define KEY_CTRL	256// dont use this. its a shortcut key on mac which just messes up the program.
 #elif _WIN64
-# define OSCAM		4
+# define OSCAM		10
 
 # define ESC		SDL_SCANCODE_ESCAPE
 # define KEY_ONE	SDL_SCANCODE_1

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 15:43:36 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:49:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,70 +119,83 @@ int				key_release(int key, t_doom *dm)
 		dm->mousemovement = 0;
 		return (1);
 	}
-	if (key == KEY_M)
-		dm->ismenu = dm->ismenu * dm->ismenu - 1;
-	if (dm->ismenu == -1)
-		dm->cycle = &options_menu;
-	else if (dm->ismenu == 0)
-		dm->cycle = &render;
-	if (dm->ismenu)
+	if (dm->alive)
 	{
-		menu_keys(key, dm);
-		return (0);
-	}
-	if (key == KEY_T)
-		dm->texbool = (dm->texbool * dm->texbool) - 1;
-	if (key == KEY_TRE)
-		interact(dm);
-	if (key == LEFT || key == KEY_A)
-		dm->key.left = 0;
-	if (key == RIGHT || key == KEY_D)
-		dm->key.right = 0;
-	if (key == UP || key == KEY_W)
-		dm->key.up = 0;
-	if (key == DOWN || key == KEY_S)
-		dm->key.down = 0;
-	if (key == 69)
-		dm->key.plus = 0;
-	if (key == 78)
-		dm->key.minus = 0;
-	if (key == KEY_ONE)
-		dm->key.one = 0;
-	if (key == KEY_TWO)
-		dm->key.two = 0;
-	if (key == KEY_TRE)
-		dm->key.three = (dm->key.three == 0 ? 1 : 0);
-	if (key == KEY_Q)
-		dm->key.q = 0;
-	if (key == KEY_E)
-		dm->key.e = 0;
-	if (key == KEY_I || key == SDL_SCANCODE_I)
-		dm->keycard = (dm->keycard == 0 ? 1 : 0);
-	if (key == KEY_SHIFT)
-		dm->movsp -= 0.06;
-	if (key == KEY_L)
-		dm->isoutline = (dm->isoutline * dm->isoutline) - 1;
-	if (key == KEY_C && dm->crouching)
-	{
-		dm->crouching = 0;
-		dm->movsp += 0.03;
-		dm->pos.z -= 0.2;
-	}
-	//if (key == KEY_M)
-	//	reset_window(dm, 0);
-	if (key == KEY_R && !dm->reloading && !dm->shooting)
-	{
-		dm->reloading = 1;
-		dm->ani = 2;
-	}
-	if (key == SPACE)
-	{
-		if (!dm->airbrn && !dm->isgravity)
+		if (key == KEY_M)
+			dm->ismenu = dm->ismenu * dm->ismenu - 1;
+		if (dm->ismenu == -1)
+			dm->cycle = &options_menu;
+		else if (dm->ismenu == 0)
+			dm->cycle = &render;
+		if (dm->ismenu)
 		{
-			dm->airbrn = 1;
-			dm->gravity.z = -0.55 * (30.0 / dm->buffer / dm->prefps);
+			menu_keys(key, dm);
+			return (0);
+		}
+		if (key == KEY_T)
+			dm->texbool = (dm->texbool * dm->texbool) - 1;
+		if (key == KEY_TRE)
+			interact(dm);
+		if (key == LEFT || key == KEY_A)
+			dm->key.left = 0;
+		if (key == RIGHT || key == KEY_D)
+			dm->key.right = 0;
+		if (key == UP || key == KEY_W)
+			dm->key.up = 0;
+		if (key == DOWN || key == KEY_S)
+			dm->key.down = 0;
+		if (key == 69)
+			dm->key.plus = 0;
+		if (key == 78)
+			dm->key.minus = 0;
+		if (key == KEY_ONE)
+			dm->key.one = 0;
+		if (key == KEY_TWO)
+			dm->key.two = 0;
+		if (key == KEY_TRE)
+			dm->key.three = (dm->key.three == 0 ? 1 : 0);
+		if (key == KEY_Q)
+			dm->key.q = 0;
+		if (key == KEY_E)
+			dm->key.e = 0;
+		if (key == KEY_I || key == SDL_SCANCODE_I)
+			dm->keycard = (dm->keycard == 0 ? 1 : 0);
+		if (key == KEY_SHIFT)
+			dm->movsp -= 0.06;
+		if (key == KEY_L)
+			dm->isoutline = (dm->isoutline * dm->isoutline) - 1;
+		if (key == KEY_C && dm->crouching)
+		{
+			dm->crouching = 0;
+			dm->movsp += 0.03;
+			dm->pos.z -= 0.2;
+		}
+		//if (key == KEY_M)
+		//	reset_window(dm, 0);
+		if (key == KEY_R && !dm->reloading && !dm->shooting)
+		{
+			dm->reloading = 1;
+			dm->ani = 2;
+		}
+		if (key == SPACE)
+		{
+			if (!dm->airbrn && !dm->isgravity)
+			{
+				dm->airbrn = 1;
+				dm->gravity.z = -0.55 * (30.0 / dm->buffer / dm->prefps);
+			}
 		}
 	}
+	else
+	{
+		if (key == SPACE)
+		{
+			dm->alive = 1;
+			dm->hp = 100;
+			reset_position(dm);
+		}
+	}
+
 	return (0);
 }
 
@@ -237,16 +250,19 @@ int				mouse_move(int x, int y, t_doom *dm)
 
 int				move(t_doom *dm)
 {
-	if ((dm->key.down || dm->key.up) && !dm->isoptions)
-		move_fb(dm);
-	if ((dm->key.left || dm->key.right) && !dm->isoptions)
-		move_lr(dm);
-	if ((dm->key.w || dm->key.s || dm->key.a || dm->key.d) && !dm->isoptions)
-		cam_udy(dm);
-	if ((dm->key.one || dm->key.two) && !dm->isoptions)
-		jetpack(dm);
-	if ((dm->key.q || dm->key.e) && !dm->isoptions)
-		strafe(dm, 0, 0);
+	if (dm->alive)
+	{
+		if ((dm->key.down || dm->key.up) && !dm->isoptions)
+			move_fb(dm);
+		if ((dm->key.left || dm->key.right) && !dm->isoptions)
+			move_lr(dm);
+		if ((dm->key.w || dm->key.s || dm->key.a || dm->key.d) && !dm->isoptions)
+			cam_udy(dm);
+		if ((dm->key.one || dm->key.two) && !dm->isoptions)
+			jetpack(dm);
+		if ((dm->key.q || dm->key.e) && !dm->isoptions)
+			strafe(dm, 0, 0);
+	}
 	gravity(dm);
 	return (0);
 }

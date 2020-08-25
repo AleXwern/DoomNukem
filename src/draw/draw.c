@@ -42,14 +42,13 @@ void	draw_stripe(t_doom *dm)
 		dm->texy = (int)((((dm->y * 256 - dm->winh * 128 * dm->camshift - dm->lineh * 128) * 128) / dm->lineh) / 256) % 128;
 		if (dm->texy < 0)
 			dm->texy += 128;
-		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * dm->gfx[dm->texnum].tex->pitch / 4 + dm->texx % 128 * dm->gfx[2].tex->format->BitsPerPixel / 32], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128/*dm->gfx[dm->texnum].pitch / 4*/ + dm->texx % 128 * /*dm->gfx[2].bpp*/ 32 / 32], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		dm->map = light_map(dm->map, dm->side);
 		dm->col = rl_color(dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x], dm->col);
 	}
 	if (dm->side > 2)
 		dm->col = (dm->col >> 1) & DARKEN;
 	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
-
 }
 
 void	wall_stripe(t_doom *dm)

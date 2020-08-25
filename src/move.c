@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 12:34:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/21 14:43:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,67 @@ int		move_lr(t_doom *dm)
 	return (0);
 }
 
+int		diffcheck_y(t_doom *dm, double mov)
+{
+	double	cpos;
+	double	tarpos;
+
+	cpos = ceil(dm->pos.z) - dm->pos.z - 0.6;
+	if (dm->key.up)
+	{
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].pt == 2)
+			tarpos = (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].pln / 15.0);
+		else
+			tarpos = 1;
+	}
+	printf("pos %f %f\n", cpos, tarpos);
+	if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].b <= 1)
+		return (1);
+	if (fabs(cpos - tarpos) < 0.5)
+	{
+		dm->pos.z = (int)dm->pos.z + 0.6 + (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].pln / 15.0);
+		return (1);
+	}
+	return(0);
+}
+
+int		diffcheck_x(t_doom *dm, double mov)
+{
+	double	cpos;
+	double	tarpos;
+
+	cpos = ceil(dm->pos.z) - dm->pos.z - 0.6;
+	if (dm->key.up)
+	{
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].pt == 2)
+			tarpos = (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].pln / 15.0);
+		else
+			tarpos = 1;
+	}
+	printf("pos %f %f %f\n", cpos, tarpos, dm->pos.z);
+	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].b <= 1)
+		return (1);
+	if (fabs(cpos - tarpos) < 0.5)
+	{
+		dm->pos.z += fabs(cpos - tarpos);
+		return (1);
+	}
+	return(0);
+}
+
 int		move_fb(t_doom *dm)
 {
 	double	mov;
 	
 	mov = dm->movsp * ((30.0 / dm->buffer) / dm->prefps);
 	if (mov > 1.0 || mov < -1.0)
-		mov /= fabs(mov);
+		mov /= fabs(mov) * 2;
 	if (dm->key.up)
 	{
+		/*if (diffcheck_y(dm, mov))
+			dm->pos.y += dm->dir.y * mov;
+		if (diffcheck_x(dm, mov))
+			dm->pos.x += dm->dir.x * mov;*/
 		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].b <= 1)
 			dm->pos.y += dm->dir.y * mov;
 		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].b <= 1)
@@ -139,6 +191,8 @@ int		move_fb(t_doom *dm)
 		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.x * mov)].b <= 1)
 			dm->pos.x -= dm->dir.x * mov;
 	}
+	if (dm->area[(int)dm->pos.z + 1][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1)
+		dm->airbrn = 1;
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/08/20 15:43:04 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:41:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ int		get_warpdest(t_doom* dm, t_vector pos, t_vector warp)
 	warp.y = dm->pos.y + (-relative.y * 2.0);
 	warp.z = dm->pos.z;
 	if (dm->area[(int)warp.z][(int)warp.y][(int)warp.x].b == 1)
+	{
+		curt_down(dm);
 		dm->pos = warp;
+		curt_up(dm);
+	}
 	return (1);
 }
 

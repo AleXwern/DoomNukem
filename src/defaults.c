@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/13 14:57:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:49:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	reset_position(t_doom *dm)
 	dm->movsp = 0.0712;
 	dm->camshift = 1.0 - (dm->dir.z * 2);
 	dm->texbool = 1;
+	dm->airbrn = 1;
 }
 
 void	doom_default(t_doom *dm)
@@ -83,12 +84,12 @@ void	doom_default(t_doom *dm)
 	ft_putnbrln(dm->mxflr);
 	dm->prefps = 30;
 	dm->buffer = BUFFER;
-	dm->keycard = 0;
 	load_animsprite(dm);
 	load_gun(dm);
 	load_numbers(dm);
 	load_inventory(dm);
 	load_keycard(dm);
+	load_hp(dm);
 	dm->owinh = dm->winh;
 	dm->owinw = dm->winw;
 	wind_default(dm);
