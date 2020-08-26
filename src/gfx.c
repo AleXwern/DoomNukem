@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/12 12:47:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/25 15:06:11 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define _CRT_SECURE_NO_WARNINGS
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
@@ -21,15 +22,15 @@ void	destroy_gfx(t_doom* dm, int i)
 		{
 			ft_putstr("Clear GFX: ");
 			ft_putnbrln(i);
-			SDL_FreeSurface(dm->gfx[i].tex);
+			free(dm->gfx[i].data);
 		}
 	}
 	free(dm->gfx);
 }
 
-t_gfx			init_image(t_doom *dm)
+t_img			init_image(t_doom *dm)
 {
-	t_gfx	image;
+	t_img	image;
 
 	if (!(image.tex = SDL_GetWindowSurface(dm->win)))
 		error_out(WIN_ERROR, dm);
@@ -37,7 +38,7 @@ t_gfx			init_image(t_doom *dm)
 	image.data = (Uint32*)image.tex->pixels;
 	return (image);
 }
-
+/*
 t_gfx	gfx_get(t_doom *dm, char *file, int x, int y)
 {
 	t_gfx			gfx;
@@ -63,10 +64,19 @@ t_gfx	gfx_get(t_doom *dm, char *file, int x, int y)
 	gfx.data = (Uint32*)gfx.tex->pixels;
 	free(file);
 	SDL_FreeRW(dm->rwops);
-	//write(dm->cur, gfx.data, sizeof(Uint32) * gfx.wid * gfx.hgt);
+	char* temp = ft_itoa(sizeof(Uint32) * gfx.wid * gfx.hgt);
+	temp = ft_strfjoin(temp, ft_strdup("\n"));
+	temp = ft_strfjoin(ft_strdup("\n"), temp);
+	write(dm->cur, temp, ft_strlen(temp));
+	free(temp);
+	temp = (char*)malloc(sizeof(Uint32) * x * y);
+	ft_strncpy(temp, gfx.data, sizeof(Uint32) * x * y);
+	temp = ft_replace(temp, '\n', '\t', sizeof(Uint32) * x * y);
+	//write(dm->cur, temp, sizeof(Uint32) * gfx.wid * gfx.hgt);
+	free(temp);
 	//write(dm->cur, "\nZZZ\n", 5);
 	return (gfx);
-}
+}*/
 
 /*
 **	i = 15-23 for the foes.
@@ -74,16 +84,16 @@ t_gfx	gfx_get(t_doom *dm, char *file, int x, int y)
 
 void	comp_foe(t_doom *dm, char *bpath, int i)
 {
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe0.xpm"), 564, 396);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe1.xpm"), 564, 396);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe2.xpm"), 564, 396);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe4.xpm"), 564, 396);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe5.xpm"), 564, 396);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe6.xpm"), 564, 396);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe7.xpm"), 564, 396);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe8.xpm"), 564, 396);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "SpriteSheets/GreyDragon.xpm"), 384, 384);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "misc/icon.xpm"), 157, 157);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "foe/foe0.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "foe/foe1.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "foe/foe2.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "foe/foe4.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "foe/foe5.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "foe/foe6.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "foe/foe7.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "SpriteSheets/GreyDragon.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "misc/icon.bmp"), 0);
 	dm->gfxcount = i;
 	//close(dm->cur);
 	if (i != GFXCOUNT)
@@ -96,15 +106,15 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 
 void	comp_hud_gfx(t_doom *dm, char *bpath, int i)
 {
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "misc/spawn.xpm"), 128, 128);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/notifdown.xpm"), 441, 57);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/options.xpm"), 540, 720);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "foe/foe3.xpm"), 564, 396);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/btlmenu.xpm"), 221, 312);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/btlsel.xpm"), 221, 312);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/pcturn.xpm"), 354, 95);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/pcsel.xpm"), 354, 95);
-	dm->gfx[i++] = gfx_get(dm, ft_strjoin(bpath, "hud/mainmenu.xpm"), 1080, 720);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "misc/spawn.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "hud/notifdown.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "hud/options.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "foe/foe3.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "hud/btlmenu.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "hud/btlsel.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "hud/pcturn.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "hud/pcsel.bmp"), 0);
+	dm->gfx[i++] = *read_bmp(ft_strjoin(bpath, "hud/mainmenu.bmp"), 0);
 	//free(bpath);
 	//dm->gfxcount = i;
 	comp_foe(dm, bpath, i);
@@ -125,18 +135,21 @@ void	comp_gfx(t_doom *dm, int i)
 	bpath = ft_strjoin(path, "gfx/");
 	if (!(dm->gfx = (t_gfx*)malloc(sizeof(t_gfx) * GFXCOUNT)))
 		error_out(MEM_ERROR, dm);
-	#if _WIN64
-		_sopen_s(&dm->cur, "gfx/dump", O_WRONLY | O_CREAT | O_TRUNC, _SH_DENYNO, _S_IREAD | _S_IWRITE);
-	#elif __APPLE__
-		dm->cur = open("gfx/dump", O_WRONLY/* | O_CREAT | O_EXCL, 0644*/);
-	#endif
-	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/sky.xpm", ""), 1080, 360);
+	/*dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/sky.xpm", ""), 1080, 360);
 	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/floor.xpm", ""), 128, 128);
 	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/wall.xpm", ""), 128, 128);
 	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/stairu.xpm", ""), 128, 128);
 	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/staird.xpm", ""), 128, 128);
 	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/door.xpm", ""), 128, 128);
-	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/warp.xpm", ""), 128, 128);
+	dm->gfx[i++] = gfx_get(dm, ft_quadjoin(bpath, (char*)&dm->tile, "/warp.xpm", ""), 128, 128);*/
+	
+	dm->gfx[i++] = *read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/sky.bmp", ""), 0);
+	dm->gfx[i++] = *read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/floor.bmp", ""), 0);
+	dm->gfx[i++] = *read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/wall.bmp", ""), 0);
+	dm->gfx[i++] = *read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/stairu.bmp", ""), 0);
+	dm->gfx[i++] = *read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/staird.bmp", ""), 0);
+	dm->gfx[i++] = *read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/door.bmp", ""), 0);
+	dm->gfx[i++] = *read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/warp.bmp", ""), 0);
 	comp_hud_gfx(dm, bpath, i);
 	dm->tile -= 48;
 	SDL_free(path);

@@ -6,14 +6,16 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 12:46:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 12:47:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DOOM_H
 # define DOOM_H
 
-//DOOM
+# if _WIN64
+# define _CRT_SECURE_NO_WARNINGS
+# endif
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -164,13 +166,31 @@ typedef struct	s_chara
 ** 6 = Secret warp
 */
 
-typedef struct	s_gfx
+typedef struct	s_img
 {
 	SDL_Surface	*tex;
 	SDL_Texture	*img;
 	Uint32		*data;
 	int			wid;
 	int			hgt;
+}				t_img;
+
+/*typedef struct	s_gfx
+{
+	SDL_Surface* tex;
+	SDL_Texture* img;
+	Uint32* data;
+	int			wid;
+	int			hgt;
+}				t_gfx;*/
+
+typedef struct	s_gfx
+{
+	Uint32		*data;
+	Uint32		wid;
+	Uint32		hgt;
+	Uint32		bpp;
+	Uint32		pitch;
 }				t_gfx;
 
 typedef struct	s_editor
@@ -239,7 +259,7 @@ typedef struct	s_doom
 	SDL_Renderer *rend;
 	SDL_Surface	*surf;
 	SDL_Texture *tex;
-	t_gfx		img;
+	t_img		img;
 	SDL_RWops	*rwops;
 	SDL_Event	event;
 	SDL_GameController *gpad;
@@ -446,7 +466,7 @@ typedef struct	s_doom
 	Mix_Chunk	*windowShatter;
 }				t_doom;
 
-t_gfx			init_image(t_doom *wolf);
+t_img			init_image(t_doom *dm);
 t_gfx			gfx_get(t_doom *wolf, char *file, int x, int y);
 t_chara			*generate_party(t_doom *wlf);
 t_chara			generate_foe(t_doom *wlf);
@@ -560,6 +580,8 @@ void			slope_dda_xzp(t_doom* dm);
 void			single_loop_z(t_doom* dm);
 void			single_loop_y(t_doom* dm);
 void			single_loop_x(t_doom* dm);
+
+t_gfx			*read_bmp(char* file, int fd);
 
 double			dot_prd(t_vector v, t_vector u);
 

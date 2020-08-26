@@ -13,7 +13,7 @@
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-int		collision_check(t_block area, t_vector gravity, t_vector pos)
+/*int		collision_check(t_block area, t_vector gravity, t_vector pos)
 {
 	pos.z = pos.z + gravity.z - 0.1;
 	printf("Gravity\npos %f %f %f\nblock %hhu %hhu %f\n", pos.z, pos.y, pos.x, area.b, area.pt, area.pln / 15.0);
@@ -24,7 +24,7 @@ int		collision_check(t_block area, t_vector gravity, t_vector pos)
 	//else if (area.pt == 1 && area.b > 1 && (pos.z - floor(pos.z)) < (area.pln / 15.0))
 	//	return (0);
 	return (0);
-}
+}*/
 
 void	gravity(t_doom* dm)
 {
