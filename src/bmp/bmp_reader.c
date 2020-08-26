@@ -50,14 +50,32 @@ Uint32	*flip_arr(t_gfx gfx, char *corr)
 	return ((Uint32*)dummy);
 }
 
+char	*read_pixdata(char *corr, int fd, t_gfx gfx, int y)
+{
+	int		rd;
+	char	exc[4];
+
+	rd = 0;
+	if (gfx.pitch % 4 != 0)
+		rd += 4 - (gfx.pitch % 4);
+	while (--y >= 0)
+	{
+		int i = read(fd, corr + (gfx.pitch * y), gfx.pitch);
+		if (rd > 0)
+			read(fd, exc, rd);
+	}
+	return (corr);
+}
+
 Uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 {
 	char	*dummy;
 	char	*corr;
 
-	dummy = (char*)malloc(gfx.wid * gfx.hgt * 4);
-	corr = (char*)malloc(gfx.wid * gfx.hgt * (gfx.bpp / 8));
-	read(fd, corr, gfx.wid * gfx.hgt * (gfx.bpp / 8));
+	dummy = (char*)ft_memalloc(gfx.wid * gfx.hgt * 4);
+	corr = (char*)ft_memalloc(gfx.wid * gfx.hgt * (gfx.bpp / 8));
+	//read(fd, corr, gfx.pitch * gfx.hgt);// * (gfx.bpp / 8));
+	corr = read_pixdata(corr, fd, gfx, gfx.hgt);
 	while (i < gfx.wid * gfx.hgt * (gfx.bpp / 8))
 	{
 		if (b % 4 >= (gfx.bpp / 8))
@@ -70,7 +88,7 @@ Uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 		b++;
 	}
 	free(corr);
-	return (flip_arr(gfx, dummy));
+	return (dummy);//flip_arr(gfx, dummy));
 }
 
 t_gfx	read_bmp(char *file, int fd, int bread)

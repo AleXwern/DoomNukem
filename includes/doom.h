@@ -47,7 +47,7 @@
 
 # define main(X, Y)			wmain(X, Y)
 # define close(X)			_close(X)
-# define open(X, Y...)		_open(X, Y...)
+# define open(X, Y)			_open(X, Y)
 //# define open(W, X, Y)		_sopen_s(W, X, Y, _SH_DENYWR, _S_IREAD);
 #elif __APPLE__
 /*
