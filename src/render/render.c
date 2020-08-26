@@ -6,7 +6,11 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/08/26 14:49:30 by anystrom         ###   ########.fr       */
+=======
+/*   Updated: 2020/08/26 15:08:22 by tbergkul         ###   ########.fr       */
+>>>>>>> daad100a0ff1935477dd5cca058dc34da7e3f78e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,11 +242,15 @@ void	render(t_doom *dm)
 	}
 	draw_gfx(dm, dm->gfx[32], 20, 10);
 	//draw_hp(dm, dm->gfx[28], 20, 10);
-	draw_gun(dm);
-	draw_crosshair(dm);
+	//draw_gun(dm);
+	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
+	//draw_crosshair(dm);
+	//draw_ammo(dm, dm->)
 	draw_ammo(dm);
+	draw_gfx(dm, dm->gfx[28], 20, 10);//hp
 	//draw_hp(dm);
-	draw_inventory(dm);
+	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
+	//draw_inventory(dm);
 	if (dm->keycard)
 		draw_keycard(dm);
 	if (dm->key.three)
