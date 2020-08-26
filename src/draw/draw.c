@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 14:56:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:45:57 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	draw_stripe(t_doom *dm)
 		dm->texy = (int)((((dm->y * 256 - dm->winh * 128 * dm->camshift - dm->lineh * 128) * 128) / dm->lineh) / 256) % 128;
 		if (dm->texy < 0)
 			dm->texy += 128;
-		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128/*dm->gfx[dm->texnum].pitch / 4*/ + dm->texx % 128 * /*dm->gfx[2].bpp*/ 32 / 32], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		dm->map = light_map(dm->map, dm->side);
 		dm->col = rl_color(dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x], dm->col);
 	}

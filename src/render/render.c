@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 12:56:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:42:02 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ void	render(t_doom *dm)
 		draw_sprite(dm);
 	if (dm->isoutline)
 		post_effects(dm);
-	//SDL_UpdateWindowSurface(dm->win);
+	//draw_part_gfx(dm, dm->gfx[1], (int[2]){70, 20}, (int[2]){200, 20});
 	SDL_RenderPresent(dm->rend);
 	dm->fps++;
 	if (dm->alive && dm->hp <= 0)

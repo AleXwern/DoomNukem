@@ -6,17 +6,37 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:34:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:42:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
+void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
+{
+	int	gx;
+	int	gy;
+
+	gy = gfx.y;
+	while (gy < gfx.hgt && (xy[0] + gy) < dm->winh && gy < max[0])
+	{
+		gx = gfx.x;
+		while (gx < gfx.wid && (xy[1] + gx) < dm->winw && gx < max[1])
+		{
+			if (gfx.data[gfx.wid * gy + gx] != 0xffff00ff)
+				dm->img.data[dm->winw * (xy[0] + gy) + (xy[1] + gx)] =
+						gfx.data[gfx.wid * gy + gx];
+			gx++;
+		}
+		gy++;
+	}
+}
+
 void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int x, int y) //DO NO USE
 {
-	t_vector	g;
-	t_vector	i;
+	t_ivector	g;
+	t_ivector	i;
 
 	g.y = 0;
 	i.y = 1;

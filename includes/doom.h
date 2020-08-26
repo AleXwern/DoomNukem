@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 13:06:21 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:18:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ typedef struct	s_gfx
 	Uint32		hgt;
 	Uint32		bpp;
 	Uint32		pitch;
+	Uint32		x;
+	Uint32		y;
 }				t_gfx;
 
 typedef struct	s_editor
@@ -210,6 +212,7 @@ typedef struct	s_editor
 	Sint8		marea;
 	Sint8		mslider;
 	Sint8		mblock;
+	Sint8		mcopy;
 }				t_editor;
 
 typedef struct	s_block
@@ -535,6 +538,7 @@ void			draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y);
 void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
 void			draw_level_screen(t_doom *wlf, t_editor *le, double x, double y);
 void			draw_menu(t_doom *wlf, int x, int y, int cur);
+void			draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy);
 void			draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
 void			draw_screen(t_editor* le, t_doom* dm, int x, int y);
 void			draw_sliders(t_doom *dm, t_editor *le, int x, int y);

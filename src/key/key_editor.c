@@ -6,12 +6,20 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/21 15:13:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:48:52 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
+void	set_slider(t_editor* le, t_doom* dm, int x, int y)
+{
+	x = dm->event.motion.x - 750;
+	y = dm->event.motion.y / 75 - 1;
+	//x = le->options[]
+	printf("%d %d\n", dm->event.motion.x, dm->event.motion.y);
+}
 
 void	draw_screen(t_editor* le, t_doom* dm, int x, int y)
 {
@@ -42,7 +50,7 @@ void	draw_screen(t_editor* le, t_doom* dm, int x, int y)
 			dm->area[le->options[0]][y][x].meta = le->options[4];
 		}
 	}
-	else if (le->mslider && dm->event.motion.x < 750)
+	else if (le->mcopy && dm->event.motion.x < 750)
 	{
 		if (y >= dm->height || x >= dm->width)
 			return ;
@@ -54,6 +62,8 @@ void	draw_screen(t_editor* le, t_doom* dm, int x, int y)
 		le->options[3] = dm->area[le->options[0]][y][x].pln;
 		le->options[4] = dm->area[le->options[0]][y][x].meta;
 	}
+	else if (le->mslider)
+		set_slider(le, dm, x, y);
 }
 
 void	check_area(t_editor* le, SDL_Event ev)
@@ -71,9 +81,10 @@ void	check_area(t_editor* le, SDL_Event ev)
 		}
 		if (le->blk > 7)
 			le->blk = 7;
+		printf("Mouse %d %d\n", ev.motion.x, ev.motion.y);
 	}
 	else if (ev.motion.x >= 0 && ev.motion.y >= 0 && ev.button.button == 3)
-		le->mslider = 1;
+		le->mcopy = 1;
 }
 
 void	editor_key_release(Uint32 key, t_editor *le, t_doom* dm)

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 13:07:52 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:22:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,45 +37,6 @@ t_img			init_image(t_doom *dm)
 	image.data = (Uint32*)image.tex->pixels;
 	return (image);
 }
-/*
-t_gfx	gfx_get(t_doom *dm, char *file, int x, int y)
-{
-	t_gfx			gfx;
-	SDL_Surface*	surf;
-
-	//ft_putendl(file);
-	dm->rwops = SDL_RWFromFile(file, "rb");
-	surf = IMG_Load(file);
-	if (!surf)
-	{
-		printf("IMG error: %s\n", IMG_GetError());
-		SDL_FreeSurface(surf);
-		free(file);
-		gfx.wid = 0;
-		gfx.hgt = 0;
-		SDL_FreeRW(dm->rwops);
-		error_out(GFX_ERROR, dm);
-	}
-	gfx.tex = SDL_ConvertSurfaceFormat(surf, dm->img.tex->format->format, 0);
-	SDL_FreeSurface(surf);
-	gfx.wid = gfx.tex->w;
-	gfx.hgt = gfx.tex->h;
-	gfx.data = (Uint32*)gfx.tex->pixels;
-	free(file);
-	SDL_FreeRW(dm->rwops);
-	char* temp = ft_itoa(sizeof(Uint32) * gfx.wid * gfx.hgt);
-	temp = ft_strfjoin(temp, ft_strdup("\n"));
-	temp = ft_strfjoin(ft_strdup("\n"), temp);
-	write(dm->cur, temp, ft_strlen(temp));
-	free(temp);
-	temp = (char*)malloc(sizeof(Uint32) * x * y);
-	ft_strncpy(temp, gfx.data, sizeof(Uint32) * x * y);
-	temp = ft_replace(temp, '\n', '\t', sizeof(Uint32) * x * y);
-	//write(dm->cur, temp, sizeof(Uint32) * gfx.wid * gfx.hgt);
-	free(temp);
-	//write(dm->cur, "\nZZZ\n", 5);
-	return (gfx);
-}*/
 
 /*
 **	i = 15-23 for the foes.

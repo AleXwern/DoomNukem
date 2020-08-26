@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/21 15:28:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:23:14 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	key_state_editor(t_editor *le, t_doom *dm)
 			le->marea = 0;
 			le->mslider = 0;
 			le->mblock = 0;
+			le->mcopy = 0;
 		}
 		if (dm->event.window.event == SDL_WINDOWEVENT_RESIZED || dm->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 		{

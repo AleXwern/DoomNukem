@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/21 15:49:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:44:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ int				key_release(int key, t_doom *dm)
 			dm->alive = 1;
 			dm->hp = 100;
 			reset_position(dm);
+			ft_bzero(&dm->key, sizeof(t_key));
 		}
 	}
 
