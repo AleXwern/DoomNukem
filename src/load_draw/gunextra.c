@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gunextra.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:34:23 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/07/22 11:13:08 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:09:19 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	reloading_gun(t_doom *dm)
 
 void	load_inventory(t_doom *dm)
 {
-	dm->invSurface = IMG_Load("./gfx/SpriteSheets/inventory.png");
+	dm->invSurface = IMG_Load("./gfx/SpriteSheets/inventory.bmp");
 	dm->invTexture = SDL_CreateTextureFromSurface(dm->rend, dm->invSurface);
 	SDL_FreeSurface(dm->invSurface);
 	dm->invRect.x = 0;

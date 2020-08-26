@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gun.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/21 14:37:36 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:09:06 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	load_gun4(t_doom *dm)
 	dm->gunRect[5][2].y = 640;
 	dm->gunRect[5][2].w = 128;
 	dm->gunRect[5][2].h = 128;
-	dm->CHSurface = IMG_Load("/gfx/SpriteSheets/crosshair.xpm");
+	dm->CHSurface = IMG_Load("/gfx/SpriteSheets/crosshair.bmp");
 	dm->CHTexture = SDL_CreateTextureFromSurface(dm->rend, dm->CHSurface);
 	SDL_FreeSurface(dm->CHSurface);
 	dm->CHRect.x = 0;
@@ -107,7 +107,7 @@ void	load_gun2(t_doom *dm)
 
 void	load_gun(t_doom *dm)
 {
-	dm->gunSurface = IMG_Load("/gfx/SpriteSheets/gun.png");
+	dm->gunSurface = IMG_Load("/gfx/SpriteSheets/gun.bmp");
 	dm->gunTexture = SDL_CreateTextureFromSurface(dm->rend, dm->gunSurface);
 	SDL_FreeSurface(dm->gunSurface);
 	dm->shooting = 0;

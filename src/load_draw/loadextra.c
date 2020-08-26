@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loadextra.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:40:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/21 14:59:48 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:09:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	load_numbers2(t_doom *dm)
 
 void	load_numbers(t_doom *dm)
 {
-	dm->nbrsSurface = IMG_Load("./gfx/SpriteSheets/numbers.png");
+	dm->nbrsSurface = IMG_Load("./gfx/SpriteSheets/numbers.bmp");
 	dm->nbrsTexture = SDL_CreateTextureFromSurface(dm->rend, dm->nbrsSurface);
 	SDL_FreeSurface(dm->nbrsSurface);
 	dm->nbrsRect[0].x = 0;
@@ -94,7 +94,7 @@ void	load_numbers(t_doom *dm)
 void	load_keycard(t_doom *dm)
 {
 	char *test;
-	dm->keycardSurface = IMG_Load("./gfx/SpriteSheets/keycard.png");
+	dm->keycardSurface = IMG_Load("./gfx/SpriteSheets/keycard.bmp");
 	dm->keycardTexture = SDL_CreateTextureFromSurface(dm->rend, dm->keycardSurface);
 	SDL_FreeSurface(dm->keycardSurface);
 	dm->keycardRect.x = 0;

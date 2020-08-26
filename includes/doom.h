@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 12:47:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:06:21 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 
 # define main(X, Y)			wmain(X, Y)
 # define close(X)			_close(X)
+# define open(X, Y...)		_open(X, Y...)
 //# define open(W, X, Y)		_sopen_s(W, X, Y, _SH_DENYWR, _S_IREAD);
 #elif __APPLE__
 /*
@@ -581,7 +582,7 @@ void			single_loop_z(t_doom* dm);
 void			single_loop_y(t_doom* dm);
 void			single_loop_x(t_doom* dm);
 
-t_gfx			*read_bmp(char* file, int fd);
+t_gfx			read_bmp(char* file, int fd, int bread);
 
 double			dot_prd(t_vector v, t_vector u);
 

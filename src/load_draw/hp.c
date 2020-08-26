@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hp.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:40:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/21 15:25:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/26 13:09:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	load_hp2(t_doom *dm)
 
 void	load_hp(t_doom *dm)
 {
-	dm->hpSurface = IMG_Load("./gfx/SpriteSheets/healthBar.png");
+	dm->hpSurface = IMG_Load("./gfx/SpriteSheets/healthBar.bmp");
 	dm->hpTexture = SDL_CreateTextureFromSurface(dm->rend, dm->hpSurface);
 	SDL_FreeSurface(dm->hpSurface);
 	dm->hpRect[0].x = 0;
