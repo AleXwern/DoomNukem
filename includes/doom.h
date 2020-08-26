@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 13:06:21 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:31:21 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,7 +488,8 @@ void			draw_inventory(t_doom *wlf);
 void			load_keycard(t_doom *wlf);
 void			draw_keycard(t_doom *wlf);
 void			load_hp(t_doom *dm);
-void			draw_hp(t_doom *dm);
+//void			draw_hp(t_doom *dm);
+void			draw_hp(t_doom *dm, t_gfx gfx, int x, int y);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 Uint32			rl_color(t_block blk, Uint32 col);

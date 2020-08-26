@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hp.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:40:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/26 13:09:26 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:31:28 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	load_hp(t_doom *dm)
 	load_hp2(dm);
 }
 
-void	draw_hp(t_doom *dm)
+/*void	draw_hp(t_doom *dm)
 {
 	int	healthBar;
 
@@ -89,4 +89,29 @@ void	draw_hp(t_doom *dm)
 	else
 		healthBar = 5;
 	SDL_RenderCopy(dm->rend, dm->hpTexture, &dm->hpRect[healthBar], &dm->screenhpRect);
+}*/
+
+void	draw_hp(t_doom *dm, t_gfx gfx, int x, int y)
+{
+	int	gx;
+	int	gy;
+	int	healthBar;
+
+	if (dm->hp > 0)
+		healthBar = dm->healthBar[(dm->hp / 20)];
+	else
+		healthBar = 5;
+	gy = 0;
+	while (gy < gfx.hgt && (y + gy) < dm->winh)
+	{
+		gx = 0;
+		while (gx < gfx.wid && (x + gx) < dm->winw)
+		{
+			if (gfx.data[gfx.wid * gy + gx] != 0xffff00ff)
+				dm->img.data[dm->winw * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
+					gy + gx];
+			gx++;
+		}
+		gy++;
+	}
 }

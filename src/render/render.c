@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 12:56:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:45:22 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,10 +236,12 @@ void	render(t_doom *dm)
 		else
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
+	draw_gfx(dm, dm->gfx[32], 20, 10);
+	//draw_hp(dm, dm->gfx[28], 20, 10);
 	draw_gun(dm);
 	draw_crosshair(dm);
 	draw_ammo(dm);
-	draw_hp(dm);
+	//draw_hp(dm);
 	draw_inventory(dm);
 	if (dm->keycard)
 		draw_keycard(dm);
