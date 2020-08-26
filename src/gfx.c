@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 13:22:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:49:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,28 @@ t_img			init_image(t_doom *dm)
 }
 
 /*
-**	i = 15-23 for the foes.
+**	i = 25-32 for the following SpriteSheets.
+*/
+
+void	comp_spritesheets(t_doom *dm, char *bpath, int i)
+{
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/crosshair.bmp"), 0, 0);//26
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/GreyDragon.bmp"), 0, 0);//27
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/gun.bmp"), 0, 0);//28
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/healthBar.bmp"), 0, 0);//28
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/inventory.bmp"), 0, 0);//30
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/keycard.bmp"), 0, 0);//31
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/numbers.bmp"), 0, 0);//32
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/PokemonTrainer.bmp"), 0, 0);//33
+	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/.bmp"), 0, 0);//Use these if you want to add more gfx
+	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/.bmp"), 0, 0);
+	dm->gfxcount = i;
+	if (i != GFXCOUNT)
+		error_out(GFX_ERROR, dm);
+}
+
+/*
+**	i = 15-25 for the foes.
 */
 
 void	comp_foe(t_doom *dm, char *bpath, int i)
@@ -52,11 +73,8 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foe6.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foe7.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0, 0);
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/GreyDragon.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/icon.bmp"), 0, 0);
-	dm->gfxcount = i;
-	if (i != GFXCOUNT)
-		error_out(GFX_ERROR, dm);
+	comp_spritesheets(dm, bpath, i);
 }
 
 /*
