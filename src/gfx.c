@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 14:37:31 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:49:52 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ t_gfx	gfx_get(t_doom *dm, char *file, int x, int y)
 
 void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 {
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/crosshair.bmp"), 0, 0);//26
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/GreyDragon.bmp"), 0, 0);//27
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/gun.bmp"), 0, 0);//28
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/crosshair.bmp"), 0, 0);//25
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/GreyDragon.bmp"), 0, 0);//26
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/gun.bmp"), 0, 0);//27
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/healthBar.bmp"), 0, 0);//28
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/inventory.bmp"), 0, 0);//30
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/keycard.bmp"), 0, 0);//31
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/numbers.bmp"), 0, 0);//32
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/PokemonTrainer.bmp"), 0, 0);//33
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/inventory.bmp"), 0, 0);//29
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/keycard.bmp"), 0, 0);//30
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/numbers.bmp"), 0, 0);//31
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/PokemonTrainer.bmp"), 0, 0);//32
 	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/.bmp"), 0, 0);//Use these if you want to add more gfx
 	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/.bmp"), 0, 0);
 	dm->gfxcount = i;
