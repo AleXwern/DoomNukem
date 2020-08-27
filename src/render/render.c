@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 13:48:49 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 14:19:48 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ void	render(t_doom *dm)
 	//draw_crosshair(dm);
 	//draw_ammo(dm, dm->)
 	draw_ammo(dm);
-	draw_gfx(dm, dm->gfx[28], 20, 10);//hp
+	draw_part_gfx(dm, dm->gfx[28], (int[2]){20, 200}, (int[2]){10, 0});//hp
 	//draw_hp(dm);
 	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
 	//draw_inventory(dm);
@@ -255,7 +255,7 @@ void	render(t_doom *dm)
 		post_effects(dm);
 	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){120, 120, 120, 120, 0, 0}, 2);
 	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){240, 120, 120, 120, 0, 0}, 0.5);
-	set_text(dm, "hello world", (int[2]){100, 0}, 1);
+	set_text(dm, "hello world", (int[2]){100, 0}, 2);
 	SDL_RenderPresent(dm->rend);
 	dm->fps++;
 	if (dm->alive && dm->hp <= 0)

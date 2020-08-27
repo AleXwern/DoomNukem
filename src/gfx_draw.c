@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 14:16:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 14:43:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 	int		gx;
 
 	gy = 0;
-	while (gy < gfx.hgt && (yx[0] + gy) < dm->winh && gy < yx[2])
+	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh && gy < yx[2] * size)
 	{
 		yx[4] = gy * (gfx.hgt / (gfx.hgt * size));
 		gx = 0;
-		while (gx < gfx.wid && (yx[1] + gx) < dm->winw && gx < yx[3])
+		while (gx < gfx.wid * size && (yx[1] + gx) < dm->winw && gx < yx[3] * size)
 		{
 			yx[5] = gx * (gfx.wid / (gfx.wid * size));
 			dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
