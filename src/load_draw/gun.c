@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/27 14:45:17 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:40:19 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,12 @@ void	draw_gun(t_doom *dm)
 	if (!dm->reloading)
 	{
 		//SDL_RenderCopy(dm->rend, dm->gunTexture, &dm->gunRect[dm->ani][dm->frm / 3], &dm->screenGunRect);
-		dm->gfx[27].x = 160 * dm->frm;
+		dm->gfx[27].x = 160 * dm->ani;
 		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), ((dm->winw / 2) - 16), 160, 160, 0, 0}, 2);
 		if (dm->shooting)
 		{
 			dm->frm++;
-			if (dm->ani == 0 && dm->frm == 1)
+			if (dm->ani == 1 && dm->frm == 2)
 			{
 				Mix_PlayChannel(-1, dm->gunshot, 0);
 				dm->hp -= 20;
@@ -154,16 +154,16 @@ void	draw_gun(t_doom *dm)
 					//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
 				}*/
 			}
-			if ((dm->frm / 3) > 2)
+			if (dm->frm == 4)
 			{
-				if (dm->ani == 0)
-					dm->ani = 1;
-				else
+				if (dm->ani == 5)
 				{
 					dm->ani = 0;
 					dm->shooting = 0;
 					dm->magazine--;
 				}
+				else
+					dm->ani++;
 				dm->frm = 0;
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:40:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/27 14:15:25 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:02:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,19 @@ void	draw_hp(t_doom *dm)
 	// else
 	// 	healthBar = 5;
 	if (dm->hp == 100)
-		healthBar = 1;
+		healthBar = 0;
 	else if (dm->hp == 80)
-		healthBar = 2;
+		healthBar = 1;
 	else if (dm->hp == 60)
-		healthBar = 3;
+		healthBar = 2;
 	else if (dm->hp == 40)
-		healthBar = 4;
+		healthBar = 3;
 	else if (dm->hp == 20)
-		healthBar = 5;
+		healthBar = 4;
 	else if (dm->hp == 0 || dm->hp < 0)
-		healthBar = 6;
-	draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, 20, (89 * healthBar), 367, 0, 0}, 1);
+		healthBar = 5;
+	dm->gfx[28].y = healthBar * 60;
+	draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, 20, 60, 367, 0, 0}, 1);
 	//SDL_RenderCopy(dm->rend, dm->hpTexture, &dm->hpRect[healthBar], &dm->screenhpRect);
 }
 
