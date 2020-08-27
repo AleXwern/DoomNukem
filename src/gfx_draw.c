@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 15:01:16 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:45:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 		gy++;
 	}
 }
-
+         
 /*
 **	int YX values
 **	0 = Y start point on screen
