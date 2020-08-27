@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 13:17:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 13:51:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,15 @@ void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
 	int	gx;
 	int	gy;
 
-	gy = gfx.y;
-	max[0] = gfx.y + max[0];
-	max[1] = gfx.x + max[1];
-	while (gy < gfx.hgt && (xy[0] + gy) < dm->winh && gy < max[0])
+	gy = 0;
+	while ((gfx.y + gy) < gfx.hgt && (xy[0] + gy) < dm->winh && gy < max[0])
 	{
-		gx = gfx.x;
-		while (gx < gfx.wid && (xy[1] + gx) < dm->winw && gx < max[1])
+		gx = 0;
+		while ((gx + gfx.x) < gfx.wid && (xy[1] + gx) < dm->winw && gx < max[1])
 		{
 			if (gfx.data[gfx.wid * gy + gx] != 0xffff00ff)
 				dm->img.data[dm->winw * (xy[0] + gy) + (xy[1] + gx)] =
-						gfx.data[gfx.wid * gy + gx];
+						gfx.data[gfx.wid * (gfx.y + gy) + (gx + gfx.x)];
 			gx++;
 		}
 		gy++;
@@ -50,17 +48,15 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 	int		gy;
 	int		gx;
 
-	gy = gfx.y;
-	yx[2] = yx[0] + yx[2];
-	yx[3] = yx[1] + yx[3];
+	gy = 0;
 	while (gy < gfx.hgt && (yx[0] + gy) < dm->winh && gy < yx[2])
 	{
 		yx[4] = gy * (gfx.hgt / (gfx.hgt * size));
-		gx = gfx.x;
+		gx = 0;
 		while (gx < gfx.wid && (yx[1] + gx) < dm->winw && gx < yx[3])
 		{
 			yx[5] = gx * (gfx.wid / (gfx.wid * size));
-			dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * yx[4] + yx[5]];
+			dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
 			gx++;
 		}
 		gy++;

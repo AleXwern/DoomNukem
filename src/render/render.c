@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 13:20:36 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 13:48:49 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,9 +253,9 @@ void	render(t_doom *dm)
 		draw_sprite(dm);
 	if (dm->isoutline)
 		post_effects(dm);
-	draw_pgfx_sc(dm, dm->gfx[1], (int[6]){120, 120, 120, 120, 0, 0}, 2);
-	draw_pgfx_sc(dm, dm->gfx[1], (int[6]){240, 120, 120, 120, 0, 0}, 0.5);
-	//set_text(dm, "hello world", (int[2]){100, 100}, 1);
+	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){120, 120, 120, 120, 0, 0}, 2);
+	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){240, 120, 120, 120, 0, 0}, 0.5);
+	set_text(dm, "hello world", (int[2]){100, 0}, 1);
 	SDL_RenderPresent(dm->rend);
 	dm->fps++;
 	if (dm->alive && dm->hp <= 0)

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 12:27:40 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 12:45:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 13:50:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	set_text(t_doom *dm, char *str, int *xy, double size)
 		{
 			dm->gfx[33].x = (str[i] - 97) * 27;
 			draw_part_gfx(dm, dm->gfx[33], (int[2]){26, 27}, xy);
+			printf("Char %c xpos %d %d\n", str[i], dm->gfx[33].x, dm->gfx[33].x / 27);
 		}
 		xy[1] += 27;
 		i++;
