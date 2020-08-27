@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gunextra.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:34:23 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/26 13:09:19 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 14:45:10 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	draw_crosshair(t_doom *dm)
 
 void	reloading_gun(t_doom *dm)
 {
-	SDL_RenderCopy(dm->rend, dm->gunTexture, &dm->gunRect[dm->ani][dm->frm / 4], &dm->screenGunRect);
+	//SDL_RenderCopy(dm->rend, dm->gunTexture, &dm->gunRect[dm->ani][dm->frm / 4], &dm->screenGunRect);
+
+	//draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), ((dm->winw / 2) - 16), 160, 160, 0, 0}, 2);
 	dm->frm++;
 	if (dm->ani == 2 && dm->frm == 1)
 		Mix_PlayChannel(-1, dm->reload, 0);
