@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 15:21:21 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 12:15:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void	set_slider(t_editor* le, t_doom* dm, double x, int y)
 	if (dm->event.motion.x > 750 && y < 5)
 	{
 		x = 1.0 * (dm->event.motion.x - 750) / 750;
-		le->options[y] = le->maxval[y] * x + 1;
+		le->options[y] = le->maxval[y] * x;
 		if (le->options[y] < le->minval[y])
 			le->options[y] = le->minval[y];
+		le->cur = y;
 	}
 }
 
@@ -78,7 +79,7 @@ void	check_area(t_editor* le, SDL_Event ev)
 			le->marea = 1;
 		else if (ev.motion.x < 1500 && ev.motion.y < 375)
 			le->mslider = 1;
-		else if (ev.motion.x < 1500 && ev.motion.y < 750)
+		else if (ev.motion.x < 1500 && ev.motion.y < 485)
 		{
 			le->blk = ((ev.motion.x - 750) / 107) + 1;
 			le->mblock = 1;

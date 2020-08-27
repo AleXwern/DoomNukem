@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 13:42:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 13:17:12 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
 	int	gy;
 
 	gy = gfx.y;
+	max[0] = gfx.y + max[0];
+	max[1] = gfx.x + max[1];
 	while (gy < gfx.hgt && (xy[0] + gy) < dm->winh && gy < max[0])
 	{
 		gx = gfx.x;
@@ -27,6 +29,38 @@ void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
 			if (gfx.data[gfx.wid * gy + gx] != 0xffff00ff)
 				dm->img.data[dm->winw * (xy[0] + gy) + (xy[1] + gx)] =
 						gfx.data[gfx.wid * gy + gx];
+			gx++;
+		}
+		gy++;
+	}
+}
+
+/*
+**	int YX values
+**	0 = Y start point on screen
+**	1 = X start point on screen
+**	2 = Y end point in relative to start point gfx.y (1 equals 1 towards Y dir)
+**	3 = X end point in relative to start point gfx.x
+**	4 = pass 0
+**	5 = pass 0
+**	pass point like (int[6]){1, 1, 1000, 1000, 0, 0}
+*/
+void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
+{
+	int		gy;
+	int		gx;
+
+	gy = gfx.y;
+	yx[2] = yx[0] + yx[2];
+	yx[3] = yx[1] + yx[3];
+	while (gy < gfx.hgt && (yx[0] + gy) < dm->winh && gy < yx[2])
+	{
+		yx[4] = gy * (gfx.hgt / (gfx.hgt * size));
+		gx = gfx.x;
+		while (gx < gfx.wid && (yx[1] + gx) < dm->winw && gx < yx[3])
+		{
+			yx[5] = gx * (gfx.wid / (gfx.wid * size));
+			dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * yx[4] + yx[5]];
 			gx++;
 		}
 		gy++;
