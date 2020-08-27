@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx_draw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 13:17:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 14:16:48 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 		while (gx < gfx.wid && (yx[1] + gx) < dm->winw && gx < yx[3])
 		{
 			yx[5] = gx * (gfx.wid / (gfx.wid * size));
-			dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * yx[4] + yx[5]];
+			if (gfx.data[gfx.wid * yx[4] + yx[5]] != 0xffff00ff &&
+				gfx.data[gfx.wid * yx[4] + yx[5]] != 0xff00ff)
+				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] =
+					gfx.data[gfx.wid * yx[4] + yx[5]];
 			gx++;
 		}
 		gy++;
