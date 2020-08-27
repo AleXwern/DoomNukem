@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 15:10:57 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:16:50 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,8 +253,9 @@ void	render(t_doom *dm)
 	if (dm->isoutline)
 		post_effects(dm);
 	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){120, 120, 120, 120, 0, 0}, 2);
-	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){240, 120, 120, 120, 0, 0}, 0.5);
-	//set_text(dm, "hello world", (int[2]){100, 100}, 1);
+	//draw_scaled_gfx(dm, dm->gfx[1], (int[4]){0, 0, 0, 0}, M_PI);
+	if (dm->hp <= 0)
+		set_text(dm, "you died", (int[2]){dm->winh / 2 - 26, dm->winw / 2 - 216}, 2);
 	SDL_RenderPresent(dm->rend);
 	dm->fps++;
 	if (dm->alive && dm->hp <= 0)
