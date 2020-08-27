@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 14:19:48 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:32:56 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,15 +236,13 @@ void	render(t_doom *dm)
 		else
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
-	draw_gfx(dm, dm->gfx[32], 20, 10);
-	//draw_hp(dm, dm->gfx[28], 20, 10);
-	//draw_gun(dm);
+	//draw_gfx(dm, dm->gfx[32], 20, 10);//pokemon
+	draw_gun(dm);
 	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
 	//draw_crosshair(dm);
-	//draw_ammo(dm, dm->)
-	draw_ammo(dm);
-	draw_part_gfx(dm, dm->gfx[28], (int[2]){20, 200}, (int[2]){10, 0});//hp
-	//draw_hp(dm);
+	draw_pgfx_sc(dm, dm->gfx[31], (int[6]){(dm->winh - 60), (dm->winw - 60), 1, (50 * dm->magazine), 0, 0}, 1);//numbers
+	//draw_ammo(dm);
+	draw_hp(dm);
 	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
 	//draw_inventory(dm);
 	if (dm->keycard)
@@ -254,8 +252,9 @@ void	render(t_doom *dm)
 	if (dm->isoutline)
 		post_effects(dm);
 	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){120, 120, 120, 120, 0, 0}, 2);
-	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){240, 120, 120, 120, 0, 0}, 0.5);
-	set_text(dm, "hello world", (int[2]){100, 0}, 2);
+	//draw_scaled_gfx(dm, dm->gfx[1], (int[4]){0, 0, 0, 0}, M_PI);
+	if (dm->hp <= 0)
+		set_text(dm, "you died", (int[2]){dm->winh / 2 - 26, dm->winw / 2 - 216}, 2);
 	SDL_RenderPresent(dm->rend);
 	dm->fps++;
 	if (dm->alive && dm->hp <= 0)

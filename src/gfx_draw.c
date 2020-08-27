@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 14:43:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:01:16 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,34 +56,42 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 		while (gx < gfx.wid * size && (yx[1] + gx) < dm->winw && gx < yx[3] * size)
 		{
 			yx[5] = gx * (gfx.wid / (gfx.wid * size));
-			dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
+			if (gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
+				gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xff00ff)
+				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
 			gx++;
 		}
 		gy++;
 	}
 }
 
-void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int x, int y) //DO NO USE
+/*
+**	int YX values
+**	0 = Y start point on screen
+**	1 = X start point on screen
+**	2 = pass 0
+**	3 = pass 0
+**	pass point like (int[4]){1, 1, 0, 0}
+*/
+void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 {
-	t_ivector	g;
-	t_ivector	i;
+	int		gy;
+	int		gx;
 
-	g.y = 0;
-	i.y = 1;
-	while (g.y < gfx.hgt && (y + g.y) < dm->winh)
+	gy = 0;
+	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh)
 	{
-		i.y = 0;
-		g.x = 1;
-		while (g.x < gfx.wid && (x + g.x) < dm->winw)
+		yx[2] = gy * (gfx.hgt / (gfx.hgt * size));
+		gx = 0;
+		while (gx < gfx.wid * size && (yx[1] + gx) < dm->winw)
 		{
-			if (gfx.data[(int)(gfx.wid * g.y + g.x)] != -65281)
-				dm->img.data[(int)(dm->winw * (y + g.y) + (x + g.x))] = gfx.data[(int)(gfx.wid *
-					g.y + g.x)];
-			g.x += g.x * (gfx.wid / dm->winw);
-			g.x++;
+			yx[3] = gx * (gfx.wid / (gfx.wid * size));
+			if (gfx.data[gfx.wid * yx[2] + yx[3]] != 0xffff00ff &&
+				gfx.data[gfx.wid * yx[2] + yx[3]] != 0xff00ff)
+				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * yx[2] + yx[3]];
+			gx++;
 		}
-		g.y += g.y * (gfx.hgt / dm->winh);
-		g.y++;
+		gy++;
 	}
 }
 
