@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 13:51:32 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 14:16:22 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
 		gx = 0;
 		while ((gx + gfx.x) < gfx.wid && (xy[1] + gx) < dm->winw && gx < max[1])
 		{
-			if (gfx.data[gfx.wid * gy + gx] != 0xffff00ff)
+			if ((gfx.data[gfx.wid * (gfx.y + gy) + (gx + gfx.x)] & 0xffffff) != 0xff00ffff)
 				dm->img.data[dm->winw * (xy[0] + gy) + (xy[1] + gx)] =
 						gfx.data[gfx.wid * (gfx.y + gy) + (gx + gfx.x)];
 			gx++;
