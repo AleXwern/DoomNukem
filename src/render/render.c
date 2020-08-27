@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 14:36:17 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:10:57 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,13 +240,14 @@ void	render(t_doom *dm)
 	draw_gun(dm);
 	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
 	//draw_crosshair(dm);
-	draw_pgfx_sc(dm, dm->gfx[31], (int[6]){(dm->winh - 60), (dm->winw - 60), 1, (50 * dm->magazine), 0, 0}, 1);//numbers
-	//draw_ammo(dm);
+	draw_ammo(dm);
 	draw_hp(dm);
 	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
 	//draw_inventory(dm);
 	if (dm->keycard)
-		draw_keycard(dm);
+		//draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 10, 1, 1, 0, 0}, 1);//keycard
+		draw_gfx(dm, dm->gfx[30], 10, dm->winh - 78);//keycard
+		//draw_keycard(dm);
 	if (dm->key.three)
 		draw_sprite(dm);
 	if (dm->isoutline)
