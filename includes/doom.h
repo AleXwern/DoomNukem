@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 14:56:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/28 15:57:05 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,13 +223,17 @@ typedef struct	s_block
 	Uint8		pln;
 	Uint8		meta;
 	Uint8		hp;
+	Uint8		spr;
 }				t_block;
 
 typedef struct	s_sprite
 {
-	int			id;//what kind of sprite it is
+	int			id; //leaved to block as fingerprint;
+	int			gfx;
 	t_vector	pos;
+	t_vector	dir;
 	int			hp;
+	double		dist;
 }				t_sprite;
 
 /*
@@ -273,7 +277,9 @@ typedef struct	s_doom
 	SDL_mutex	*lock;
 	SDL_cond	*cond;
 	struct s_doom		*data_r;
-	struct s_doom		*wlf;
+	int			sprnum;
+	int			*sprord;
+	double		*sprdist;
 	int			id;
 	int			*claimline;
 	int			*done;
@@ -282,6 +288,7 @@ typedef struct	s_doom
 	int			killthread;
 	int			tile;
 	t_gfx		*gfx;
+	t_sprite	spr;
 	int			gfxcount;
 	t_chara		*chara;
 	int			height;
@@ -358,6 +365,10 @@ typedef struct	s_doom
 	t_vector	flstep;
 	t_vector	floor;
 	t_ivector	texshift;
+	t_vector	sprite;
+	t_vector	transf;
+	int			drwspr;
+	double		invdet;
 	double		walldist;
 	double		rowdist;
 	double		movsp;
@@ -433,8 +444,6 @@ typedef struct	s_doom
 	SDL_Rect	screenRect;
 	int			anim;
 	int			frame;
-
-	t_sprite	sprite;//new
 
 	double		depthbuffer[1080];
 	double		disttosprite;
@@ -545,6 +554,7 @@ void			draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size);
 void			draw_screen(t_editor* le, t_doom* dm, int x, int y);
 void			draw_sliders(t_doom *dm, t_editor *le, int x, int y);
 void			draw_sky(t_doom *wlf);
+void			draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size);
 void			editor_key_press(Uint32 key, t_editor *le);
 void			editor_key_release(Uint32 key, t_editor *le, t_doom* dm);
 void			editor_main(t_doom *wlf);
@@ -592,5 +602,6 @@ void			single_loop_x(t_doom* dm);
 t_gfx			read_bmp(char* file, int fd, int bread);
 
 double			dot_prd(t_vector v, t_vector u);
+double			tri_pythagor(t_vector f, t_vector s);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/27 12:41:24 by anystrom         ###   ########.fr        #
+#    Updated: 2020/08/28 15:53:37 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
 GRAFILE	=	gravity.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
+MTHFILE =	vert.c
+SRPFILE =	sprite.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
@@ -39,7 +41,9 @@ SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/gravity/,$(GRAFILE)) \
 			$(addprefix ./src/randenc/,$(ENCFILE)) \
 			$(addprefix ./src/bmp/,$(BMPFILE)) \
-			$(addprefix ./src/text/,$(TXTFILE))
+			$(addprefix ./src/text/,$(TXTFILE)) \
+			$(addprefix ./src/math/,$(MTHFILE)) \
+			$(addprefix ./src/sprite/,$(SRPFILE))
 LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
@@ -53,7 +57,9 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/gravity/,$(GRAFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/randenc/,$(ENCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/bmp/,$(BMPFILE:.c=$(OEXT))) \
-			$(addprefix ./obj/text/,$(TXTFILE:.c=$(OEXT)))
+			$(addprefix ./obj/text/,$(TXTFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/math/,$(MTHFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/sprite/,$(SRPFILE:.c=$(OEXT)))
 DEPNS =		$(OBJ:.o=.d)
 OBJDIR =	./obj/
 SRCDIR =	./src/
