@@ -146,9 +146,9 @@ void	side_check(t_doom* dm)
 void	sprite_demo(t_doom *dm)
 {
 	dm->spr.hp = 100;
-	dm->spr.pos.z = 6.1;
-	dm->spr.pos.y = 12.42;
-	dm->spr.pos.x = 12.4;
+	dm->spr.pos.z = 1.1;
+	dm->spr.pos.y = 1.42;
+	dm->spr.pos.x = 1.4;
 	dm->spr.dist = tri_pythagor(dm->pos, dm->spr.pos);
 	dm->spr.dir.z = (dm->spr.pos.z - dm->pos.z) / dm->spr.dist;
 	dm->spr.dir.y = (dm->spr.pos.y - dm->pos.y) / dm->spr.dist;
@@ -189,7 +189,6 @@ int		renthread(void *ptr)
 				printf("RaydXY %f %f %f\n", dm->rayd.z, dm->rayd.y, dm->rayd.x);*/
 			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2 && dm->hit != 2)
 			{
-				sprite_demo(dm);
 				//printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\nRmapZ %f %f\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->rayd.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x].b, dm->rmap1.z, dm->rmap2.z);
 				dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
@@ -230,6 +229,7 @@ void	demodraw_sprite(t_doom *dm)
 {
 	int		x;
 	
+	//if ((spr.dir.z < max.z && spr.dir.z > min.z) && ((spr.dir.y < max.y && spr.dir.y > min.y) || (spr.dir.x < max.x && spr.dir.x > min.x)))
 	if ((spr.dir.z < max.z && spr.dir.z > min.z) && ((spr.dir.y < max.y && spr.dir.y > min.y) || (spr.dir.x < max.x && spr.dir.x > min.x)))
 	{
 		dm->gfx[10].x = 0;
@@ -295,6 +295,7 @@ void	render(t_doom *dm)
 		draw_sprite(dm);
 	if (dm->isoutline)
 		post_effects(dm);
+	sprite_demo(dm);
 	demodraw_sprite(dm);
 	if (dm->hp <= 0)
 		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 216, 0xE71313}, 2);
