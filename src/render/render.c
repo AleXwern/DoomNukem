@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 16:20:39 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/28 16:20:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include "../../includes/value.h"
 
 #include <stdio.h>//remove this when project is done.
+
+t_sprite	spr;
+t_vector	max;
+t_vector	min;
 
 void	dda_sys(t_doom *dm)
 {
@@ -44,7 +48,9 @@ void	dda_sys(t_doom *dm)
 			dm->hit = 2;
 			return;
 		}
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt
+		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].spr >= 0)
+			dm->drwspr = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].spr;
+		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt
 				&& dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
 			part_check(dm);
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 6)
@@ -137,6 +143,20 @@ void	side_check(t_doom* dm)
 		dm->side += 3;
 }
 
+void	sprite_demo(t_doom *dm)
+{
+	dm->spr.hp = 100;
+	dm->spr.pos.z = 6.1;
+	dm->spr.pos.y = 12.42;
+	dm->spr.pos.x = 12.4;
+	dm->spr.dist = tri_pythagor(dm->pos, dm->spr.pos);
+	dm->spr.dir.z = (dm->spr.pos.z - dm->pos.z) / dm->spr.dist;
+	dm->spr.dir.y = (dm->spr.pos.y - dm->pos.y) / dm->spr.dist;
+	dm->spr.dir.x = (dm->spr.pos.x - dm->pos.x) / dm->spr.dist;
+	spr = dm->spr;
+	printf("Sprite %f %f %f\nDir %f %f %f\nDist %f\n", dm->spr.pos.z, dm->spr.pos.y, dm->spr.pos.x, dm->spr.dir.z, dm->spr.dir.y, dm->spr.dir.x, dm->spr.dist);
+}
+
 int		renthread(void *ptr)
 {
 	t_doom	*dm;
@@ -159,8 +179,17 @@ int		renthread(void *ptr)
 			dm->wallarr[dm->winw * dm->y + dm->x] = dm->walldist;
 			//dm->maparr[dm->winw * dm->y + dm->x] = (dm->side + 1) * dm->map[dm->mapz][dm->mapy][dm->mapx];
 			dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
+			if (dm->x == 0 && dm->y == 0)
+				min = dm->rayd;
+			else if (dm->x == dm->winw - 1 && dm->y == dm->winh - 1)
+				max = dm->rayd;
+			/*if (dm->x == 0 && dm->y == 0)
+				printf("Rayd0 %f %f %f\n", dm->rayd.z, dm->rayd.y, dm->rayd.x);
+			else if (dm->x == dm->winw - 1 && dm->y == dm->winh - 1)
+				printf("RaydXY %f %f %f\n", dm->rayd.z, dm->rayd.y, dm->rayd.x);*/
 			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2 && dm->hit != 2)
 			{
+				sprite_demo(dm);
 				//printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\nRmapZ %f %f\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->rayd.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x].b, dm->rmap1.z, dm->rmap2.z);
 				dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
@@ -195,6 +224,36 @@ int		renthread(void *ptr)
 		dm->x += dm->trx;
 	}
 	return (1);
+}
+
+void	demodraw_sprite(t_doom *dm)
+{
+	int		x;
+	
+	if ((spr.dir.z < max.z && spr.dir.z > min.z) && ((spr.dir.y < max.y && spr.dir.y > min.y) || (spr.dir.x < max.x && spr.dir.x > min.x)))
+	{
+		dm->gfx[10].x = 0;
+		dm->gfx[10].y = 0;
+		if (spr.dir.y < max.y && spr.dir.y > min.y)
+			x = dm-> winw * (fabs(spr.dir.y - min.y) / fabs(max.y - min.y)) - ((dm->gfx[10].wid / 2) * 2 / spr.dist);
+		else
+			x = dm-> winw * (fabs(spr.dir.x - min.x) / fabs(max.x - min.x)) - ((dm->gfx[10].wid / 2) * 2 / spr.dist);
+		//int x = dm->winw / 2 - ((dm->gfx[10].wid / 2) * 2 / spr.dist);
+		int y = dm-> winh * (fabs(spr.dir.z - min.z) / fabs(max.z - min.z)) - ((dm->gfx[10].hgt / 2) * 2 / spr.dist);
+		printf("%d %d\n", x, y);
+		if (y < 0)
+		{
+			dm->gfx[10].y -= y;
+			y = 0;
+		}
+		if (x < 0)
+		{
+			dm->gfx[10].x -= x;
+			x = 0;
+		}
+		dm->spr = spr;
+		draw_sprite_gfx(dm, dm->gfx[10], (int[6]){y, x, 1000, 1000, 0, 0}, 2 / spr.dist);
+	}
 }
 
 void	render(t_doom *dm)
@@ -236,8 +295,7 @@ void	render(t_doom *dm)
 		draw_sprite(dm);
 	if (dm->isoutline)
 		post_effects(dm);
-	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){120, 120, 120, 120, 0, 0}, 2);
-	//draw_scaled_gfx(dm, dm->gfx[1], (int[4]){0, 0, 0, 0}, M_PI);
+	demodraw_sprite(dm);
 	if (dm->hp <= 0)
 		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 216, 0xE71313}, 2);
 	SDL_RenderPresent(dm->rend);

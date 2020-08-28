@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/21 15:49:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/28 13:48:17 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,14 @@ void	resize_window(t_doom *dm)
 	free(dm->maparr);
 	free(dm->wallarr);
 	free(dm->claimline);
-	if (!(dm->maparr = (int*)malloc(sizeof(int) * dm->winw * dm->winh)))
+	if (!(dm->maparr = (int*)ft_memalloc(sizeof(int) * dm->winw * dm->winh)))
 		error_out(MEM_ERROR, dm);
-	if (!(dm->wallarr = (double*)malloc(sizeof(double) * dm->winw * dm->winh)))
+	if (!(dm->wallarr = (double*)ft_memalloc(sizeof(double) * dm->winw * dm->winh)))
 		error_out(MEM_ERROR, dm);
-	if (!(dm->threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * dm->trx)))
+	if (!(dm->threads = (SDL_Thread**)ft_memalloc(sizeof(SDL_Thread*) * dm->trx)))
 		error_out(MEM_ERROR, dm);
-	if (!(dm->data_r = (t_doom*)malloc(sizeof(t_doom) * dm->trx)))
+	if (!(dm->data_r = (t_doom*)ft_memalloc(sizeof(t_doom) * dm->trx)))
 		error_out(MEM_ERROR, dm);
-	if (!(dm->claimline = (int*)malloc(sizeof(int) * dm->winw)))
-		error_out(MEM_ERROR, dm);
-	ft_bzero(dm->claimline, 4 * dm->winw);
 	wind_default(dm);
 }
 
@@ -100,17 +97,14 @@ void	doom_default(t_doom *dm)
 	dm->trx = 20;
 	dm->camshift = 1.0f;
 	dm->fpscap = 60;
-	if (!(dm->maparr = (int*)malloc(sizeof(int) * dm->winw * dm->winh)))
+	if (!(dm->maparr = (int*)ft_memalloc(sizeof(int) * dm->winw * dm->winh)))
 		error_out(MEM_ERROR, dm);
-	if (!(dm->wallarr = (double*)malloc(sizeof(double) * dm->winw * dm->winh)))
+	if (!(dm->wallarr = (double*)ft_memalloc(sizeof(double) * dm->winw * dm->winh)))
 		error_out(MEM_ERROR, dm);
-	if (!(dm->threads = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * dm->trx)))
+	if (!(dm->threads = (SDL_Thread**)ft_memalloc(sizeof(SDL_Thread*) * dm->trx)))
 		error_out(MEM_ERROR, dm);
-	if (!(dm->data_r = (t_doom*)malloc(sizeof(t_doom) * dm->trx)))
+	if (!(dm->data_r = (t_doom*)ft_memalloc(sizeof(t_doom) * dm->trx)))
 		error_out(MEM_ERROR, dm);
-	if (!(dm->claimline = (int*)malloc(sizeof(int) * dm->winw)))
-		error_out(MEM_ERROR, dm);
-	ft_bzero(dm->claimline, 4 * dm->winw);
 	if (!(Mix_PlayingMusic()))
 		Mix_PlayMusic(dm->osrsMusic, 0);
 	printf("Threads: %d\n", dm->trx);

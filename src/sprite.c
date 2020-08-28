@@ -24,8 +24,8 @@ void	initSprite(t_sprite *sprite)
 
 void	damageSprite(t_doom *dm, int spriteId, int damage)
 {
-	dm->sprite.hp -= damage;
-	if (dm->sprite.hp <= 0)//sprite dies
+	dm->spr.hp -= damage;
+	if (dm->spr.hp <= 0)//sprite dies
 	{
 		Mix_PlayChannel(-1, dm->osrsMonsterDeath, 0);
 	}

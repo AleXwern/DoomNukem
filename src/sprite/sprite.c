@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_string.c                                       :+:      :+:    :+:   */
+/*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/27 12:27:40 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 13:58:51 by anystrom         ###   ########.fr       */
+/*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
+/*   Updated: 2020/08/28 16:16:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	draw_text(t_doom *dm, t_gfx gfx, int *yx, double size)
+/*
+**	int YX values
+**	0 = Y start point on screen
+**	1 = X start point on screen
+**	2 = Y end point in relative to start point gfx.y (1 equals 1 towards Y dir)
+**	3 = X end point in relative to start point gfx.x
+**	4 = pass 0
+**	5 = pass 0
+**	pass point like (int[6]){1, 1, 1000, 1000, 0, 0}
+*/
+void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 {
 	int		gy;
 	int		gx;
@@ -27,34 +37,11 @@ void	draw_text(t_doom *dm, t_gfx gfx, int *yx, double size)
 		{
 			yx[5] = gx * (gfx.wid / (gfx.wid * size));
 			if (gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
-				gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xff00ff)
-				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = yx[6];
+				dm->spr.dist < dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)] &&
+				yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid)
+				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
 			gx++;
 		}
 		gy++;
-	}
-}
-
-/*
-**	int YX values
-**	0 = Y start point on screen
-**	1 = X start point on screen
-**	2 = color hex value
-**	pass point like (int[3]){1, 1, 0}
-*/
-void	set_text(t_doom *dm, char *str, int *xy, double size)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] >= 'a' && str[i] <= 'z')
-		{
-			dm->gfx[33].x = (str[i] - 97) * 27;
-			draw_text(dm, dm->gfx[33], (int[7]){xy[0], xy[1], 26, 27, 0, 0, xy[2]}, size);
-		}
-		xy[1] += 29 * size;
-		i++;
 	}
 }

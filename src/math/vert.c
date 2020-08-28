@@ -13,6 +13,18 @@
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+double		tri_pythagor(t_vector f, t_vector s)
+{
+	t_vector	p;
+	double		res;
+
+	p.x = (f.x - s.x) * (f.x - s.x);
+	p.y = (f.y - s.y) * (f.y - s.y);
+	p.z = (f.z - s.z) * (f.z - s.z);
+	res = sqrt(p.x + p.y + p.z);
+	return (res);
+}
+
 double		dot_prd(t_vector v, t_vector u)
 {
 	double	res;

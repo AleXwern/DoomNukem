@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 16:10:57 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/28 12:37:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	error_out(char *msg, t_doom *dm)
 {
 	ft_putendl(msg);
-	ft_putnbrln(sizeof(t_doom));
+	ft_putnbrln(sizeof(double*));
 	dm->killthread = 1;
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_WaitThread(dm->fpsthread, NULL);
