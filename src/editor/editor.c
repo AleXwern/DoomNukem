@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/21 15:16:48 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:58:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->maxval[1] = 15.0;
 	le->maxval[2] = 8.0;
 	le->maxval[3] = 15.0;
-	le->maxval[4] = 1.0;
+	le->maxval[4] = 2.0;
 	le->minval[0] = 0;
 	le->minval[1] = 0;
 	le->minval[2] = 0;

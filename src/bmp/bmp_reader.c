@@ -61,7 +61,7 @@ char	*read_pixdata(char *corr, int fd, t_gfx gfx, int y)
 	int i = 0;
 	while (--y >= 0)
 	{
-		i += read(fd, corr + (gfx.pitch * y), gfx.pitch);
+		read(fd, corr + (gfx.pitch * y), gfx.pitch);
 		if (rd > 0)
 			read(fd, exc, rd);
 		//printf("%d\n", i);
@@ -90,7 +90,7 @@ Uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 		b++;
 	}
 	free(corr);
-	return (dummy);//flip_arr(gfx, dummy));
+	return ((Uint32*)dummy);//flip_arr(gfx, dummy));
 }
 
 t_gfx	read_bmp(char *file, int fd, int bread)

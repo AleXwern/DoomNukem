@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 14:49:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 14:56:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -491,8 +491,8 @@ void			draw_inventory(t_doom *wlf);
 void			load_keycard(t_doom *wlf);
 void			draw_keycard(t_doom *wlf);
 void			load_hp(t_doom *dm);
-//void			draw_hp(t_doom *dm);
-void			draw_hp(t_doom *dm, t_gfx gfx, int x, int y);
+void			draw_hp(t_doom *dm);
+//void			draw_hp(t_doom *dm, t_gfx gfx, int x, int y);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 Uint32			rl_color(t_block blk, Uint32 col);
@@ -540,7 +540,8 @@ void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
 void			draw_level_screen(t_doom *wlf, t_editor *le, double x, double y);
 void			draw_menu(t_doom *wlf, int x, int y, int cur);
 void			draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy);
-void			draw_scaled_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
+void			draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size);
+void			draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size);
 void			draw_screen(t_editor* le, t_doom* dm, int x, int y);
 void			draw_sliders(t_doom *dm, t_editor *le, int x, int y);
 void			draw_sky(t_doom *wlf);
@@ -570,6 +571,7 @@ void			render_floor(t_doom *wlf);
 void			reset_position(t_doom *wlf);
 void			reset_window(t_doom *wlf, Uint8 arg);
 void			resize_window(t_doom *wlf);
+void			set_text(t_doom *dm, char *str, int *xy, double size);
 void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
 void			wall_stripe(t_doom *wlf);
 void			wind_default(t_doom *wlf);

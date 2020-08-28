@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 21:10:27 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:20:39 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,20 +137,6 @@ void	side_check(t_doom* dm)
 		dm->side += 3;
 }
 
-void	draw(t_doom* dm)
-{
-	dm->rtex.z = dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->map.z;
-	dm->rtex.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->map.y;
-	dm->rtex.x = dm->pos.x + (dm->rayd.x * dm->walldist) - (int)dm->map.x;
-	dm->texy = (int)((((dm->y * 256 - dm->winh * 128 * dm->camshift - dm->lineh * 128) * 128) / dm->lineh) / 256) % 128;
-	if (dm->texy < 0)
-		dm->texy += 128;
-	dm->texnum = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b;
-	//dm->col = dm->gfx[dm->texnum].data[(int)(128 * (128 * dm->rtex.z) + (128 * dm->rtex.x))];
-	dm->col = dm->gfx[dm->texnum].data[(int)(dm->texy + (128 * dm->rtex.y))];
-	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
-}
-
 int		renthread(void *ptr)
 {
 	t_doom	*dm;
@@ -200,12 +186,10 @@ int		renthread(void *ptr)
 					draw_sky(dm);
 				else if (dm->hit == 3)
 					dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
-				else if (dm->side == 2 || dm->side == 5) // Uncomment these for normal render
+				else if (dm->side == 2 || dm->side == 5)
 					render_floor(dm);
 				else
 					wall_stripe(dm);
-				//else // uncomment this for experimental render
-				//	draw(dm);
 			}
 		}
 		dm->x += dm->trx;
@@ -236,24 +220,26 @@ void	render(t_doom *dm)
 		else
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
-	draw_gfx(dm, dm->gfx[32], 20, 10);
-	//draw_hp(dm, dm->gfx[28], 20, 10);
-	//draw_gun(dm);
+	//draw_gfx(dm, dm->gfx[32], 20, 10);//pokemon
+	draw_gun(dm);
 	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
 	//draw_crosshair(dm);
-	//draw_ammo(dm, dm->)
 	draw_ammo(dm);
-	draw_gfx(dm, dm->gfx[28], 20, 10);//hp
-	//draw_hp(dm);
+	draw_hp(dm);
 	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
 	//draw_inventory(dm);
 	if (dm->keycard)
-		draw_keycard(dm);
+		//draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 10, 1, 1, 0, 0}, 1);//keycard
+		draw_gfx(dm, dm->gfx[30], 10, dm->winh - 78);//keycard
+		//draw_keycard(dm);
 	if (dm->key.three)
 		draw_sprite(dm);
 	if (dm->isoutline)
 		post_effects(dm);
-	//draw_part_gfx(dm, dm->gfx[1], (int[2]){70, 20}, (int[2]){200, 20});
+	//draw_pgfx_sc(dm, dm->gfx[1], (int[6]){120, 120, 120, 120, 0, 0}, 2);
+	//draw_scaled_gfx(dm, dm->gfx[1], (int[4]){0, 0, 0, 0}, M_PI);
+	if (dm->hp <= 0)
+		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 216, 0xE71313}, 2);
 	SDL_RenderPresent(dm->rend);
 	dm->fps++;
 	if (dm->alive && dm->hp <= 0)

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/08/21 15:41:30 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:58:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ int		interact(t_doom *dm)
 	tarpos.x = dm->pos.x + dm->dir.x * 0.9;
 	tarpos.y = dm->pos.y + dm->dir.y * 0.9;
 	obj = dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].b;
-	if (dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].meta)
+	if (dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].meta == 1)
 		error_out(VOID_OVER, dm);
+	else if (dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].meta == 2)
+		dm->hp = 100;
 	if (obj == 3 || obj == 4)
 		lab_move(dm, obj, tarpos);
 	else if (obj == 5 && dm->keycard)

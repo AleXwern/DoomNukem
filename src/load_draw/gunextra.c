@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gunextra.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:34:23 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/26 13:09:19 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 15:44:10 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,19 @@ void	draw_ammo(t_doom *dm)
 {
 	if (dm->magazine == 10)
 	{
-		SDL_RenderCopy(dm->rend, dm->nbrsTexture, &dm->nbrsRect[1], &dm->screennbrsTenRect);
-		SDL_RenderCopy(dm->rend, dm->nbrsTexture, &dm->nbrsRect[0], &dm->screennbrsRect);
+		dm->gfx[31].x = 50;
+		draw_pgfx_sc(dm, dm->gfx[31], (int[6]){(dm->winh - 60), (dm->winw - 85), 50, 50, 0, 0}, 1);
+		dm->gfx[31].x = 0;
+		draw_pgfx_sc(dm, dm->gfx[31], (int[6]){(dm->winh - 60), (dm->winw - 60), 50, 50, 0, 0}, 1);
+		//SDL_RenderCopy(dm->rend, dm->nbrsTexture, &dm->nbrsRect[1], &dm->screennbrsTenRect);
+		//SDL_RenderCopy(dm->rend, dm->nbrsTexture, &dm->nbrsRect[0], &dm->screennbrsRect);
 	}
 	else
-		SDL_RenderCopy(dm->rend, dm->nbrsTexture, &dm->nbrsRect[dm->magazine], &dm->screennbrsRect);
+	{
+		dm->gfx[31].x = 50 * dm->magazine;
+		draw_pgfx_sc(dm, dm->gfx[31], (int[6]){(dm->winh - 60), (dm->winw - 60), 50, 50, 0, 0}, 1);
+		//SDL_RenderCopy(dm->rend, dm->nbrsTexture, &dm->nbrsRect[dm->magazine], &dm->screennbrsRect);
+	}
 }
 
 void	draw_crosshair(t_doom *dm)
@@ -31,20 +39,22 @@ void	draw_crosshair(t_doom *dm)
 
 void	reloading_gun(t_doom *dm)
 {
-	SDL_RenderCopy(dm->rend, dm->gunTexture, &dm->gunRect[dm->ani][dm->frm / 4], &dm->screenGunRect);
+	//SDL_RenderCopy(dm->rend, dm->gunTexture, &dm->gunRect[dm->ani][dm->frm / 4], &dm->screenGunRect);
+	dm->gfx[27].x = 160 * dm->ani + 960;
+	draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), ((dm->winw / 2) - 16), 160, 160, 0, 0}, 2);
 	dm->frm++;
-	if (dm->ani == 2 && dm->frm == 1)
+	if (dm->ani == 2 && dm->frm == 2)
 		Mix_PlayChannel(-1, dm->reload, 0);
-	if ((dm->frm / 4) > 2)
+	if (dm->frm == 6)
 	{
-		if (dm->ani < 5)
-			dm->ani++;
-		else
+		if (dm->ani == 11)
 		{
 			dm->ani = 0;
 			dm->reloading = 0;
 			dm->magazine = 10;
 		}
+		else
+			dm->ani++;
 		dm->frm = 0;
 	}
 }

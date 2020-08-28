@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/25 19:04:44 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/08/27 12:41:24 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
 			part_dda.c
 GRAFILE	=	gravity.c
 BMPFILE =	bmp_reader.c
+TXTFILE =	set_string.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
@@ -37,7 +38,8 @@ SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/draw/,$(COLFILE)) \
 			$(addprefix ./src/gravity/,$(GRAFILE)) \
 			$(addprefix ./src/randenc/,$(ENCFILE)) \
-			$(addprefix ./src/bmp/,$(BMPFILE))
+			$(addprefix ./src/bmp/,$(BMPFILE)) \
+			$(addprefix ./src/text/,$(TXTFILE))
 LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
@@ -50,7 +52,8 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/draw/,$(COLFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/gravity/,$(GRAFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/randenc/,$(ENCFILE:.c=$(OEXT))) \
-			$(addprefix ./obj/bmp/,$(BMPFILE:.c=$(OEXT)))
+			$(addprefix ./obj/bmp/,$(BMPFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/text/,$(TXTFILE:.c=$(OEXT)))
 DEPNS =		$(OBJ:.o=.d)
 OBJDIR =	./obj/
 SRCDIR =	./src/

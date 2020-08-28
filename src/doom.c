@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 13:51:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:10:57 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	error_out(char *msg, t_doom *dm)
 	system("leaks doom-nukem");
 	exit(0);
 	//Things below just in case.
-	SDL_SetRelativeMouseMode(SDL_FALSE);
+	/*SDL_SetRelativeMouseMode(SDL_FALSE);
 	dm->killthread = 1;
 	if (!ft_strcmp(msg, WLF_ERROR))
 		exit(0);
@@ -51,7 +51,7 @@ void	error_out(char *msg, t_doom *dm)
 	ft_bzero(dm, sizeof(dm));
 	system("leaks doom-nukem");
 	//printf("%lu %ld\n", sizeof(t_block), sizeof(long));
-	exit(0);
+	exit(0);*/
 }
 
 void	free_memory(char **arr)
@@ -107,8 +107,6 @@ void	setup(t_doom *dm)
 	if (!(dm->cond = SDL_CreateCond()))
 		error_out(MEM_ERROR, dm);
 	SDL_LockMutex(dm->lock);
-	dm->done = (int*)malloc(4);
-	*dm->done = 0;
 	while (1)
 	{
 		//if (dm->isfpscap && !dm->ismenu)

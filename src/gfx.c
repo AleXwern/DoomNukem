@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 21:10:12 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/08/27 12:29:24 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/keycard.bmp"), 0, 0);//30
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/numbers.bmp"), 0, 0);//31
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/PokemonTrainer.bmp"), 0, 0);//32
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/alpha.bmp"), 0, 0);//33
 	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/.bmp"), 0, 0);//Use these if you want to add more gfx
 	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/.bmp"), 0, 0);
 	dm->gfxcount = i;

@@ -6,24 +6,12 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:40:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/26 14:31:28 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:02:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
-/*void	load_hp3(t_doom *dm)
-{
-	dm->screenhpRect.x = dm->winw - 60;
-	dm->screenhpRect.y = dm->winh - 60;
-	dm->screenhpRect.w = 40;
-	dm->screenhpRect.h = 40;
-	dm->screenhpTenRect.x = dm->winw - 80;
-	dm->screenhpTenRect.y = dm->winh - 60;
-	dm->screenhpTenRect.w = 40;
-	dm->screenhpTenRect.h = 40;
-}*/
 
 void	load_hp2(t_doom *dm)
 {
@@ -80,18 +68,32 @@ void	load_hp(t_doom *dm)
 	load_hp2(dm);
 }
 
-/*void	draw_hp(t_doom *dm)
+void	draw_hp(t_doom *dm)
 {
 	int	healthBar;
 
-	if (dm->hp > 0)
-		healthBar = dm->healthBar[(dm->hp / 20)];
-	else
+	// if (dm->hp > 0)
+	// 	healthBar = dm->healthBar[(dm->hp / 20)];
+	// else
+	// 	healthBar = 5;
+	if (dm->hp == 100)
+		healthBar = 0;
+	else if (dm->hp == 80)
+		healthBar = 1;
+	else if (dm->hp == 60)
+		healthBar = 2;
+	else if (dm->hp == 40)
+		healthBar = 3;
+	else if (dm->hp == 20)
+		healthBar = 4;
+	else if (dm->hp == 0 || dm->hp < 0)
 		healthBar = 5;
-	SDL_RenderCopy(dm->rend, dm->hpTexture, &dm->hpRect[healthBar], &dm->screenhpRect);
-}*/
+	dm->gfx[28].y = healthBar * 60;
+	draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, 20, 60, 367, 0, 0}, 1);
+	//SDL_RenderCopy(dm->rend, dm->hpTexture, &dm->hpRect[healthBar], &dm->screenhpRect);
+}
 
-void	draw_hp(t_doom *dm, t_gfx gfx, int x, int y)
+/*void	draw_hp(t_doom *dm, t_gfx gfx, int x, int y)
 {
 	int	gx;
 	int	gy;
@@ -114,4 +116,4 @@ void	draw_hp(t_doom *dm, t_gfx gfx, int x, int y)
 		}
 		gy++;
 	}
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:03:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:35:06 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:02:36 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,6 @@ void	options_menu(t_doom *dm)
 	options_menu_create(dm);
 	draw_menu(dm, 0, 0, dm->cur);
 	draw_bars(dm, -1, -1, -1);
-	//dm->tex = SDL_CreateTextureFromSurface(dm->rend, dm->img.tex);
-	//SDL_RenderCopy(dm->rend, dm->tex, NULL, NULL);
-	//SDL_UpdateWindowSurface(dm->win);
 	SDL_RenderPresent(dm->rend);
 	dm->fps++;
 }
