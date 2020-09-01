@@ -15,7 +15,7 @@
 
 #include <stdio.h>//remove this when project is done.
 
-t_sprite	spr;
+//t_sprite	spr[5];
 t_vector	max;
 t_vector	min;
 
@@ -145,16 +145,16 @@ void	side_check(t_doom* dm)
 
 void	sprite_demo(t_doom *dm)
 {
-	dm->spr.hp = 100;
-	dm->spr.pos.z = 1.1;
-	dm->spr.pos.y = 1.42;
-	dm->spr.pos.x = 1.4;
-	dm->spr.dist = tri_pythagor(dm->pos, dm->spr.pos);
-	dm->spr.dir.z = (dm->spr.pos.z - dm->pos.z) / dm->spr.dist;
-	dm->spr.dir.y = (dm->spr.pos.y - dm->pos.y) / dm->spr.dist;
-	dm->spr.dir.x = (dm->spr.pos.x - dm->pos.x) / dm->spr.dist;
-	spr = dm->spr;
-	printf("Sprite %f %f %f\nDir %f %f %f\nDist %f\n", dm->spr.pos.z, dm->spr.pos.y, dm->spr.pos.x, dm->spr.dir.z, dm->spr.dir.y, dm->spr.dir.x, dm->spr.dist);
+	/*int i = -1;
+	while (++i < 5)
+	{
+		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
+		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
+		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
+		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
+		//spr[i] = dm->spr[i];
+		//printf("Sprite %f %f %f\nDir %f %f %f\nDist %f\n", dm->spr[i].pos.z, dm->spr[i].pos.y, dm->spr[i].pos.x, dm->spr[i].dir.z, dm->spr[i].dir.y, dm->spr[i].dir.x, dm->spr[i].dist);
+	}*/
 }
 
 int		renthread(void *ptr)
@@ -228,31 +228,71 @@ int		renthread(void *ptr)
 void	demodraw_sprite(t_doom *dm)
 {
 	int		x;
+	int		y;
+	int		i;
+	double	mina = atan2(min.y, min.x) * 180 / M_PI + 180;
+	double	maxa = atan2(max.y, max.x) * 180 / M_PI + 180;
+	double	spra;
 	
-	//if ((spr.dir.z < max.z && spr.dir.z > min.z) && ((spr.dir.y < max.y && spr.dir.y > min.y) || (spr.dir.x < max.x && spr.dir.x > min.x)))
-	if ((spr.dir.z < max.z && spr.dir.z > min.z) && ((spr.dir.y < max.y && spr.dir.y > min.y) || (spr.dir.x < max.x && spr.dir.x > min.x)))
+	i = -1;
+	if (mina > maxa)
+		maxa += 360;
+	printf("Screen angle %f %f\nWyvern angle %f\ndiff %f\n", mina, maxa, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x) * 180 / M_PI + 180, maxa - mina);
+	while (++i < 5)
 	{
-		dm->gfx[10].x = 0;
-		dm->gfx[10].y = 0;
-		if (spr.dir.y < max.y && spr.dir.y > min.y)
-			x = dm-> winw * (fabs(spr.dir.y - min.y) / fabs(max.y - min.y)) - ((dm->gfx[10].wid / 2) * 2 / spr.dist);
-		else
-			x = dm-> winw * (fabs(spr.dir.x - min.x) / fabs(max.x - min.x)) - ((dm->gfx[10].wid / 2) * 2 / spr.dist);
-		//int x = dm->winw / 2 - ((dm->gfx[10].wid / 2) * 2 / spr.dist);
-		int y = dm-> winh * (fabs(spr.dir.z - min.z) / fabs(max.z - min.z)) - ((dm->gfx[10].hgt / 2) * 2 / spr.dist);
-		printf("%d %d\n", x, y);
+		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x) * 180 / M_PI + 180;
+		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
+		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
+		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
+		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
+		if (dm->spr[i].dist > 5)
+		{
+			dm->spr[i].pos.z += -1 * dm->spr[i].dir.z * 0.01;
+			dm->spr[i].pos.y += -1 * dm->spr[i].dir.y * 0.01;
+			dm->spr[i].pos.x += -1 * dm->spr[i].dir.x * 0.01;
+		}
+		if (spra < mina || spra > maxa)
+			spra += 360;
+		if (spra < mina || spra > maxa)
+			spra -= 360;
+		//if (spra < mina || spra > maxa)
+		//	continue;
+		x = dm->winw * ((spra - mina) / (maxa - mina)) - ((dm->gfx[dm->spr[i].gfx].wid / 2) * 2 / dm->spr[i].dist);
+		y = dm->winh * ((dm->spr[i].dir.z - min.z) / (max.z - min.z)) - ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
+		//printf("%d %d at %f %f %f\ndist %f\n%d %d %d\n", i, dm->spr[i].hp, dm->spr[i].pos.z, dm->spr[i].pos.y, dm->spr[i].pos.x, dm->spr[i].dist, dm->spr[i].gfx, x, y);
 		if (y < 0)
 		{
-			dm->gfx[10].y -= y;
+			dm->gfx[dm->spr[i].gfx].y -= y;
 			y = 0;
 		}
 		if (x < 0)
 		{
-			dm->gfx[10].x -= x;
+			dm->gfx[dm->spr[i].gfx].x -= x;
 			x = 0;
 		}
-		dm->spr = spr;
-		draw_sprite_gfx(dm, dm->gfx[10], (int[6]){y, x, 1000, 1000, 0, 0}, 2 / spr.dist);
+		draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 1000, 1000, 0, 0, i}, 2 / dm->spr[i].dist);
+		dm->gfx[dm->spr[i].gfx].x = 0;
+		dm->gfx[dm->spr[i].gfx].y = 0;
+	}
+}
+
+void	sprite_set(t_doom* dm)
+{
+	dm->spr[0].hp = 100;
+	dm->spr[0].pos.z = 1.5;
+	dm->spr[0].pos.y = 2.42;
+	dm->spr[0].pos.x = 2.4;
+	dm->spr[0].gfx = 10;
+	//spr[0] = dm->spr[0];
+	static int i;
+	while (++i < 5)
+	{
+		dm->spr[i].hp = 100 * (i + 1);
+		dm->spr[i].pos.z = (rand() % 90) / 10;
+		dm->spr[i].pos.y = (rand() % 250) / 10;
+		dm->spr[i].pos.x = (rand() % 250) / 10;
+		dm->spr[i].gfx = (rand() % 8) + 15;
+		//spr[i] = dm->spr[i];
 	}
 }
 
@@ -280,6 +320,9 @@ void	render(t_doom *dm)
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
 	//draw_gfx(dm, dm->gfx[32], 20, 10);//pokemon
+	sprite_set(dm);
+	sprite_demo(dm);
+	demodraw_sprite(dm);
 	draw_gun(dm);
 	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
 	//draw_crosshair(dm);
@@ -295,8 +338,6 @@ void	render(t_doom *dm)
 		draw_sprite(dm);
 	if (dm->isoutline)
 		post_effects(dm);
-	sprite_demo(dm);
-	demodraw_sprite(dm);
 	if (dm->hp <= 0)
 		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 216, 0xE71313}, 2);
 	SDL_RenderPresent(dm->rend);

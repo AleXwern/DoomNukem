@@ -288,7 +288,7 @@ typedef struct	s_doom
 	int			killthread;
 	int			tile;
 	t_gfx		*gfx;
-	t_sprite	spr;
+	t_sprite	spr[5];
 	int			gfxcount;
 	t_chara		*chara;
 	int			height;

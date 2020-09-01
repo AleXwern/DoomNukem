@@ -22,7 +22,7 @@ void	initSprite(t_sprite *sprite)
 	sprite->hp = 100;
 }
 
-void	damageSprite(t_doom *dm, int spriteId, int damage)
+/*void	damageSprite(t_doom *dm, int spriteId, int damage)
 {
 	dm->spr.hp -= damage;
 	if (dm->spr.hp <= 0)//sprite dies
@@ -33,7 +33,7 @@ void	damageSprite(t_doom *dm, int spriteId, int damage)
 	{
 		Mix_PlayChannel(-1, dm->gettingHit, 0);
 	}
-}
+}*/
 
 void	pickupitem(t_doom* dm)
 {

@@ -36,10 +36,13 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 		while (gx < gfx.wid * size && (yx[1] + gx) < dm->winw && gx < yx[3] * size)
 		{
 			yx[5] = gx * (gfx.wid / (gfx.wid * size));
-			if (gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
-				dm->spr.dist < dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)] &&
-				yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid)
+			if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid &&
+				gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
+				dm->spr[yx[6]].dist < dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)])
+			{
 				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
+				dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = dm->spr[yx[6]].dist;
+			}
 			gx++;
 		}
 		gy++;
