@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/02 14:31:25 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:46:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	set_variables(t_doom *dm)
 	dm->magazine = 10;
 	dm->hp = 100;
 	dm->alive = 1;
+	dm->keycard = 0;
 }

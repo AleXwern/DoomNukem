@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 14:35:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:46:27 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,7 +382,6 @@ typedef struct	s_doom
 	double		texpos;
 	int			isclick;
 	t_key		key;
-	int			keycard;
 	int			crouching;
 	int			mouseprevx;
 	int			mouseprevy;
@@ -413,6 +412,7 @@ typedef struct	s_doom
 	int			magazine;
 	int			hp;
 	int			alive;
+	int			keycard;
 
 	/*
 	**	Variables for playing some sounds and music!
