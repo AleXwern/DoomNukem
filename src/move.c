@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/21 14:43:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:06:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,24 +198,29 @@ int		move_fb(t_doom *dm)
 
 void	strafe(t_doom *dm, double dirxtemp, double dirytemp)
 {
-	double	mov;
+	double		mov;
+	t_vector	dir;
 
 	mov = dm->movsp * ((30.0 / dm->buffer) / dm->prefps);
 	if (mov > 1.0)
 		mov = 0.99;
-	if (dm->key.q)
+	if (dm->key.left)
 	{
-		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.x * mov)][(int)dm->pos.x].b <= 1)
-			dm->pos.y += dm->dir.x * mov;
-		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.y * mov)].b <= 1)
-			dm->pos.x += dm->dir.y * mov;
+		dir.x = dm->dir.y;
+		dir.y = dm->dir.x * -1;
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dir.y * mov)][(int)dm->pos.x].b <= 1)
+			dm->pos.y += dir.y * mov;
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dir.x * mov)].b <= 1)
+			dm->pos.x += dir.x * mov;
 	}
-	if (dm->key.e)
+	if (dm->key.right)
 	{
-		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.x * mov)][(int)dm->pos.x].b <= 1)
-			dm->pos.y -= dm->dir.x * mov;
-		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.y * mov)].b <= 1)
-			dm->pos.x -= dm->dir.y * mov;
+		dir.x = dm->dir.y * -1;
+		dir.y = dm->dir.x;
+		if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dir.y * mov)][(int)dm->pos.x].b <= 1)
+			dm->pos.y += dir.y * mov;
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dir.x * mov)].b <= 1)
+			dm->pos.x += dir.x * mov;
 	}
 	return ;
 

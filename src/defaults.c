@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 13:48:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/02 13:28:40 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	doom_default(t_doom *dm)
 	dm->trx = 20;
 	dm->camshift = 1.0f;
 	dm->fpscap = 60;
+	dm->dm = dm;
 	if (!(dm->maparr = (int*)ft_memalloc(sizeof(int) * dm->winw * dm->winh)))
 		error_out(MEM_ERROR, dm);
 	if (!(dm->wallarr = (double*)ft_memalloc(sizeof(double) * dm->winw * dm->winh)))
