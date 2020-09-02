@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 14:35:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/02 15:48:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,12 +228,13 @@ typedef struct	s_block
 
 typedef struct	s_sprite
 {
-	int			id; //leaved to block as fingerprint;
+	int			id; //leaved to pixel as fingerprint;
 	int			gfx;
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	mov;
 	int			hp;
+	int			size;
 	double		dist;
 }				t_sprite;
 
