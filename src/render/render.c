@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 14:20:56 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:36:14 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,9 +157,9 @@ int		renthread(void *ptr)
 			//dm->maparr[dm->winw * dm->y + dm->x] = (dm->side + 1) * dm->map[dm->mapz][dm->mapy][dm->mapx];
 			dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
 			if (dm->x == 0 && dm->y == 0)
-				min = dm->rayd;
+				dm->dm->min = dm->rayd;
 			else if (dm->x == dm->winw - 1 && dm->y == dm->winh - 1)
-				max = dm->rayd;
+				dm->dm->max = dm->rayd;
 			/*if (dm->x == 0 && dm->y == 0)
 				printf("Rayd0 %f %f %f\n", dm->rayd.z, dm->rayd.y, dm->rayd.x);
 			else if (dm->x == dm->winw - 1 && dm->y == dm->winh - 1)
@@ -201,77 +201,6 @@ int		renthread(void *ptr)
 		dm->x += dm->trx;
 	}
 	return (1);
-}
-
-void	demodraw_sprite(t_doom *dm)
-{
-	int		x;
-	int		y;
-	int		i;
-	double	mina = atan2(min.y, min.x) * 180 / M_PI + 180;
-	double	maxa = atan2(max.y, max.x) * 180 / M_PI + 180;
-	double	spra;
-
-	i = -1;
-	if (mina > maxa)
-		maxa += 360;
-	printf("Screen angle %f %f\nWyvern angle %f\ndiff %f\n", mina, maxa, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x) * 180 / M_PI + 180, maxa - mina);
-	while (++i < 5)
-	{
-		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x) * 180 / M_PI + 180;
-		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
-		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
-		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
-		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
-		if (dm->spr[i].dist > 5)
-		{
-			dm->spr[i].pos.z += -1 * dm->spr[i].dir.z * 0.01;
-			dm->spr[i].pos.y += -1 * dm->spr[i].dir.y * 0.01;
-			dm->spr[i].pos.x += -1 * dm->spr[i].dir.x * 0.01;
-		}
-		if (spra < mina || spra > maxa)
-			spra += 360;
-		if (spra < mina || spra > maxa)
-			spra -= 360;
-		//if (spra < mina || spra > maxa)
-		//	continue;
-		x = dm->winw * ((spra - mina) / (maxa - mina)) - ((dm->gfx[dm->spr[i].gfx].wid / 2) * 2 / dm->spr[i].dist);
-		y = dm->winh * ((dm->spr[i].dir.z - min.z) / (max.z - min.z)) - ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
-		//printf("%d %d at %f %f %f\ndist %f\n%d %d %d\n", i, dm->spr[i].hp, dm->spr[i].pos.z, dm->spr[i].pos.y, dm->spr[i].pos.x, dm->spr[i].dist, dm->spr[i].gfx, x, y);
-		if (y < 0)
-		{
-			dm->gfx[dm->spr[i].gfx].y -= y;
-			y = 0;
-		}
-		if (x < 0)
-		{
-			dm->gfx[dm->spr[i].gfx].x -= x;
-			x = 0;
-		}
-		draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 1000, 1000, 0, 0, i}, 2 / dm->spr[i].dist);
-		dm->gfx[dm->spr[i].gfx].x = 0;
-		dm->gfx[dm->spr[i].gfx].y = 0;
-	}
-}
-
-void	sprite_set(t_doom* dm)
-{
-	dm->spr[0].hp = 100;
-	dm->spr[0].pos.z = 1.5;
-	dm->spr[0].pos.y = 2.42;
-	dm->spr[0].pos.x = 2.4;
-	dm->spr[0].gfx = 10;
-	//spr[0] = dm->spr[0];
-	static int i;
-	while (++i < 5)
-	{
-		dm->spr[i].hp = 100 * (i + 1);
-		dm->spr[i].pos.z = (rand() % 90) / 10;
-		dm->spr[i].pos.y = (rand() % 250) / 10;
-		dm->spr[i].pos.x = (rand() % 250) / 10;
-		dm->spr[i].gfx = (rand() % 8) + 15;
-		//spr[i] = dm->spr[i];
-	}
 }
 
 void	render(t_doom *dm)

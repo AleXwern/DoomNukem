@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 14:20:05 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:35:52 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ typedef struct	s_sprite
 	int			gfx;
 	t_vector	pos;
 	t_vector	dir;
+	t_vector	mov;
 	int			hp;
 	double		dist;
 }				t_sprite;
@@ -277,6 +278,7 @@ typedef struct	s_doom
 	SDL_mutex	*lock;
 	SDL_cond	*cond;
 	struct s_doom		*data_r;
+	struct s_doom		*dm;
 	int			sprnum;
 	int			*sprord;
 	double		*sprdist;
@@ -367,6 +369,8 @@ typedef struct	s_doom
 	t_ivector	texshift;
 	t_vector	sprite;
 	t_vector	transf;
+	t_vector	min;
+	t_vector	max;
 	int			drwspr;
 	double		invdet;
 	double		walldist;
@@ -480,6 +484,7 @@ void			cur_zero(t_doom *dm, int tar);
 void			cur_two(t_doom *dm, int tar);
 void			curt_down(t_doom *dm);
 void			curt_up(t_doom *dm);
+void			demodraw_sprite(t_doom *dm);
 void			destroy_gfx(t_doom *wlf, int i);
 void			doom_default(t_doom *wlf);
 void			draw_bg(t_doom *wlf, t_gfx gfx);
@@ -522,6 +527,7 @@ void			reset_position(t_doom *wlf);
 void			reset_window(t_doom *wlf, Uint8 arg);
 void			resize_window(t_doom *wlf);
 void			set_text(t_doom *dm, char *str, int *xy, double size);
+void			sprite_set(t_doom* dm);
 void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
 void			wall_stripe(t_doom *wlf);
 void			wind_default(t_doom *wlf);

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 12:29:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/02 13:09:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foe6.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foe7.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0, 0);
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/icon.bmp"), 0, 0);
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foeP.bmp"), 0, 0);
 	comp_spritesheets(dm, bpath, i);
 }
 
