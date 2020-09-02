@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 14:35:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/02 16:42:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,12 +228,13 @@ typedef struct	s_block
 
 typedef struct	s_sprite
 {
-	int			id; //leaved to block as fingerprint;
+	int			id; //leaved to pixel as fingerprint;
 	int			gfx;
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	mov;
 	int			hp;
+	int			size;
 	double		dist;
 	Uint32		x;
 	Uint32		y;
@@ -386,7 +387,6 @@ typedef struct	s_doom
 	double		texpos;
 	int			isclick;
 	t_key		key;
-	int			keycard;
 	int			crouching;
 	int			mouseprevx;
 	int			mouseprevy;
@@ -417,6 +417,7 @@ typedef struct	s_doom
 	int			magazine;
 	int			hp;
 	int			alive;
+	int			keycard;
 
 	/*
 	**	Variables for playing some sounds and music!
