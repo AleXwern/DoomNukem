@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 15:57:05 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:20:05 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,69 +399,16 @@ typedef struct	s_doom
 	double		camshift;
 	int			mousemovement;
 
-	SDL_Surface	*gunSurface;
-	SDL_Texture	*gunTexture;
-	SDL_Rect	gunRect[6][3];
-	SDL_Rect	screenGunRect;
+	/*
+	**	Variables for gun, hp
+	*/
 	int			shooting;
 	int			reloading;
 	int			ani;
 	int			frm;
 	int			magazine;
-
-	SDL_Surface	*CHSurface;
-	SDL_Texture	*CHTexture;
-	SDL_Rect	CHRect;
-	SDL_Rect	screenCHRect;
-
-	SDL_Surface	*invSurface;
-	SDL_Texture	*invTexture;
-	SDL_Rect	invRect;
-	SDL_Rect	screeninvRect;
-
-	SDL_Surface	*keycardSurface;
-	SDL_Texture	*keycardTexture;
-	SDL_Rect	keycardRect;
-	SDL_Rect	screenkeycardRect;
-
-	SDL_Surface	*nbrsSurface;
-	SDL_Texture	*nbrsTexture;
-	SDL_Rect	nbrsRect[10];
-	SDL_Rect	screennbrsRect;
-	SDL_Rect	screennbrsTenRect;
-
-	SDL_Surface	*hpSurface;
-	SDL_Texture	*hpTexture;
-	SDL_Rect	hpRect[6];
-	SDL_Rect	screenhpRect;
 	int			hp;
 	int			alive;
-	int			healthBar[6];
-
-	SDL_Surface	*spriteSurface;
-	SDL_Texture	*spriteTexture;
-	SDL_Rect	spriteRect[4][4];
-	SDL_Rect	screenRect;
-	int			anim;
-	int			frame;
-
-	double		depthbuffer[1080];
-	double		disttosprite;
-	t_vector	spriteLoc;
-	t_vector	spriteRelLoc;
-	double		invDet;
-	double		transformX;
-	double		transformY;
-	int			spriteScreenX;
-	int			spriteHeight;
-	int			spriteWidth;
-	int			drawStartX;
-	int			drawStartY;
-	int			drawEndX;
-	int			drawEndY;
-	int			textureX;
-	int			textureY;
-	Uint32		spriteColor;
 
 	/*
 	**	Variables for playing some sounds and music!
@@ -487,21 +434,14 @@ t_vector		cross_prd(t_vector v, t_vector u);
 t_vector		light_map(t_vector map, int side);
 t_vector		oper_vect(t_vector v, t_vector u, char o);
 
-void			load_animsprite(t_doom *wlf);
-void			draw_sprite(t_doom *wlf);
-void			load_gun(t_doom *wlf);
-void			draw_gun(t_doom *wlf);
-void			reloading_gun(t_doom *wlf);
-void			draw_crosshair(t_doom *wlf);
-void			load_numbers(t_doom *wlf);
-void			draw_ammo(t_doom *wlf);
-void			load_inventory(t_doom *wlf);
-void			draw_inventory(t_doom *wlf);
-void			load_keycard(t_doom *wlf);
-void			draw_keycard(t_doom *wlf);
-void			load_hp(t_doom *dm);
+void			set_variables(t_doom *dm);
+
+void			draw_gun(t_doom *dm);
+void			reloading_gun(t_doom *dm);
+void			draw_crosshair(t_doom *dm);
+void			draw_ammo(t_doom *dm);
 void			draw_hp(t_doom *dm);
-//void			draw_hp(t_doom *dm, t_gfx gfx, int x, int y);
+void			draw_hud(t_doom *dm);
 
 Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
 Uint32			rl_color(t_block blk, Uint32 col);

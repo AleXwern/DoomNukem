@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 12:50:47 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:20:56 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,7 @@ void	dda_sys(t_doom *dm)
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 6)
 			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
-		{
 			dm->hit = 1;
-			if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 9)//distance from player to sprite (sprite is 9 on the map)
-			{
-				dm->spriteLoc.x = dm->map.x;
-				dm->spriteLoc.y = dm->map.y;
-				dm->spriteLoc.z = dm->map.z;
-				dm->disttosprite = ((dm->pos.x - dm->map.x) * (dm->pos.x - dm->map.x) + (dm->pos.y - dm->map.y) * (dm->pos.y - dm->map.y));//initialize disttosprite
-			}
-		}
 	}
 }
 
@@ -309,19 +300,7 @@ void	render(t_doom *dm)
 	//draw_gfx(dm, dm->gfx[32], 20, 10);//pokemon
 	sprite_set(dm);
 	demodraw_sprite(dm);
-	draw_gun(dm);
-	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
-	//draw_crosshair(dm);
-	draw_ammo(dm);
-	draw_hp(dm);
-	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
-	//draw_inventory(dm);
-	if (dm->keycard)
-		draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 25, 140, 200, 0, 0}, 0.35);//keycard
-		//draw_gfx(dm, dm->gfx[30], 10, dm->winh - 78);//keycard
-		//draw_keycard(dm);
-	if (dm->key.three)
-		draw_sprite(dm);
+	draw_hud(dm);
 	if (dm->isoutline)
 		post_effects(dm);
 	if (dm->alive && dm->hp <= 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 13:48:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:21:02 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,7 @@ void	doom_default(t_doom *dm)
 	ft_putnbrln(dm->mxflr);
 	dm->prefps = 30;
 	dm->buffer = BUFFER;
-	load_animsprite(dm);
-	load_gun(dm);
-	load_numbers(dm);
-	load_inventory(dm);
-	load_keycard(dm);
-	load_hp(dm);
+	set_variables(dm);
 	dm->owinh = dm->winh;
 	dm->owinw = dm->winw;
 	wind_default(dm);
