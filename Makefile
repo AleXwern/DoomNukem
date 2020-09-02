@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/28 15:53:37 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/02 12:00:30 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ GRAFILE	=	gravity.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
-SRPFILE =	sprite.c
+SRPFILE =	sprites.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \

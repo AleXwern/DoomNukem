@@ -15,13 +15,13 @@
 
 void	draw_sky(t_doom *dm)
 {
-	if (dm->sbox >= dm->winw)
+	while (dm->sbox >= dm->winw)
 		dm->sbox -= dm->winw;
-	if (dm->sboy >= dm->winh)
+	while (dm->sboy >= dm->winh)
 		dm->sboy -= dm->winh;
-	if (dm->sbox < 0)
+	while (dm->sbox < 0)
 		dm->sbox += dm->winw;
-	if (dm->sboy < 0)
+	while (dm->sboy < 0)
 		dm->sboy += dm->winh;
 	if (dm->texbool)
 		dm->img.data[dm->winw * dm->y + dm->x] = dm->gfx[0].data[dm->winw * ((dm->y + dm->sboy) % 360) + (dm->x + dm->sbox) % 1080];

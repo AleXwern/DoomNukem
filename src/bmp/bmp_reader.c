@@ -58,11 +58,13 @@ char	*read_pixdata(char *corr, int fd, t_gfx gfx, int y)
 	rd = 0;
 	if (gfx.pitch % 4 != 0)
 		rd += 4 - (gfx.pitch % 4);
+	int i = 0;
 	while (--y >= 0)
 	{
 		read(fd, corr + (gfx.pitch * y), gfx.pitch);
 		if (rd > 0)
 			read(fd, exc, rd);
+		//printf("%d\n", i);
 	}
 	return (corr);
 }
@@ -74,7 +76,7 @@ Uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 
 	dummy = (char*)ft_memalloc(gfx.wid * gfx.hgt * 4);
 	corr = (char*)ft_memalloc(gfx.wid * gfx.hgt * (gfx.bpp / 8));
-	//read(fd, corr, gfx.pitch * gfx.hgt);// * (gfx.bpp / 8));
+	//printf("%d\n\n", read(fd, corr, gfx.pitch * gfx.hgt));// * (gfx.bpp / 8));
 	corr = read_pixdata(corr, fd, gfx, gfx.hgt);
 	while (i < gfx.wid * gfx.hgt * (gfx.bpp / 8))
 	{
