@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 14:46:27 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/02 16:42:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,12 +228,13 @@ typedef struct	s_block
 
 typedef struct	s_sprite
 {
-	int			id; //leaved to block as fingerprint;
+	int			id; //leaved to pixel as fingerprint;
 	int			gfx;
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	mov;
 	int			hp;
+	int			size;
 	double		dist;
 }				t_sprite;
 
