@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 16:20:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/28 16:25:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,8 @@ void	demodraw_sprite(t_doom *dm)
 {
 	int		x;
 	
+	if (spr.hp <= 0)
+		return ;
 	if ((spr.dir.z < max.z && spr.dir.z > min.z) && ((spr.dir.y < max.y && spr.dir.y > min.y) || (spr.dir.x < max.x && spr.dir.x > min.x)))
 	{
 		dm->gfx[10].x = 0;
@@ -280,6 +282,7 @@ void	render(t_doom *dm)
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
 	//draw_gfx(dm, dm->gfx[32], 20, 10);//pokemon
+	demodraw_sprite(dm);
 	draw_gun(dm);
 	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
 	//draw_crosshair(dm);
@@ -295,7 +298,6 @@ void	render(t_doom *dm)
 		draw_sprite(dm);
 	if (dm->isoutline)
 		post_effects(dm);
-	demodraw_sprite(dm);
 	if (dm->hp <= 0)
 		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 216, 0xE71313}, 2);
 	SDL_RenderPresent(dm->rend);
