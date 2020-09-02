@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 14:07:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/02 14:46:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	demodraw_sprite(t_doom *dm)
 			spra += 360;
 		if (spra < mina || spra > maxa)
 			spra -= 360;
-		//if (spra < mina || spra > maxa)
-		//	continue;
+		if (spra < mina || spra > maxa)
+			continue;
 		x = dm->winw * ((spra - mina) / (maxa - mina)) - ((dm->gfx[dm->spr[i].gfx].wid / 2) * 2 / dm->spr[i].dist);
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z)) - ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
 		//printf("%d %d at %f %f %f\ndist %f\n%d %d %d\n", i, dm->spr[i].hp, dm->spr[i].pos.z, dm->spr[i].pos.y, dm->spr[i].pos.x, dm->spr[i].dist, dm->spr[i].gfx, x, y);
@@ -123,7 +123,12 @@ void	demodraw_sprite(t_doom *dm)
 		dm->gfx[dm->spr[i].gfx].y = 0;
 	}
 	if (dm->spr[4].dist < 0.5)
-		dm->hp -= 5;
+	{
+		dm->hp -= 40;
+		ft_bzero(&dm->spr[4], sizeof(t_sprite));
+	}
+	else if (dm->area[(int)dm->spr[4].pos.z][(int)dm->spr[4].pos.y][(int)dm->spr[4].pos.z].b > 1)
+		ft_bzero(&dm->spr[4], sizeof(t_sprite));
 	if (frm == 250)
 	{
 		dm->spr[4].hp = 100 * (i + 1);
@@ -131,9 +136,9 @@ void	demodraw_sprite(t_doom *dm)
 		dm->spr[4].pos.y = dm->spr[0].pos.y;
 		dm->spr[4].pos.x = dm->spr[0].pos.x;
 		dm->spr[4].gfx = 24;
-		dm->spr[4].mov.z = dm->spr[0].dir.z * -0.07;
-		dm->spr[4].mov.y = dm->spr[0].dir.y * -0.07;
-		dm->spr[4].mov.x = dm->spr[0].dir.x * -0.07;
+		dm->spr[4].mov.z = dm->spr[0].dir.z * -0.4;
+		dm->spr[4].mov.y = dm->spr[0].dir.y * -0.4;
+		dm->spr[4].mov.x = dm->spr[0].dir.x * -0.4;
 	}
 	frm++;
 	if (frm > 250)
@@ -144,7 +149,7 @@ void	demodraw_sprite(t_doom *dm)
 void	sprite_set(t_doom* dm)
 {
 	dm->spr[0].hp = 100;
-	dm->spr[0].pos.z = 4.5;
+	dm->spr[0].pos.z = 5.5;
 	dm->spr[0].pos.y = 12.42;
 	dm->spr[0].pos.x = 12.4;
 	dm->spr[0].gfx = 10;
