@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/08/27 15:40:19 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/02 12:51:35 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ void	draw_gun(t_doom *dm)
 			if (dm->ani == 1 && dm->frm == 2)
 			{
 				Mix_PlayChannel(-1, dm->gunshot, 0);
-				dm->hp -= 20;
 				/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 1)//if enemy hit, make a soundeffect. Now just testing with block instead of enemy.
 				{
 					Mix_PlayChannel(-1, dm->gettingHit, 0);

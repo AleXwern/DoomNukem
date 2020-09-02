@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 16:20:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/02 12:50:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,20 +143,6 @@ void	side_check(t_doom* dm)
 		dm->side += 3;
 }
 
-void	sprite_demo(t_doom *dm)
-{
-	/*int i = -1;
-	while (++i < 5)
-	{
-		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
-		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
-		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
-		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
-		//spr[i] = dm->spr[i];
-		//printf("Sprite %f %f %f\nDir %f %f %f\nDist %f\n", dm->spr[i].pos.z, dm->spr[i].pos.y, dm->spr[i].pos.x, dm->spr[i].dir.z, dm->spr[i].dir.y, dm->spr[i].dir.x, dm->spr[i].dist);
-	}*/
-}
-
 int		renthread(void *ptr)
 {
 	t_doom	*dm;
@@ -199,14 +185,15 @@ int		renthread(void *ptr)
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp -= 35;
 					else
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp = 0;
-					if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp > 0)
-							Mix_PlayChannel(-1, dm->gettingHit, 0);
-					else
+					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp > 0)
+							Mix_PlayChannel(-1, dm->gettingHit, 0);*/
+					if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp == 0)//else
 					{
 						Mix_PlayChannel(-1, dm->windowShatter, 0);
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
 					}
 				}
+				//if (sprite pixel is hit && dm->ani == 0 && dm->frm == 1)
 			}
 			else
 			{
@@ -233,7 +220,7 @@ void	demodraw_sprite(t_doom *dm)
 	double	mina = atan2(min.y, min.x) * 180 / M_PI + 180;
 	double	maxa = atan2(max.y, max.x) * 180 / M_PI + 180;
 	double	spra;
-	
+
 	i = -1;
 	if (mina > maxa)
 		maxa += 360;
@@ -321,7 +308,6 @@ void	render(t_doom *dm)
 	}
 	//draw_gfx(dm, dm->gfx[32], 20, 10);//pokemon
 	sprite_set(dm);
-	sprite_demo(dm);
 	demodraw_sprite(dm);
 	draw_gun(dm);
 	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
@@ -331,20 +317,21 @@ void	render(t_doom *dm)
 	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
 	//draw_inventory(dm);
 	if (dm->keycard)
-		//draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 10, 1, 1, 0, 0}, 1);//keycard
-		draw_gfx(dm, dm->gfx[30], 10, dm->winh - 78);//keycard
+		draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 25, 140, 200, 0, 0}, 0.35);//keycard
+		//draw_gfx(dm, dm->gfx[30], 10, dm->winh - 78);//keycard
 		//draw_keycard(dm);
 	if (dm->key.three)
 		draw_sprite(dm);
 	if (dm->isoutline)
 		post_effects(dm);
-	if (dm->hp <= 0)
-		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 216, 0xE71313}, 2);
-	SDL_RenderPresent(dm->rend);
-	dm->fps++;
 	if (dm->alive && dm->hp <= 0)
 	{
 		dm->alive = 0;
 		Mix_PlayChannel(-1, dm->osrsDeath, 0);
+		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xE71313}, 2);
+		SDL_RenderPresent(dm->rend);
 	}
+	if (dm->alive)
+		SDL_RenderPresent(dm->rend);
+	dm->fps++;
 }

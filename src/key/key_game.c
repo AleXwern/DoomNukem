@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 13:44:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/02 12:48:20 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,11 @@ int				key_release(int key, t_doom *dm)
 			dm->key.e = 0;
 		if (key == KEY_I || key == SDL_SCANCODE_I)
 			dm->keycard = (dm->keycard == 0 ? 1 : 0);
+		if (key == KEY_K || key == SDL_SCANCODE_K)
+		{
+			Mix_PlayChannel(-1, dm->gettingHit, 0);
+			dm->hp -= 20;
+		}
 		if (key == KEY_SHIFT)
 			dm->movsp -= 0.06;
 		if (key == KEY_L)
@@ -192,6 +197,7 @@ int				key_release(int key, t_doom *dm)
 		{
 			dm->alive = 1;
 			dm->hp = 100;
+			dm->magazine = 10;
 			reset_position(dm);
 			ft_bzero(&dm->key, sizeof(t_key));
 		}
