@@ -22,4 +22,5 @@ void	set_variables(t_doom *dm)
 	dm->magazine = 10;
 	dm->hp = 100;
 	dm->alive = 1;
+	dm->spr[5].frame = 0;
 }

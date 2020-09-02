@@ -81,6 +81,7 @@ void	demodraw_sprite(t_doom *dm)
 	double	mina = atan2(dm->min.y, dm->min.x) * 180 / M_PI + 180;
 	double	maxa = atan2(dm->max.y, dm->max.x) * 180 / M_PI + 180;
 	double	spra;
+	double	sprb;
 	static int	frm;
 
 	i = -1;
@@ -144,6 +145,57 @@ void	demodraw_sprite(t_doom *dm)
 	if (frm > 250)
 		frm = 0;
 	printf("Screen angle %f %f\nProj angle %f\ndiff %f\n", mina, maxa, atan2(dm->spr[4].dir.y, dm->spr[4].dir.x) * 180 / M_PI + 180, maxa - mina);
+
+	i = 5;
+	spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x) * 180 / M_PI + 180;
+	dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
+	dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
+	dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
+	dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
+	//if (dm->spr[i].dist > 5)
+	//{
+	dm->spr[i].pos.z += dm->spr[i].mov.z;
+	dm->spr[i].pos.y += dm->spr[i].mov.y;
+	dm->spr[i].pos.x += dm->spr[i].mov.x;
+	//}
+	if (spra < mina || spra > maxa)
+		spra += 360;
+	if (spra < mina || spra > maxa)
+		spra -= 360;
+	x = dm->winw * ((spra - mina) / (maxa - mina)) - ((dm->gfx[dm->spr[i].gfx].wid / 2) * 2 / dm->spr[i].dist);
+	y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z)) - ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
+	//printf("%d %d at %f %f %f\ndist %f\n%d %d %d\n", i, dm->spr[i].hp, dm->spr[i].pos.z, dm->spr[i].pos.y, dm->spr[i].pos.x, dm->spr[i].dist, dm->spr[i].gfx, x, y);
+	if (y < 0)
+	{
+		dm->gfx[dm->spr[i].gfx].y -= y;
+		y = 0;
+	}
+	if (x < 0)
+	{
+		dm->gfx[dm->spr[i].gfx].x -= x;
+		x = 0;
+	}
+	
+	//pokemon width 32 height 48 per frame
+	dm->gfx[dm->spr[i].gfx].x = (dm->spr[5].frame / 8) * 32;
+	//printf("%dtraineranimation\n", dm->gfx[dm->spr[i].gfx].x);
+	spra = atan2(dm->spr[i].dir.y * -1, dm->spr[i].dir.x * -1) * 180 / M_PI + 180;
+	dm->spr[i].face.x = 1;
+	sprb = atan2(dm->spr[i].face.y, dm->spr[i].face.x) * 180 / M_PI + 180;
+	sprb = sprb - spra;
+	//printf("%f trainer facing\n", sprb);
+	if (sprb < 45 && sprb > -45)
+		dm->gfx[dm->spr[i].gfx].y = 0;
+	else if (sprb > 135 || sprb < -135)
+		dm->gfx[dm->spr[i].gfx].y = 144;
+	else if (sprb >= 45)
+		dm->gfx[dm->spr[i].gfx].y = 48;
+	else
+		dm->gfx[dm->spr[i].gfx].y = 96;
+	draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 48, 32, 0, 0, 5}, 30 / dm->spr[i].dist);
+	dm->spr[5].frame++;
+	if (dm->spr[5].frame == 32) 
+		dm->spr[5].frame = 0;
 }
 
 void	sprite_set(t_doom* dm)
@@ -164,4 +216,10 @@ void	sprite_set(t_doom* dm)
 		dm->spr[i].gfx = (rand() % 8) + 15;
 		//spr[i] = dm->spr[i];
 	}
+
+	dm->spr[5].hp = 100;
+	dm->spr[5].pos.z = 5;
+	dm->spr[5].pos.y = 12.42;
+	dm->spr[5].pos.x = 16.4;
+	dm->spr[5].gfx = 32;
 }

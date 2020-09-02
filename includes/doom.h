@@ -235,6 +235,10 @@ typedef struct	s_sprite
 	t_vector	mov;
 	int			hp;
 	double		dist;
+	Uint32		x;
+	Uint32		y;
+	int			frame;
+	t_vector	face;
 }				t_sprite;
 
 /*
@@ -290,7 +294,7 @@ typedef struct	s_doom
 	int			killthread;
 	int			tile;
 	t_gfx		*gfx;
-	t_sprite	spr[5];
+	t_sprite	spr[6];
 	int			gfxcount;
 	t_chara		*chara;
 	int			height;
