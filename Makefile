@@ -6,7 +6,7 @@
 #    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/02 12:00:30 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/09/02 14:31:00 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,10 @@ OEXT = 		.o
 LEXT = 		.a
 FLG = 		-O2
 SRCFILE =	doom.c gfx.c loop.c move.c main_menu.c sprite.c \
-			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c
+			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
+			set_variables.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
-LOADDRAW =	gun.c gunextra.c loadextra.c hp.c
+DRAWEXT =	draw_hud.c
 FILESYS =	fileformat.c save_level.c
 EDTFILE =	editor.c render_editor.c
 ANMFILE =	staireff.c
@@ -31,7 +32,7 @@ TXTFILE =	set_string.c
 MTHFILE =	vert.c
 SRPFILE =	sprites.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
-			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
+			$(addprefix ./src/draw_extra/,$(DRAWEXT)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
 			$(addprefix ./src/editor/,$(EDTFILE)) \
 			$(addprefix ./src/fs/,$(FILESYS)) \
@@ -48,7 +49,7 @@ LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/key/,$(KEYFILE:.c=$(OEXT))) \
-			$(addprefix ./obj/load_draw/,$(LOADDRAW:.c=$(OEXT))) \
+			$(addprefix ./obj/draw_extra/,$(DRAWEXT:.c=$(OEXT))) \
 			$(addprefix ./obj/editor/,$(EDTFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/fs/,$(FILESYS:.c=$(OEXT))) \
 			$(addprefix ./obj/animation/,$(ANMFILE:.c=$(OEXT))) \
