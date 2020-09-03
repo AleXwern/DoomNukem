@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/02 14:31:00 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/09/03 16:26:24 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME =		doom-nukem
 OEXT = 		.o
 LEXT = 		.a
 FLG = 		-O2
-SRCFILE =	doom.c gfx.c loop.c move.c main_menu.c sprite.c \
+SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c sprite.c \
 			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
 			set_variables.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
@@ -26,7 +26,7 @@ ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
 			part_dda.c
-GRAFILE	=	gravity.c
+GRAFILE	=	gravity.c move.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c

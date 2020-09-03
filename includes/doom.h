@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 11:51:23 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/03 15:48:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,17 +108,6 @@ typedef struct	s_key
 
 }				t_key;
 
-/*typedef struct	s_block
-{
-	uint	block	: 12,
-			light	: 12,
-			meta	: 4,
-			l		: 1,
-			r		: 1,
-			f		: 1,
-			b		: 1;
-}				t_block;*/
-
 typedef struct	s_vector
 {
 	double	x;
@@ -176,15 +165,6 @@ typedef struct	s_img
 	int			hgt;
 }				t_img;
 
-/*typedef struct	s_gfx
-{
-	SDL_Surface* tex;
-	SDL_Texture* img;
-	Uint32* data;
-	int			wid;
-	int			hgt;
-}				t_gfx;*/
-
 typedef struct	s_gfx
 {
 	Uint32		*data;
@@ -215,6 +195,23 @@ typedef struct	s_editor
 	Sint8		mcopy;
 }				t_editor;
 
+/*
+**	Datablock for blocks
+**	b	- blocktype (tex)
+**	lgt	- lightning of the block
+**	pt	- planetype, how block is split
+**	pln	- plane, where it's split
+**	meta- extra data for misc features
+**	hp	- used to determine when block is broken
+**	PLANE TYPE
+**	0 - none
+**	1 - Z, filled up
+**	2 - Z, filled down
+**	3 - Y, filled N
+**	4 - Y, filled S
+**	5 - X, filled W
+**	6 - X, filled E
+*/
 typedef struct	s_block
 {
 	Uint8		b;
@@ -223,7 +220,6 @@ typedef struct	s_block
 	Uint8		pln;
 	Uint8		meta;
 	Uint8		hp;
-	Uint8		spr;
 }				t_block;
 
 typedef struct	s_sprite
@@ -311,6 +307,8 @@ typedef struct	s_doom
 	int			sel;
 	int			plr;
 	int			plrck;
+	int			adj;
+	int			wincol;
 	int			x;
 	int			y;
 	int			hold;
@@ -473,7 +471,7 @@ int				mouse_move(int x, int y, t_doom *dm);
 void			mouse_movex(int dir, t_doom *dm);
 void			mouse_movey(int dir, t_doom *dm);
 int				move(t_doom *dm);
-int				move_fb(t_doom *dm);
+void			move_fb(t_doom *dm);
 int				move_lr(t_doom *dm);
 int				renthread(void *ptr);
 int				save_file(t_doom* dm, int fd, char* file, int i);

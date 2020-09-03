@@ -13,26 +13,38 @@
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-/*int		collision_check(t_block area, t_vector gravity, t_vector pos)
+double	get_coll_down(t_block blk)
 {
-	pos.z = pos.z + gravity.z - 0.1;
-	printf("Gravity\npos %f %f %f\nblock %hhu %hhu %f\n", pos.z, pos.y, pos.x, area.b, area.pt, area.pln / 15.0);
-	if (area.b <= 1)
-		return (1);
-	else if (!area.pt)
+	if (blk.pt <= 1)
 		return (0);
-	//else if (area.pt == 1 && area.b > 1 && (pos.z - floor(pos.z)) < (area.pln / 15.0))
-	//	return (0);
+	else if (blk.pt == 2)
+		return (1 - blk.pln / 15.0);
 	return (0);
-}*/
+}
+
+int		collision_down(t_doom *dm, t_vector gravity, t_vector pos)
+{
+	if (dm->area[(int)pos.z][(int)pos.y][(int)pos.x].b > 1 &&
+		!dm->area[(int)pos.z][(int)pos.y][(int)pos.x].pt)
+		return (0);
+	if (dm->area[(int)pos.z][(int)pos.y][(int)pos.x].b < 2)
+		return (1);
+	return (0);
+}
 
 void	gravity(t_doom* dm)
 {
+	if (!dm->airbrn)
+	{
+		if (dm->pos.z - (int)dm->pos.z > 0.4)
+			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x]) + 0.4;
+		else
+			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]) - 0.6;
+	}
 	if (dm->key.two || dm->isgravity || dm->ismenu || !dm->airbrn)
 		return;
 	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)
 		dm->gravity.z /= fabs(dm->gravity.z);
-	//dm->gravity.z += dm->fallsp.z;
 	if (dm->gravity.z < 0)
 	{
 		if (dm->area[(int)(dm->pos.z + dm->gravity.z - 0.1)][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1)
@@ -44,6 +56,10 @@ void	gravity(t_doom* dm)
 	{
 		dm->airbrn = 0;
 		dm->gravity.z = 0;
+		if (dm->pos.z - (int)dm->pos.z > 0.4)
+			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x]) + 0.4;
+		else
+			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]);// - 0.6;
 	}
 	dm->gravity.z += dm->fallsp.z;
 	if (dm->gravity.z > 0.2 * (30.0 / dm->buffer / dm->prefps))

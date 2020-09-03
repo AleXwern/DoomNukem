@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:56:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 15:38:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 15:02:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,16 @@ void	single_loop_x(t_doom* dm)
 	dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) - (int)dm->tmap.x;
 }
 
+/*
+**	PLANE TYPE
+**	0 - none
+**	1 - Z, filled up
+**	2 - Z, filled down
+**	3 - Y, filled N
+**	4 - Y, filled S
+**	5 - X, filled W
+**	6 - X, filled E
+*/
 void	part_check(t_doom *dm)
 {
 	double	plane;
@@ -114,19 +124,19 @@ void	part_check(t_doom *dm)
 	plane = (1 - dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pln / 15.0);
 	pt = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt;
 	if (pt == 1)
-		part_dda_zp(dm, plane);	//Z plane, filled top - Rays go through the block sometimes, fixed by 1 -> 0.99999
+		part_dda_zp(dm, plane);
 	else if (pt == 2)
-		part_dda_zn(dm, plane);	//Z plane, filled bottom
+		part_dda_zn(dm, plane);
 	else if (pt == 3)
-		part_dda_yp(dm, plane);	//Y plane, filled top
+		part_dda_yp(dm, plane);
 	else if (pt == 4)
-		part_dda_yn(dm, plane);	//Y plane, filled bottom
+		part_dda_yn(dm, plane);
 	else if (pt == 5)
-		part_dda_xp(dm, plane);	//X plane, filled top
+		part_dda_xp(dm, plane);
 	else if (pt == 6)
-		part_dda_xn(dm, plane);	//X plane, filled bottom
+		part_dda_xn(dm, plane);
 	else if (pt == 7)
-		slope_dda_xzn(dm);	//XZ slope, filled bottom
+		slope_dda_xzn(dm);
 	else
-		slope_dda_xzp(dm);	//XZ slope, filled top
+		slope_dda_xzp(dm);
 }
