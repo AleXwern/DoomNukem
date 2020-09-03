@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 14:36:14 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/03 12:07:21 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +226,7 @@ void	render(t_doom *dm)
 		else
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
-	//draw_gfx(dm, dm->gfx[32], 20, 10);//pokemon
-	sprite_set(dm);
+	//sprite_set(dm);
 	demodraw_sprite(dm);
 	draw_hud(dm);
 	if (dm->isoutline)

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 12:01:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/03 12:22:06 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,12 @@ void	demodraw_sprite(t_doom *dm)
 		dm->gfx[dm->spr[i].gfx].y = 48;
 	else
 		dm->gfx[dm->spr[i].gfx].y = 96;
-	draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 48, 32, 0, 0, 5}, 30 / dm->spr[i].dist);
+	draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 48, 32, 0, 0, 5}, 25 / dm->spr[i].dist);
+	//dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x]
+	/*if (dm->area[(int)(dm->spr[i].pos.z + 0.2)][(int)dm->spr[i].pos.y][(int)dm->spr[i].pos.x].b == 1 &&
+		dm->area[(int)(dm->spr[i].pos.z + 0.5)][(int)dm->spr[i].pos.y][(int)dm->spr[i].pos.x].b == 1)
+		dm->spr[i].pos.z += 0.005;
+	printf("dm->spr[i].pos.z == %f\n", dm->spr[i].pos.z);*/
 	dm->spr[5].frame++;
 	if (dm->spr[5].frame == 32)
 		dm->spr[5].frame = 0;
@@ -218,7 +223,7 @@ void	sprite_set(t_doom* dm)
 	}
 
 	dm->spr[5].hp = 100;
-	dm->spr[5].pos.z = 5;
+	dm->spr[5].pos.z = 6.6;
 	dm->spr[5].pos.y = 12.42;
 	dm->spr[5].pos.x = 16.4;
 	dm->spr[5].gfx = 32;
