@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 15:45:05 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 12:01:18 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 /*void	set_projectile(t_doom *dm)
 {
 	static int	frm;
-	
+
 	if (frm == 0)
 	{
 		dm->spr[4].hp = 100 * (i + 1);
@@ -132,7 +132,7 @@ void	demodraw_sprite(t_doom *dm)
 		dm->spr[4].mov.y = dm->spr[0].dir.y * -0.4;
 		dm->spr[4].mov.x = dm->spr[0].dir.x * -0.4;
 	}
-	if (frm < 50)
+	if (frm < 150)
 		dm->spr[0].gfx = 35;
 	else
 		dm->spr[0].gfx = 34;
@@ -170,7 +170,7 @@ void	demodraw_sprite(t_doom *dm)
 		dm->gfx[dm->spr[i].gfx].x -= x;
 		x = 0;
 	}
-	
+
 	//pokemon width 32 height 48 per frame
 	dm->gfx[dm->spr[i].gfx].x = (dm->spr[5].frame / 8) * 32;
 	//printf("%dtraineranimation\n", dm->gfx[dm->spr[i].gfx].x);
@@ -189,7 +189,7 @@ void	demodraw_sprite(t_doom *dm)
 		dm->gfx[dm->spr[i].gfx].y = 96;
 	draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 48, 32, 0, 0, 5}, 30 / dm->spr[i].dist);
 	dm->spr[5].frame++;
-	if (dm->spr[5].frame == 32) 
+	if (dm->spr[5].frame == 32)
 		dm->spr[5].frame = 0;
 }
 
@@ -200,7 +200,7 @@ void	sprite_set(t_doom* dm)
 	if (i)
 		return;
 	dm->spr[0].hp = 100;
-	dm->spr[0].pos.z = 6.5;
+	dm->spr[0].pos.z = 5.5;
 	dm->spr[0].pos.y = 12.42;
 	dm->spr[0].pos.x = 12.4;
 	dm->spr[0].gfx = 34;
