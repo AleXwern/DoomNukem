@@ -237,7 +237,7 @@ void	demodraw_sprite(t_doom *dm)
 	i = -1;
 	if (mina > maxa)
 		maxa += 360;
-	printf("Screen angle %f %f\nWyvern angle %f\ndiff %f\n", mina, maxa, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x) * 180 / M_PI + 180, maxa - mina);
+	//printf("Screen angle %f %f\nWyvern angle %f\ndiff %f\n", mina, maxa, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x) * 180 / M_PI + 180, maxa - mina);
 	while (++i < 5)
 	{
 		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x) * 180 / M_PI + 180;
