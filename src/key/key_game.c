@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 14:44:33 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/03 11:37:15 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,9 +202,9 @@ int				key_release(int key, t_doom *dm)
 	return (0);
 }
 
-int				x_press(t_doom *wolf)
+int				x_press(t_doom *dm)
 {
-	error_out(FINE, wolf);
+	error_out(FINE, dm);
 	return (0);
 }
 

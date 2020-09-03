@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 15:32:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 11:48:31 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 # define G_ERROR	"General error happened. Exiting program."
 # define B_ARG		"Error: Bad argument."
-# define USAGE		"Usage:	./wolf3d [tileset] [floors] [FOLDER name]"
-# define MEM_ERROR	"Not enough memory to allocate space for ./wolf3d."
+# define USAGE		"Usage:	./doomnukem [tileset] [floors] [FOLDER name]"
+# define MEM_ERROR	"Not enough memory to allocate space for ./doomnukem."
 # define T_ERROR	"There was a threading problem."
 # define OOPS		"This should never be shown. Everyone panic!"
 # define FINE		"Successfully exiting program."
@@ -39,7 +39,7 @@
 # define SDL_ERROR	"Could not initialize SDL library"
 # define REN_ERROR	"Could not create renderer"
 # define SPW_ERROR	"Spawn point is blocked."
-# define WLF_ERROR	"Cannot create corestruct."
+# define DOOM_ERROR	"Cannot create corestruct."
 # define PAD_ERROR	"Game controller was not found!"
 # define LOD_ERROR	"Could not load the level"
 # define VOID_OVER	"You fell off the world. Game over!"

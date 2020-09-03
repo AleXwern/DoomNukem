@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 16:42:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/03 11:51:23 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,10 +435,14 @@ typedef struct	s_doom
 	Mix_Chunk	*windowShatter;
 }				t_doom;
 
+/*	Not in use?
+t_gfx			gfx_get(t_doom *dm, char *file, int x, int y);
+t_chara			*generate_party(t_doom *dm);
+t_chara			generate_foe(t_doom *dm);
+*/
+
 t_img			init_image(t_doom *dm);
-t_gfx			gfx_get(t_doom *wolf, char *file, int x, int y);
-t_chara			*generate_party(t_doom *wlf);
-t_chara			generate_foe(t_doom *wlf);
+
 t_vector		cross_prd(t_vector v, t_vector u);
 t_vector		light_map(t_vector map, int side);
 t_vector		oper_vect(t_vector v, t_vector u, char o);
@@ -452,90 +456,113 @@ void			draw_ammo(t_doom *dm);
 void			draw_hp(t_doom *dm);
 void			draw_hud(t_doom *dm);
 
-Uint32			color_shift(Uint32 color, double shift, t_doom *wlf, Uint32 ret);
+Uint32			color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret);
 Uint32			rl_color(t_block blk, Uint32 col);
 
-int				tex_check(t_doom *wlf);
+int				tex_check(t_doom *dm);
 int				fps_capper(void* ptr);
 int				fps_counter(void* ptr);
 int				get_x(int pc);
 int				get_y(int pc);
-int				interact(t_doom *wlf);
-int				key_hold(int key, t_doom *wlf);
-int				key_press(int key, t_doom *wolf);
-int				key_release(int key, t_doom *wolf);
+int				interact(t_doom *dm);
+int				key_hold(int key, t_doom *dm);
+int				key_press(int key, t_doom *dm);
+int				key_release(int key, t_doom *dm);
 int				load_level(t_editor *le, t_doom *dm);
-int				mouse_move(int x, int y, t_doom *wlf);
-void			mouse_movex(int dir, t_doom *wlf);
-void			mouse_movey(int dir, t_doom *wlf);
-int				move(t_doom *wlf);
-int				move_fb(t_doom *wlf);
-int				move_lr(t_doom *wlf);
+int				mouse_move(int x, int y, t_doom *dm);
+void			mouse_movex(int dir, t_doom *dm);
+void			mouse_movey(int dir, t_doom *dm);
+int				move(t_doom *dm);
+int				move_fb(t_doom *dm);
+int				move_lr(t_doom *dm);
 int				renthread(void *ptr);
 int				save_file(t_doom* dm, int fd, char* file, int i);
-int				x_press(t_doom *wolf);
+int				x_press(t_doom *dm);
 
-char			*get_syssmgone(t_doom *wlf, int pc);
-char			*get_syssmgtwo(t_doom *wlf, int pc);
+/*	Not in use?
+char			*get_syssmgone(t_doom *dm, int pc);
+char			*get_syssmgtwo(t_doom *dm, int pc);
 
-void			anim_shift(t_doom *wlf, int frame);
-void			cam_udy(t_doom *wlf);
+void			anim_shift(t_doom *dm, int frame);
+*/
+
+void			cam_udy(t_doom *dm);
 void			check_area(t_editor* le, SDL_Event ev);
-void			combat_key(int key, t_doom *wlf);
-void			comp_foe(t_doom *wlf, char *bpath, int i);
-void			comp_gfx(t_doom *wolf, int i);
-void			comp_map(t_doom *wolf);//, char *av);
+
+/*	Not in use?
+void			combat_key(int key, t_doom *dm);
+*/
+
+void			comp_foe(t_doom *dm, char *bpath, int i);
+void			comp_gfx(t_doom *dm, int i);
+void			comp_map(t_doom *dm);
+
+/*	Not in use?
 void			cur_zero(t_doom *dm, int tar);
 void			cur_two(t_doom *dm, int tar);
+*/
+
 void			curt_down(t_doom *dm);
 void			curt_up(t_doom *dm);
 void			demodraw_sprite(t_doom *dm);
-void			destroy_gfx(t_doom *wlf, int i);
-void			doom_default(t_doom *wlf);
-void			draw_bg(t_doom *wlf, t_gfx gfx);
+void			destroy_gfx(t_doom *dm, int i);
+void			doom_default(t_doom *dm);
+void			draw_bg(t_doom *dm, t_gfx gfx);
 void			draw_blk_select(t_doom* dm, t_editor* le, int x, int y);
 void			draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y);
-void			draw_gfx(t_doom *wlf, t_gfx gfx, int x, int y);
-void			draw_level_screen(t_doom *wlf, t_editor *le, double x, double y);
-void			draw_menu(t_doom *wlf, int x, int y, int cur);
+void			draw_gfx(t_doom *dm, t_gfx gfx, int x, int y);
+void			draw_level_screen(t_doom *dm, t_editor *le, double x, double y);
+void			draw_menu(t_doom *dm, int x, int y, int cur);
 void			draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy);
 void			draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size);
 void			draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size);
 void			draw_screen(t_editor* le, t_doom* dm, int x, int y);
 void			draw_sliders(t_doom *dm, t_editor *le, int x, int y);
-void			draw_sky(t_doom *wlf);
+void			draw_sky(t_doom *dm);
 void			draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size);
 void			editor_key_press(Uint32 key, t_editor *le);
 void			editor_key_release(Uint32 key, t_editor *le, t_doom* dm);
-void			editor_main(t_doom *wlf);
-void			encounter(t_doom *wlf);
-void			error_out(char *msg, t_doom *wolf);
-void			exit_combat(t_doom *wlf);
-void			free_map(t_doom *wlf, int f, int y);
+void			editor_main(t_doom *dm);
+void			error_out(char *msg, t_doom *dm);
+
+/*	Not in use?
+void			encounter(t_doom *dm);
+void			exit_combat(t_doom *dm);
+*/
+
+void			free_map(t_doom *dm, int f, int y);
 void			free_memory(char **arr);
-void			game_loop(t_doom *wlf);
-void			gen_att_ai(t_doom *wlf);
-void			gravity(t_doom *wlf);
-void			health_check(t_doom *wlf, int pc, int thp);
-void			key_release_menu(int key, t_doom *wlf);
+void			game_loop(t_doom *dm);
+
+/*	Not in use?
+void			gen_att_ai(t_doom *dm);
+void			health_check(t_doom *dm, int pc, int thp);
+*/
+
+void			gravity(t_doom *dm);
+void			key_release_menu(int key, t_doom *dm);
 void			key_state_editor(t_editor *le, t_doom *dm);
-void			key_state_game(t_doom *wlf);
-void			key_state_menu(t_doom* wlf);
-void			lab_move(t_doom *wlf, int obj, t_vector stair);
-void			main_menu(t_doom *wlf);
-void			options_menu(t_doom *wlf);
-void			place_pc(t_doom *wlf, int pc);
-void			post_effects(t_doom *wlf);
-void			render(t_doom *wlf);
-void			render_floor(t_doom *wlf);
-void			reset_position(t_doom *wlf);
-void			reset_window(t_doom *wlf, Uint8 arg);
-void			resize_window(t_doom *wlf);
+void			key_state_game(t_doom *dm);
+void			key_state_menu(t_doom* dm);
+void			lab_move(t_doom *dm, int obj, t_vector stair);
+void			main_menu(t_doom *dm);
+void			options_menu(t_doom *dm);
+
+/*	Not in use?
+void			place_pc(t_doom *dm, int pc);
+*/
+
+void			post_effects(t_doom *dm);
+void			render(t_doom *dm);
+void			render_floor(t_doom *dm);
+void			reset_position(t_doom *dm);
+void			reset_window(t_doom *dm, Uint8 arg);
+void			resize_window(t_doom *dm);
 void			set_text(t_doom *dm, char *str, int *xy, double size);
 void			sprite_set(t_doom* dm);
-void			strafe(t_doom *wlf, double dirxtemp, double dirytemp);
-void			wall_stripe(t_doom *wlf);
-void			wind_default(t_doom *wlf);
+void			strafe(t_doom *dm, double dirxtemp, double dirytemp);
+void			wall_stripe(t_doom *dm);
+void			wind_default(t_doom *dm);
 
 void			part_check(t_doom *dm);
 void			part_dda_zn(t_doom* dm, double plane);

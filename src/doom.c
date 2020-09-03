@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 12:37:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 11:47:41 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	error_out(char *msg, t_doom *dm)
 	//Things below just in case.
 	/*SDL_SetRelativeMouseMode(SDL_FALSE);
 	dm->killthread = 1;
-	if (!ft_strcmp(msg, WLF_ERROR))
+	if (!ft_strcmp(msg, DOOM_ERROR))
 		exit(0);
 	if (!ft_strcmp(msg, FLR_ERROR))
 		dm->mxflr = dm->flr - 49;
@@ -125,7 +125,7 @@ int		main(int ac, char **av)
 	t_doom	*dm;
 
 	if (!(dm = (t_doom*)malloc(sizeof(t_doom))))
-		error_out(WLF_ERROR, dm);
+		error_out(DOOM_ERROR, dm);
 	ft_bzero(dm, sizeof(t_doom));
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		error_out(SDL_ERROR, dm);
