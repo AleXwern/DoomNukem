@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/02 14:42:15 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/03 16:38:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 
 void	draw_hud(t_doom *dm)
 {
-	draw_gun(dm);
-	draw_ammo(dm);
 	draw_hp(dm);
-	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
 	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
 	if (dm->keycard)
-		draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 25, 140, 200, 0, 0}, 0.35);//keycard
+		draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 125, 140, 200, 0, 0}, 0.35);//keycard
+	if (dm->gun)
+	{
+		draw_pgfx_sc(dm, dm->gfx[36], (int[6]){(dm->winh - 78), 20, 272, 380, 0, 0}, 0.2);//pistol in inventory
+		draw_gun(dm);
+		draw_ammo(dm);
+		draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
+	}
 }
 
 void	draw_gun(t_doom *dm)
