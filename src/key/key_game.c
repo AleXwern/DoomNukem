@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 13:44:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 16:47:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,6 @@ int				key_hold(int key, t_doom *dm)
 		dm->key.two = 1;
 	if (key == KEY_SHIFT)
 		dm->movsp += 0.06;
-	if (key == KEY_Q)
-		dm->key.q = 1;
-	if (key == KEY_E)
-		dm->key.e = 1;
 	if (key == KEY_O)
 	{
 		dm->shift++;
@@ -154,12 +150,17 @@ int				key_release(int key, t_doom *dm)
 			dm->key.two = 0;
 		if (key == KEY_TRE)
 			dm->key.three = (dm->key.three == 0 ? 1 : 0);
-		if (key == KEY_Q)
-			dm->key.q = 0;
-		if (key == KEY_E)
-			dm->key.e = 0;
 		if (key == KEY_I || key == SDL_SCANCODE_I)
 			dm->keycard = (dm->keycard == 0 ? 1 : 0);
+		if (key == KEY_K || key == SDL_SCANCODE_K)
+		{
+			Mix_PlayChannel(-1, dm->gettingHit, 0);
+			dm->hp -= 20;
+		}
+		if (key == KEY_J || key == SDL_SCANCODE_J)
+		{
+			dm->hp += 20;
+		}
 		if (key == KEY_SHIFT)
 			dm->movsp -= 0.06;
 		if (key == KEY_L)
@@ -172,7 +173,7 @@ int				key_release(int key, t_doom *dm)
 		}
 		//if (key == KEY_M)
 		//	reset_window(dm, 0);
-		if (key == KEY_R && !dm->reloading && !dm->shooting)
+		if (key == KEY_R && !dm->reloading && !dm->shooting && dm->gun)
 		{
 			dm->reloading = 1;
 			dm->ani = 2;
@@ -192,6 +193,7 @@ int				key_release(int key, t_doom *dm)
 		{
 			dm->alive = 1;
 			dm->hp = 100;
+			dm->magazine = 10;
 			reset_position(dm);
 			ft_bzero(&dm->key, sizeof(t_key));
 		}
@@ -200,9 +202,9 @@ int				key_release(int key, t_doom *dm)
 	return (0);
 }
 
-int				x_press(t_doom *wolf)
+int				x_press(t_doom *dm)
 {
-	error_out(FINE, wolf);
+	error_out(FINE, dm);
 	return (0);
 }
 
@@ -216,9 +218,11 @@ void			jetpack(t_doom *dm)
 	if (dm->key.two)
 	{
 		Mix_PlayChannel(-1, dm->jetpack, 0);
-		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1)
+		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1 &&
+			dm->pos.z > 1)
 			dm->pos.z -= 0.05 * (30.0 / dm->buffer / dm->prefps);
 	}
+	dm->airbrn = 1;
 }
 
 int				mouse_move(int x, int y, t_doom *dm)
@@ -256,13 +260,11 @@ int				move(t_doom *dm)
 		if ((dm->key.down || dm->key.up) && !dm->isoptions)
 			move_fb(dm);
 		if ((dm->key.left || dm->key.right) && !dm->isoptions)
-			move_lr(dm);
+			strafe(dm, 0, 0);
 		if ((dm->key.w || dm->key.s || dm->key.a || dm->key.d) && !dm->isoptions)
 			cam_udy(dm);
 		if ((dm->key.one || dm->key.two) && !dm->isoptions)
 			jetpack(dm);
-		if ((dm->key.q || dm->key.e) && !dm->isoptions)
-			strafe(dm, 0, 0);
 	}
 	gravity(dm);
 	return (0);

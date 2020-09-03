@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/26 14:23:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 16:06:22 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	key_state_game(t_doom *dm)
 				dm->mousemovement = (dm->mousemovement * dm->mousemovement) - 1;
 			else if (dm->event.button.button == SDL_BUTTON_RIGHT)
 				interact(dm);
-			else if (dm->event.button.state == SDL_BUTTON_LEFT && dm->shooting == 0 && dm->magazine > 0 && !dm->reloading)
+			else if (dm->event.button.state == SDL_BUTTON_LEFT && dm->shooting == 0 && dm->magazine > 0 && !dm->reloading && dm->gun)
 				dm->shooting = 1;
 			if (dm->mousemovement)
 				SDL_SetRelativeMouseMode(SDL_TRUE);

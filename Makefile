@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/28 15:53:37 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/03 16:26:24 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,23 +15,24 @@ NAME =		doom-nukem
 OEXT = 		.o
 LEXT = 		.a
 FLG = 		-O2
-SRCFILE =	doom.c gfx.c loop.c move.c main_menu.c sprite.c \
-			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c
+SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c sprite.c \
+			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
+			set_variables.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
-LOADDRAW =	gun.c gunextra.c loadextra.c hp.c
+DRAWEXT =	draw_hud.c
 FILESYS =	fileformat.c save_level.c
 EDTFILE =	editor.c render_editor.c
 ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
 			part_dda.c
-GRAFILE	=	gravity.c
+GRAFILE	=	gravity.c move.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
-SRPFILE =	sprite.c
+SRPFILE =	sprites.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
-			$(addprefix ./src/load_draw/,$(LOADDRAW)) \
+			$(addprefix ./src/draw_extra/,$(DRAWEXT)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
 			$(addprefix ./src/editor/,$(EDTFILE)) \
 			$(addprefix ./src/fs/,$(FILESYS)) \
@@ -48,7 +49,7 @@ LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/key/,$(KEYFILE:.c=$(OEXT))) \
-			$(addprefix ./obj/load_draw/,$(LOADDRAW:.c=$(OEXT))) \
+			$(addprefix ./obj/draw_extra/,$(DRAWEXT:.c=$(OEXT))) \
 			$(addprefix ./obj/editor/,$(EDTFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/fs/,$(FILESYS:.c=$(OEXT))) \
 			$(addprefix ./obj/animation/,$(ANMFILE:.c=$(OEXT))) \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 16:20:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/04 00:38:53 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,57 +15,70 @@
 
 #include <stdio.h>//remove this when project is done.
 
-//t_sprite	spr[5];
-t_vector	max;
-t_vector	min;
+void	adjusted_dda(t_doom *dm)
+{
+	if (dm->sided.x < dm->sided.y && dm->sided.x < dm->sided.z)
+	{
+		dm->sided.x += dm->deltad.x;
+		dm->map.x += dm->stepx;
+		dm->side = 0;
+	}
+	else if (dm->sided.y < dm->sided.x && dm->sided.y < dm->sided.z)
+	{
+		dm->sided.y += dm->deltad.y;
+		dm->map.y += dm->stepy;
+		dm->side = 1;
+	}
+	else
+	{
+		dm->sided.z += dm->deltad.z;
+		dm->map.z += dm->stepz;
+		dm->side = 2;
+	}
+	dm->adj = 1;
+}
 
 void	dda_sys(t_doom *dm)
 {
 	dm->hit = 0;
+	dm->adj = 0;
+	if (dm->rayd.z < 0 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt == 2)
+		dm->adj = 1;
 	while (dm->hit == 0)
 	{
-		if (dm->sided.x < dm->sided.y && dm->sided.x < dm->sided.z)
-		{
-			dm->sided.x += dm->deltad.x;
-			dm->map.x += dm->stepx;
-			dm->side = 0;
-		}
-		else if (dm->sided.y < dm->sided.x && dm->sided.y < dm->sided.z)
-		{
-			dm->sided.y += dm->deltad.y;
-			dm->map.y += dm->stepy;
-			dm->side = 1;
-		}
-		else
-		{
-			dm->sided.z += dm->deltad.z;
-			dm->map.z += dm->stepz;
-			dm->side = 2;
-		}
-		//printf("--after--\nHit: %d\nMAP: %d %d %d\nSIDE: %f %f %f\n", dm->hit, dm->mapz, dm->mapy, dm->mapx, dm->sidedz, dm->sidedy, dm->sidedx);
 		if (dm->map.z < 0 || dm->map.y < 0 || dm->map.x < 0 || dm->map.z >= 9 || dm->map.y >= 25 || dm->map.x >= 25)
 		{
 			dm->hit = 2;
 			return;
 		}
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].spr >= 0)
-			dm->drwspr = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].spr;
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt
+		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt && !dm->adj
 				&& dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
 			part_check(dm);
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 6)
+		//else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 8)
+		//	dm->wincol = 1;
+		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 6 && !dm->adj)
 			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
-		{
+		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1 && !dm->adj)
 			dm->hit = 1;
-			if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 9)//distance from player to sprite (sprite is 9 on the map)
-			{
-				dm->spriteLoc.x = dm->map.x;
-				dm->spriteLoc.y = dm->map.y;
-				dm->spriteLoc.z = dm->map.z;
-				dm->disttosprite = ((dm->pos.x - dm->map.x) * (dm->pos.x - dm->map.x) + (dm->pos.y - dm->map.y) * (dm->pos.y - dm->map.y));//initialize disttosprite
-			}
+		if (dm->sided.x < dm->sided.y && dm->sided.x < dm->sided.z && !dm->hit)
+		{
+			dm->sided.x += dm->deltad.x;
+			dm->map.x += dm->stepx;
+			dm->side = 0;
 		}
+		else if (dm->sided.y < dm->sided.x && dm->sided.y < dm->sided.z && !dm->hit)
+		{
+			dm->sided.y += dm->deltad.y;
+			dm->map.y += dm->stepy;
+			dm->side = 1;
+		}
+		else if (!dm->hit)
+		{
+			dm->sided.z += dm->deltad.z;
+			dm->map.z += dm->stepz;
+			dm->side = 2;
+		}
+		dm->adj = 0;
 	}
 }
 
@@ -143,20 +156,6 @@ void	side_check(t_doom* dm)
 		dm->side += 3;
 }
 
-void	sprite_demo(t_doom *dm)
-{
-	/*int i = -1;
-	while (++i < 5)
-	{
-		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
-		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
-		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
-		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
-		//spr[i] = dm->spr[i];
-		//printf("Sprite %f %f %f\nDir %f %f %f\nDist %f\n", dm->spr[i].pos.z, dm->spr[i].pos.y, dm->spr[i].pos.x, dm->spr[i].dir.z, dm->spr[i].dir.y, dm->spr[i].dir.x, dm->spr[i].dist);
-	}*/
-}
-
 int		renthread(void *ptr)
 {
 	t_doom	*dm;
@@ -180,9 +179,9 @@ int		renthread(void *ptr)
 			//dm->maparr[dm->winw * dm->y + dm->x] = (dm->side + 1) * dm->map[dm->mapz][dm->mapy][dm->mapx];
 			dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
 			if (dm->x == 0 && dm->y == 0)
-				min = dm->rayd;
+				dm->dm->min = dm->rayd;
 			else if (dm->x == dm->winw - 1 && dm->y == dm->winh - 1)
-				max = dm->rayd;
+				dm->dm->max = dm->rayd;
 			/*if (dm->x == 0 && dm->y == 0)
 				printf("Rayd0 %f %f %f\n", dm->rayd.z, dm->rayd.y, dm->rayd.x);
 			else if (dm->x == dm->winw - 1 && dm->y == dm->winh - 1)
@@ -195,18 +194,20 @@ int		renthread(void *ptr)
 				//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
 				if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 2 && dm->ani == 0 && dm->frm == 1)//if enemy hit, make a soundeffect. Now just testing with block instead of enemy.
 				{
-					if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp >= 35)
+					//shooting the walls
+					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp >= 35)
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp -= 35;
-					else
-						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp = 0;
-					if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp > 0)
-							Mix_PlayChannel(-1, dm->gettingHit, 0);
-					else
+					else*/
+					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp = 0;
+					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp > 0)
+							Mix_PlayChannel(-1, dm->gettingHit, 0);*/
+					if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp == 0)//else
 					{
 						Mix_PlayChannel(-1, dm->windowShatter, 0);
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
 					}
 				}
+				//if (sprite pixel is hit && dm->ani == 0 && dm->frm == 1)
 			}
 			else
 			{
@@ -223,77 +224,6 @@ int		renthread(void *ptr)
 		dm->x += dm->trx;
 	}
 	return (1);
-}
-
-void	demodraw_sprite(t_doom *dm)
-{
-	int		x;
-	int		y;
-	int		i;
-	double	mina = atan2(min.y, min.x) * 180 / M_PI + 180;
-	double	maxa = atan2(max.y, max.x) * 180 / M_PI + 180;
-	double	spra;
-	
-	i = -1;
-	if (mina > maxa)
-		maxa += 360;
-	//printf("Screen angle %f %f\nWyvern angle %f\ndiff %f\n", mina, maxa, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x) * 180 / M_PI + 180, maxa - mina);
-	while (++i < 5)
-	{
-		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x) * 180 / M_PI + 180;
-		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
-		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
-		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
-		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
-		if (dm->spr[i].dist > 5)
-		{
-			dm->spr[i].pos.z += -1 * dm->spr[i].dir.z * 0.01;
-			dm->spr[i].pos.y += -1 * dm->spr[i].dir.y * 0.01;
-			dm->spr[i].pos.x += -1 * dm->spr[i].dir.x * 0.01;
-		}
-		if (spra < mina || spra > maxa)
-			spra += 360;
-		if (spra < mina || spra > maxa)
-			spra -= 360;
-		//if (spra < mina || spra > maxa)
-		//	continue;
-		x = dm->winw * ((spra - mina) / (maxa - mina)) - ((dm->gfx[dm->spr[i].gfx].wid / 2) * 2 / dm->spr[i].dist);
-		y = dm->winh * ((dm->spr[i].dir.z - min.z) / (max.z - min.z)) - ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
-		//printf("%d %d at %f %f %f\ndist %f\n%d %d %d\n", i, dm->spr[i].hp, dm->spr[i].pos.z, dm->spr[i].pos.y, dm->spr[i].pos.x, dm->spr[i].dist, dm->spr[i].gfx, x, y);
-		if (y < 0)
-		{
-			dm->gfx[dm->spr[i].gfx].y -= y;
-			y = 0;
-		}
-		if (x < 0)
-		{
-			dm->gfx[dm->spr[i].gfx].x -= x;
-			x = 0;
-		}
-		draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 1000, 1000, 0, 0, i}, 2 / dm->spr[i].dist);
-		dm->gfx[dm->spr[i].gfx].x = 0;
-		dm->gfx[dm->spr[i].gfx].y = 0;
-	}
-}
-
-void	sprite_set(t_doom* dm)
-{
-	dm->spr[0].hp = 100;
-	dm->spr[0].pos.z = 1.5;
-	dm->spr[0].pos.y = 2.42;
-	dm->spr[0].pos.x = 2.4;
-	dm->spr[0].gfx = 10;
-	//spr[0] = dm->spr[0];
-	static int i;
-	while (++i < 5)
-	{
-		dm->spr[i].hp = 100 * (i + 1);
-		dm->spr[i].pos.z = (rand() % 90) / 10;
-		dm->spr[i].pos.y = (rand() % 250) / 10;
-		dm->spr[i].pos.x = (rand() % 250) / 10;
-		dm->spr[i].gfx = (rand() % 8) + 15;
-		//spr[i] = dm->spr[i];
-	}
 }
 
 void	render(t_doom *dm)
@@ -319,32 +249,22 @@ void	render(t_doom *dm)
 		else
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
-	//draw_gfx(dm, dm->gfx[32], 20, 10);//pokemon
-	sprite_set(dm);
-	sprite_demo(dm);
+	//sprite_set(dm);
+	//printf("Z pos %f\n", dm->pos.z);
 	demodraw_sprite(dm);
-	draw_gun(dm);
-	draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
-	//draw_crosshair(dm);
-	draw_ammo(dm);
-	draw_hp(dm);
-	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
-	//draw_inventory(dm);
-	if (dm->keycard)
-		//draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 10, 1, 1, 0, 0}, 1);//keycard
-		draw_gfx(dm, dm->gfx[30], 10, dm->winh - 78);//keycard
-		//draw_keycard(dm);
-	if (dm->key.three)
-		draw_sprite(dm);
+	draw_hud(dm);
+	pickupitem(dm);
 	if (dm->isoutline)
 		post_effects(dm);
-	if (dm->hp <= 0)
-		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 216, 0xE71313}, 2);
-	SDL_RenderPresent(dm->rend);
-	dm->fps++;
 	if (dm->alive && dm->hp <= 0)
 	{
 		dm->alive = 0;
 		Mix_PlayChannel(-1, dm->osrsDeath, 0);
+		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xE71313}, 2);
+		SDL_RenderPresent(dm->rend);
 	}
+	if (dm->alive)
+		SDL_RenderPresent(dm->rend);
+	//printf("Pos z y x: %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
+	dm->fps++;
 }

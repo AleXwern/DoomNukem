@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 13:48:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 15:45:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 	dm->area[dm->flr][y][x].pln = ft_atoi(temp[3]);
 	dm->area[dm->flr][y][x].meta = ft_atoi(temp[4]);
 	dm->area[dm->flr][y][x].hp = 100;
-	dm->area[dm->flr][y][x].spr = -1;
 	if (dm->area[dm->flr][y][x].b == 7)
 	{
 		dm->spawn.x = x + 0.51;
@@ -70,7 +69,7 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 		dm->spawn.z = dm->flr + 0.5;
 		dm->area[dm->flr][y][x].b = 1;
 	}
-	if (dm->area[dm->flr][y][x].b > 7 || dm->area[dm->flr][y][x].b < 1)
+	if (dm->area[dm->flr][y][x].b > 8 || dm->area[dm->flr][y][x].b < 1)
 		dm->area[dm->flr][y][x].b = 2;
 	free_memory(temp);
 }
@@ -124,7 +123,7 @@ void	fileformat(int fd, t_doom *dm, int y)
 		error_out(FIL_ERROR, dm);
 }
 
-void	comp_map(t_doom *dm)//, char *av)
+void	comp_map(t_doom *dm)
 {
 	int		fd;
 	char*	fpath;
