@@ -15,16 +15,14 @@
 
 void	pickupitem(t_doom* dm)
 {
-	int			obj;
-
-	obj = dm->area[(int)(dm->pos.z + 0.5)][(int)dm->pos.y][(int)dm->pos.x].b;
-	if (obj == 8)//this will be used when we have sprites.
+	if (dm->spr[5].dist < 1)
 	{
 		dm->keycard = 1;
+		ft_bzero(&dm->spr[5], sizeof(t_sprite));
 	}
-	else if (obj == 5)
+	else if (dm->spr[6].dist < 1)
 	{
-		dm->area[(int)(dm->pos.z + 0.5)][(int)dm->pos.y][(int)dm->pos.x].b = 0;
-		dm->keycard = 1;
+		dm->gun = 1;
+		ft_bzero(&dm->spr[6], sizeof(t_sprite));
 	}
 }

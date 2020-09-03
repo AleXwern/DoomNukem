@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/02 14:46:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/03 15:58:05 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void	set_variables(t_doom *dm)
 {
+	dm->gun = 0;
 	dm->shooting = 0;
 	dm->reloading = 0;
 	dm->ani = 0;

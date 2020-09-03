@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 15:49:52 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 16:47:24 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,10 +194,11 @@ int		renthread(void *ptr)
 				//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
 				if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 2 && dm->ani == 0 && dm->frm == 1)//if enemy hit, make a soundeffect. Now just testing with block instead of enemy.
 				{
-					if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp >= 35)
+					//shooting the walls
+					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp >= 35)
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp -= 35;
-					else
-						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp = 0;
+					else*/
+					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp = 0;
 					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp > 0)
 							Mix_PlayChannel(-1, dm->gettingHit, 0);*/
 					if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp == 0)//else
@@ -252,6 +253,7 @@ void	render(t_doom *dm)
 	//printf("Z pos %f\n", dm->pos.z);
 	demodraw_sprite(dm);
 	draw_hud(dm);
+	pickupitem(dm);
 	if (dm->isoutline)
 		post_effects(dm);
 	if (dm->alive && dm->hp <= 0)
@@ -263,5 +265,6 @@ void	render(t_doom *dm)
 	}
 	if (dm->alive)
 		SDL_RenderPresent(dm->rend);
+	//printf("Pos z y x: %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
 	dm->fps++;
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 15:48:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 16:47:45 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,8 @@ typedef struct	s_sprite
 	Uint32		y;
 	int			frame;
 	t_vector	face;
+	char		move;
+	int			steps;
 }				t_sprite;
 
 /*
@@ -291,7 +293,7 @@ typedef struct	s_doom
 	int			killthread;
 	int			tile;
 	t_gfx		*gfx;
-	t_sprite	spr[6];
+	t_sprite	spr[8];
 	int			gfxcount;
 	t_chara		*chara;
 	int			height;
@@ -408,6 +410,7 @@ typedef struct	s_doom
 	/*
 	**	Variables for gun, hp
 	*/
+	int			gun;
 	int			shooting;
 	int			reloading;
 	int			ani;
@@ -463,6 +466,7 @@ int				fps_counter(void* ptr);
 int				get_x(int pc);
 int				get_y(int pc);
 int				interact(t_doom *dm);
+void			pickupitem(t_doom* dm);
 int				key_hold(int key, t_doom *dm);
 int				key_press(int key, t_doom *dm);
 int				key_release(int key, t_doom *dm);

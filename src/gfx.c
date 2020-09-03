@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/02 15:32:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 16:34:18 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/alpha.bmp"), 0, 0);//33
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foeF0.bmp"), 0, 0);//34
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foeF1.bmp"), 0, 0);//35
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/pistol.bmp"), 0, 0);//36
 	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/.bmp"), 0, 0);//Use these if you want to add more gfx
-	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/.bmp"), 0, 0);
 	dm->gfxcount = i;
 	if (i != GFXCOUNT)
 		error_out(GFX_ERROR, dm);

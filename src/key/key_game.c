@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 13:20:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 16:47:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int				key_release(int key, t_doom *dm)
 		}
 		//if (key == KEY_M)
 		//	reset_window(dm, 0);
-		if (key == KEY_R && !dm->reloading && !dm->shooting)
+		if (key == KEY_R && !dm->reloading && !dm->shooting && dm->gun)
 		{
 			dm->reloading = 1;
 			dm->ani = 2;
@@ -218,7 +218,8 @@ void			jetpack(t_doom *dm)
 	if (dm->key.two)
 	{
 		Mix_PlayChannel(-1, dm->jetpack, 0);
-		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1)
+		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)][(int)dm->pos.x].b <= 1 &&
+			dm->pos.z > 1)
 			dm->pos.z -= 0.05 * (30.0 / dm->buffer / dm->prefps);
 	}
 	dm->airbrn = 1;

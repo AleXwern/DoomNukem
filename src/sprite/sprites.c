@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 13:54:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/03 16:47:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	demodraw_sprite(t_doom *dm)
 	i = -1;
 	if (mina > maxa)
 		maxa += 360;
-	while (++i < 5)
+	while (++i < 7)
 	{
 		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x) * 180 / M_PI + 180;
 		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
@@ -141,18 +141,20 @@ void	demodraw_sprite(t_doom *dm)
 		frm = 0;
 	//printf("Screen angle %f %f\nProj angle %f\ndiff %f\n", mina, maxa, atan2(dm->spr[4].dir.y, dm->spr[4].dir.x) * 180 / M_PI + 180, maxa - mina);
 
-	i = 5;
+
+	//Pokemon trainer
+	i = 7;
 	spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x) * 180 / M_PI + 180;
 	dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
 	dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
 	dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
 	dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
-	//if (dm->spr[i].dist > 5)
-	//{
-	dm->spr[i].pos.z += dm->spr[i].mov.z;
-	dm->spr[i].pos.y += dm->spr[i].mov.y;
-	dm->spr[i].pos.x += dm->spr[i].mov.x;
-	//}
+	/*if (dm->spr[i].dist > 3)
+	{
+		dm->spr[i].pos.z += dm->spr[i].mov.z;
+		dm->spr[i].pos.y += dm->spr[i].mov.y;
+		dm->spr[i].pos.x += dm->spr[i].mov.x;
+	}*/
 	if (spra < mina || spra > maxa)
 		spra += 360;
 	if (spra < mina || spra > maxa)
@@ -187,15 +189,98 @@ void	demodraw_sprite(t_doom *dm)
 		dm->gfx[dm->spr[i].gfx].y = 48;
 	else
 		dm->gfx[dm->spr[i].gfx].y = 96;
+
+	// "HASAM" (Highly Advanced Super Ai Movement)
+	if (dm->spr[i].move == 'f')
+	{
+		if (dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x + 0.5)].b == 1 &&
+			dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x + 0.05)].b == 1)
+		{
+			dm->spr[i].pos.x += 0.05;
+			dm->spr[i].steps++;
+			//printf("\n\nsteps f == %d\n\n", dm->spr[i].steps);
+		}
+		if (dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x + 0.5)].b != 1 ||
+			dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x + 0.05)].b != 1)
+		{
+			//printf("\n\n\n\n\n\n\n---------\n\n\n\n\n\n\n");
+			dm->spr[i].move = 'r';
+			dm->spr[i].steps = 0;
+		}
+		if (dm->spr[i].steps == 170)
+		{
+			dm->spr[i].move = 'l';
+			dm->spr[i].steps = 0;
+		}
+	}
+	else if (dm->spr[i].move == 'r')
+	{
+		if (dm->area[(int)(dm->spr[i].pos.z)][(int)(dm->spr[i].pos.y + 0.5)][(int)dm->spr[i].pos.x].b == 1 &&
+			dm->area[(int)(dm->spr[i].pos.z)][(int)(dm->spr[i].pos.y + 0.05)][(int)dm->spr[i].pos.x].b == 1)
+		{
+			dm->spr[i].pos.y += 0.05;
+			dm->spr[i].steps++;
+			//printf("\n\nsteps r == %d\n\n", dm->spr[i].steps);
+		}
+		else if (dm->area[(int)(dm->spr[i].pos.z)][(int)(dm->spr[i].pos.y + 0.5)][(int)dm->spr[i].pos.x].b != 1 ||
+			dm->area[(int)(dm->spr[i].pos.z)][(int)(dm->spr[i].pos.y + 0.05)][(int)dm->spr[i].pos.x].b != 1)
+		{
+			dm->spr[i].move = 'b';
+			dm->spr[i].steps = 0;
+		}
+		if (dm->spr[i].steps == 150)
+		{
+			dm->spr[i].move = 'f';
+			dm->spr[i].steps = 0;
+		}
+	}
+	else if (dm->spr[i].move == 'b')
+	{
+		if (dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x - 0.5)].b == 1 &&
+			dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x - 0.05)].b == 1)
+		{
+			dm->spr[i].pos.x -= 0.05;
+			dm->spr[i].steps++;
+			//printf("\n\nsteps b == %d\n\n", dm->spr[i].steps);
+		}
+		else if (dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x - 0.5)].b != 1 ||
+			dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x - 0.05)].b != 1)
+		{
+			dm->spr[i].move = 'l';
+			dm->spr[i].steps = 0;
+		}
+		if (dm->spr[i].steps == 140)
+		{
+			dm->spr[i].move = 'r';
+			dm->spr[i].steps = 0;
+		}
+	}
+	else if (dm->spr[i].move == 'l')
+	{
+		if (dm->area[(int)(dm->spr[i].pos.z)][(int)(dm->spr[i].pos.y - 0.5)][(int)dm->spr[i].pos.x].b == 1 &&
+			dm->area[(int)(dm->spr[i].pos.z)][(int)(dm->spr[i].pos.y - 0.05)][(int)dm->spr[i].pos.x].b == 1)
+		{
+			dm->spr[i].pos.y -= 0.05;
+			dm->spr[i].steps++;
+			//printf("\n\nsteps l == %d\n\n", dm->spr[i].steps);
+		}
+		else if (dm->area[(int)(dm->spr[i].pos.z)][(int)(dm->spr[i].pos.y - 0.5)][(int)dm->spr[i].pos.x].b != 1 ||
+			dm->area[(int)(dm->spr[i].pos.z)][(int)(dm->spr[i].pos.y - 0.05)][(int)dm->spr[i].pos.x].b != 1)
+		{
+			dm->spr[i].move = 'f';
+			dm->spr[i].steps = 0;
+		}
+		if (dm->spr[i].steps == 160)
+		{
+			dm->spr[i].move = 'b';
+			dm->spr[i].steps = 0;
+		}
+	}
+	//printf("dm->spr[i].pos.z == %f\n", dm->spr[i].pos.z);
 	draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 48, 32, 0, 0, 5}, 25 / dm->spr[i].dist);
-	//dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x]
-	/*if (dm->area[(int)(dm->spr[i].pos.z + 0.2)][(int)dm->spr[i].pos.y][(int)dm->spr[i].pos.x].b == 1 &&
-		dm->area[(int)(dm->spr[i].pos.z + 0.5)][(int)dm->spr[i].pos.y][(int)dm->spr[i].pos.x].b == 1)
-		dm->spr[i].pos.z += 0.005;
-	printf("dm->spr[i].pos.z == %f\n", dm->spr[i].pos.z);*/
-	dm->spr[5].frame++;
-	if (dm->spr[5].frame == 32)
-		dm->spr[5].frame = 0;
+	dm->spr[i].frame++;
+	if (dm->spr[i].frame == 32)
+		dm->spr[i].frame = 0;
 }
 
 void	sprite_set(t_doom* dm)
@@ -222,9 +307,31 @@ void	sprite_set(t_doom* dm)
 		//spr[i] = dm->spr[i];
 	}
 
-	dm->spr[5].hp = 100;
-	dm->spr[5].pos.z = 6.6;
-	dm->spr[5].pos.y = 12.42;
-	dm->spr[5].pos.x = 16.4;
-	dm->spr[5].gfx = 32;
+	// PokemonTrainer
+	dm->spr[7].hp = 100;
+	dm->spr[7].pos.z = 6.6;
+	dm->spr[7].pos.y = 12.4;
+	dm->spr[7].pos.x = 16.4;
+	dm->spr[7].gfx = 32;
+	dm->spr[7].move = 'f';
+	dm->spr[7].steps = 0;
+	/*dm->spr[6].pos.z = 1.51;
+	dm->spr[6].pos.y = 4.51;
+	dm->spr[6].pos.x = 4.51;
+	//dm->spr[6].mov.x = 0.02;
+	//dm->spr[6].mov.y = 0.02;*/
+
+	// Keycard
+	dm->spr[5].pos.z = 3.0;
+	dm->spr[5].pos.y = 6.0;
+	dm->spr[5].pos.x = 7.5;
+	dm->spr[5].gfx = 30;
+	dm->spr[5].size = 1;
+
+	// Pistol
+	dm->spr[6].pos.z = 3.0;
+	dm->spr[6].pos.y = 5.0;
+	dm->spr[6].pos.x = 7.5;
+	dm->spr[6].gfx = 36;
+	dm->spr[6].size = 1;
 }
