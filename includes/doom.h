@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 15:13:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/04 16:06:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,7 +294,7 @@ typedef struct	s_doom
 	int			killthread;
 	int			tile;
 	t_gfx		*gfx;
-	t_sprite	spr[8];
+	t_sprite	spr[9];
 	int			gfxcount;
 	t_chara		*chara;
 	int			height;
@@ -411,7 +411,7 @@ typedef struct	s_doom
 	int			mousemovement;
 
 	/*
-	**	Variables for gun, hp
+	**	Variables for gun, hp, chest, keycard
 	*/
 	int			gun;
 	int			shooting;
@@ -422,6 +422,8 @@ typedef struct	s_doom
 	int			hp;
 	int			alive;
 	int			keycard;
+	int			chestopened;
+	int			drawgunandkeycard;
 
 	/*
 	**	Variables for playing some sounds and music!

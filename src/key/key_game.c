@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 15:10:31 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/04 16:07:01 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ int				key_hold(int key, t_doom *dm)
 	}
 	if (key == KEY_C && !dm->crouching)
 	{
-		dm->crouching = 1;
 		dm->movsp -= 0.03;
 		dm->pos.z += 0.2;
+		dm->crouching = 1;
 	}
 	return (0);
 }
