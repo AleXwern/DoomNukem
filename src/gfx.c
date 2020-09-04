@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 16:34:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/04 14:53:51 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 void	comp_hud_gfx(t_doom *dm, char *bpath, int i)
 {
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/spawn.bmp"), 0, 0);
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/notifdown.bmp"), 0, 0);
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/glass.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/options.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foe3.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/btlmenu.bmp"), 0, 0);
@@ -121,7 +121,8 @@ void	comp_gfx(t_doom *dm, int i)
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/stairu.bmp", ""), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/staird.bmp", ""), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/door.bmp", ""), 0, 0);
-	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/warp.bmp", ""), 0, 0);
+	//dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/warp.bmp", ""), 0, 0);
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/glass.bmp"), 0, 0);
 	comp_hud_gfx(dm, bpath, i);
 	dm->tile -= 48;
 	SDL_free(path);

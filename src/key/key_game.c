@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 16:47:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/04 15:10:31 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,10 +152,11 @@ int				key_release(int key, t_doom *dm)
 			dm->key.three = (dm->key.three == 0 ? 1 : 0);
 		if (key == KEY_I || key == SDL_SCANCODE_I)
 			dm->keycard = (dm->keycard == 0 ? 1 : 0);
-		if (key == KEY_K || key == SDL_SCANCODE_K)
+		if (key == KEY_K && !dm->iframe)
 		{
 			Mix_PlayChannel(-1, dm->gettingHit, 0);
 			dm->hp -= 20;
+			dm->iframe = 50;
 		}
 		if (key == KEY_J || key == SDL_SCANCODE_J)
 		{

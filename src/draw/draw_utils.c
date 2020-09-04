@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/20 12:48:37 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 14:56:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/04 15:12:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,17 @@ Uint32	color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret)
 	b = B(color) / ret;
 	ret = ARGB(r, g, b);
 	return (ret);
+}
+
+Uint32	avg_color(Uint32 rcol, Uint32 col)
+{
+	Uint8	r;
+	Uint8	g;
+	Uint8	b;
+
+	r = R(col) * (R(rcol) / 255.0);
+	g = G(col) * (G(rcol) / 255.0);
+	b = B(col) * (B(rcol) / 255.0);
+	col = ARGB(r, g, b);
+	return (col);
 }

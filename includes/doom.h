@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 16:47:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/04 15:13:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ typedef struct	s_sprite
 	int			hp;
 	int			size;
 	double		dist;
+	int			iframe;
 	Uint32		x;
 	Uint32		y;
 	int			frame;
@@ -305,12 +306,14 @@ typedef struct	s_doom
 	void		(*cycle)(struct s_doom*);
 	void		(*keyck)(struct s_doom*);
 	char		*syssmg[2];
+	int			iframe;
 	int			cur;
 	int			sel;
 	int			plr;
 	int			plrck;
 	int			adj;
 	int			wincol;
+	int			rcol;
 	int			x;
 	int			y;
 	int			hold;
@@ -457,6 +460,7 @@ void			draw_ammo(t_doom *dm);
 void			draw_hp(t_doom *dm);
 void			draw_hud(t_doom *dm);
 
+Uint32			avg_color(Uint32 rcol, Uint32 col);
 Uint32			color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret);
 Uint32			rl_color(t_block blk, Uint32 col);
 
@@ -526,6 +530,8 @@ void			editor_key_press(Uint32 key, t_editor *le);
 void			editor_key_release(Uint32 key, t_editor *le, t_doom* dm);
 void			editor_main(t_doom *dm);
 void			error_out(char *msg, t_doom *dm);
+void			ext_ray(t_doom *dm);
+void			side_check(t_doom* dm);
 
 /*	Not in use?
 void			encounter(t_doom *dm);

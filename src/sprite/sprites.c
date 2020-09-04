@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 12:00:45 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/04 14:08:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	demodraw_sprite(t_doom *dm)
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z)) - ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
 		if (x < 0)
 		{
-			dm->gfx[dm->spr[i].gfx].x -= x * 2;
+			dm->gfx[dm->spr[i].gfx].x -= x;
 			x = 0;
 		}
 		if (y < 0)
@@ -290,11 +290,11 @@ void	sprite_set(t_doom* dm)
 	if (i)
 		return;
 	dm->spr[0].hp = 100;
-	dm->spr[0].pos.z = 5.5;
+	dm->spr[0].pos.z = 7.8;
 	dm->spr[0].pos.y = 12.42;
 	dm->spr[0].pos.x = 12.4;
 	dm->spr[0].gfx = 34;
-	dm->spr[0].size = 5;
+	dm->spr[0].size = 1;
 	//spr[0] = dm->spr[0];
 	while (++i < 4)
 	{

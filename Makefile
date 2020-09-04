@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/03 16:26:24 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/04 13:55:00 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DRAWEXT =	draw_hud.c
 FILESYS =	fileformat.c save_level.c
 EDTFILE =	editor.c render_editor.c
 ANMFILE =	staireff.c
-COLFILE	=	draw.c draw_utils.c
+COLFILE	=	draw.c draw_utils.c window.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
 			part_dda.c
 GRAFILE	=	gravity.c move.c

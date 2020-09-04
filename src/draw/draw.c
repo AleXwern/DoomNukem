@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 15:47:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/04 15:55:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ void	draw_sky(t_doom *dm)
 	while (dm->sboy < 0)
 		dm->sboy += dm->winh;
 	if (dm->texbool)
-		dm->img.data[dm->winw * dm->y + dm->x] = dm->gfx[0].data[dm->winw * ((dm->y + dm->sboy) % 360) + (dm->x + dm->sbox) % 1080];
+		dm->col = dm->gfx[0].data[dm->winw * ((dm->y + dm->sboy) % 360) + (dm->x + dm->sbox) % 1080];
 	else
-		dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
+		dm->col = 0xff000000;
+	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
 }
 
 void	draw_stripe(t_doom *dm)
@@ -72,6 +73,8 @@ void	wall_stripe(t_doom *dm)
 	else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b != 2)
 		dm->col = 0xff22a800;
 	draw_stripe(dm);
+	if (dm->wincol)
+		ext_ray(dm);
 }
 
 void	draw_floor(t_doom *dm)
@@ -85,7 +88,7 @@ void	draw_floor(t_doom *dm)
 		if ((dm->rayd.z < 0 && !dm->area[(int)dm->map.z + 1][(int)dm->map.y][(int)dm->map.x].b) || (dm->rayd.z > 0 && !dm->area[(int)dm->map.z - 1][(int)dm->map.y][(int)dm->map.x].b))
 			dm->col = color_shift(dm->gfx[5].data[128 * dm->ty + dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		else
-			dm->col = color_shift(dm->gfx[1].data[128 * dm->ty + dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+			dm->col = color_shift(dm->gfx[dm->texnum].data[128 * dm->ty + dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		dm->map = light_map(dm->map, dm->side);
 		dm->col = rl_color(dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x], dm->col);
 	}
@@ -98,6 +101,9 @@ void	draw_floor(t_doom *dm)
 
 void	render_floor(t_doom *dm)
 {
+	dm->texnum = 1;
+	if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6)
+		dm->texnum = 6;
 	dm->rayd0.x = dm->dir.x - dm->plane.x;
 	dm->rayd0.y = dm->dir.y - dm->plane.y;
 	dm->rayd1.x = dm->dir.x + dm->plane.x;
@@ -108,4 +114,6 @@ void	render_floor(t_doom *dm)
 	dm->floor.x = (dm->pos.x + dm->rowdist * dm->rayd0.x) + (dm->flstep.x * dm->x);
 	dm->floor.y = (dm->pos.y + dm->rowdist * dm->rayd0.y) + (dm->flstep.y * dm->x);
 	draw_floor(dm);
+	if (dm->wincol)
+		ext_ray(dm);
 }
