@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 16:47:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/04 12:38:01 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ int				key_hold(int key, t_doom *dm)
 	}
 	if (key == KEY_C && !dm->crouching)
 	{
-		dm->crouching = 1;
 		dm->movsp -= 0.03;
 		dm->pos.z += 0.2;
+		dm->crouching = 1;
 	}
 	return (0);
 }

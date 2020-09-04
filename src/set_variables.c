@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/03 15:58:05 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/04 15:11:02 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	set_variables(t_doom *dm)
 {
+	dm->chestopened = 0;
+	dm->drawgunandkeycard = 0;
 	dm->gun = 0;
 	dm->shooting = 0;
 	dm->reloading = 0;
