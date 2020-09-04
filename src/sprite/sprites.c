@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 16:47:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/04 12:00:45 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,14 +322,20 @@ void	sprite_set(t_doom* dm)
 	//dm->spr[6].mov.y = 0.02;*/
 
 	// Keycard
-	dm->spr[5].pos.z = 3.0;
+	//dm->spr[5].pos.z = 3.0;
+	//dm->spr[5].pos.y = 6.0;
+	//dm->spr[5].pos.x = 7.5;
+	dm->spr[5].pos.z = 7.5;
 	dm->spr[5].pos.y = 6.0;
 	dm->spr[5].pos.x = 7.5;
 	dm->spr[5].gfx = 30;
 	dm->spr[5].size = 1;
 
 	// Pistol
-	dm->spr[6].pos.z = 3.0;
+	//dm->spr[6].pos.z = 3.0;
+	//dm->spr[6].pos.y = 5.0;
+	//dm->spr[6].pos.x = 7.5;
+	dm->spr[6].pos.z = 7.5;
 	dm->spr[6].pos.y = 5.0;
 	dm->spr[6].pos.x = 7.5;
 	dm->spr[6].gfx = 36;
