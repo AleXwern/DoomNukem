@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 16:06:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 15:25:17 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct	s_key
 	Sint8	b;
 	Sint8	n;
 	Sint8	m;
+	Sint8	space;
 	Sint8	left;
 	Sint8	right;
 	Sint8	down;
@@ -306,7 +307,7 @@ typedef struct	s_doom
 	void		(*cycle)(struct s_doom*);
 	void		(*keyck)(struct s_doom*);
 	char		*syssmg[2];
-	int			iframe;
+	Uint32		iframe;
 	int			cur;
 	int			sel;
 	int			plr;
@@ -314,6 +315,7 @@ typedef struct	s_doom
 	int			adj;
 	int			wincol;
 	int			rcol;
+	int			lgt;
 	int			x;
 	int			y;
 	int			hold;
@@ -450,7 +452,7 @@ t_chara			generate_foe(t_doom *dm);
 t_img			init_image(t_doom *dm);
 
 t_vector		cross_prd(t_vector v, t_vector u);
-t_vector		light_map(t_vector map, int side);
+int				light_map(t_vector map, int side, t_block ***area);
 t_vector		oper_vect(t_vector v, t_vector u, char o);
 
 void			set_variables(t_doom *dm);
@@ -464,7 +466,7 @@ void			draw_hud(t_doom *dm);
 
 Uint32			avg_color(Uint32 rcol, Uint32 col);
 Uint32			color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret);
-Uint32			rl_color(t_block blk, Uint32 col);
+Uint32			rl_color(int lgt, Uint32 col);
 
 int				tex_check(t_doom *dm);
 int				fps_capper(void* ptr);

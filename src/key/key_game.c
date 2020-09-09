@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 16:07:01 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 15:30:24 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,13 +180,7 @@ int				key_release(int key, t_doom *dm)
 			dm->ani = 2;
 		}
 		if (key == SPACE)
-		{
-			if (!dm->airbrn && !dm->isgravity)
-			{
-				dm->airbrn = 1;
-				dm->gravity.z = -0.55 * (30.0 / dm->buffer / dm->prefps);
-			}
-		}
+			dm->key.space = 3;
 	}
 	else
 	{
@@ -266,7 +260,19 @@ int				move(t_doom *dm)
 			cam_udy(dm);
 		if ((dm->key.one || dm->key.two) && !dm->isoptions)
 			jetpack(dm);
+		gravity(dm);
+		if ((dm->key.space) && !dm->isoptions && !dm->airbrn)
+		{
+			dm->airbrn = 1;
+			dm->gravity.z = -0.55 * (30.0 / dm->buffer / dm->prefps);
+		}
+		/*if (dm->area[(int)(dm->pos.z)][(int)dm->pos.y][(int)dm->pos.x].b > 1 && !dm->iframe)
+		{
+			dm->hp -= 20;
+			dm->iframe = IFRAME;
+		}*/
+		if (dm->key.space > 0)
+			dm->key.space--;
 	}
-	gravity(dm);
 	return (0);
 }

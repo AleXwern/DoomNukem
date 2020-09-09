@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/04 13:55:00 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/09 15:49:34 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,9 @@ OBJFRAME =	-F ./frameworks
 FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
 RED =		\033[0;31m
 STOP =		\033[0m
+ifeq ($(HOSTTYPE),)
+HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
 
 .PHONY: all clean fclean re obj
 
@@ -88,6 +91,7 @@ $(OBJDIR)%.o:$(SRCDIR)%.c
 
 $(NAME): $(OBJ) $(LIBFT)
 	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
+	@echo $(HOSTTYPE)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
 	@Rez -a icon.rsrc -o $(NAME)
 	@SetFile -a C $(NAME)

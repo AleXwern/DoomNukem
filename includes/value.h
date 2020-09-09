@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 16:06:57 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 15:22:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@
 # define THREADS	6
 # define BUFFER		6
 # define LIM		0.9999999
+# define LIMN		0.0000001
 # define IFRAME		50
+# define DFRAME		35
+# define PCOLL		0.2
 
 #if __APPLE__
 # define OSCAM		1

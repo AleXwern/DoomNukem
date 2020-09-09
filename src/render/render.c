@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 16:07:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 15:22:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,27 @@ void	adjusted_dda(t_doom *dm)
 	dm->adj = 1;
 }
 
+void	get_ppos(t_doom *dm, t_block blk)
+{
+	if (dm->rayd.z < 0 && blk.pt == 2)
+		dm->adj = 1;
+	else if (dm->rayd.z > 0 && blk.pt == 1)
+		dm->adj = 1;
+	else if (dm->rayd.y > 0 && blk.pt == 3)
+		dm->adj = 1;
+	else if (dm->rayd.y < 0 && blk.pt == 4)
+		dm->adj = 1;
+	else if (dm->rayd.x > 0 && blk.pt == 5)
+		dm->adj = 1;
+	else if (dm->rayd.x < 0 && blk.pt == 6)
+		dm->adj = 1;
+}
+
 void	dda_sys(t_doom *dm)
 {
 	dm->hit = 0;
 	dm->adj = 0;
-	if (dm->rayd.z < 0 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt == 2)
-		dm->adj = 1;
+	get_ppos(dm, dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x]);
 	while (dm->hit == 0)
 	{
 		if (dm->map.z < 0 || dm->map.y < 0 || dm->map.x < 0 || dm->map.z >= 9 || dm->map.y >= 25 || dm->map.x >= 25)
@@ -224,7 +239,7 @@ int		renthread(void *ptr)
 					render_floor(dm);
 				else
 					wall_stripe(dm);
-				if (dm->iframe > 35)
+				if (dm->iframe > DFRAME)
 					dm->img.data[dm->winw * dm->y + dm->x] = avg_color(dm->col, 0xffff0000);
 			}
 			//if (dm->x == dm->winw / 2 - 1 && dm->y == dm->winh / 2 - 1 && dm->hit != 2)

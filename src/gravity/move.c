@@ -6,18 +6,33 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 14:35:04 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 16:04:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 13:30:10 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+int		check_part_walls(t_block blk, t_block tblk, t_doom *dm, double mov)
+{
+	if (tblk.pt == 3)
+	{
+		if (dm->pos.y + dm->dir.y * mov > (int)(dm->pos.y + dm->dir.y * mov) + tblk.pln / 15.0)
+			return (1);
+	}
+	if (tblk.pt == 4)
+	{
+		if (dm->pos.y + dm->dir.y * mov < (int)(dm->pos.y + dm->dir.y * mov) + (1 - tblk.pln / 15.0))
+			return (1);
+	}
+	return (0);
+}
+
 int		check_hor_coll(t_block blk, t_doom *dm, double mov)
 {
 	double	hgt;
 
-	if (blk.b <= 1)
+	if (blk.b <= 1 || (blk.pt == 1 && blk.pln < 6))
 		return (1);
 	else if (blk.pt == 2)
 	{
@@ -39,16 +54,17 @@ int		check_hor_coll(t_block blk, t_doom *dm, double mov)
 		}
 		return (0);
 	}
-	return (0);
+	else
+		return (check_part_walls(dm->area[(int)dm->pos.z][(int)(dm->pos.y)][(int)dm->pos.x], blk, dm, mov));
 }
 
 void	move_b(t_doom *dm, double mov)
 {
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y * mov)][(int)dm->pos.x],
-		dm, mov))
+		dm, -mov))
 		dm->pos.y -= dm->dir.y * mov;
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.x * mov)],
-		dm, mov))
+		dm, -mov))
 		dm->pos.x -= dm->dir.x * mov;
 }
 

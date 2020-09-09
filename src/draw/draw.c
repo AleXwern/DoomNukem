@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 15:55:26 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 12:48:12 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	draw_stripe(t_doom *dm)
 		if (dm->texy < 0)
 			dm->texy += 128;
 		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
-		dm->map = light_map(dm->map, dm->side);
-		dm->col = rl_color(dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x], dm->col);
+		dm->lgt = light_map(dm->map, dm->side, dm->area);
+		dm->col = rl_color(dm->lgt, dm->col);
 	}
 	if (dm->side > 2)
 		dm->col = (dm->col >> 1) & DARKEN;
@@ -89,8 +89,8 @@ void	draw_floor(t_doom *dm)
 			dm->col = color_shift(dm->gfx[5].data[128 * dm->ty + dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		else
 			dm->col = color_shift(dm->gfx[dm->texnum].data[128 * dm->ty + dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
-		dm->map = light_map(dm->map, dm->side);
-		dm->col = rl_color(dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x], dm->col);
+		dm->lgt = light_map(dm->map, dm->side, dm->area);
+		dm->col = rl_color(dm->lgt, dm->col);
 	}
 	else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 2)
 		dm->col = 0xff22a800;
