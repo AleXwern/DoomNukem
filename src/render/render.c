@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/09/09 15:22:38 by anystrom         ###   ########.fr       */
+=======
+/*   Updated: 2020/09/09 15:37:39 by tbergkul         ###   ########.fr       */
+>>>>>>> 26a1688f75b4e7e991194508b66852a980f543e0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,21 +217,23 @@ int		renthread(void *ptr)
 				//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
 				if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6 && dm->ani == 0 && dm->frm == 1)//if enemy hit, make a soundeffect. Now just testing with block instead of enemy.
 				{
+					Mix_PlayChannel(-1, dm->windowShatter, 0);
+					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
+					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt = 0;
 					//shooting the walls
 					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp >= 35)
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp -= 35;
 					else*/
-					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp = 0;
+					//dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp = 0;
 					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp > 0)
 							Mix_PlayChannel(-1, dm->gettingHit, 0);*/
-					if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp == 0)//else
+					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp == 0)//else
 					{
 						Mix_PlayChannel(-1, dm->windowShatter, 0);
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt = 0;
-					}
+					}*/
 				}
-				//if (sprite pixel is hit && dm->ani == 0 && dm->frm == 1)
 			}
 			else
 			{
@@ -239,8 +245,15 @@ int		renthread(void *ptr)
 					render_floor(dm);
 				else
 					wall_stripe(dm);
+<<<<<<< HEAD
 				if (dm->iframe > DFRAME)
+=======
+				if (dm->iframe > 35)
+				{
+					Mix_PlayChannel(-1, dm->gettingHit, 0);
+>>>>>>> 26a1688f75b4e7e991194508b66852a980f543e0
 					dm->img.data[dm->winw * dm->y + dm->x] = avg_color(dm->col, 0xffff0000);
+				}
 			}
 			//if (dm->x == dm->winw / 2 - 1 && dm->y == dm->winh / 2 - 1 && dm->hit != 2)
 			//	printf("Col %d %d\n", dm->rcol, dm->col);

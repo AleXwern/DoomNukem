@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 16:07:47 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 13:08:29 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,6 +357,11 @@ void	demodraw_sprite(t_doom *dm)
 void	sprite_set(t_doom* dm)
 {
 	static int i;
+	double	mov;
+
+	mov = dm->movsp * ((30.0 / dm->buffer) / dm->prefps);
+	if (mov > 1.0 || mov < -1.0)
+		mov /= fabs(mov) * 2;
 
 	if (i)
 		return;
@@ -398,8 +403,8 @@ void	sprite_set(t_doom* dm)
 	//dm->spr[5].pos.y = 6.0;
 	//dm->spr[5].pos.x = 7.5;
 	dm->spr[5].pos.z = 8.0;
-	dm->spr[5].pos.y = 7.8;
-	dm->spr[5].pos.x = 8.5;
+	dm->spr[5].pos.y = 2.8;
+	dm->spr[5].pos.x = 20.5;
 	dm->spr[5].gfx = 30;
 	dm->spr[5].size = 1;
 
@@ -408,15 +413,16 @@ void	sprite_set(t_doom* dm)
 	//dm->spr[6].pos.y = 5.0;
 	//dm->spr[6].pos.x = 7.5;
 	dm->spr[6].pos.z = 8.0;
-	dm->spr[6].pos.y = 9.0;
-	dm->spr[6].pos.x = 8.5;
+	dm->spr[6].pos.y = 4.5;
+	dm->spr[6].pos.x = 20.5;
 	dm->spr[6].gfx = 36;
 	dm->spr[6].size = 1;
 
 	//chest
 	dm->spr[7].pos.z = 7.5;
-	dm->spr[7].pos.y = 7.5;
-	dm->spr[7].pos.x = 8.5;
+	dm->spr[7].pos.y = 4.5;
+	dm->spr[7].pos.x = 20.5;
+	//dm->area[(int)dm->spr[7].pos.z][(int)dm->pos.y][(int)dm->pos.x].meta = 9;
 	dm->spr[7].gfx = 37;
 	dm->spr[7].frame = 0;
 	dm->spr[7].size = 3;

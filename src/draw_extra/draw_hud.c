@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/03 16:38:44 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/09 15:47:42 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_hud(t_doom *dm)
 		draw_pgfx_sc(dm, dm->gfx[36], (int[6]){(dm->winh - 78), 20, 272, 380, 0, 0}, 0.2);//pistol in inventory
 		draw_gun(dm);
 		draw_ammo(dm);
-		draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
+		draw_gfx(dm, dm->gfx[25], (int)(dm->winw * 0.5 - 25), (int)(dm->winh * 0.5) - 25);//crosshair
 	}
 }
 
@@ -33,7 +33,10 @@ void	draw_gun(t_doom *dm)
 	if (!dm->reloading)
 	{
 		dm->gfx[27].x = 160 * dm->ani;
-		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), ((dm->winw / 2) - 16), 160, 160, 0, 0}, 2);
+		if (dm->winw > 1150)
+			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
+		else
+			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 - 10), 160, 160, 0, 0}, 2);
 		if (dm->shooting)
 		{
 			dm->frm++;
@@ -46,7 +49,7 @@ void	draw_gun(t_doom *dm)
 					//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
 				}*/
 			}
-			if (dm->frm == 4)
+			if (dm->frm >= 4)
 			{
 				if (dm->ani == 5)
 				{

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/09/09 15:25:17 by anystrom         ###   ########.fr       */
+=======
+/*   Updated: 2020/09/09 13:18:43 by tbergkul         ###   ########.fr       */
+>>>>>>> 26a1688f75b4e7e991194508b66852a980f543e0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -485,6 +489,7 @@ void			mouse_movey(int dir, t_doom *dm);
 int				move(t_doom *dm);
 void			move_fb(t_doom *dm);
 int				move_lr(t_doom *dm);
+int				check_sprite_dist(t_doom *dm, double mov, char flag, char dir);
 int				renthread(void *ptr);
 int				save_file(t_doom* dm, int fd, char* file, int i);
 int				x_press(t_doom *dm);
