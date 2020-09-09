@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 14:35:04 by anystrom          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/09/09 13:30:10 by anystrom         ###   ########.fr       */
-=======
-/*   Updated: 2020/09/09 13:30:29 by tbergkul         ###   ########.fr       */
->>>>>>> 26a1688f75b4e7e991194508b66852a980f543e0
+/*   Updated: 2020/09/09 15:59:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +61,10 @@ int		check_hor_coll(t_block blk, t_doom *dm, double mov)
 void	move_b(t_doom *dm, double mov)
 {
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y * mov)][(int)dm->pos.x],
-<<<<<<< HEAD
-		dm, -mov))
+		dm, -mov) && check_sprite_dist(dm, mov, 'y', 'b'))
 		dm->pos.y -= dm->dir.y * mov;
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.x * mov)],
-		dm, -mov))
-=======
-		dm, mov) && check_sprite_dist(dm, mov, 'y', 'b'))
-		dm->pos.y -= dm->dir.y * mov;
-	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.x * mov)],
-		dm, mov) && check_sprite_dist(dm, mov, 'x', 'b'))
->>>>>>> 26a1688f75b4e7e991194508b66852a980f543e0
+		dm, -mov) && check_sprite_dist(dm, mov, 'x', 'b'))
 		dm->pos.x -= dm->dir.x * mov;
 }
 
