@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 16:07:01 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 14:26:53 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int				key_hold(int key, t_doom *dm)
 	if (key == KEY_TWO)
 		dm->key.two = 1;
 	if (key == KEY_SHIFT)
-		dm->movsp += 0.06;
+		dm->movsp += 0.10;
 	if (key == KEY_O)
 	{
 		dm->shift++;
@@ -163,7 +163,7 @@ int				key_release(int key, t_doom *dm)
 			dm->hp += 20;
 		}
 		if (key == KEY_SHIFT)
-			dm->movsp -= 0.06;
+			dm->movsp -= 0.10;
 		if (key == KEY_L)
 			dm->isoutline = (dm->isoutline * dm->isoutline) - 1;
 		if (key == KEY_C && dm->crouching)

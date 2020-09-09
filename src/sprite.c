@@ -15,12 +15,12 @@
 
 void	pickupitem(t_doom* dm)
 {
-	if (dm->spr[5].dist < 1.0)//keycard
+	if (dm->spr[5].dist < 1.1)//keycard
 	{
 		dm->keycard = 1;
 		ft_bzero(&dm->spr[5], sizeof(t_sprite));
 	}
-	else if (dm->spr[6].dist < 1.0)//pistol
+	else if (dm->spr[6].dist < 1.1)//pistol
 	{
 		dm->gun = 1;
 		ft_bzero(&dm->spr[6], sizeof(t_sprite));
