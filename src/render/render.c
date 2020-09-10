@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 11:24:08 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:24:52 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,11 +241,8 @@ int		renthread(void *ptr)
 					render_floor(dm);
 				else
 					wall_stripe(dm);
-				if (dm->iframe > 35)
-				{
-					Mix_PlayChannel(-1, dm->gettingHit, 0);
+				if (dm->iframe > DFRAME)
 					dm->img.data[dm->winw * dm->y + dm->x] = avg_color(dm->col, 0xffff0000);
-				}
 			}
 			//if (dm->x == dm->winw / 2 - 1 && dm->y == dm->winh / 2 - 1 && dm->hit != 2)
 			//	printf("Col %d %d\n", dm->rcol, dm->col);
@@ -289,10 +286,13 @@ void	render(t_doom *dm)
 		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xE71313}, 2);
 		SDL_RenderPresent(dm->rend);
 	}
+	if (dm->iframe == 49)
+		Mix_PlayChannel(-1, dm->gettingHit, 0);
 	if (dm->alive)
 		SDL_RenderPresent(dm->rend);
 	if (dm->iframe)
 		dm->iframe--;
 	//printf("Pos z y x: %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
 	dm->fps++;
+	//printf("Pos %d %d %f\n", dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].b, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].pt, dm->pos.z);
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 15:58:41 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:16:21 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,11 +266,9 @@ int				move(t_doom *dm)
 			dm->airbrn = 1;
 			dm->gravity.z = -0.55 * (30.0 / dm->buffer / dm->prefps);
 		}
-		/*if (dm->area[(int)(dm->pos.z)][(int)dm->pos.y][(int)dm->pos.x].b > 1 && !dm->iframe)
-		{
-			dm->hp -= 20;
-			dm->iframe = IFRAME;
-		}*/
+		if (!dm->airbrn && !dm->iframe)
+			suffrocate(dm, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x],
+			(t_vector){.z = dm->pos.z - 0.1, .y = dm->pos.y, .x = dm->pos.x});
 		if (dm->key.space > 0)
 			dm->key.space--;
 	}

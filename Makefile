@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/09 15:49:34 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/10 12:12:54 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c window.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
 			part_dda.c
-GRAFILE	=	gravity.c move.c
+GRAFILE	=	gravity.c move.c collision.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
