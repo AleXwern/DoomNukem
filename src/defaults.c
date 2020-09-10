@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 15:11:35 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 11:32:00 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	resize_window(t_doom *dm)
 {
 	dm->winw = dm->event.window.data1;
 	dm->winh = dm->event.window.data2;
-	if (dm->winw > 1440 || dm->winh > 960)
+	if (dm->winw > 1500 || dm->winh > 960)
 	{
-		SDL_SetWindowSize(dm->win, 1440, 960);
-		dm->winw = 1440;
+		SDL_SetWindowSize(dm->win, 1500, 960);
+		dm->winw = 1500;
 		dm->winh = 960;
 	}
 	else if (dm->winw < 1080 || dm->winh < 720)

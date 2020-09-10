@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 15:58:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 11:24:08 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,13 +241,9 @@ int		renthread(void *ptr)
 					render_floor(dm);
 				else
 					wall_stripe(dm);
-<<<<<<< HEAD
-				if (dm->iframe > DFRAME)
-=======
 				if (dm->iframe > 35)
 				{
 					Mix_PlayChannel(-1, dm->gettingHit, 0);
->>>>>>> 26a1688f75b4e7e991194508b66852a980f543e0
 					dm->img.data[dm->winw * dm->y + dm->x] = avg_color(dm->col, 0xffff0000);
 				}
 			}
