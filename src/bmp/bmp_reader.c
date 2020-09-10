@@ -76,7 +76,6 @@ Uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 
 	dummy = (char*)ft_memalloc(gfx.wid * gfx.hgt * 4);
 	corr = (char*)ft_memalloc(gfx.wid * gfx.hgt * (gfx.bpp / 8));
-	//printf("%d\n\n", read(fd, corr, gfx.pitch * gfx.hgt));// * (gfx.bpp / 8));
 	corr = read_pixdata(corr, fd, gfx, gfx.hgt);
 	while (i < gfx.wid * gfx.hgt * (gfx.bpp / 8))
 	{
@@ -90,7 +89,7 @@ Uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 		b++;
 	}
 	free(corr);
-	return ((Uint32*)dummy);//flip_arr(gfx, dummy));
+	return ((Uint32*)dummy);
 }
 
 t_gfx	read_bmp(char *file, int fd, int bread)
@@ -103,15 +102,14 @@ t_gfx	read_bmp(char *file, int fd, int bread)
 	fd = open(file, O_RDONLY);
 	free(file);
 	ft_putendl(file);
-	//_sopen_s(&fd, file, _O_RDWR, _SH_DENYNO, _S_IREAD | _S_IWRITE);
 	if (fd == -1)
 		return (gfx);
 	bread = read(fd, &bmp, sizeof(bmp));
-	printf("bm %04x\nfsize %d\nres1 %d\nres2 %d\npdoff %d\n", bmp.bm, bmp.fsize, bmp.res1, bmp.res2, bmp.pdoff);
+	//printf("bm %04x\nfsize %d\nres1 %d\nres2 %d\npdoff %d\n", bmp.bm, bmp.fsize, bmp.res1, bmp.res2, bmp.pdoff);
 	if (bmp.bm != 0x4d42)
 		return (gfx);
 	bread += read(fd, &head, sizeof(head));
-	printf("hsize %d\nw %d\nh %d\npln %d\nbpp %d\ncmpr %d\nimgs %d\nxppm %d\nyppm %d\ncolc %d\nimpc %d\n", head.headsize, head.width, head.heigth, head.planes, head.bpp, head.compr, head.imgsize, head.xppm, head.yppm, head.colcount, head.impcol);
+	//printf("hsize %d\nw %d\nh %d\npln %d\nbpp %d\ncmpr %d\nimgs %d\nxppm %d\nyppm %d\ncolc %d\nimpc %d\n", head.headsize, head.width, head.heigth, head.planes, head.bpp, head.compr, head.imgsize, head.xppm, head.yppm, head.colcount, head.impcol);
 	if (!read_to_pixdata(bmp, bread, fd))
 		return (gfx);
 	gfx.wid = head.width;

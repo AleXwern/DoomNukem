@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/03 16:26:24 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/10 12:12:54 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,10 @@ DRAWEXT =	draw_hud.c
 FILESYS =	fileformat.c save_level.c
 EDTFILE =	editor.c render_editor.c
 ANMFILE =	staireff.c
-COLFILE	=	draw.c draw_utils.c
+COLFILE	=	draw.c draw_utils.c window.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
 			part_dda.c
-GRAFILE	=	gravity.c move.c
+GRAFILE	=	gravity.c move.c collision.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
@@ -71,6 +71,9 @@ OBJFRAME =	-F ./frameworks
 FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
 RED =		\033[0;31m
 STOP =		\033[0m
+ifeq ($(HOSTTYPE),)
+HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
 
 .PHONY: all clean fclean re obj
 
@@ -88,6 +91,7 @@ $(OBJDIR)%.o:$(SRCDIR)%.c
 
 $(NAME): $(OBJ) $(LIBFT)
 	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
+	@echo $(HOSTTYPE)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
 	@Rez -a icon.rsrc -o $(NAME)
 	@SetFile -a C $(NAME)

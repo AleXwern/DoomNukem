@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 16:34:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:06:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/crosshair.bmp"), 0, 0);//25
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/GreyDragon.bmp"), 0, 0);//26
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/gun.bmp"), 0, 0);//27
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/healthBar.bmp"), 0, 0);//28
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/health.bmp"), 0, 0);//28
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/inventory.bmp"), 0, 0);//29
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/keycard.bmp"), 0, 0);//30
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/numbers.bmp"), 0, 0);//31
@@ -56,7 +56,7 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foeF0.bmp"), 0, 0);//34
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foeF1.bmp"), 0, 0);//35
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/pistol.bmp"), 0, 0);//36
-	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/.bmp"), 0, 0);//Use these if you want to add more gfx
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/chest.bmp"), 0, 0);//37
 	dm->gfxcount = i;
 	if (i != GFXCOUNT)
 		error_out(GFX_ERROR, dm);
@@ -87,7 +87,7 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 void	comp_hud_gfx(t_doom *dm, char *bpath, int i)
 {
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/spawn.bmp"), 0, 0);
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/notifdown.bmp"), 0, 0);
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/glass.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/options.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foe3.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/btlmenu.bmp"), 0, 0);
@@ -121,7 +121,8 @@ void	comp_gfx(t_doom *dm, int i)
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/stairu.bmp", ""), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/staird.bmp", ""), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/door.bmp", ""), 0, 0);
-	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/warp.bmp", ""), 0, 0);
+	//dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/warp.bmp", ""), 0, 0);
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/glass.bmp"), 0, 0);
 	comp_hud_gfx(dm, bpath, i);
 	dm->tile -= 48;
 	SDL_free(path);

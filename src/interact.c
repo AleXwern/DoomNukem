@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/08/27 15:58:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 14:31:36 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-#include <stdio.h>
+#include <stdio.h>//remove when done
 
 int		get_warpdest(t_doom* dm, t_vector pos, t_vector warp)
 {

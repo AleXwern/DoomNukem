@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/03 16:38:44 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:01:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_hud(t_doom *dm)
 		draw_pgfx_sc(dm, dm->gfx[36], (int[6]){(dm->winh - 78), 20, 272, 380, 0, 0}, 0.2);//pistol in inventory
 		draw_gun(dm);
 		draw_ammo(dm);
-		draw_gfx(dm, dm->gfx[25], (WINX / 2) - 25, (WINY / 2) - 25);//crosshair
+		draw_gfx(dm, dm->gfx[25], (int)(dm->winw * 0.5 - 25), (int)(dm->winh * 0.5) - 25);//crosshair
 	}
 }
 
@@ -33,7 +33,10 @@ void	draw_gun(t_doom *dm)
 	if (!dm->reloading)
 	{
 		dm->gfx[27].x = 160 * dm->ani;
-		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), ((dm->winw / 2) - 16), 160, 160, 0, 0}, 2);
+		if (dm->winw > 1150)
+			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
+		else
+			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 - 10), 160, 160, 0, 0}, 2);
 		if (dm->shooting)
 		{
 			dm->frm++;
@@ -46,7 +49,7 @@ void	draw_gun(t_doom *dm)
 					//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
 				}*/
 			}
-			if (dm->frm == 4)
+			if (dm->frm >= 3)
 			{
 				if (dm->ani == 5)
 				{
@@ -67,11 +70,14 @@ void	draw_gun(t_doom *dm)
 void	reloading_gun(t_doom *dm)
 {
 	dm->gfx[27].x = 160 * dm->ani + 960;
-	draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), ((dm->winw / 2) - 16), 160, 160, 0, 0}, 2);
+	if (dm->winw > 1150)
+		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
+	else
+		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 - 16), 160, 160, 0, 0}, 2);
 	dm->frm++;
 	if (dm->ani == 2 && dm->frm == 2)
 		Mix_PlayChannel(-1, dm->reload, 0);
-	if (dm->frm == 6)
+	if (dm->frm == 5)
 	{
 		if (dm->ani == 11)
 		{
@@ -103,20 +109,24 @@ void	draw_ammo(t_doom *dm)
 
 void	draw_hp(t_doom *dm)
 {
-	int	healthBar;
+	int	health;
+	int	x;
+	int	i;
 
-	if (dm->hp == 100)
-		healthBar = 0;
-	else if (dm->hp == 80)
-		healthBar = 1;
-	else if (dm->hp == 60)
-		healthBar = 2;
-	else if (dm->hp == 40)
-		healthBar = 3;
-	else if (dm->hp == 20)
-		healthBar = 4;
-	else if (dm->hp == 0 || dm->hp < 0)
-		healthBar = 5;
-	dm->gfx[28].y = healthBar * 60;
-	draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, 20, 60, 367, 0, 0}, 1);
+	health = dm->hp / 20;
+	x = 20;
+	i = -1;
+	dm->gfx[28].x = 0;
+	while (++i < health)
+	{
+		draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, x, 60, 61, 0, 0}, 1);
+		x += 61;
+	}
+	dm->gfx[28].x = 61;
+	while (i < 5)
+	{
+		draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, x, 60, 61, 0, 0}, 1);
+		x += 61;
+		i++;
+	}
 }

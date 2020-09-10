@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 00:38:53 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/11 00:50:36 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,27 @@ void	adjusted_dda(t_doom *dm)
 	dm->adj = 1;
 }
 
+void	get_ppos(t_doom *dm, t_block blk)
+{
+	if (dm->rayd.z < 0 && blk.pt == 2)
+		dm->adj = 1;
+	else if (dm->rayd.z > 0 && blk.pt == 1)
+		dm->adj = 1;
+	else if (dm->rayd.y > 0 && blk.pt == 3)
+		dm->adj = 1;
+	else if (dm->rayd.y < 0 && blk.pt == 4)
+		dm->adj = 1;
+	else if (dm->rayd.x > 0 && blk.pt == 5)
+		dm->adj = 1;
+	else if (dm->rayd.x < 0 && blk.pt == 6)
+		dm->adj = 1;
+}
+
 void	dda_sys(t_doom *dm)
 {
 	dm->hit = 0;
 	dm->adj = 0;
-	if (dm->rayd.z < 0 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt == 2)
-		dm->adj = 1;
+	get_ppos(dm, dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x]);
 	while (dm->hit == 0)
 	{
 		if (dm->map.z < 0 || dm->map.y < 0 || dm->map.x < 0 || dm->map.z >= 9 || dm->map.y >= 25 || dm->map.x >= 25)
@@ -54,8 +69,6 @@ void	dda_sys(t_doom *dm)
 		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt && !dm->adj
 				&& dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
 			part_check(dm);
-		//else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 8)
-		//	dm->wincol = 1;
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 6 && !dm->adj)
 			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
 		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1 && !dm->adj)
@@ -138,6 +151,8 @@ void	rc_init(t_doom *dm)
 		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
 	else
 		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
+	if (dm->hit != 2 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6)
+		dm->wincol = 1;
 	if (dm->walldist < 0.0001)
 		dm->walldist += 0.01;
 }
@@ -146,6 +161,10 @@ void	side_check(t_doom* dm)
 {
 	int			delta;
 
+	if (dm->hit == 2)
+		return;
+	if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6)
+		return;
 	if (dm->side == 0)
 		delta = dm->pos.x - dm->map.x;
 	else if (dm->side == 1)
@@ -192,22 +211,25 @@ int		renthread(void *ptr)
 				dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
 				//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
-				if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 2 && dm->ani == 0 && dm->frm == 1)//if enemy hit, make a soundeffect. Now just testing with block instead of enemy.
+				if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6 && dm->ani == 0 && dm->frm == 1)//if enemy hit, make a soundeffect. Now just testing with block instead of enemy.
 				{
+					Mix_PlayChannel(-1, dm->windowbrk, 0);
+					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
+					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt = 0;
 					//shooting the walls
 					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp >= 35)
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp -= 35;
 					else*/
-					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp = 0;
+					//dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp = 0;
 					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp > 0)
 							Mix_PlayChannel(-1, dm->gettingHit, 0);*/
-					if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp == 0)//else
+					/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].hp == 0)//else
 					{
 						Mix_PlayChannel(-1, dm->windowShatter, 0);
 						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
-					}
+						dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt = 0;
+					}*/
 				}
-				//if (sprite pixel is hit && dm->ani == 0 && dm->frm == 1)
 			}
 			else
 			{
@@ -219,7 +241,11 @@ int		renthread(void *ptr)
 					render_floor(dm);
 				else
 					wall_stripe(dm);
+				if (dm->iframe > DFRAME)
+					dm->img.data[dm->winw * dm->y + dm->x] = avg_color(dm->col, 0xffff0000);
 			}
+			//if (dm->x == dm->winw / 2 - 1 && dm->y == dm->winh / 2 - 1 && dm->hit != 2)
+			//	printf("Col %d %d\n", dm->rcol, dm->col);
 		}
 		dm->x += dm->trx;
 	}
@@ -229,9 +255,8 @@ int		renthread(void *ptr)
 void	render(t_doom *dm)
 {
 	static int	x;
-	int	i;
+	static int	i;
 
-	//x = 0;
 	if (dm->trx < 1)
 		dm->trx = 1;
 	while (x < dm->trx)
@@ -249,22 +274,24 @@ void	render(t_doom *dm)
 		else
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
-	//sprite_set(dm);
-	//printf("Z pos %f\n", dm->pos.z);
+	if (dm->isoutline)
+		post_effects(dm);
 	demodraw_sprite(dm);
 	draw_hud(dm);
 	pickupitem(dm);
-	if (dm->isoutline)
-		post_effects(dm);
 	if (dm->alive && dm->hp <= 0)
 	{
 		dm->alive = 0;
-		Mix_PlayChannel(-1, dm->osrsDeath, 0);
-		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xE71313}, 2);
+		Mix_PlayChannel(-1, dm->death, 0);
+		set_text(dm, "you died 10 times", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xE71313}, 2);
 		SDL_RenderPresent(dm->rend);
 	}
+	if (dm->iframe == 49)
+		Mix_PlayChannel(-1, dm->gettingHit, 0);
 	if (dm->alive)
 		SDL_RenderPresent(dm->rend);
-	//printf("Pos z y x: %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
+	if (dm->iframe)
+		dm->iframe--;
 	dm->fps++;
+	//printf("Pos %d %d %f\n", dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].b, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].pt, dm->pos.z);
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 12:42:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/09 15:01:19 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ void	slope_dda_xzn(t_doom* dm)
 		single_loop_z(dm);
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("RMAP %f <= %f\n", dm->rmap2.z, dm->rmap2.y);
-		if (dm->rmap2.z >= dm->rmap2.y || dm->rmap2.z < (1 - LIM))// || dm->rmap2.z > 0)
+			printf("RMAP %f >= %f\n", dm->rmap2.z, dm->rmap2.y);
+		if (dm->rmap2.z >= dm->rmap2.y || dm->rmap2.z < LIMN || dm->rmap2.y > LIM)// || dm->rmap2.z > 0)
 			return;
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("Suitable point\n");
 		dm->sided.z += dm->deltad.z;
 		dm->map.z += dm->stepz * dm->rmap2.y;
 		dm->side = 2;
@@ -59,8 +61,12 @@ void	slope_dda_xzp(t_doom* dm)
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop_z(dm);
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
-		if (dm->rmap2.z < dm->rmap2.y/* && dm->rmap2.z > 0*/)
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("RMAP %f < %f\n", dm->rmap2.z, dm->rmap2.y);
+		if (dm->rmap2.z < dm->rmap2.y)
 			return;
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("Suitable point XZP\n");
 		dm->sided.z += dm->deltad.z;
 		dm->map.z += dm->stepz * dm->rmap2.y;
 		dm->side = 2;

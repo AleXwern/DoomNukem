@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 15:07:55 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:48:06 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,14 @@
 # define WINX		1080
 # define WINY		720
 # define MAXAGGRO	999999
-# define GFXCOUNT	37
+# define GFXCOUNT	38
 # define THREADS	6
 # define BUFFER		6
 # define LIM		0.9999999
+# define LIMN		0.0000001
+# define IFRAME		50
+# define DFRAME		35
+# define PCOLL		0.2
 
 #if __APPLE__
 # define OSCAM		1
@@ -117,7 +121,7 @@
 # define SLASH		75
 # define STAR		67
 # define KEY_SHIFT	SDL_SCANCODE_LSHIFT
-# define KEY_CTRL	256// dont use this. its a shortcut key on mac which just messes up the program.
+# define KEY_CTRL	256
 #elif _WIN64
 # define OSCAM		10
 

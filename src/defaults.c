@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 13:22:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:27:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ void	resize_window(t_doom *dm)
 {
 	dm->winw = dm->event.window.data1;
 	dm->winh = dm->event.window.data2;
+	if (dm->winw > 1500 || dm->winh > 960)
+	{
+		SDL_SetWindowSize(dm->win, 1500, 960);
+		dm->winw = 1500;
+		dm->winh = 960;
+	}
+	else if (dm->winw < 1080 || dm->winh < 720)
+	{
+		SDL_SetWindowSize(dm->win, 1080, 720);
+		dm->winw = 1080;
+		dm->winh = 720;
+	}
 	dm->img = init_image(dm);
 	//SDL_FreeSurface(dm->img.tex);
 	//SDL_DestroyTexture(dm->img.img);
@@ -103,7 +115,8 @@ void	doom_default(t_doom *dm)
 	if (!(dm->data_r = (t_doom*)ft_memalloc(sizeof(t_doom) * dm->trx)))
 		error_out(MEM_ERROR, dm);
 	if (!(Mix_PlayingMusic()))
-		Mix_PlayMusic(dm->osrsMusic, 0);
+		Mix_PlayMusic(dm->music, 0);
+	dm->volume = Mix_VolumeMusic(-1);
 	printf("Threads: %d\n", dm->trx);
 }
 
