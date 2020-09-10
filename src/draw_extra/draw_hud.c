@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/09 15:47:42 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 11:39:10 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_gun(t_doom *dm)
 					//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
 				}*/
 			}
-			if (dm->frm >= 4)
+			if (dm->frm >= 3)
 			{
 				if (dm->ani == 5)
 				{
@@ -70,11 +70,14 @@ void	draw_gun(t_doom *dm)
 void	reloading_gun(t_doom *dm)
 {
 	dm->gfx[27].x = 160 * dm->ani + 960;
-	draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), ((dm->winw / 2) - 16), 160, 160, 0, 0}, 2);
+	if (dm->winw > 1150)
+		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
+	else
+		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 - 16), 160, 160, 0, 0}, 2);
 	dm->frm++;
 	if (dm->ani == 2 && dm->frm == 2)
 		Mix_PlayChannel(-1, dm->reload, 0);
-	if (dm->frm == 6)
+	if (dm->frm == 5)
 	{
 		if (dm->ani == 11)
 		{
