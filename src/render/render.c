@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 12:24:52 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:34:17 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ int		renthread(void *ptr)
 void	render(t_doom *dm)
 {
 	static int	x;
-	int	i;
+	static int	i;
 
 	if (dm->trx < 1)
 		dm->trx = 1;
@@ -292,6 +292,10 @@ void	render(t_doom *dm)
 		SDL_RenderPresent(dm->rend);
 	if (dm->iframe)
 		dm->iframe--;
+	Mix_VolumeMusic(i);
+	i++;
+	if (i > 128)
+		i = 0;
 	//printf("Pos z y x: %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
 	dm->fps++;
 	//printf("Pos %d %d %f\n", dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].b, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].pt, dm->pos.z);
