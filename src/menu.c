@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:03:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 16:02:36 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:27:01 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_bars(t_doom *dm, int y, int x, int pc)
 	Uint32	color;
 	Uint32	black;
 
-	while (++pc < 9)
+	while (++pc < 10)
 	{
 		sy = (pc * (dm->winh / 10));
 		sx = dm->winw / 2;
@@ -69,6 +69,8 @@ void	options_menu_create(t_doom *dm)
 	dm->maxvalue[7] = 1.0;
 	dm->options[8] = &dm->tile;
 	dm->maxvalue[8] = 6.0;
+	dm->options[9] = &dm->volume;
+	dm->maxvalue[9] = 128;
 }
 
 void	options_menu(t_doom *dm)
