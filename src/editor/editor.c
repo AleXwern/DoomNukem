@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/09/10 15:39:21 by tbergkul         ###   ########.fr       */
-=======
-/*   Updated: 2020/09/10 14:15:02 by anystrom         ###   ########.fr       */
->>>>>>> 45a0dd30bafdd2fdb6786d124fdc16d404101909
+/*   Updated: 2020/09/11 01:09:41 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +88,6 @@ void	editor_main(t_doom *dm)
 	SDL_SetWindowSize(dm->win, WINX, WINY);
 	free(le);
 	dm->pos = dm->spawn;
-<<<<<<< HEAD
-}
-=======
 	if (le->quit == 2)
 		error_out(FINE, dm);
 }
->>>>>>> 45a0dd30bafdd2fdb6786d124fdc16d404101909
