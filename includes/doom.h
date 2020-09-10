@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 15:57:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:12:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -553,6 +553,7 @@ void			health_check(t_doom *dm, int pc, int thp);
 */
 
 void			gravity(t_doom *dm);
+void			suffrocate(t_doom *dm, t_block blk, t_vector bpos);
 void			key_release_menu(int key, t_doom *dm);
 void			key_state_editor(t_editor *le, t_doom *dm);
 void			key_state_game(t_doom *dm);
