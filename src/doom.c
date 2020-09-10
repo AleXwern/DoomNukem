@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 11:47:41 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:07:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	error_out(char *msg, t_doom *dm)
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_WaitThread(dm->fpsthread, NULL);
 	SDL_Quit();
-	system("leaks doom-nukem");
+	//system("leaks doom-nukem");
 	exit(0);
 	//Things below just in case.
 	/*SDL_SetRelativeMouseMode(SDL_FALSE);

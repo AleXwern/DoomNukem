@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 12:26:09 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:45:29 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y)
 			x++;
 		}
 	}
-	if (le->cur == 0)
+	/*if (le->cur == 0)
 		set_text(dm, "floor", (int[3]){dm->winh - 200, dm->winw / 2 + 40, 0xE71313}, 1);
 	else if (le->cur == 1)
 		set_text(dm, "lighting", (int[3]){dm->winh - 200, dm->winw / 2 + 40, 0xE71313}, 1);
@@ -183,4 +183,5 @@ void	draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y)
 		set_text(dm, "block thickness", (int[3]){dm->winh - 200, dm->winw / 2 + 40, 0xE71313}, 1);
 	else if (le->cur == 4)
 		set_text(dm, "meta", (int[3]){dm->winh - 200, dm->winw / 2 + 40, 0xE71313}, 1);
+	*/
 }
