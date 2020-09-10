@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 11:47:41 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 13:04:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	init_audio(t_doom *dm)
 	{
 		ft_putendl("Failed to initialize SDL_Mixer!");
 	}
-	dm->osrsMusic = Mix_LoadMUS("Audio/Music/scapemain.wav");
+	dm->music = Mix_LoadMUS("Audio/Music/scapemain.wav");
 	dm->reload = Mix_LoadWAV("Audio/SoundEffects/reload.wav");
 	dm->gunshot = Mix_LoadWAV("Audio/SoundEffects/gunshot.wav");
 	dm->jetpack = Mix_LoadWAV("Audio/SoundEffects/jetpack.wav");
@@ -82,9 +82,9 @@ void	init_audio(t_doom *dm)
 	dm->teleport = Mix_LoadWAV("Audio/SoundEffects/teleport.wav");
 	dm->doorknob = Mix_LoadWAV("Audio/SoundEffects/doorknob.wav");
 	dm->gettingHit = Mix_LoadWAV("Audio/SoundEffects/gettinghit.wav");
-	dm->osrsDeath = Mix_LoadWAV("Audio/SoundEffects/osrsDeath.wav");
-	dm->osrsMonsterDeath = Mix_LoadWAV("Audio/SoundEffects/osrsMonsterDeath.wav");
-	dm->windowShatter = Mix_LoadWAV("Audio/SoundEffects/windowShatter.wav");
+	dm->death = Mix_LoadWAV("Audio/SoundEffects/osrsDeath.wav");
+	dm->mondeath = Mix_LoadWAV("Audio/SoundEffects/osrsMonsterDeath.wav");
+	dm->windowbrk = Mix_LoadWAV("Audio/SoundEffects/windowShatter.wav");
 }
 
 void	setup(t_doom *dm)

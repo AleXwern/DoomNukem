@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 16:06:22 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:14:10 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	key_state_editor(t_editor *le, t_doom *dm)
 			resize_window(dm);
 		}
 		if (dm->event.type == SDL_QUIT)
-			le->quit = 1;
+			le->quit = 2;
 		if (dm->event.key.state == SDL_PRESSED)
 			editor_key_press(dm->event.key.keysym.scancode, le);
 		if (dm->event.key.state == SDL_RELEASED)

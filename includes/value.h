@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 15:22:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:48:06 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@
 # define SLASH		75
 # define STAR		67
 # define KEY_SHIFT	SDL_SCANCODE_LSHIFT
-# define KEY_CTRL	256// dont use this. its a shortcut key on mac which just messes up the program.
+# define KEY_CTRL	256
 #elif _WIN64
 # define OSCAM		10
 

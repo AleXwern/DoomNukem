@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 12:42:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:28:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void			menu_keys_hold(int key, t_doom *dm)
 		destroy_gfx(dm, -1);
 		comp_gfx(dm, 0);
 	}
+	else if (dm->cur == 9)
+		Mix_VolumeMusic(dm->volume);
 }
 
 int				key_hold(int key, t_doom *dm)
@@ -97,8 +99,8 @@ void			menu_keys(int key, t_doom *dm)
 	else if (key == UP)
 		dm->cur--;
 	if (dm->cur < 0)
-		dm->cur = 8;
-	if (dm->cur > 8)
+		dm->cur = 9;
+	if (dm->cur > 9)
 		dm->cur = 0;
 }
 
@@ -268,7 +270,7 @@ int				move(t_doom *dm)
 		}
 		if (!dm->airbrn && !dm->iframe)
 			suffrocate(dm, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x],
-			(t_vector){.z = dm->pos.z - (int)dm->pos.z, .y = dm->pos.y - (int)dm->pos.z, .x = dm->pos.x - (int)dm->pos.z});
+			(t_vector){.z = dm->pos.z - (int)dm->pos.z, .y = dm->pos.y - (int)dm->pos.y, .x = dm->pos.x - (int)dm->pos.x});
 		if (dm->key.space > 0)
 			dm->key.space--;
 	}

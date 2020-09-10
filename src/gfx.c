@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 16:07:52 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:06:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/crosshair.bmp"), 0, 0);//25
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/GreyDragon.bmp"), 0, 0);//26
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/gun.bmp"), 0, 0);//27
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/healthBar.bmp"), 0, 0);//28
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/health.bmp"), 0, 0);//28
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/inventory.bmp"), 0, 0);//29
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/keycard.bmp"), 0, 0);//30
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/numbers.bmp"), 0, 0);//31

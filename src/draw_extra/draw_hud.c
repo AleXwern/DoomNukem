@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/10 11:39:10 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:01:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,20 +109,24 @@ void	draw_ammo(t_doom *dm)
 
 void	draw_hp(t_doom *dm)
 {
-	int	healthBar;
+	int	health;
+	int	x;
+	int	i;
 
-	if (dm->hp == 100)
-		healthBar = 0;
-	else if (dm->hp == 80)
-		healthBar = 1;
-	else if (dm->hp == 60)
-		healthBar = 2;
-	else if (dm->hp == 40)
-		healthBar = 3;
-	else if (dm->hp == 20)
-		healthBar = 4;
-	else if (dm->hp == 0 || dm->hp < 0)
-		healthBar = 5;
-	dm->gfx[28].y = healthBar * 60;
-	draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, 20, 60, 367, 0, 0}, 1);
+	health = dm->hp / 20;
+	x = 20;
+	i = -1;
+	dm->gfx[28].x = 0;
+	while (++i < health)
+	{
+		draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, x, 60, 61, 0, 0}, 1);
+		x += 61;
+	}
+	dm->gfx[28].x = 61;
+	while (i < 5)
+	{
+		draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, x, 60, 61, 0, 0}, 1);
+		x += 61;
+		i++;
+	}
 }

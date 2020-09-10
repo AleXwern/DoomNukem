@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/27 15:58:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:15:02 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,6 @@ void	editor_main(t_doom *dm)
 	SDL_SetWindowSize(dm->win, WINX, WINY);
 	free(le);
 	dm->pos = dm->spawn;
+	if (le->quit == 2)
+		error_out(FINE, dm);
 }

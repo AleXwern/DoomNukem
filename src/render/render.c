@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 12:34:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/10 14:28:52 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ int		renthread(void *ptr)
 				//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
 				if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6 && dm->ani == 0 && dm->frm == 1)//if enemy hit, make a soundeffect. Now just testing with block instead of enemy.
 				{
-					Mix_PlayChannel(-1, dm->windowShatter, 0);
+					Mix_PlayChannel(-1, dm->windowbrk, 0);
 					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
 					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt = 0;
 					//shooting the walls
@@ -282,8 +282,8 @@ void	render(t_doom *dm)
 	if (dm->alive && dm->hp <= 0)
 	{
 		dm->alive = 0;
-		Mix_PlayChannel(-1, dm->osrsDeath, 0);
-		set_text(dm, "you died", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xE71313}, 2);
+		Mix_PlayChannel(-1, dm->death, 0);
+		set_text(dm, "you died 10 times", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xE71313}, 2);
 		SDL_RenderPresent(dm->rend);
 	}
 	if (dm->iframe == 49)
@@ -292,11 +292,6 @@ void	render(t_doom *dm)
 		SDL_RenderPresent(dm->rend);
 	if (dm->iframe)
 		dm->iframe--;
-	Mix_VolumeMusic(i);
-	i++;
-	if (i > 128)
-		i = 0;
-	//printf("Pos z y x: %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
 	dm->fps++;
 	//printf("Pos %d %d %f\n", dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].b, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].pt, dm->pos.z);
 }
