@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/10 14:01:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 13:28:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,31 +93,24 @@ void	reloading_gun(t_doom *dm)
 
 void	draw_ammo(t_doom *dm)
 {
-	if (dm->magazine == 10)
-	{
-		dm->gfx[31].x = 50;
-		draw_pgfx_sc(dm, dm->gfx[31], (int[6]){(dm->winh - 60), (dm->winw - 85), 50, 50, 0, 0}, 1);
-		dm->gfx[31].x = 0;
-		draw_pgfx_sc(dm, dm->gfx[31], (int[6]){(dm->winh - 60), (dm->winw - 60), 50, 50, 0, 0}, 1);
-	}
-	else
-	{
-		dm->gfx[31].x = 50 * dm->magazine;
-		draw_pgfx_sc(dm, dm->gfx[31], (int[6]){(dm->winh - 60), (dm->winw - 60), 50, 50, 0, 0}, 1);
-	}
+	char	*ammo;
+
+	ammo = ft_itoa(dm->magazine);
+	set_text(dm, ammo, (int[3]){(dm->winh - 60), (dm->winw - 85), 0xE71313}, 1.5);
+	free(ammo);
 }
 
 void	draw_hp(t_doom *dm)
 {
-	int	health;
+	//int	health;
 	int	x;
 	int	i;
 
-	health = dm->hp / 20;
+	//health = dm->hp / 5;
 	x = 20;
 	i = -1;
 	dm->gfx[28].x = 0;
-	while (++i < health)
+	while (++i < dm->hp)
 	{
 		draw_pgfx_sc(dm, dm->gfx[28], (int[6]){10, x, 60, 61, 0, 0}, 1);
 		x += 61;

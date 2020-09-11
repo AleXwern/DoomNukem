@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 14:19:54 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:29:39 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 /*void	set_projectile(t_doom *dm)
 {
 	static int	frm;
-
 	if (frm == 0)
 	{
 		dm->spr[4].hp = 100 * (i + 1);
@@ -328,7 +327,6 @@ void	demodraw_sprite(t_doom *dm)
 		dm->gfx[dm->spr[i].gfx].x -= x;
 		x = 0;
 	}
-
 	//chest width 197 height 197 per frame
 	if (dm->chestopened)
 		dm->gfx[dm->spr[i].gfx].x = (dm->spr[i].frame / 8) * 196;
@@ -338,7 +336,6 @@ void	demodraw_sprite(t_doom *dm)
 	dm->spr[i].face.x = 1;
 	sprb = atan2(dm->spr[i].face.y, dm->spr[i].face.x) * 180 / M_PI + 180;
 	sprb = sprb - spra;
-
 	if (sprb < 45 && sprb > -45)
 		dm->gfx[dm->spr[i].gfx].y = 0;
 	else if (sprb > 135 || sprb < -135)

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 14:35:14 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:29:48 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,7 +283,7 @@ void	render(t_doom *dm)
 	{
 		dm->alive = 0;
 		Mix_PlayChannel(-1, dm->death, 0);
-		set_text(dm, "you died 10 times", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xE71313}, 2);
+		set_text(dm, "you died\npress space", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xf70e0e}, 2);
 		SDL_RenderPresent(dm->rend);
 	}
 	//printf("%d  %d  %d\n", (int)dm->pos.z, (int)dm->pos.y, (int)dm->pos.x);

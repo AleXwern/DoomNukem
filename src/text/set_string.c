@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_string.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 12:27:40 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 01:05:23 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/11 12:29:12 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ void	set_text(t_doom *dm, char *str, int *xy, double size)
 		{
 			dm->gfx[33].x = 727 + (str[i] - 48) * 27;
 			draw_text(dm, dm->gfx[33], (int[7]){xy[0], xy[1], 26, 27, 0, 0, xy[2]}, size);
+		}
+		else if (str[i] == '\n')
+		{
+			xy[0] += 28 * size;
+			xy[1] -= 27 * (i + 1) * size;
 		}
 		xy[1] += 27 * size;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 16:25:57 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:29:52 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 void	draw_sky(t_doom *dm)
 {
-	while (dm->sbox >= dm->winw)
-		dm->sbox -= dm->winw;
-	while (dm->sboy >= dm->winh)
-		dm->sboy -= dm->winh;
+	while (dm->sbox >= 1080)
+		dm->sbox -= 1080;
+	while (dm->sboy >= 360)
+		dm->sboy -= 360;
 	while (dm->sbox < 0)
-		dm->sbox += dm->winw;
+		dm->sbox += 1080;
 	while (dm->sboy < 0)
-		dm->sboy += dm->winh;
+		dm->sboy += 360;
 	if (dm->texbool)
-		dm->col = dm->gfx[0].data[dm->winw * ((dm->y + dm->sboy) % 360) + (dm->x + dm->sbox) % 1080];
+		dm->col = dm->gfx[0].data[1080 * ((dm->y + dm->sboy) % 360) + (dm->x + dm->sbox) % 1080];
 	else
 		dm->col = 0xff000000;
 	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
