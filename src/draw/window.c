@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 13:21:56 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 15:24:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:38:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ext_raytwo(t_doom *dm)
 		render_floor(dm);
 	else
 		wall_stripe(dm);
+	if (dm->x == 540 && dm->y == 359)
+		printf("%08x %08x\n", dm->col, dm->rcol);
 	dm->col = avg_color(dm->rcol, dm->col);
 	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 12:43:48 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 14:05:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:22:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void	suffrocate(t_doom *dm, t_block blk, t_vector bpos)
 	else if (blk.pt == 6 && bpos.x > (1 - blk.pln / 15.0))
 		dm->iframe = IFRAME;
 	if (dm->iframe)
-		dm->hp -= 20;
-	printf("Pos %d %d %f %f %f\n", blk.b, blk.pt, bpos.z, bpos.y, bpos.x);
+		dm->hp -= 1;
+	//printf("Pos %d %d %f %f %f\n", blk.b, blk.pt, bpos.z, bpos.y, bpos.x);
 }

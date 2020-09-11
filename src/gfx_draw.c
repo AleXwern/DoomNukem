@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/28 15:44:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 13:36:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ void	draw_menu(t_doom *dm, int x, int y, int cur)
 		{
 			x = gx * (dm->gfx[9].wid / ((double)dm->winw / 2));
 			if (gy > (cur * dm->winh / 10) && gy < ((cur + 1) * dm->winh / 10))
-				dm->img.data[dm->winw * gy + gx] = dm->gfx[9].data[dm->gfx[9].wid * y + x] + 0x00252525;
+				dm->img.data[dm->winw * gy + gx] = 0xff4547f5;
 			else
-				dm->img.data[dm->winw * gy + gx] = dm->gfx[9].data[dm->gfx[9].wid * y + x];
+				dm->img.data[dm->winw * gy + gx] = 0xff1804c9;
 		}
 		while (++gx < dm->winw)
 			dm->img.data[dm->winw * gy + gx] = 0xff1821ac;

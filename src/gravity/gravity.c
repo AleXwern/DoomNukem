@@ -89,6 +89,8 @@ void	gravity(t_doom* dm)
 		return;
 	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)
 		dm->gravity.z /= fabs(dm->gravity.z);
+	if (dm->pos.z + dm->gravity.z > 8 || dm->pos.z + dm->gravity.z < 0)
+		error_out(VOID_OVER, dm);
 	if (dm->gravity.z < 0)
 	{
 		if (check_ver_ucoll(dm->area[(int)(dm->pos.z + dm->gravity.z - 0.1)][(int)(dm->pos.y)][(int)dm->pos.x], dm))

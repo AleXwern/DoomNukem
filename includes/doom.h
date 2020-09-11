@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 14:26:52 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 15:43:51 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,9 +279,6 @@ typedef struct		s_doom
 	SDL_cond		*cond;
 	struct s_doom	*data_r;
 	struct s_doom	*dm;
-	int				sprnum;
-	int				*sprord;
-	double			*sprdist;
 	int				id;
 	int				*claimline;
 	int				*done;
@@ -291,6 +288,9 @@ typedef struct		s_doom
 	int				tile;
 	t_gfx			*gfx;
 	t_sprite		spr[9];
+	t_sprite		prj[9];
+	t_sprite		obj[9];
+	Uint32			gfram;
 	int				gfxcount;
 	t_chara			*chara;
 	int				height;

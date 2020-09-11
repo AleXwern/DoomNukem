@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 15:45:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 15:22:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 		return (0);
 	if (temp[0][0] == 'z')
 		return (0);
-	if (!(dm->area[dm->flr][y] = (MAPTYPE*)malloc(sizeof(MAPTYPE) * 25)))
+	if (!(dm->area[dm->flr][y] = (MAPTYPE*)ft_memalloc(sizeof(MAPTYPE) * 25)))
 		error_out(MEM_ERROR, dm);
 	while (temp[x] && x < 25)
 	{
@@ -130,7 +130,7 @@ void	comp_map(t_doom *dm)
 	char*	path;
 
 	dm->width = 25;
-	if (!(dm->area = (MAPTYPE***)malloc(sizeof(MAPTYPE**) * 9)))
+	if (!(dm->area = (MAPTYPE***)ft_memalloc(sizeof(MAPTYPE**) * 9)))
 		error_out(MEM_ERROR, dm);
 	path = SDL_GetBasePath();
 	fpath = ft_strjoin(path, "map/1s");
@@ -146,28 +146,10 @@ void	comp_map(t_doom *dm)
 		error_out(FLR_ERROR, dm);
 	while (dm->flr < dm->mxflr)
 	{
-		if (dm->flr >= dm->mxflr)
-			return ;
-		if (!(dm->area[dm->flr] = (MAPTYPE**)malloc(sizeof(MAPTYPE*) * 25)))
+		//if (dm->flr >= dm->mxflr)
+		//	break ;
+		if (!(dm->area[dm->flr] = (MAPTYPE**)ft_memalloc(sizeof(MAPTYPE*) * 25)))
 			error_out(MEM_ERROR, dm);
-		//dm->flr += 49;
-		//flrfl = ft_strjoin(av, (char*)&(dm->flr));
-		/*if (dm->flr == 0)
-			fpath = ft_strjoin(path, "map/1");
-		else if (dm->flr == 1)
-			fpath = ft_strjoin(path, "map/2");
-		else if (dm->flr == 2)
-			fpath = ft_strjoin(path, "map/3");
-		else if (dm->flr == 3)
-			fpath = ft_strjoin(path, "map/4");
-		else if (dm->flr != dm->mxflr - 1)
-			fpath = ft_strjoin(path, "map/5");
-		else
-			fpath = ft_strjoin(path, "map/6");*/
-		//ft_putendl(flrfl);
-		//fd = open(flrfl, O_RDONLY);
-		//free(flrfl);
-		//dm->flr -= 49;
 		fileformat(fd, dm, 0);
 		dm->flr++;
 	}

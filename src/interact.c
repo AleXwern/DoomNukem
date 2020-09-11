@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/09/09 14:31:36 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/11 13:28:47 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		interact(t_doom *dm)
 	if (dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].meta == 1)
 		error_out(VOID_OVER, dm);
 	else if (dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].meta == 2)
-		dm->hp = 100;
+		dm->hp = 5;
 	if (obj == 3 || obj == 4)
 		lab_move(dm, obj, tarpos);
 	else if (obj == 5 && dm->keycard)

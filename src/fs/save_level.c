@@ -52,6 +52,15 @@ void	write_file(t_doom* dm, int fd, int x, int y)
 	}
 }
 
+void	write_sprite(t_doom* dm, int fd, int i)
+{
+	while (++i < 9)
+	{
+		write(fd, &dm->spr[i], sizeof(t_sprite));
+		write(fd, "\n", 1);
+	}
+}
+
 int		save_file(t_doom* dm, int fd, char* file, int i)
 {
 	char*	path;
@@ -78,6 +87,7 @@ int		save_file(t_doom* dm, int fd, char* file, int i)
 		write_file(dm, fd, -1, -1);
 		write(fd, "z\n", 2);
 	}
+	write_sprite(dm, fd, -1);
 	close(fd);
 	ft_putendl("Saving successful!");
 	return (1);

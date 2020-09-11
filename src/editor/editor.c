@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 01:09:41 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:11:56 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	draw_slidertext(t_doom *dm, t_editor *le)
 	else if (le->cur == 1)
 		set_text(dm, "lighter to the right", (int[3]){550, 790, 0xE71313}, 1);
 	else if (le->cur == 2)
-		set_text(dm, "normal  up  down  back  front  left  right  extra", (int[3]){550, 790, 0xE71313}, 0.5);
+		set_text(dm, "full  z   y   x\n     u d n s w e", (int[3]){550, 790, 0xE71313}, 1);
 	else if (le->cur == 3)
 		set_text(dm, "thicker to the right", (int[3]){550, 790, 0xE71313}, 1);
 	else if (le->cur == 4)
-		set_text(dm, "left nothing   middle kill   right heal", (int[3]){550, 790, 0xE71313}, 0.60);
+		set_text(dm, "left middle right\nnull kill   heal", (int[3]){550, 790, 0xE71313}, 1);
 }
 
 void	render_editor(t_doom *dm, t_editor *le)

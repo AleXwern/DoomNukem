@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 14:28:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 13:29:03 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void			menu_keys_hold(int key, t_doom *dm)
 		comp_gfx(dm, 0);
 	}
 	else if (dm->cur == 9)
+	{
 		Mix_VolumeMusic(dm->volume);
+		Mix_Volume(-1, dm->volume);
+	}
 }
 
 int				key_hold(int key, t_doom *dm)
@@ -99,9 +102,13 @@ void			menu_keys(int key, t_doom *dm)
 	else if (key == UP)
 		dm->cur--;
 	if (dm->cur < 0)
-		dm->cur = 9;
-	if (dm->cur > 9)
+		dm->cur = OP;
+	if (dm->cur > OP)
 		dm->cur = 0;
+	if (dm->minopt > dm->cur)
+		dm->minopt = 0;
+	if (dm->cur - dm->minopt > 9)
+		dm->minopt = dm->cur - 9;
 }
 
 int				key_release(int key, t_doom *dm)
@@ -157,12 +164,12 @@ int				key_release(int key, t_doom *dm)
 		if (key == KEY_K && !dm->iframe)
 		{
 			Mix_PlayChannel(-1, dm->gettingHit, 0);
-			dm->hp -= 20;
+			dm->hp -= 1;
 			dm->iframe = 50;
 		}
 		if (key == KEY_J || key == SDL_SCANCODE_J)
 		{
-			dm->hp += 20;
+			dm->hp += 1;
 		}
 		if (key == KEY_SHIFT)
 			dm->movsp -= 0.10;
@@ -189,7 +196,7 @@ int				key_release(int key, t_doom *dm)
 		if (key == SPACE)
 		{
 			dm->alive = 1;
-			dm->hp = 100;
+			dm->hp = 5;
 			dm->magazine = 10;
 			reset_position(dm);
 			ft_bzero(&dm->key, sizeof(t_key));

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 12:48:06 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 12:45:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@
 # define IFRAME		50
 # define DFRAME		35
 # define PCOLL		0.2
+# define OP			10
 
 #if __APPLE__
 # define OSCAM		1
