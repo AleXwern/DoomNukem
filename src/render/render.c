@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 00:50:36 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:35:14 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,7 @@ void	render(t_doom *dm)
 		set_text(dm, "you died 10 times", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xE71313}, 2);
 		SDL_RenderPresent(dm->rend);
 	}
+	//printf("%d  %d  %d\n", (int)dm->pos.z, (int)dm->pos.y, (int)dm->pos.x);
 	if (dm->iframe == 49)
 		Mix_PlayChannel(-1, dm->gettingHit, 0);
 	if (dm->alive)

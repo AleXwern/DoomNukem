@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 12:48:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:25:57 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,13 @@ void	draw_stripe(t_doom *dm)
 		dm->texy = (int)((((dm->y * 256 - dm->winh * 128 * dm->camshift - dm->lineh * 128) * 128) / dm->lineh) / 256) % 128;
 		if (dm->texy < 0)
 			dm->texy += 128;
-		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+
+		//painting
+		if (dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].meta == 7 &&
+			dm->texnum == 2 /*&& dm->texy >= 27 && dm->texy + shift <= 77 && dm->texx > 39 && dm->texx < 89*/ && (dm->gfx[38].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128] != 0xffff00ff))//27y77 39x89
+			dm->col = color_shift(dm->gfx[38].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		else
+			dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		dm->lgt = light_map(dm->map, dm->side, dm->area);
 		dm->col = rl_color(dm->lgt, dm->col);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 14:35:04 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 15:59:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:17:55 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,13 @@ int		check_sprite_dist(t_doom *dm, double mov, char xy, char dir)
 	i = -1;
 	while (++i < 8)
 	{
+		//if (i == some sprite we want to pass through)
+		//	continue ;
 		newdist = tri_pythagor(newpos, dm->spr[i].pos);
 		if (dm->spr[i].dist < 0.9 && newdist < dm->spr[i].dist)
-		{
-			printf("Cant move 1\n");
 			return (0);
-		}
 		else if (dm->spr[i].dist >= 0.9 && newdist < 0.9)
-		{
-			printf("Cant move 2\n");
 			return (0);
-		}
 	}
 	return (1);
 }
@@ -110,8 +106,12 @@ void	move_fb(t_doom *dm)
 		mov /= fabs(mov) * 2;
 	if (dm->key.up)
 	{
+		/*if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].meta == 9)
+			printf("y is meta 9\n");
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].meta == 9)
+			printf("x is meta 9\n");*/
 		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x],
-			dm, mov) && check_sprite_dist(dm, mov, 'y', 'f'))
+			dm, mov) && check_sprite_dist(dm, mov, 'y', 'f'))// && (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].meta != 9))
 			dm->pos.y += dm->dir.y * mov;
 		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)],
 			dm, mov) && check_sprite_dist(dm, mov, 'x', 'f'))// && (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].meta != 9))

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 13:08:29 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/11 14:19:54 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -422,7 +422,10 @@ void	sprite_set(t_doom* dm)
 	dm->spr[7].pos.z = 7.5;
 	dm->spr[7].pos.y = 4.5;
 	dm->spr[7].pos.x = 20.5;
-	//dm->area[(int)dm->spr[7].pos.z][(int)dm->pos.y][(int)dm->pos.x].meta = 9;
+
+	dm->area[7][4][4].meta = 7;
+	//dm->area[(int)(dm->spr[7].pos.z)][(int)dm->spr[7].pos.y][(int)dm->spr[7].pos.x].meta = 9;
+	//printf("chest loc = %d  %d  %d\n", (int)(dm->spr[7].pos.z), (int)dm->spr[7].pos.y, (int)dm->spr[7].pos.x);
 	dm->spr[7].gfx = 37;
 	dm->spr[7].frame = 0;
 	dm->spr[7].size = 3;
