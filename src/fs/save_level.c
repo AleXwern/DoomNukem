@@ -68,11 +68,7 @@ int		save_file(t_doom* dm, int fd, char* file, int i)
 
 	bpath = SDL_GetBasePath();
 	path = ft_quadjoin(bpath, "map/", file, "");
-	#if _WIN64
-		errno_t err = _sopen_s(&fd, path, O_WRONLY | O_CREAT | O_TRUNC, _SH_DENYNO, _S_IREAD | _S_IWRITE);
-	#elif __APPLE__
-		fd = open(path, O_WRONLY/* | O_CREAT | O_EXCL, 0644*/);
-	#endif
+	fd = open(path, O_WRONLY | O_TRUNC);
 	//printf("%s FD %d %d %d\n", path, fd, ft_strlen(file), err);
 	free(path);
 	SDL_free(bpath);
@@ -87,7 +83,7 @@ int		save_file(t_doom* dm, int fd, char* file, int i)
 		write_file(dm, fd, -1, -1);
 		write(fd, "z\n", 2);
 	}
-	write_sprite(dm, fd, -1);
+	//write_sprite(dm, fd, -1);
 	close(fd);
 	ft_putendl("Saving successful!");
 	return (1);

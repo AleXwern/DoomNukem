@@ -105,6 +105,12 @@ typedef struct	s_key
 
 }				t_key;
 
+typedef union	u_type
+{
+	int			i;
+	double		d;
+}				t_type;
+
 typedef struct	s_vector
 {
 	double	x;
@@ -318,6 +324,7 @@ typedef struct		s_doom
 	int				mxflr;
 	int				mapset;
 	MAPTYPE			***area;
+	MAPTYPE			blk;
 	int				winb;
 	int				texbool;
 	double			rng;

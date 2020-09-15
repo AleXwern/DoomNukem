@@ -41,14 +41,14 @@ void	ext_dda(t_doom *dm)
 			dm->hit = 2;
 			return;
 		}
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6)
+		dm->blk = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x];
+		if (dm->blk.b == 6)
 			dm->hit = 0;
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt
-				&& dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
+		else if (dm->blk.pt && dm->blk.b > 1)
 			part_check(dm);
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 6)
+		else if (dm->blk.b > 6)
 			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
+		else if (dm->blk.b > 1)
 			dm->hit = 1;
 	}
 }
@@ -66,8 +66,6 @@ void	ext_raytwo(t_doom *dm)
 	dm->wincol = 0;
 	if (dm->hit == 2)
 		draw_sky(dm);
-	else if (dm->hit == 3)
-		dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
 	else if (dm->side == 2 || dm->side == 5)
 		render_floor(dm);
 	else

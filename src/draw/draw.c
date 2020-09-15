@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/15 14:22:36 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/15 16:42:59 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	draw_stripe(t_doom *dm)
 		if (dm->texy < 0)
 			dm->texy += 128;
 
-		//painting
-		if (dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].meta == 7)
+		//painting - dm->blk replaces the old horrible reference of reference of reference of 3 layers of typecast functions
+		if (dm->blk.meta == 7)
 			layer_draw(dm);
 		//if (dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].meta == 7 &&
 		//	dm->texnum == 2 && (dm->gfx[38].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128] != 0xffff00ff))//27y77 39x89

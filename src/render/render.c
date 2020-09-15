@@ -66,12 +66,12 @@ void	dda_sys(t_doom *dm)
 			dm->hit = 2;
 			return;
 		}
-		if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt && !dm->adj
-				&& dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1)
+		dm->blk = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x];
+		if (dm->blk.pt && !dm->adj && dm->blk.b > 1)
 			part_check(dm);
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 6 && !dm->adj)
+		else if (dm->blk.b > 6 && !dm->adj)
 			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
-		else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b > 1 && !dm->adj)
+		else if (dm->blk.b > 1 && !dm->adj)
 			dm->hit = 1;
 		if (dm->sided.x < dm->sided.y && dm->sided.x < dm->sided.z && !dm->hit)
 		{
@@ -195,7 +195,6 @@ int		renthread(void *ptr)
 			else
 				dm->col = 0xffF0330A;
 			dm->wallarr[dm->winw * dm->y + dm->x] = dm->walldist;
-			//dm->maparr[dm->winw * dm->y + dm->x] = (dm->side + 1) * dm->map[dm->mapz][dm->mapy][dm->mapx];
 			dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
 			if (dm->x == 0 && dm->y == 0)
 				dm->dm->min = dm->rayd;
