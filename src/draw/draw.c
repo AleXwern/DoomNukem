@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 16:29:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/15 14:22:36 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	draw_sky(t_doom *dm)
 	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
 }
 
+void	layer_draw(t_doom* dm)
+{
+	return;
+}
+
 void	draw_stripe(t_doom *dm)
 {
 	double	shift;
@@ -45,9 +50,11 @@ void	draw_stripe(t_doom *dm)
 			dm->texy += 128;
 
 		//painting
-		if (dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].meta == 7 &&
-			dm->texnum == 2 /*&& dm->texy >= 27 && dm->texy + shift <= 77 && dm->texx > 39 && dm->texx < 89*/ && (dm->gfx[38].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128] != 0xffff00ff))//27y77 39x89
-			dm->col = color_shift(dm->gfx[38].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		if (dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].meta == 7)
+			layer_draw(dm);
+		//if (dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].meta == 7 &&
+		//	dm->texnum == 2 && (dm->gfx[38].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128] != 0xffff00ff))//27y77 39x89
+		//	dm->col = color_shift(dm->gfx[38].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		else
 			dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		dm->lgt = light_map(dm->map, dm->side, dm->area);

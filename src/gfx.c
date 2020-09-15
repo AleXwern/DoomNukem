@@ -57,7 +57,8 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foeF1.bmp"), 0, 0);//35
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/pistol.bmp"), 0, 0);//36
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/chest.bmp"), 0, 0);//37
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/goldore.bmp"), 0, 0);//38
+	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/goldore.bmp"), 0, 0);//38
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
 	dm->gfxcount = i;
 	if (i != GFXCOUNT)
 		error_out(GFX_ERROR, dm);
@@ -88,7 +89,7 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 void	comp_hud_gfx(t_doom *dm, char *bpath, int i)
 {
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/spawn.bmp"), 0, 0);
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/glass.bmp"), 0, 0);
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/options.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foe3.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/btlmenu.bmp"), 0, 0);
