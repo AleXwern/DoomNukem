@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 12:58:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 12:27:08 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,7 @@ void	render(t_doom *dm)
 	}
 	if (dm->isoutline)
 		post_effects(dm);
-	demodraw_sprite(dm);
+	draw_sprite(dm, 0, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
 	if (dm->alive && dm->hp <= 0)

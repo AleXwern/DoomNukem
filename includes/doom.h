@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 15:43:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 12:26:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -528,6 +528,7 @@ void				draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size);
 void				draw_screen(t_editor* le, t_doom* dm, int x, int y);
 void				draw_sliders(t_doom *dm, t_editor *le, int x, int y);
 void				draw_sky(t_doom *dm);
+void				draw_sprite(t_doom *dm, int y, int x, double spra);
 void				draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size);
 void				editor_key_press(Uint32 key, t_editor *le);
 void				editor_key_release(Uint32 key, t_editor *le, t_doom* dm);
