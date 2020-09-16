@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 16:06:20 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:17:40 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -497,7 +497,7 @@ void				mouse_movey(int dir, t_doom *dm);
 int					move(t_doom *dm);
 void				move_fb(t_doom *dm);
 int					move_lr(t_doom *dm);
-int					check_sprite_dist(t_doom *dm, double mov, char flag, char dir);
+int					check_sprite_dist(t_doom *dm, double mov, int i);
 int					renthread(void *ptr);
 int					save_file(t_doom *dm, int fd, char* file, int i);
 int					x_press(t_doom *dm);
@@ -542,6 +542,7 @@ void				draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size);
 void				draw_screen(t_editor* le, t_doom* dm, int x, int y);
 void				draw_sliders(t_doom *dm, t_editor *le, int x, int y);
 void				draw_sky(t_doom *dm);
+void				draw_sprite(t_doom *dm, int y, int x, double spra);
 void				draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size);
 void				editor_key_press(Uint32 key, t_editor *le);
 void				editor_key_release(Uint32 key, t_editor *le, t_doom* dm);
@@ -549,6 +550,7 @@ void				editor_main(t_doom *dm);
 void				error_out(char *msg, t_doom *dm);
 void				ext_ray(t_doom *dm);
 void				side_check(t_doom* dm);
+void				validate_map(t_doom *dm, int i, int a, t_block blk);
 
 /*	Not in use?
 void			encounter(t_doom *dm);

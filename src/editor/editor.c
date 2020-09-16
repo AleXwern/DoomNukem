@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 12:56:19 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:16:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,7 @@ void	render_editor(t_doom *dm, t_editor *le)
 	draw_sliders(dm, le, dm->winw * 0.5, 0);
 	draw_blk_select(dm, le, 0, 0);
 	draw_slidertext(dm, le);
-	//dm->tex = SDL_CreateTextureFromSurface(dm->rend, dm->img.tex);
-	//SDL_RenderCopy(dm->rend, dm->tex, NULL, NULL);
-	//SDL_UpdateWindowSurface(dm->win);
 	SDL_RenderPresent(dm->rend);
-	//mouse_move(2, 0, dm);
-	//dm->keyck(dm);
 }
 
 void	editor_main(t_doom *dm)
@@ -93,4 +88,5 @@ void	editor_main(t_doom *dm)
 	dm->pos = dm->spawn;
 	if (le->quit == 2)
 		error_out(FINE, dm);
+	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .meta = 0, .pt = 0});
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/20 14:25:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:00:14 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		fps_counter(void* ptr)
 		printf("FPS: %d\n", dm->fps);
 		if (dm->fps > 0 && !dm->ismenu)
 			dm->prefps = dm->fps;
-		dm->fallsp.z = (0.65 * (30.0 / dm->buffer / dm->prefps)) / dm->prefps / (dm->buffer / 5.0);
+		dm->fallsp.z = (0.6 * (30.0 / dm->buffer / dm->prefps)) / dm->prefps / (dm->buffer / 5.0);
 		dm->fps = 0;
 	}
 	return (1);

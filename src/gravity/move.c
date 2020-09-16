@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 14:35:04 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 14:17:55 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:00:40 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,38 +61,28 @@ int		check_hor_coll(t_block blk, t_doom *dm, double mov)
 void	move_b(t_doom *dm, double mov)
 {
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y * mov)][(int)dm->pos.x],
-		dm, -mov) && check_sprite_dist(dm, mov, 'y', 'b'))
+		dm, -mov))
 		dm->pos.y -= dm->dir.y * mov;
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.x * mov)],
-		dm, -mov) && check_sprite_dist(dm, mov, 'x', 'b'))
+		dm, -mov))
 		dm->pos.x -= dm->dir.x * mov;
 }
 
-int		check_sprite_dist(t_doom *dm, double mov, char xy, char dir)
+int		check_sprite_dist(t_doom *dm, double mov, int i)
 {
-	double		newdist;
-	int			i;
-	t_vector	newpos;
+	t_vector	npos;
 
-	newpos = dm->pos;
-	if (xy == 'y' && dir == 'f')
-		newpos.y += dm->dir.y * mov;
-	else if (xy == 'x' && dir == 'f')
-		newpos.x += dm->dir.x * mov;
-	else if (xy == 'y' && dir == 'b')
-		newpos.y -= dm->dir.y * mov;
-	else if (xy == 'x' && dir == 'b')
-		newpos.x -= dm->dir.x * mov;
-	i = -1;
-	while (++i < 8)
+	npos = dm->pos;
+	while (++i < 9)
 	{
-		//if (i == some sprite we want to pass through)
-		//	continue ;
-		newdist = tri_pythagor(newpos, dm->spr[i].pos);
-		if (dm->spr[i].dist < 0.9 && newdist < dm->spr[i].dist)
-			return (0);
-		else if (dm->spr[i].dist >= 0.9 && newdist < 0.9)
-			return (0);
+		if (dm->spr[i].dist < 1.2 && fabs(dm->pos.z - dm->spr[i].pos.z) < 1)
+		{
+			npos.x -= dm->spr[i].dir.x * mov;
+			npos.y -= dm->spr[i].dir.y * mov;
+			if (check_hor_coll(dm->area[(int)npos.z][(int)(npos.y)][(int)npos.x],
+				dm, mov))
+				dm->pos = npos;
+		}
 	}
 	return (1);
 }
@@ -111,10 +101,10 @@ void	move_fb(t_doom *dm)
 		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].meta == 9)
 			printf("x is meta 9\n");*/
 		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x],
-			dm, mov) && check_sprite_dist(dm, mov, 'y', 'f'))// && (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].meta != 9))
+			dm, mov))// && (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].meta != 9))
 			dm->pos.y += dm->dir.y * mov;
 		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)],
-			dm, mov) && check_sprite_dist(dm, mov, 'x', 'f'))// && (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].meta != 9))
+			dm, mov))// && (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].meta != 9))
 		{
 			//printf("move to: z = %d, y = %d, x = %d\n", (int)dm->pos.z, (int)dm->pos.y, (int)(dm->pos.x + dm->dir.x * mov));
 			//printf("Sprite is in: z = %d, y = %d, x = %d\n", (int)dm->spr[7].pos.z, (int)dm->spr[7].pos.y, (int)dm->spr[7].pos.x);
@@ -123,6 +113,7 @@ void	move_fb(t_doom *dm)
 	}
 	if (dm->key.down)
 		move_b(dm, mov);
+	check_sprite_dist(dm, mov, -1);
 	dm->airbrn = 1;
 }
 
@@ -139,10 +130,10 @@ void	strafe(t_doom *dm, double dirxtemp, double dirytemp)
 		dir.x = dm->dir.y;
 		dir.y = dm->dir.x * -1;
 		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y + dir.y * mov)][(int)dm->pos.x],
-			dm, mov) && check_sprite_dist(dm, mov, 'y', 'f'))
+			dm, mov))
 			dm->pos.y += dir.y * mov;
 		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dir.x * mov)],
-			dm, mov) && check_sprite_dist(dm, mov, 'x', 'f'))
+			dm, mov))
 			dm->pos.x += dir.x * mov;
 	}
 	if (dm->key.right)
@@ -150,11 +141,12 @@ void	strafe(t_doom *dm, double dirxtemp, double dirytemp)
 		dir.x = dm->dir.y * -1;
 		dir.y = dm->dir.x;
 		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y + dir.y * mov)][(int)dm->pos.x],
-			dm, mov) && check_sprite_dist(dm, mov, 'y', 'f'))
+			dm, mov))
 			dm->pos.y += dir.y * mov;
 		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dir.x * mov)],
-			dm, mov) && check_sprite_dist(dm, mov, 'x', 'f'))
+			dm, mov))
 			dm->pos.x += dir.x * mov;
 	}
+	check_sprite_dist(dm, mov, -1);
 	dm->airbrn = 1;
 }

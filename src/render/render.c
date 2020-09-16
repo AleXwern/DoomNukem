@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 16:14:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:17:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,7 @@ void	render(t_doom *dm)
 	}
 	if (dm->isoutline)
 		post_effects(dm);
-	demodraw_sprite(dm);
+	draw_sprite(dm, 0, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
 	if (dm->slidedoor != 'x')
@@ -288,7 +288,7 @@ void	render(t_doom *dm)
 		SDL_RenderPresent(dm->rend);
 	}
 	//printf("%d  %d  %d\n", (int)dm->pos.z, (int)dm->pos.y, (int)dm->pos.x);
-	if (dm->iframe == 49)
+	if (dm->iframe == IFRAME)
 		Mix_PlayChannel(-1, dm->gettingHit, 0);
 	if (dm->alive)
 		SDL_RenderPresent(dm->rend);

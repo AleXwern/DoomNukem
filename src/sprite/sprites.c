@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 12:27:39 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:16:38 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 		while (gx < gfx.wid * size && (yx[1] + gx) < dm->winw && gx < yx[3] * size)
 		{
 			yx[5] = gx * (gfx.wid / (gfx.wid * size));
-			if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid &&
+			if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid && yx[0] + gy > -1 && yx[1] + gx > -1 &&
 				gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
 				dm->spr[yx[6]].dist < dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)])
 			{
@@ -72,7 +72,36 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 		frm = 0;
 }*/
 
-void	demodraw_sprite(t_doom *dm)
+void	draw_sprite(t_doom *dm, int y, int x, double spra)
+{
+	int			i;
+	static int	frm;
+	double		mina = atan2(dm->min.y, dm->min.x);
+	double		maxa = atan2(dm->max.y, dm->max.x);
+
+	i = -1;
+	if (maxa < mina)
+		maxa += M_PI * 2;
+	while (++i < 9)
+	{
+		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x);
+		if (spra < mina || spra > maxa)
+			spra += M_PI * 2;
+		if (spra < mina || spra > maxa)
+			spra -= M_PI * 2;
+		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
+		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
+		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
+		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
+		x = dm->winw * ((spra - mina) / (maxa - mina)) - ((dm->gfx[dm->spr[i].gfx].wid / 2) * 2 / dm->spr[i].dist);
+		//dm->spr[i].dist += (1.0 * dm->winw / 2 - abs(dm->winw / 2 - x)) / dm->winw;
+		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z)) - ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
+		draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, dm->gfx[dm->spr[i].gfx].hgt, dm->gfx[dm->spr[i].gfx].wid, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
+	}
+	//printf("Screen angle %f %f\nProj angle %f\ndiff %f\nspr0 %f %f\n", mina, maxa, atan2(dm->spr[4].dir.y, dm->spr[4].dir.x) * 180 / M_PI + 180, maxa - mina, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x), dm->spr[0].dist);
+}
+
+/*void	demodraw_sprite(t_doom *dm)
 {
 	int		x;
 	int		y;
@@ -167,12 +196,12 @@ void	demodraw_sprite(t_doom *dm)
 	dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
 	dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
 	dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
-	/*if (dm->spr[i].dist > 3)
+	if (dm->spr[i].dist > 3)
 	{
 		dm->spr[i].pos.z += dm->spr[i].mov.z;
 		dm->spr[i].pos.y += dm->spr[i].mov.y;
 		dm->spr[i].pos.x += dm->spr[i].mov.x;
-	}*/
+	}
 	if (spra < mina || spra > maxa)
 		spra += 360;
 	if (spra < mina || spra > maxa)
@@ -209,7 +238,7 @@ void	demodraw_sprite(t_doom *dm)
 		dm->gfx[dm->spr[i].gfx].y = 96;
 
 	// "HASAM" (Highly Advanced Super Ai Movement)
-	/*if (dm->spr[i].move == 'f')
+	if (dm->spr[i].move == 'f')
 	{
 		if (dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x + 0.5)].b == 1 &&
 			dm->area[(int)dm->spr[i].pos.z][(int)dm->spr[i].pos.y][(int)(dm->spr[i].pos.x + 0.05)].b == 1)
@@ -293,7 +322,7 @@ void	demodraw_sprite(t_doom *dm)
 			dm->spr[i].move = 'b';
 			dm->spr[i].steps = 0;
 		}
-	}*/
+	}
 	//printf("dm->spr[i].pos.z == %f\n", dm->spr[i].pos.z);
 	draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 48, 32, 0, 0, i}, 25 / dm->spr[i].dist);
 	dm->spr[i].frame++;
@@ -304,7 +333,7 @@ void	demodraw_sprite(t_doom *dm)
 
 
 	//######### Chest ############
-	/*i = 7;
+	i = 7;
 	spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x) * 180 / M_PI + 180;
 	dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
 	dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
@@ -348,8 +377,8 @@ void	demodraw_sprite(t_doom *dm)
 	if (dm->chestopened && dm->spr[i].frame < 47)
 		dm->spr[i].frame++;
 	else if (dm->chestopened && dm->spr[i].frame == 47)
-		dm->drawgunandkeycard = 1;*/
-}
+		dm->drawgunandkeycard = 1;
+}*/
 
 void	sprite_set(t_doom* dm)
 {
@@ -363,7 +392,7 @@ void	sprite_set(t_doom* dm)
 	if (i)
 		return;
 	dm->spr[0].hp = 100;
-	dm->spr[0].pos.z = 7.8;
+	dm->spr[0].pos.z = 7.2;
 	dm->spr[0].pos.y = 12.42;
 	dm->spr[0].pos.x = 12.4;
 	dm->spr[0].gfx = 34;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 12:43:48 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 16:30:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/16 14:10:48 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	suffrocate(t_doom *dm, t_block blk, t_vector bpos)
 		return;
 	if (blk.pt == 0)
 		dm->iframe = IFRAME;
-	else if (blk.pt == 1 && bpos.z > (1 - blk.pln / 15.0))
-		dm->iframe = IFRAME;
-	else if (blk.pt == 2 && bpos.z < blk.pln / 15.0)
+	else if (blk.pt <= 2 && bpos.z > (1 - blk.pln / 15.0))
 		dm->iframe = IFRAME;
 	else if (blk.pt == 3 && bpos.y < blk.pln / 15.0)
 		dm->iframe = IFRAME;
@@ -36,5 +34,5 @@ void	suffrocate(t_doom *dm, t_block blk, t_vector bpos)
 		dm->iframe = IFRAME;
 	if (dm->iframe)
 		dm->hp -= 1;
-	//printf("Pos %d %d %f %f %f\n", blk.b, blk.pt, bpos.z, bpos.y, bpos.x);
+	printf("Pos %d %d %f %f %f\n", blk.b, blk.pt, bpos.z, bpos.y, bpos.x);
 }
