@@ -111,6 +111,6 @@ void	gravity(t_doom* dm)
 		
 	}
 	dm->gravity.z += dm->fallsp.z;
-	if (dm->gravity.z > 0.2 * (30.0 / dm->buffer / dm->prefps))
-		dm->gravity.z = 0.2 * (30.0 / dm->buffer / dm->prefps);
+	if (dm->gravity.z > 0.17 * (30.0 / dm->buffer / dm->prefps))
+		dm->gravity.z = 0.17 * (30.0 / dm->buffer / dm->prefps);
 }

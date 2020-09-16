@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 13:16:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:24:23 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ void	draw_sprite(t_doom *dm, int y, int x, double spra)
 		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
 		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
 		x = dm->winw * ((spra - mina) / (maxa - mina)) - ((dm->gfx[dm->spr[i].gfx].wid / 2) * 2 / dm->spr[i].dist);
-		dm->spr[i].dist += (1.0 * dm->winw / 2 - abs(dm->winw / 2 - x)) / dm->winw;
+		//dm->spr[i].dist += (1.0 * dm->winw / 2 - abs(dm->winw / 2 - x)) / dm->winw;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z)) - ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
 		draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, dm->gfx[dm->spr[i].gfx].hgt, dm->gfx[dm->spr[i].gfx].wid, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
 	}
-	printf("Screen angle %f %f\nProj angle %f\ndiff %f\nspr0 %f %f\n", mina, maxa, atan2(dm->spr[4].dir.y, dm->spr[4].dir.x) * 180 / M_PI + 180, maxa - mina, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x), dm->spr[0].dist);
+	//printf("Screen angle %f %f\nProj angle %f\ndiff %f\nspr0 %f %f\n", mina, maxa, atan2(dm->spr[4].dir.y, dm->spr[4].dir.x) * 180 / M_PI + 180, maxa - mina, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x), dm->spr[0].dist);
 }
 
 /*void	demodraw_sprite(t_doom *dm)
@@ -448,7 +448,10 @@ void	sprite_set(t_doom* dm)
 	dm->spr[7].pos.z = 7.5;
 	dm->spr[7].pos.y = 4.5;
 	dm->spr[7].pos.x = 20.5;
-	//dm->area[(int)dm->spr[7].pos.z][(int)dm->pos.y][(int)dm->pos.x].meta = 9;
+
+	dm->area[7][4][4].meta = 7;
+	//dm->area[(int)(dm->spr[7].pos.z)][(int)dm->spr[7].pos.y][(int)dm->spr[7].pos.x].meta = 9;
+	//printf("chest loc = %d  %d  %d\n", (int)(dm->spr[7].pos.z), (int)dm->spr[7].pos.y, (int)dm->spr[7].pos.x);
 	dm->spr[7].gfx = 37;
 	dm->spr[7].frame = 0;
 	dm->spr[7].size = 3;

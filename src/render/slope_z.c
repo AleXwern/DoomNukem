@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 15:01:19 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 14:52:19 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	slope_dda_xzn(t_doom* dm)
 		if (dm->rmap2.z >= dm->rmap2.y || dm->rmap2.z < LIMN || dm->rmap2.y > LIM)// || dm->rmap2.z > 0)
 			return;
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("Suitable point\n");
+			printf("Suitable point XZN\n");
 		dm->sided.z += dm->deltad.z;
 		dm->map.z += dm->stepz * dm->rmap2.y;
 		dm->side = 2;
@@ -62,13 +62,13 @@ void	slope_dda_xzp(t_doom* dm)
 		single_loop_z(dm);
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("RMAP %f < %f\n", dm->rmap2.z, dm->rmap2.y);
-		if (dm->rmap2.z < dm->rmap2.y)
+			printf("RMAP %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
+		if (dm->rmap2.z < dm->rmap2.y && dm->rmap2.y <= LIM)
 			return;
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			printf("Suitable point XZP\n");
 		dm->sided.z += dm->deltad.z;
-		dm->map.z += dm->stepz * dm->rmap2.y;
+		dm->map.z += dm->stepz * ((dm->rmap2.y * 10) / 15.0);
 		dm->side = 2;
 		dm->hit = 1;
 		dm->hithalf++;

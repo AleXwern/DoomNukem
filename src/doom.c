@@ -23,6 +23,7 @@ void	error_out(char *msg, t_doom *dm)
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_WaitThread(dm->fpsthread, NULL);
 	SDL_Quit();
+	ft_putnbrln(sizeof(t_type));
 	//system("leaks doom-nukem");
 	exit(0);
 	//Things below just in case.

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 13:29:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:58:04 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int				key_release(int key, t_doom *dm)
 		{
 			Mix_PlayChannel(-1, dm->gettingHit, 0);
 			dm->hp -= 1;
-			dm->iframe = 50;
+			dm->iframe = IFRAME;
 		}
 		if (key == KEY_J || key == SDL_SCANCODE_J)
 		{
@@ -273,7 +273,7 @@ int				move(t_doom *dm)
 		if ((dm->key.space) && !dm->isoptions && !dm->airbrn)
 		{
 			dm->airbrn = 1;
-			dm->gravity.z = -0.55 * (30.0 / dm->buffer / dm->prefps);
+			dm->gravity.z = -0.45 * (30.0 / dm->buffer / dm->prefps);
 		}
 		if (!dm->airbrn && !dm->iframe)
 			suffrocate(dm, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x],

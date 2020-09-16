@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 12:26:41 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:03:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,12 @@ typedef struct	s_key
 	Sint8	minus;
 
 }				t_key;
+
+typedef union	u_type
+{
+	int			i;
+	double		d;
+}				t_type;
 
 typedef struct	s_vector
 {
@@ -318,6 +324,7 @@ typedef struct		s_doom
 	int				mxflr;
 	int				mapset;
 	MAPTYPE			***area;
+	MAPTYPE			blk;
 	int				winb;
 	int				texbool;
 	double			rng;
@@ -483,7 +490,7 @@ void				mouse_movey(int dir, t_doom *dm);
 int					move(t_doom *dm);
 void				move_fb(t_doom *dm);
 int					move_lr(t_doom *dm);
-int					check_sprite_dist(t_doom *dm, double mov, char flag, char dir);
+int					check_sprite_dist(t_doom *dm, double mov, int i);
 int					renthread(void *ptr);
 int					save_file(t_doom *dm, int fd, char* file, int i);
 int					x_press(t_doom *dm);
@@ -536,6 +543,7 @@ void				editor_main(t_doom *dm);
 void				error_out(char *msg, t_doom *dm);
 void				ext_ray(t_doom *dm);
 void				side_check(t_doom* dm);
+void				validate_map(t_doom *dm, int i, int a, t_block blk);
 
 /*	Not in use?
 void			encounter(t_doom *dm);

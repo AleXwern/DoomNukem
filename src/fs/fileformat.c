@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 15:22:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:44:07 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,34 @@
 
 // Remember to clear Windows spesific open functions for final version.
 
-void	validate_map(t_doom *dm, int i, int a)
+void	validate_flr(t_doom *dm, int y, int x, t_block blk)
+{
+	while (++y < dm->height)
+	{
+		x = -1;
+		while (++x < dm->width)
+			dm->area[dm->mxflr - 1][y][x] = blk;
+	}
+}
+
+void	validate_map(t_doom *dm, int i, int a, t_block blk)
 {
 	while (++a < dm->mxflr)
 	{
 		i = -1;
 		while (++i < dm->width)
 		{
-			if (dm->area[a][0][i].b != 2)
-				error_out(FIL_ERROR, dm);
-			if (dm->area[a][dm->height - 1][i].b != 2)
-				error_out(FIL_ERROR, dm);
+			dm->area[a][0][i] = blk;
+			dm->area[a][dm->height - 1][i] = blk;
 		}
 		i = -1;
 		while (++i < dm->height)
 		{
-			if (dm->area[a][i][0].b != 2)
-				error_out(FIL_ERROR, dm);
-			if (dm->area[a][i][dm->width - 1].b != 2)
-				error_out(FIL_ERROR, dm);
+			dm->area[a][i][0] = blk;
+			dm->area[a][i][dm->width - 1] = blk;
 		}
 	}
+	validate_flr(dm, -1, -1, blk);
 }
 
 void	fill_area(t_doom* dm, int y, int x)
@@ -155,5 +162,5 @@ void	comp_map(t_doom *dm)
 	}
 	dm->height = 25;
 	close(fd);
-	//validate_map(dm, -1, -1);
+	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .meta = 0, .pt = 0});
 }
