@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 14:11:56 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 12:56:19 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->maxval[1] = 15.0;
 	le->maxval[2] = 8.0;
 	le->maxval[3] = 15.0;
-	le->maxval[4] = 2.0;
+	le->maxval[4] = 7.0;
 	le->minval[0] = 0;
 	le->minval[1] = 0;
 	le->minval[2] = 0;
@@ -51,7 +51,10 @@ void	draw_slidertext(t_doom *dm, t_editor *le)
 	else if (le->cur == 3)
 		set_text(dm, "thicker to the right", (int[3]){550, 790, 0xE71313}, 1);
 	else if (le->cur == 4)
-		set_text(dm, "left middle right\nnull kill   heal", (int[3]){550, 790, 0xE71313}, 1);
+	{
+		set_text(dm, "paintings", (int[3]){550, 790, 0xE71313}, 1);
+		set_text(dm, "1 w  2 n  3 e  4 s  5 empty  6 heal  7 kill", (int[3]){590, 790, 0xE71313}, 0.6);
+	}
 }
 
 void	render_editor(t_doom *dm, t_editor *le)

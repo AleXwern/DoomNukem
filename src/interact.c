@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/09/11 16:30:10 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:07:39 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,38 +64,70 @@ void	lab_move(t_doom *dm, int obj, t_vector stair)
 		error_out(LAB_OUT, dm);
 }
 
+void	slide_door(t_doom *dm)
+{
+	if (dm->slidedoor == 'o')
+	{
+		dm->slideblock->pln = dm->doorani;
+		dm->doorfrm++;
+		if (dm->doorfrm == 4)
+		{
+			dm->doorani--;
+			dm->doorfrm = 0;
+		}
+		if (dm->doorani == 0)
+			dm->slidedoor = 'x';
+	}
+	else if (dm->slidedoor == 'c')
+	{
+		dm->slideblock->pln = dm->doorani;
+		dm->doorfrm++;
+		if (dm->doorfrm == 4)
+		{
+			dm->doorani++;
+			dm->doorfrm = 0;
+		}
+		if (dm->doorani == 16)
+			dm->slidedoor = 'x';
+	}
+}
+
 int		interact(t_doom *dm)
 {
 	t_vector	tarpos;
-	int			obj;
+	t_block		*blk;
 
 	tarpos.x = dm->pos.x + dm->dir.x * 0.9;
 	tarpos.y = dm->pos.y + dm->dir.y * 0.9;
-	obj = dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].b;
-	if (dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].meta == 1)
+	blk = &dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x];
+	if (blk->meta == 7)
 		error_out(VOID_OVER, dm);
-	else if (dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].meta == 2)
+	else if (blk->meta == 6)
 		dm->hp = 5;
-	if (obj == 3 || obj == 4)
-		lab_move(dm, obj, tarpos);
-	else if (obj == 5 && dm->keycard)
+	if (blk->b == 3 || blk->b == 4)
+		lab_move(dm, blk->b, tarpos);
+	else if (blk->b == 5 && blk->pln == 15 && dm->keycard && dm->slidedoor == 'x')
 	{
-		Mix_PlayChannel(-1, dm->doorsound, 0);
-		dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].b = 0;
+		dm->slidedoor = 'o';
+		dm->slideblock = blk;
+		dm->doorani = 15;
+		Mix_PlayChannel(-1, dm->doorsliding, 0);
 	}
-	else if (obj == 5 && !dm->keycard)
+	else if (blk->b == 5 && !dm->keycard)
 		Mix_PlayChannel(-1, dm->doorknob, 0);
-	else if (obj == 0)
+	else if (blk->b == 5 && blk->pln == 1 && dm->keycard && dm->slidedoor == 'x')
 	{
-		Mix_PlayChannel(-1, dm->doorsound, 0);
-		dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x].b = 5;
+		dm->slidedoor = 'c';
+		dm->slideblock = blk;
+		dm->doorani = 1;
+		Mix_PlayChannel(-1, dm->doorsliding, 0);
 	}
-	else if (obj == 6)
+	else if (blk->b == 6)
 	{
 		Mix_PlayChannel(-1, dm->teleport, 0);
 		get_warpdest(dm, dm->pos, tarpos);
 	}
-	if (obj == 5 || obj == 0)
+	if (blk->b == 5 || blk->b == 0)
 		dm->cycle(dm);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/11 13:29:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:19:21 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ void	set_variables(t_doom *dm)
 	dm->magazine = 10;
 	dm->hp = 5;
 	dm->alive = 1;
-	dm->keycard = 0;
+	dm->keycard = 1;
+	dm->slidedoor = 'x';
+	dm->doorani = 0;
+	dm->doorfrm = 0;
 }

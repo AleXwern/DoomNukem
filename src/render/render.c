@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 16:29:48 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:14:49 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,6 +278,8 @@ void	render(t_doom *dm)
 	demodraw_sprite(dm);
 	draw_hud(dm);
 	pickupitem(dm);
+	if (dm->slidedoor != 'x')
+		slide_door(dm);
 	if (dm->alive && dm->hp <= 0)
 	{
 		dm->alive = 0;

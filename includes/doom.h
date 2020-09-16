@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 15:43:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:06:20 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,11 @@ typedef struct		s_doom
 	int				chestopened;
 	int				drawgunandkeycard;
 
+	char			slidedoor;
+	t_block			*slideblock;
+	int				doorani;
+	int				doorfrm;
+
 	/*
 	**	Variables for playing some sounds and music!
 	*/
@@ -446,6 +451,7 @@ typedef struct		s_doom
 	Mix_Chunk		*death;
 	Mix_Chunk		*mondeath;
 	Mix_Chunk		*windowbrk;
+	Mix_Chunk		*doorsliding;
 }					t_doom;
 
 /*	Not in use?
@@ -479,6 +485,7 @@ int					fps_counter(void* ptr);
 int					get_x(int pc);
 int					get_y(int pc);
 int					interact(t_doom *dm);
+void				slide_door(t_doom *dm);
 void				pickupitem(t_doom* dm);
 int					key_hold(int key, t_doom *dm);
 int					key_press(int key, t_doom *dm);

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 15:15:14 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/16 11:54:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "foe/foeF1.bmp"), 0, 0);//35
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/pistol.bmp"), 0, 0);//36
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/chest.bmp"), 0, 0);//37
-	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/goldore.bmp"), 0, 0);//38
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/goldore.bmp"), 0, 0);//38
+	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
 	dm->gfxcount = i;
 	if (i != GFXCOUNT)
 		error_out(GFX_ERROR, dm);
