@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/09/16 16:07:39 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 13:13:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,23 @@ int		get_stairdest(t_doom* dm, int obj, t_vector pos, t_vector stair)
 		curt_up(dm);
 	}
 	return (1);
+}
+
+void	get_doortype(t_doom* dm, t_vector pos, t_vector door, t_block blk)
+{
+	t_vector	relative;
+
+	if (blk.pt || blk.b != 5)
+		return;
+	relative.x = round(pos.x - door.x);
+	relative.y = round(pos.y - door.y);
+	if (relative.y != 0 && relative.x != 0)
+		return;
+	if (relative.y != 0)
+		dm->area[(int)dm->pos.z][(int)door.y][(int)door.x].pt = 5;
+	else
+		dm->area[(int)dm->pos.z][(int)door.y][(int)door.x].pt = 3;
+
 }
 
 void	lab_move(t_doom *dm, int obj, t_vector stair)
@@ -104,6 +121,7 @@ int		interact(t_doom *dm)
 		error_out(VOID_OVER, dm);
 	else if (blk->meta == 6)
 		dm->hp = 5;
+	get_doortype(dm, dm->pos, tarpos, *blk);
 	if (blk->b == 3 || blk->b == 4)
 		lab_move(dm, blk->b, tarpos);
 	else if (blk->b == 5 && blk->pln == 15 && dm->keycard && dm->slidedoor == 'x')

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 15:44:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/17 14:20:07 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,11 +141,7 @@ void	comp_map(t_doom *dm)
 		error_out(MEM_ERROR, dm);
 	path = SDL_GetBasePath();
 	fpath = ft_strjoin(path, "map/1s");
-	#if _WIN64
-		_sopen_s(&fd, fpath, _O_RDONLY, _SH_DENYWR, _S_IREAD);
-	#elif __APPLE__
-		fd = open(fpath, O_RDONLY);
-	#endif
+	fd = open(fpath, O_RDONLY);
 	SDL_free(path);
 	ft_putendl(fpath);
 	free(fpath);
@@ -160,6 +156,7 @@ void	comp_map(t_doom *dm)
 		fileformat(fd, dm, 0);
 		dm->flr++;
 	}
+	//comp_sprites(dm);
 	dm->height = 25;
 	close(fd);
 	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .meta = 0, .pt = 0});

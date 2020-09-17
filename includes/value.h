@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 16:30:24 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 12:48:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@
 # define GFXCOUNT	39
 # define THREADS	6
 # define BUFFER		6
-# define LIM		0.9999999
-# define LIMN		0.0000001
+# define LIM		0.999999
+# define LIMN		0.000001
 # define IFRAME		50
 # define DFRAME		35
 # define PCOLL		0.2

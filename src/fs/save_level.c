@@ -52,13 +52,30 @@ void	write_file(t_doom* dm, int fd, int x, int y)
 	}
 }
 
-void	write_sprite(t_doom* dm, int fd, int i)
+void	write_int(int num, int fd)
 {
 	char	*out;
 
+	out = ft_itoa(num);
+	write(fd, out, ft_strlen(out));
+	free(out);
+}
+
+void	write_sprite(t_doom* dm, int fd, int i)
+{
 	while (++i < 9)
 	{
-		write(fd, &dm->spr[i], sizeof(t_sprite));
+		write_int(dm->spr[i].gfx, fd);
+		write(fd, ",", 1);
+		write_int(dm->spr[i].size, fd);
+		write(fd, ",", 1);
+		write_int(dm->spr[i].hp, fd);
+		write(fd, ",", 1);
+		write_int(dm->spr[i].pos.z * 10, fd);
+		write(fd, ",", 1);
+		write_int(dm->spr[i].pos.y * 10, fd);
+		write(fd, ",", 1);
+		write_int(dm->spr[i].pos.x * 10, fd);
 		write(fd, "\n", 1);
 	}
 }
@@ -86,7 +103,7 @@ int		save_file(t_doom* dm, int fd, char* file, int i)
 		write_file(dm, fd, -1, -1);
 		write(fd, "z\n", 2);
 	}
-	//write_sprite(dm, fd, -1);
+	write_sprite(dm, fd, -1);
 	close(fd);
 	ft_putendl("Saving successful!");
 	return (1);

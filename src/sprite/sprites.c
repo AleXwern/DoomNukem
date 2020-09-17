@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 16:16:38 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 14:18:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,5 +454,6 @@ void	sprite_set(t_doom* dm)
 	dm->spr[7].gfx = 37;
 	dm->spr[7].frame = 0;
 	dm->spr[7].size = 3;
+	dm->spr[8].size = 1;
 
 }
