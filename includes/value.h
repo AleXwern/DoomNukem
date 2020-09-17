@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/17 14:56:08 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 15:43:17 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@
 # define GFXCOUNT	43
 # define THREADS	6
 # define BUFFER		6
-# define LIM		0.9999999
-# define LIMN		0.0000001
+# define LIM		0.999999
+# define LIMN		0.000001
 # define IFRAME		50
 # define DFRAME		35
 # define PCOLL		0.2

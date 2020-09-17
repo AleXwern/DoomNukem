@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/17 15:40:35 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 15:43:25 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,10 @@ void	wall_stripe(t_doom *dm)
 {
 	if (dm->texbool)
 	{
-		dm->texnum = dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].b;
+		if (dm->side == 0 || dm->side == 1)
+			dm->texnum = dm->area[(int)(dm->map.z)][(int)(dm->map.y)][(int)(dm->map.x)].b;
+		else
+			dm->texnum = dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].b;
 		if (dm->texnum > 6)//This is a (temporary) fix for the issue where having a value higher than 5 on the map creating a wal with a weird texture.
 			dm->texnum = 2;
 		if (dm->side % 3 == 0)
