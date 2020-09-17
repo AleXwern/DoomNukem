@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 11:54:44 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 14:55:56 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/pistol.bmp"), 0, 0);//36
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/chest.bmp"), 0, 0);//37
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/goldore.bmp"), 0, 0);//38
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreaderredright.bmp"), 0, 0);//39
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreaderredleft.bmp"), 0, 0);//40
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreadergreenright.bmp"), 0, 0);//41
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreadergreenleft.bmp"), 0, 0);//42
+	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreaderred.bmp"), 0, 0);//39
+	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreadergreen.bmp"), 0, 0);//40
+	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/slidingdoorred.bmp"), 0, 0);//39
+	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/slidingdoorgreen.bmp"), 0, 0);//40
+
 	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
 	dm->gfxcount = i;
 	if (i != GFXCOUNT)

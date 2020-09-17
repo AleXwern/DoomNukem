@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 16:17:54 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 12:47:17 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int				key_release(int key, t_doom *dm)
 			dm->reloading = 1;
 			dm->ani = 2;
 		}
-		if (key == SPACE)
+		if (key == SPACE && dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].pt != 1)
 			dm->key.space = 3;
 	}
 	else

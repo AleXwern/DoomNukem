@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 16:16:44 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 13:37:31 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->maxval[1] = 15.0;
 	le->maxval[2] = 8.0;
 	le->maxval[3] = 15.0;
-	le->maxval[4] = 7.0;
+	le->maxval[4] = 8.0;
 	le->minval[0] = 0;
 	le->minval[1] = 0;
 	le->minval[2] = 0;
@@ -53,7 +53,7 @@ void	draw_slidertext(t_doom *dm, t_editor *le)
 	else if (le->cur == 4)
 	{
 		set_text(dm, "paintings", (int[3]){550, 790, 0xE71313}, 1);
-		set_text(dm, "1 w  2 n  3 e  4 s  5 empty  6 heal  7 kill", (int[3]){590, 790, 0xE71313}, 0.6);
+		set_text(dm, "1 w  2 n  3 e  4 s  5 keyr  6 keyg  7 heal  8 kill", (int[3]){590, 790, 0xE71313}, 0.5);
 	}
 }
 

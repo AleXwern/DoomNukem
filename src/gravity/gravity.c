@@ -89,7 +89,7 @@ void	gravity(t_doom* dm)
 		return;
 	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)
 		dm->gravity.z /= fabs(dm->gravity.z);
-	if (dm->pos.z + dm->gravity.z > 8 || dm->pos.z + dm->gravity.z < 0)
+	if (dm->pos.z + dm->gravity.z < 0)
 		error_out(VOID_OVER, dm);
 	if (dm->gravity.z < 0)
 	{
@@ -108,7 +108,7 @@ void	gravity(t_doom* dm)
 			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]) - 0.6;
 		else
 			dm->pos.z = (int)dm->pos.z + 0.4;
-		
+
 	}
 	dm->gravity.z += dm->fallsp.z;
 	if (dm->gravity.z > 0.17 * (30.0 / dm->buffer / dm->prefps))

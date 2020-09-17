@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/09/16 16:07:39 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 14:20:52 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	slide_door(t_doom *dm)
 			dm->doorani--;
 			dm->doorfrm = 0;
 		}
-		if (dm->doorani == 0)
+		if (dm->doorani == 1)
 			dm->slidedoor = 'x';
 	}
 	else if (dm->slidedoor == 'c')
@@ -100,9 +100,9 @@ int		interact(t_doom *dm)
 	tarpos.x = dm->pos.x + dm->dir.x * 0.9;
 	tarpos.y = dm->pos.y + dm->dir.y * 0.9;
 	blk = &dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x];
-	if (blk->meta == 7)
+	if (blk->meta == 8)
 		error_out(VOID_OVER, dm);
-	else if (blk->meta == 6)
+	else if (blk->meta == 7)
 		dm->hp = 5;
 	if (blk->b == 3 || blk->b == 4)
 		lab_move(dm, blk->b, tarpos);
@@ -111,15 +111,17 @@ int		interact(t_doom *dm)
 		dm->slidedoor = 'o';
 		dm->slideblock = blk;
 		dm->doorani = 15;
+		blk->meta = 6;
 		Mix_PlayChannel(-1, dm->doorsliding, 0);
 	}
 	else if (blk->b == 5 && !dm->keycard)
 		Mix_PlayChannel(-1, dm->doorknob, 0);
-	else if (blk->b == 5 && blk->pln == 1 && dm->keycard && dm->slidedoor == 'x')
+	else if (blk->b == 5 && blk->pln == 2 && dm->keycard && dm->slidedoor == 'x')
 	{
 		dm->slidedoor = 'c';
 		dm->slideblock = blk;
-		dm->doorani = 1;
+		dm->doorani = 2;
+		blk->meta = 5;
 		Mix_PlayChannel(-1, dm->doorsliding, 0);
 	}
 	else if (blk->b == 6)

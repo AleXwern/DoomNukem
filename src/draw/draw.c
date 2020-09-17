@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/17 13:43:39 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 15:40:35 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ void	draw_sky(t_doom *dm)
 	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
 }
 
+void	shift_door(t_doom *dm, double shift, t_block blk, int side)
+{
+	if (blk.pt == 1)
+		dm->texy += 128 * (1 - blk.pln / 15.0);
+	else if (blk.pt == 2)
+		dm->texy += 128 * (blk.pln / 15.0);
+	else if ((blk.pt == 3 && side == 0) || (blk.pt == 4 && side == 3) || (blk.pt == 6 && side % 3 == 1))
+		dm->texx += 128 * (blk.pln / 15.0);
+	else if ((blk.pt == 3 && side == 3) || (blk.pt == 4 && side == 0) || (blk.pt == 5 && side % 3 == 1))
+		dm->texx += 128 * (1 - blk.pln / 15.0);
+	dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+}
+
 void	layer_draw(t_doom *dm, double shift, int layer)
 {
 	if (dm->texnum == 2 && dm->gfx[layer].data[((dm->texy + (int)shift) % 128)
@@ -42,9 +55,25 @@ void	layer_draw(t_doom *dm, double shift, int layer)
 	else if ((dm->blk.meta == 5 || dm->blk.meta == 6) && dm->gfx[layer].data[((dm->texy
 		+ (int)shift) % 128) * 128 + dm->texx % 128] != 0xffff00ff)
 	{
-		dm->col = color_shift(dm->gfx[layer].data[((dm->texy + (int)shift) % 128)
-		* 128 + dm->texx % 128], dm->walldist
-		+ fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		//printf("meta = %d\n", dm->blk.meta);
+		//doors west and east keycardreader first
+		if ((dm->blk.pt == 5 || dm->blk.pt == 6))// && (dm->side == 1 || dm->side == 4))
+		{
+			/*if (dm->side == 1)
+				dm->col = color_shift(dm->gfx[layer].data[((dm->texy + (int)shift) % 128)
+				* 128 + dm->texx % 128], dm->walldist
+				+ fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+			else if (dm->side == 4)*/
+			dm->col = color_shift(dm->gfx[layer].data[((dm->texy + (int)shift) % 128)
+			* 128 + dm->texx % 128], dm->walldist
+			+ fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		}
+		else if ((dm->blk.pt == 3 || dm->blk.pt == 4))// && (dm->side == 0 || dm->side == 3))
+		{
+			dm->col = color_shift(dm->gfx[layer].data[((dm->texy + (int)shift) % 128)
+			* 128 + dm->texx % 128], dm->walldist
+			+ fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+		}
 	}
 	else
 	{
@@ -68,12 +97,43 @@ void	draw_stripe(t_doom *dm)
 		if (dm->texy < 0)
 			dm->texy += 128;
 		//Paintings.meta: 1 = west, 2 = north, 3 = east, 4 = south
+		if (dm->blk.b == 5)
+			shift_door(dm, shift, dm->blk, dm->side);
 		if ((dm->side < 2 && dm->blk.meta == (dm->side + 1)) || (dm->side > 2 && dm->blk.meta == dm->side))
 			layer_draw(dm, shift, 38);
-		else if (dm->blk.meta == 5)
+		// "The wall", 32 lines of code. A fully working masterpiece. (Needs to be cleaner than this, erm.. wall)
+		if (dm->blk.meta == 5 && dm->side == 3 && dm->blk.pt == 3)//north
 			layer_draw(dm, shift, 39);
-		else if (dm->blk.meta == 6)
+		else if (dm->blk.meta == 5 && dm->side == 0 && dm->blk.pt == 3)
 			layer_draw(dm, shift, 40);
+		else if (dm->blk.meta == 6 && dm->side == 3 && dm->blk.pt == 3)
+			layer_draw(dm, shift, 41);
+		else if (dm->blk.meta == 6 && dm->side == 0 && dm->blk.pt == 3)
+			layer_draw(dm, shift, 42);
+		else if (dm->blk.meta == 5 && dm->side == 3 && dm->blk.pt == 4)//south
+			layer_draw(dm, shift, 40);
+		else if (dm->blk.meta == 5 && dm->side == 0 && dm->blk.pt == 4)
+			layer_draw(dm, shift, 39);
+		else if (dm->blk.meta == 6 && dm->side == 3 && dm->blk.pt == 4)
+			layer_draw(dm, shift, 42);
+		else if (dm->blk.meta == 6 && dm->side == 0 && dm->blk.pt == 4)
+			layer_draw(dm, shift, 41);
+		else if (dm->blk.meta == 5 && dm->side == 1 && dm->blk.pt == 5)//west
+			layer_draw(dm, shift, 39);
+		else if (dm->blk.meta == 5 && dm->side == 4 && dm->blk.pt == 5)
+			layer_draw(dm, shift, 39);
+		else if (dm->blk.meta == 6 && dm->side == 1 && dm->blk.pt == 5)
+			layer_draw(dm, shift, 41);
+		else if (dm->blk.meta == 6 && dm->side == 4 && dm->blk.pt == 5)
+			layer_draw(dm, shift, 41);
+		else if (dm->blk.meta == 5 && dm->side == 1 && dm->blk.pt == 6)//east
+			layer_draw(dm, shift, 40);
+		else if (dm->blk.meta == 5 && dm->side == 4 && dm->blk.pt == 6)
+			layer_draw(dm, shift, 40);
+		else if (dm->blk.meta == 6 && dm->side == 1 && dm->blk.pt == 6)
+			layer_draw(dm, shift, 42);
+		else if (dm->blk.meta == 6 && dm->side == 4 && dm->blk.pt == 6)
+			layer_draw(dm, shift, 42);
 		else
 			dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		dm->lgt = light_map(dm->map, dm->side, dm->area);

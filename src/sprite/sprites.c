@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 16:16:38 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 12:23:43 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,23 @@ void	draw_sprite(t_doom *dm, int y, int x, double spra)
 		x = dm->winw * ((spra - mina) / (maxa - mina)) - ((dm->gfx[dm->spr[i].gfx].wid / 2) * 2 / dm->spr[i].dist);
 		//dm->spr[i].dist += (1.0 * dm->winw / 2 - abs(dm->winw / 2 - x)) / dm->winw;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z)) - ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
+		/*if (i == 5 || i == 6)
+		{
+			if (dm->drawgunandkeycard)
+				draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, dm->gfx[dm->spr[i].gfx].hgt, dm->gfx[dm->spr[i].gfx].wid, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
+		}
+		else if (i == 7)
+		{
+			if (dm->chestopened)
+				dm->gfx[dm->spr[i].gfx].x = (dm->spr[i].frame / 8) * 196;
+			else
+				dm->gfx[dm->spr[i].gfx].x = 0;
+			if (dm->chestopened && dm->spr[i].frame < 47)
+				dm->spr[i].frame++;
+			else if (dm->chestopened && dm->spr[i].frame == 47)
+				dm->drawgunandkeycard = 1;
+			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 197, 197, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
+		}*/
 		draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, dm->gfx[dm->spr[i].gfx].hgt, dm->gfx[dm->spr[i].gfx].wid, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
 	}
 	//printf("Screen angle %f %f\nProj angle %f\ndiff %f\nspr0 %f %f\n", mina, maxa, atan2(dm->spr[4].dir.y, dm->spr[4].dir.x) * 180 / M_PI + 180, maxa - mina, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x), dm->spr[0].dist);
