@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 13:04:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/17 13:43:39 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ void	layer_draw(t_doom *dm, double shift, int layer)
 		* 128 + dm->texx % 128], dm->walldist
 		+ fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 	}
+	else if ((dm->blk.meta == 5 || dm->blk.meta == 6) && dm->gfx[layer].data[((dm->texy
+		+ (int)shift) % 128) * 128 + dm->texx % 128] != 0xffff00ff)
+	{
+		dm->col = color_shift(dm->gfx[layer].data[((dm->texy + (int)shift) % 128)
+		* 128 + dm->texx % 128], dm->walldist
+		+ fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
+	}
 	else
 	{
 		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy
@@ -60,24 +67,13 @@ void	draw_stripe(t_doom *dm)
 		dm->texy = (int)((((dm->y * 256 - dm->winh * 128 * dm->camshift - dm->lineh * 128) * 128) / dm->lineh) / 256) % 128;
 		if (dm->texy < 0)
 			dm->texy += 128;
-
-		//painting - dm->blk replaces the old horrible reference of reference of reference of 3 layers of typecast functions
-		//if (dm->area[(int)ceil(dm->map.z)][(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].meta == 7 &&
-		//	dm->texnum == 2 && (dm->gfx[38].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128] != 0xffff00ff))//27y77 39x89
-		//	dm->col = color_shift(dm->gfx[38].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
-		/*
-		if (dm->blk.meta == 4 && dm->side == 1)//north
-			layer_draw(dm, shift, 38);
-		else if (dm->blk.meta == 5 && dm->side == 3)//east
-			layer_draw(dm, shift, 38);
-		else if (dm->blk.meta == 6 && dm->side == 4)//south
-			layer_draw(dm, shift, 38);
-		else if (dm->blk.meta == 7 && dm->side == 0)//west
-			layer_draw(dm, shift, 38);
-		*/
 		//Paintings.meta: 1 = west, 2 = north, 3 = east, 4 = south
 		if ((dm->side < 2 && dm->blk.meta == (dm->side + 1)) || (dm->side > 2 && dm->blk.meta == dm->side))
 			layer_draw(dm, shift, 38);
+		else if (dm->blk.meta == 5)
+			layer_draw(dm, shift, 39);
+		else if (dm->blk.meta == 6)
+			layer_draw(dm, shift, 40);
 		else
 			dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) % 128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw), dm, 0);
 		dm->lgt = light_map(dm->map, dm->side, dm->area);
