@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/17 14:55:56 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/18 16:21:22 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,6 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreaderredleft.bmp"), 0, 0);//40
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreadergreenright.bmp"), 0, 0);//41
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreadergreenleft.bmp"), 0, 0);//42
-	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreaderred.bmp"), 0, 0);//39
-	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/keycardreadergreen.bmp"), 0, 0);//40
-	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/slidingdoorred.bmp"), 0, 0);//39
-	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/slidingdoorgreen.bmp"), 0, 0);//40
-
 	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
 	dm->gfxcount = i;
 	if (i != GFXCOUNT)
@@ -74,7 +69,7 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 }
 
 /*
-**	i = 15-25 for the foes.
+**	i = 15-24 for the foes.
 */
 
 void	comp_foe(t_doom *dm, char *bpath, int i)
@@ -92,7 +87,7 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 }
 
 /*
-** 7-14 second set
+** 7-15 second set
 */
 
 void	comp_hud_gfx(t_doom *dm, char *bpath, int i)

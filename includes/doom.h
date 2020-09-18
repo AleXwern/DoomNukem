@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 16:17:40 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/18 15:53:38 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ typedef struct	s_sprite
 	int			frame;
 	t_vector	face;
 	char		move;
-	int			steps;
+	int			steps;//needed anymore?
 }				t_sprite;
 
 /*

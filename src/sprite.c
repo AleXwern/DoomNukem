@@ -26,8 +26,5 @@ void	pickupitem(t_doom* dm)
 		ft_bzero(&dm->spr[6], sizeof(t_sprite));
 	}
 	else if (dm->spr[7].dist < 2.5 && !dm->chestopened)//chest
-	{
-		printf("Chest opened\n");
 		dm->chestopened = 1;
-	}
 }
