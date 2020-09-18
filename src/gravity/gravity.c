@@ -31,7 +31,7 @@ int		ver_move(t_block blk, t_doom *dm)
 	}
 	else if (blk.pt == 4)
 	{
-		if (dm->pos.y - (int)dm->pos.y < blk.pln / 15.0)
+		if (dm->pos.y - (int)dm->pos.y < (1 - blk.pln / 15.0))
 			return (1);
 	}
 	else if (blk.pt == 5)
@@ -41,7 +41,7 @@ int		ver_move(t_block blk, t_doom *dm)
 	}
 	else if (blk.pt == 6)
 	{
-		if (dm->pos.x - (int)dm->pos.x < blk.pln / 15.0)
+		if (dm->pos.x - (int)dm->pos.x < (1 - blk.pln / 15.0))
 			return (1);
 	}
 	return (0);
@@ -85,6 +85,7 @@ int		check_ver_ucoll(t_block blk, t_doom *dm)
 
 void	gravity(t_doom* dm)
 {
+	//dm->airbrn = 1;
 	if (dm->key.two || dm->isgravity || dm->ismenu || !dm->airbrn)
 		return;
 	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)

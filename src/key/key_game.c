@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/17 12:47:17 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/18 16:15:49 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,12 @@ int				key_release(int key, t_doom *dm)
 			dm->reloading = 1;
 			dm->ani = 2;
 		}
-		if (key == SPACE && dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].pt != 1)
+		if (key == SPACE)
 			dm->key.space = 3;
+		if (key == KEY_Y)
+			dm->plane.z -= 0.05;
+		if (key == KEY_H)
+			dm->plane.z += 0.05;
 	}
 	else
 	{
@@ -229,6 +233,20 @@ void			jetpack(t_doom *dm)
 	dm->airbrn = 1;
 }
 
+void			dir_single(t_doom *dm)
+{
+	double		vect;
+
+	vect = sqrt((dm->dir.y * dm->dir.y) + (dm->dir.x * dm->dir.x));
+	vect = sqrt((vect * vect) + (dm->dir.z * dm->dir.z));
+	dm->dir.z /= vect;
+	dm->dir.y /= vect;
+	dm->dir.x /= vect;
+	dm->plane.y /= vect;
+	dm->plane.x /= vect;
+	dm->plane.z *= vect;
+}
+
 int				mouse_move(int x, int y, t_doom *dm)
 {
 	t_vector	olddir;
@@ -254,6 +272,7 @@ int				mouse_move(int x, int y, t_doom *dm)
 		dm->camshift = 1.0 - (dm->dir.z * 2);
 		dm->sboy = dm->winh * (dm->dir.z + 0.5);
 	}
+	//dir_single(dm);
 	return (0);
 }
 
