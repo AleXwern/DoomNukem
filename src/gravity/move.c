@@ -6,41 +6,91 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 14:35:04 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 15:00:40 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/18 15:37:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-int		check_part_walls(t_block blk, t_block tblk, t_doom *dm, double mov)
+int		check_yx(char dir, t_block tblk, t_doom *dm)
 {
-	if (tblk.pt == 3)
+	if (tblk.pt == 3 && dir == 'x')
 	{
-		if (dm->pos.y + dm->dir.y * mov > (int)(dm->pos.y + dm->dir.y * mov) + tblk.pln / 15.0)
+		if (dm->pos.y > (int)dm->pos.y + tblk.pln / 15.0)
 			return (1);
 	}
-	if (tblk.pt == 4)
+	else if (tblk.pt == 4 && dir == 'x')
 	{
-		if (dm->pos.y + dm->dir.y * mov < (int)(dm->pos.y + dm->dir.y * mov) + (1 - tblk.pln / 15.0))
+		if (dm->pos.y < (int)dm->pos.y + (1 - tblk.pln / 15.0))
+			return (1);
+	}
+	else if (tblk.pt == 5 && dir == 'y')
+	{
+		if (dm->pos.x > (int)dm->pos.x + tblk.pln / 15.0)
+			return (1);
+	}
+	else if (tblk.pt == 6 && dir == 'y')
+	{
+		if (dm->pos.x < (int)dm->pos.x + (1 - tblk.pln / 15.0))
 			return (1);
 	}
 	return (0);
 }
 
-int		check_hor_coll(t_block blk, t_doom *dm, double mov)
+int		check_part_walls(char dir, t_block tblk, t_doom *dm, double mov)
+{
+	if (tblk.pt < 3 || tblk.pt > 6)
+		return (0);
+	if (tblk.pt == 3 && dir == 'y')
+	{
+		if (dm->pos.y + dm->gravity.y > (int)(dm->pos.y + dm->gravity.y) + tblk.pln / 15.0)
+			return (1);
+	}
+	else if (tblk.pt == 4 && dir == 'y')
+	{
+		if (dm->pos.y + dm->gravity.y < (int)(dm->pos.y + dm->gravity.y) + (1 - tblk.pln / 15.0))
+			return (1);
+	}
+	else if (tblk.pt == 5 && dir == 'x')
+	{
+		if (dm->pos.x + dm->gravity.x > (int)(dm->pos.x + dm->gravity.x) + tblk.pln / 15.0)
+			return (1);
+	}
+	else if (tblk.pt == 6 && dir == 'x')
+	{
+		if (dm->pos.x + dm->gravity.x < (int)(dm->pos.x + dm->gravity.x) + (1 - tblk.pln / 15.0))
+			return (1);
+	}
+	else if ((dir == 'x' && tblk.pt < 5 && check_yx('x', tblk, dm)) || 
+			(dir == 'y' && tblk.pt > 4 && check_yx('y', tblk, dm)))
+		return (1);
+	return (0);
+}
+
+int		check_hor_coll(t_block blk, t_doom *dm, double mov, char dir)
 {
 	double	hgt;
+	int		plnd;
 
 	if (blk.b <= 1 || (blk.pt == 1 && blk.pln < 6))
 		return (1);
+	else if (!blk.pt)
+		return (0);
 	else if (blk.pt == 2)
 	{
 		hgt = ((int)dm->pos.z + (1 - blk.pln / 15.0) - 0.6) - dm->pos.z;
-		if (hgt < 0 && hgt > -0.4)
+		plnd = blk.pln;
+		printf("blk %d %d %d\n", blk.b, blk.pt, blk.pln);
+		blk = dm->area[(int)(dm->pos.z - 0.15)][(int)(dm->pos.y)][(int)(dm->pos.x)];
+		plnd = abs(blk.pln - plnd);
+		printf("hgt %f blk %d %d %d - %d\n", hgt, blk.b, blk.pt, blk.pln, plnd);
+		if (hgt < 0.4 && hgt > -0.4)
 		{
-			blk = dm->area[(int)(dm->pos.z + hgt - 0.15)][(int)(dm->pos.y)][(int)(dm->pos.x)];
-			if (blk.b > 1 && blk.pt < 2)
+			plnd = abs(blk.pln - plnd);
+			//blk = dm->area[(int)(dm->pos.z + hgt - 0.15)][(int)(dm->pos.y)][(int)(dm->pos.x)];
+			printf("%d %d\n", (blk.b > 1 && blk.pt == 0), plnd < 11);
+			if ((blk.b > 1 && blk.pt == 0) || (blk.pt == 1 && plnd < 11))
 				return (0);
 			if (!dm->airbrn)
 				dm->pos.z += hgt;
@@ -55,17 +105,7 @@ int		check_hor_coll(t_block blk, t_doom *dm, double mov)
 		return (0);
 	}
 	else
-		return (check_part_walls(dm->area[(int)dm->pos.z][(int)(dm->pos.y)][(int)dm->pos.x], blk, dm, mov));
-}
-
-void	move_b(t_doom *dm, double mov)
-{
-	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y - dm->dir.y * mov)][(int)dm->pos.x],
-		dm, -mov))
-		dm->pos.y -= dm->dir.y * mov;
-	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x - dm->dir.x * mov)],
-		dm, -mov))
-		dm->pos.x -= dm->dir.x * mov;
+		return (check_part_walls(dir, blk, dm, mov));
 }
 
 int		check_sprite_dist(t_doom *dm, double mov, int i)
@@ -80,8 +120,11 @@ int		check_sprite_dist(t_doom *dm, double mov, int i)
 			npos.x -= dm->spr[i].dir.x * mov;
 			npos.y -= dm->spr[i].dir.y * mov;
 			if (check_hor_coll(dm->area[(int)npos.z][(int)(npos.y)][(int)npos.x],
-				dm, mov))
-				dm->pos = npos;
+				dm, mov, 'x'))
+				dm->pos.x = npos.x;
+			if (check_hor_coll(dm->area[(int)npos.z][(int)(npos.y)][(int)npos.x],
+				dm, mov, 'y'))
+				dm->pos.y = npos.y;
 		}
 	}
 	return (1);
@@ -96,23 +139,20 @@ void	move_fb(t_doom *dm)
 		mov /= fabs(mov) * 2;
 	if (dm->key.up)
 	{
-		/*if (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].meta == 9)
-			printf("y is meta 9\n");
-		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].meta == 9)
-			printf("x is meta 9\n");*/
-		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x],
-			dm, mov))// && (dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->dir.y * mov)][(int)dm->pos.x].meta != 9))
-			dm->pos.y += dm->dir.y * mov;
-		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)],
-			dm, mov))// && (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->dir.x * mov)].meta != 9))
-		{
-			//printf("move to: z = %d, y = %d, x = %d\n", (int)dm->pos.z, (int)dm->pos.y, (int)(dm->pos.x + dm->dir.x * mov));
-			//printf("Sprite is in: z = %d, y = %d, x = %d\n", (int)dm->spr[7].pos.z, (int)dm->spr[7].pos.y, (int)dm->spr[7].pos.x);
-			dm->pos.x += dm->dir.x * mov;
-		}
+		dm->gravity.x = dm->dir.x * mov;
+		dm->gravity.y = dm->dir.y * mov;
 	}
 	if (dm->key.down)
-		move_b(dm, mov);
+	{
+		dm->gravity.x = -dm->dir.x * mov;
+		dm->gravity.y = -dm->dir.y * mov;
+	}
+	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->gravity.y)][(int)dm->pos.x],
+		dm, mov, 'y'))
+		dm->pos.y += dm->gravity.y;
+	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->gravity.x)],
+		dm, mov, 'x'))
+		dm->pos.x += dm->gravity.x;
 	check_sprite_dist(dm, mov, -1);
 	dm->airbrn = 1;
 }
@@ -129,24 +169,22 @@ void	strafe(t_doom *dm, double dirxtemp, double dirytemp)
 	{
 		dir.x = dm->dir.y;
 		dir.y = dm->dir.x * -1;
-		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y + dir.y * mov)][(int)dm->pos.x],
-			dm, mov))
-			dm->pos.y += dir.y * mov;
-		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dir.x * mov)],
-			dm, mov))
-			dm->pos.x += dir.x * mov;
+		dm->gravity.x = dir.x * mov;
+		dm->gravity.y = dir.y * mov;
 	}
 	if (dm->key.right)
 	{
 		dir.x = dm->dir.y * -1;
 		dir.y = dm->dir.x;
-		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y + dir.y * mov)][(int)dm->pos.x],
-			dm, mov))
-			dm->pos.y += dir.y * mov;
-		if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dir.x * mov)],
-			dm, mov))
-			dm->pos.x += dir.x * mov;
+		dm->gravity.x = dir.x * mov;
+		dm->gravity.y = dir.y * mov;
 	}
+	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y + dm->gravity.y)][(int)dm->pos.x],
+		dm, mov, 'y'))
+		dm->pos.y += dm->gravity.y;
+	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)(dm->pos.x + dm->gravity.x)],
+		dm, mov, 'x'))
+		dm->pos.x += dm->gravity.x;
 	check_sprite_dist(dm, mov, -1);
 	dm->airbrn = 1;
 }

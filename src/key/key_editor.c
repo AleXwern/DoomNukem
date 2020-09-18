@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 13:49:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/18 13:56:01 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_screen(t_editor* le, t_doom* dm, int x, int y)
 			dm->area[le->options[0]][y][x].lgt = le->options[1];
 			dm->area[le->options[0]][y][x].pt = le->options[2];
 			if (le->blk == 1 || le->blk == 7)
-				dm->area[le->options[0]][y][x].pln = 0;
+				dm->area[le->options[0]][y][x].pt = 0;
 			else
 				dm->area[le->options[0]][y][x].pln = le->options[3];
 			dm->area[le->options[0]][y][x].meta = le->options[4];

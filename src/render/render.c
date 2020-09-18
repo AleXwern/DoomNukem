@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/17 12:40:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/18 15:50:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,5 +295,8 @@ void	render(t_doom *dm)
 	if (dm->iframe)
 		dm->iframe--;
 	dm->fps++;
-	//printf("Pos %d %d %f\n", dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].b, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y][(int)dm->pos.x].pt, dm->pos.z);
+	printf("Matrix:\nPOS %f %f %f\nDIR %f %f %f\nPLN %f %f %f\n", 
+			dm->pos.z, dm->pos.y, dm->pos.x, 
+			dm->dir.z, dm->dir.y, dm->dir.x,
+			dm->plane.z, dm->plane.y, dm->plane.x);
 }

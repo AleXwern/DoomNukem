@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/09/17 15:42:43 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/18 15:00:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int		interact(t_doom *dm)
 	}
 	else if (blk->b == 5 && !dm->keycard)
 		Mix_PlayChannel(-1, dm->doorknob, 0);
-	else if (blk->b == 5 && blk->pln == 2 && dm->keycard && dm->slidedoor == 'x')
+	else if (blk->b == 5 && blk->pln <= 2 && dm->keycard && dm->slidedoor == 'x')
 	{
 		dm->slidedoor = 'c';
 		dm->slideblock = blk;

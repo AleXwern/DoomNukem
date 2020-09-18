@@ -67,7 +67,7 @@ void	write_sprite(t_doom* dm, int fd, int i)
 	{
 		write_int(dm->spr[i].gfx, fd);
 		write(fd, ",", 1);
-		write_int(dm->spr[i].size, fd);
+		write_int(dm->spr[i].size * 10, fd);
 		write(fd, ",", 1);
 		write_int(dm->spr[i].hp, fd);
 		write(fd, ",", 1);
@@ -96,7 +96,7 @@ int		save_file(t_doom* dm, int fd, char* file, int i)
 		ft_putendl("Error saving the map!");
 		return (0);
 	}
-	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .meta = 0, .pt = 0});
+	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .pln = 15, .pt = 0});
 	while (++i < dm->mxflr)
 	{
 		dm->flr = i;
