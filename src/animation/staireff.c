@@ -23,7 +23,8 @@ void	dummy_render(t_doom *dm)
 	{
 		dm->data_r[x] = *dm;
 		dm->data_r[x].x = x;
-		dm->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&dm->data_r[x]);
+		dm->threads[x] = SDL_CreateThread(renthread, "Thread",
+			(void*)&dm->data_r[x]);
 		x++;
 	}
 	while (x > 0)
@@ -50,9 +51,11 @@ void	curt_down(t_doom *dm)
 		while (++ry < dm->winh)
 		{
 			if (ry < y)
-				ft_bzero(dm->img.data + (dm->winw * ry), sizeof(Uint32) * dm->winw);
+				ft_bzero(dm->img.data + (dm->winw * ry), sizeof(Uint32)
+					* dm->winw);
 			else
-				ft_memcpy(dm->img.data + (dm->winw * ry), dm->img.data + (dm->winw * ry), sizeof(Uint32) * dm->winw);
+				ft_memcpy(dm->img.data + (dm->winw * ry), dm->img.data +
+					(dm->winw * ry), sizeof(Uint32) * dm->winw);
 		}
 		y += 30;
 		SDL_RenderPresent(dm->rend);
@@ -72,9 +75,11 @@ void	curt_up(t_doom *dm)
 		while (++ry < dm->winh)
 		{
 			if (ry < y)
-				ft_bzero(dm->img.data + (dm->winw * ry), sizeof(Uint32) * dm->winw - 1);
+				ft_bzero(dm->img.data + (dm->winw * ry), sizeof(Uint32)
+					* dm->winw - 1);
 			else
-				ft_memcpy(dm->img.data + (dm->winw * ry), dm->img.data + (dm->winw * ry), sizeof(Uint32) * dm->winw - 1);
+				ft_memcpy(dm->img.data + (dm->winw * ry), dm->img.data +
+					(dm->winw * ry), sizeof(Uint32) * dm->winw - 1);
 		}
 		y -= 30;
 		SDL_RenderPresent(dm->rend);

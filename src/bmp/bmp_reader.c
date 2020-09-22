@@ -44,7 +44,8 @@ Uint32	*flip_arr(t_gfx gfx, char *corr)
 		return (NULL);
 	while (--y >= 0)
 	{
-		ft_memcpy(dummy + (gfx.hgt - y - 1) * (gfx.wid * 4), corr + (gfx.wid * y * 4), gfx.wid * 4);
+		ft_memcpy(dummy + (gfx.hgt - y - 1) * (gfx.wid * 4),
+			corr + (gfx.wid * y * 4), gfx.wid * 4);
 	}
 	free(corr);
 	return ((Uint32*)dummy);
@@ -58,13 +59,11 @@ char	*read_pixdata(char *corr, int fd, t_gfx gfx, int y)
 	rd = 0;
 	if (gfx.pitch % 4 != 0)
 		rd += 4 - (gfx.pitch % 4);
-	int i = 0;
 	while (--y >= 0)
 	{
 		read(fd, corr + (gfx.pitch * y), gfx.pitch);
 		if (rd > 0)
 			read(fd, exc, rd);
-		//printf("%d\n", i);
 	}
 	return (corr);
 }
@@ -105,11 +104,9 @@ t_gfx	read_bmp(char *file, int fd, int bread)
 	if (fd == -1)
 		return (gfx);
 	bread = read(fd, &bmp, sizeof(bmp));
-	//printf("bm %04x\nfsize %d\nres1 %d\nres2 %d\npdoff %d\n", bmp.bm, bmp.fsize, bmp.res1, bmp.res2, bmp.pdoff);
 	if (bmp.bm != 0x4d42)
 		return (gfx);
 	bread += read(fd, &head, sizeof(head));
-	//printf("hsize %d\nw %d\nh %d\npln %d\nbpp %d\ncmpr %d\nimgs %d\nxppm %d\nyppm %d\ncolc %d\nimpc %d\n", head.headsize, head.width, head.heigth, head.planes, head.bpp, head.compr, head.imgsize, head.xppm, head.yppm, head.colcount, head.impcol);
 	if (!read_to_pixdata(bmp, bread, fd))
 		return (gfx);
 	gfx.wid = head.width;

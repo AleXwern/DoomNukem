@@ -17,7 +17,7 @@ void	wind_default(t_doom *dm)
 {
 	double	temp;
 
-	dm->shift = 0;
+	dm->shift = 15;
 	dm->crouching = 0;
 	dm->mousemovement = 0;
 	dm->fps = 0;
@@ -28,6 +28,15 @@ void	wind_default(t_doom *dm)
 	dm->owinh = dm->winh;
 	dm->owinw = dm->winw;
 	ft_bzero(&dm->key, sizeof(t_key));
+}
+
+void	free_vram(t_doom* dm)
+{
+	free(dm->threads);
+	free(dm->data_r);
+	free(dm->maparr);
+	free(dm->wallarr);
+	free(dm->claimline);
 }
 
 void	resize_window(t_doom *dm)
@@ -47,11 +56,8 @@ void	resize_window(t_doom *dm)
 		dm->winh = 720;
 	}
 	dm->img = init_image(dm);
-	//SDL_FreeSurface(dm->img.tex);
-	//SDL_DestroyTexture(dm->img.img);
 	if (!(dm->rend = SDL_GetRenderer(dm->win)))
 		error_out(REN_ERROR, dm);
-	//dm->img = init_image(dm);
 	free(dm->threads);
 	free(dm->data_r);
 	free(dm->maparr);
@@ -89,7 +95,6 @@ void	doom_default(t_doom *dm)
 	dm->flr = 0;
 	reset_position(dm);
 	dm->sbox = WINX / 2;
-	//dm->mxflr--;
 	ft_putnbrln(dm->mxflr);
 	dm->prefps = 30;
 	dm->buffer = BUFFER;
@@ -116,7 +121,8 @@ void	doom_default(t_doom *dm)
 		error_out(MEM_ERROR, dm);
 	if (!(Mix_PlayingMusic()))
 		Mix_PlayMusic(dm->music, 0);
-	dm->volume = Mix_VolumeMusic(-1);
+	dm->volume = 64;
+	Mix_VolumeMusic(64);
 	printf("Threads: %d\n", dm->trx);
 }
 

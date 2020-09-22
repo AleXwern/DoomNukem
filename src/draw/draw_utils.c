@@ -53,14 +53,15 @@ Uint32	color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret)
 	Uint8	g;
 	Uint8	b;
 
-	ret = (int)(shift * dm->shift);
-	if (ret > 10 * dm->shift)
-		ret = 10 * dm->shift;
-	if (ret < 1)
-		return (color);
-	r = R(color) / ret;
-	g = G(color) / ret;
-	b = B(color) / ret;
+	if (dm->shift > 15 || dm->shift < 0)
+		dm->shift = 15;
+	ret = (int)(shift * (15 - dm->shift) * 4);
+	if (ret > 255)
+		ret = 255;
+	ret = 255 - ret;
+	r = R(color) * ret / 255.0;
+	g = G(color) * ret / 255.0;
+	b = B(color) * ret / 255.0;
 	ret = ARGB(r, g, b);
 	return (ret);
 }

@@ -262,7 +262,7 @@ void	render(t_doom *dm)
 	}
 	if (dm->isoutline)
 		post_effects(dm);
-	draw_sprite(dm, 0, 0, 0);
+	//draw_sprite(dm, 0, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
 	if (dm->slidedoor != 'x')
@@ -282,8 +282,8 @@ void	render(t_doom *dm)
 	if (dm->iframe)
 		dm->iframe--;
 	dm->fps++;
-	printf("Matrix:\nPOS %f %f %f\nDIR %f %f %f\nPLN %f %f %f\n",
+	/*printf("Matrix:\nPOS %f %f %f\nDIR %f %f %f\nPLN %f %f %f\n",
 			dm->pos.z, dm->pos.y, dm->pos.x,
 			dm->dir.z, dm->dir.y, dm->dir.x,
-			dm->plane.z, dm->plane.y, dm->plane.x);
+			dm->plane.z, dm->plane.y, dm->plane.x);*/
 }

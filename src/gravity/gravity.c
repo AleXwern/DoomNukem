@@ -72,13 +72,18 @@ int		check_ver_ucoll(t_block blk, t_doom *dm)
 		return (1);
 	else if (blk.pt == 1)
 	{
-		hgt = (int)(dm->pos.z - 0.2) + blk.pln / 15.0;
+		hgt = (int)(dm->pos.z + dm->gravity.z) + blk.pln / 15.0;
 		if (hgt < dm->pos.z + dm->gravity.z)
 			return (1);
 		return (0);
 	}
 	else if (blk.pt == 2)
-		return (1);
+	{
+		hgt = (int)(dm->pos.z + dm->gravity.z) + (1 - blk.pln / 15.0);
+		if (hgt > dm->pos.z)
+			return (1);
+		return (0);
+	}
 	else
 		return (ver_move(blk, dm));
 }
@@ -94,7 +99,7 @@ void	gravity(t_doom* dm)
 		error_out(VOID_OVER, dm);
 	if (dm->gravity.z < 0)
 	{
-		if (check_ver_ucoll(dm->area[(int)(dm->pos.z + dm->gravity.z - 0.1)][(int)(dm->pos.y)][(int)dm->pos.x], dm))
+		if (check_ver_ucoll(dm->area[(int)(dm->pos.z + dm->gravity.z)][(int)(dm->pos.y)][(int)dm->pos.x], dm))
 			dm->pos.z += dm->gravity.z;
 	}
 	else if (check_ver_coll(dm->area[(int)(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x], dm))

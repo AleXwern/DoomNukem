@@ -77,8 +77,8 @@ int				key_hold(int key, t_doom *dm)
 	if (key == KEY_O)
 	{
 		dm->shift++;
-		if (dm->shift > 100)
-			dm->shift = 100;
+		if (dm->shift > 15)
+			dm->shift = 15;
 	}
 	if (key == KEY_P)
 	{

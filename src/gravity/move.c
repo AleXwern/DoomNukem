@@ -81,15 +81,15 @@ int		check_hor_coll(t_block blk, t_doom *dm, double mov, char dir)
 	{
 		hgt = ((int)dm->pos.z + (1 - blk.pln / 15.0) - 0.6) - dm->pos.z;
 		plnd = blk.pln;
-		printf("blk %d %d %d\n", blk.b, blk.pt, blk.pln);
+		//printf("blk %d %d %d\n", blk.b, blk.pt, blk.pln);
 		blk = dm->area[(int)(dm->pos.z - 0.15)][(int)(dm->pos.y)][(int)(dm->pos.x)];
 		plnd = abs(blk.pln - plnd);
-		printf("hgt %f blk %d %d %d - %d\n", hgt, blk.b, blk.pt, blk.pln, plnd);
+		//printf("hgt %f blk %d %d %d - %d\n", hgt, blk.b, blk.pt, blk.pln, plnd);
 		if (hgt < 0.4 && hgt > -0.4)
 		{
 			plnd = abs(blk.pln - plnd);
 			//blk = dm->area[(int)(dm->pos.z + hgt - 0.15)][(int)(dm->pos.y)][(int)(dm->pos.x)];
-			printf("%d %d\n", (blk.b > 1 && blk.pt == 0), plnd < 11);
+			//printf("%d %d\n", (blk.b > 1 && blk.pt == 0), plnd < 11);
 			if ((blk.b > 1 && blk.pt == 0) || (blk.pt == 1 && plnd < 11))
 				return (0);
 			if (!dm->airbrn)

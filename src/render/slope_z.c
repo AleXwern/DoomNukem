@@ -37,7 +37,7 @@ void	slope_dda_xzn(t_doom* dm)
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			printf("Suitable point XZN\n");
 		dm->sided.z += dm->deltad.z;
-		dm->map.z += dm->stepz * dm->rmap2.y;
+		dm->map.z += dm->stepz * fabs((dm->rmap1.y - (int)dm->rmap1.y + dm->rmap2.y) / 2);
 		dm->side = 2;
 		dm->hit = 3;
 		dm->hithalf++;
@@ -63,12 +63,12 @@ void	slope_dda_xzp(t_doom* dm)
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			printf("RMAP %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
-		if (dm->rmap2.z < dm->rmap2.y && dm->rmap2.y <= LIM)
+		if (dm->rmap2.z < dm->rmap2.y || dm->rmap2.z >= LIM || dm->rmap2.y <= LIMN)
 			return;
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			printf("Suitable point XZP\n");
 		dm->sided.z += dm->deltad.z;
-		dm->map.z += dm->stepz * ((dm->rmap2.y * 10) / 15.0);
+		dm->map.z += dm->stepz * fabs((dm->rmap1.y - (int)dm->rmap1.y + dm->rmap2.y) / 2);
 		dm->side = 2;
 		dm->hit = 1;
 		dm->hithalf++;

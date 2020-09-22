@@ -39,7 +39,7 @@ void	draw_slidertext(t_doom *dm, t_editor *le)
 {
 	set_text(dm, "floor", (int[3]){25, 1065, 0xE71313}, 0.8);
 	set_text(dm, "lighting", (int[3]){100, 1035, 0xE71313}, 0.8);
-	set_text(dm, "blockstart", (int[3]){175, 1015, 0xE71313}, 0.8);
+	set_text(dm, "planetype", (int[3]){175, 1015, 0xE71313}, 0.8);
 	set_text(dm, "block thickness", (int[3]){250, 970, 0xE71313}, 0.8);
 	set_text(dm, "meta", (int[3]){325, 1075, 0xE71313}, 0.8);
 	if (le->cur == 0)

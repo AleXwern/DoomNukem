@@ -13,8 +13,6 @@
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-#include <stdio.h>//
-
 void	cam_udy(t_doom *dm)
 {
 	t_vector	oldplane;
