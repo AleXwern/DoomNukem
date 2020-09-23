@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/09/18 15:00:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/23 13:49:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ int		interact(t_doom *dm)
 
 	tarpos.x = dm->pos.x + dm->dir.x * 0.9;
 	tarpos.y = dm->pos.y + dm->dir.y * 0.9;
+	if ((int)dm->pos.x == (int)tarpos.x &&
+		(int)dm->pos.y == (int)tarpos.y)
+		return (0);
 	blk = &dm->area[(int)dm->pos.z][(int)tarpos.y][(int)tarpos.x];
 	if (blk->meta == 8)
 		error_out(VOID_OVER, dm);

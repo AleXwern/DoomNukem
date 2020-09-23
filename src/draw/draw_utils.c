@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/20 12:48:37 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/09 12:47:32 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/23 11:53:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ Uint32	color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret)
 
 	if (dm->shift > 15 || dm->shift < 0)
 		dm->shift = 15;
-	ret = (int)(shift * (15 - dm->shift) * 4);
+	ret = (int)(shift * (15 - dm->shift) * 10);
 	if (ret > 255)
 		ret = 255;
 	ret = 255 - ret;

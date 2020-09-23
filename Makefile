@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/18 12:58:46 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/23 14:48:01 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ INCL =		-I ./SDL2 -I ./libft -I ./includes
 MLXLIB =	-L /usr/local/lib
 PWD =		$(shell pwd)
 OBJFRAME =	-F ./frameworks
-FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
+FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
 RED =		\033[0;31m
 STOP =		\033[0m
 

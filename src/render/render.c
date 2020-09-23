@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 16:32:40 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/23 14:22:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,9 @@ void	rc_init(t_doom *dm)
 	dm->rayd.x = dm->dir.x + dm->plane.x * dm->cam.x;
 	dm->rayd.y = dm->dir.y + dm->plane.y * dm->cam.x;
 	dm->rayd.z = dm->dir.z + dm->plane.z * dm->cam.y;
-	dm->map.x = ((int)dm->pos.x) & 0x7fffffff;
-	dm->map.y = ((int)dm->pos.y) & 0x7fffffff;
-	dm->map.z = ((int)dm->pos.z) & 0x7fffffff;
+	dm->map.x = ((int)dm->pos.x);
+	dm->map.y = ((int)dm->pos.y);
+	dm->map.z = ((int)dm->pos.z);
 	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %f %f %f\n", dm->camx, dm->camy, dm->raydz, dm->raydy, dm->raydx, dm->map.z, dm->map.y, dm->map.x);
 	dda_prep(dm);
 	dda_sys(dm);

@@ -3,15 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 16:30:43 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/23 14:55:03 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
+void	sprite_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
+{
+	if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid &&
+		yx[0] + g[0] > -1 && yx[1] + g[1] > -1 &&
+		gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
+		dm->spr[yx[6]].dist < dm->wallarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])])
+	{
+		dm->img.data[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])] = 
+			color_shift(gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)],
+			dm->spr[yx[6]].dist, dm, 0);
+		dm->wallarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])] = dm->spr[yx[6]].dist;
+	}
+}
 
 /*
 **	int YX values
@@ -36,13 +50,7 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 		while (gx < gfx.wid * size && (yx[1] + gx) < dm->winw && gx < yx[3] * size)
 		{
 			yx[5] = gx * (gfx.wid / (gfx.wid * size));
-			if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid && yx[0] + gy > -1 && yx[1] + gx > -1 &&
-				gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
-				dm->spr[yx[6]].dist < dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)])
-			{
-				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
-				dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = dm->spr[yx[6]].dist;
-			}
+			sprite_pixel(dm, gfx, yx, (int[2]){gy, gx});
 			gx++;
 		}
 		gy++;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/03 14:45:39 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/23 13:42:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@ void	cam_udy(t_doom *dm)
 
 	oldplane = dm->plane;
 	olddir = dm->dir;
-	if (dm->key.w)
+	if (dm->key.up)
 	{
-		if (dm->dir.z > -0.6)
-			dm->dir.z -= 0.05;
+		if (dm->dir.z > -0.5)
+			dm->dir.z -= 0.05 * ((30.0 / dm->buffer) / dm->prefps);
 	}
-	if (dm->key.s)
+	if (dm->key.down)
 	{
-		if (dm->dir.z < 0.6)
-			dm->dir.z += 0.05;
+		if (dm->dir.z < 0.5)
+			dm->dir.z += 0.05 * ((30.0 / dm->buffer) / dm->prefps);
 	}
+	if (dm->key.left || dm->key.right)
+		move_lr(dm);
 	dm->camshift = 1.0 - (dm->dir.z * 2);
 }
 

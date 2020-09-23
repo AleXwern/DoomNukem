@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 13:27:23 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/23 15:10:04 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,31 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->minval[4] = 0;
 }
 
+void	opt_text(t_editor *le)
+{
+	le->opt[0] = "floor";
+	le->opt[1] = "lighting";
+	le->opt[2] = "plane type";
+	le->opt[3] = "block thickness";
+	le->opt[4] = "meta";
+	le->opt[5] = "lower floor to the right";
+	le->opt[6] = "lighter to the right";
+	le->opt[7] = "full  z   y   x\n     u d n s w e";
+	le->opt[8] = "thicker to the right";
+	le->opt[9] = "paintings";
+	le->opt[10] = "1 w  2 n  3 e  4 s  5 keyr  6 keyg  7 heal  8 kill";
+}
+
 void	draw_slidertext(t_doom *dm, t_editor *le)
 {
-	set_text(dm, "floor", (int[3]){25, 1065, 0xE71313}, 0.8);
-	set_text(dm, "lighting", (int[3]){100, 1035, 0xE71313}, 0.8);
-	set_text(dm, "planetype", (int[3]){175, 1015, 0xE71313}, 0.8);
-	set_text(dm, "block thickness", (int[3]){250, 970, 0xE71313}, 0.8);
-	set_text(dm, "meta", (int[3]){325, 1075, 0xE71313}, 0.8);
-	if (le->cur == 0)
-		set_text(dm, "lower floor to the right", (int[3]){550, 790, 0xE71313}, 1);//m->winh - 200, dm->winw / 2 + 40
-	else if (le->cur == 1)
-		set_text(dm, "lighter to the right", (int[3]){550, 790, 0xE71313}, 1);
-	else if (le->cur == 2)
-		set_text(dm, "full  z   y   x\n     u d n s w e", (int[3]){550, 790, 0xE71313}, 1);
-	else if (le->cur == 3)
-		set_text(dm, "thicker to the right", (int[3]){550, 790, 0xE71313}, 1);
-	else if (le->cur == 4)
-	{
-		set_text(dm, "paintings", (int[3]){550, 790, 0xE71313}, 1);
-		set_text(dm, "1 w  2 n  3 e  4 s  5 keyr  6 keyg  7 heal  8 kill", (int[3]){590, 790, 0xE71313}, 0.5);
-	}
+	set_text(dm, le->opt[0], (int[3]){25, 1065, 0xE71313}, 0.8);
+	set_text(dm, le->opt[1], (int[3]){100, 1035, 0xE71313}, 0.8);
+	set_text(dm, le->opt[2], (int[3]){175, 1015, 0xE71313}, 0.8);
+	set_text(dm, le->opt[3], (int[3]){250, 970, 0xE71313}, 0.8);
+	set_text(dm, le->opt[4], (int[3]){325, 1075, 0xE71313}, 0.8);
+	set_text(dm, le->opt[5 + le->cur], (int[3]){550, 790, 0xE71313}, 1);
+	if (le->cur == 4)
+		set_text(dm, le->opt[10], (int[3]){590, 790, 0xE71313}, 0.5);
 }
 
 void	render_editor(t_doom *dm, t_editor *le)
@@ -75,6 +80,7 @@ void	editor_main(t_doom *dm)
 	if (!(le = (t_editor*)malloc(sizeof(t_editor))))
 		error_out(MEM_ERROR, dm);
 	defaults(le, dm);
+	opt_text(le);
 	SDL_SetWindowSize(dm->win, 1500, 750);
 	printf("Dim %d %d\n", dm->width, dm->height);
 	while (!le->quit)
