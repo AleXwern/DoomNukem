@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 16:32:40 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/23 16:09:46 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,12 +210,13 @@ int		renthread(void *ptr)
 				dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
 				//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
-				if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6 && dm->ani == 0 && dm->frm == 1)
+				//windowshooting before projectile was added
+				/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6 && dm->ani == 0 && dm->frm == 1)
 				{
 					Mix_PlayChannel(-1, dm->windowbrk, 0);
 					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
 					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt = 0;
-				}
+				}*/
 			}
 			else
 			{
@@ -262,7 +263,7 @@ void	render(t_doom *dm)
 	}
 	if (dm->isoutline)
 		post_effects(dm);
-	//draw_sprite(dm, 0, 0, 0);
+	draw_sprite(dm, 0, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
 	if (dm->slidedoor != 'x')
@@ -274,7 +275,7 @@ void	render(t_doom *dm)
 		set_text(dm, "you died\npress space", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xf70e0e}, 2);
 		SDL_RenderPresent(dm->rend);
 	}
-	//printf("%d  %d  %d\n", (int)dm->pos.z, (int)dm->pos.y, (int)dm->pos.x);
+	//printf("%f  %f  %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
 	if (dm->iframe == IFRAME)
 		Mix_PlayChannel(-1, dm->gettingHit, 0);
 	if (dm->alive)

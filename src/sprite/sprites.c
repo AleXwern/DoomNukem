@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 16:30:43 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/23 16:26:12 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,32 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 			{
 				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
 				dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = dm->spr[yx[6]].dist;
+			}
+			gx++;
+		}
+		gy++;
+	}
+}
+
+void	draw_projectile_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
+{
+	int		gy;
+	int		gx;
+
+	gy = 0;
+	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh && gy < yx[2] * size)
+	{
+		yx[4] = gy * (gfx.hgt / (gfx.hgt * size));
+		gx = 0;
+		while (gx < gfx.wid * size && (yx[1] + gx) < dm->winw && gx < yx[3] * size)
+		{
+			yx[5] = gx * (gfx.wid / (gfx.wid * size));
+			if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid && yx[0] + gy > -1 && yx[1] + gx > -1 &&
+				gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
+				dm->prj[yx[6]].dist < dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)])
+			{
+				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
+				dm->wallarr[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = dm->prj[yx[6]].dist;
 			}
 			gx++;
 		}
@@ -109,62 +135,43 @@ void	ai_movement(t_doom *dm, t_sprite *s)
 	}
 }
 
-void	ai_shooting(t_doom *dm, int y, int x)
+/*
+** Second parameter is which projectile
+** Third parameter is which sprite that's firing the projectile
+*/
+
+void	ai_shooting(t_doom *dm, int i, int s)
 {
 	static int	frm;
 
-	if (frm == 0 && !dm->prj[0].pos.x && dm->spr[8].move == 's')
+	if (frm == 0 && dm->prj[i].move != 'm' && dm->spr[s].move == 's')
 	{
-		//printf("0 prj created\n");
-		dm->prj[0].pos.z = dm->spr[8].pos.z;
-		dm->prj[0].pos.y = dm->spr[8].pos.y;
-		dm->prj[0].pos.x = dm->spr[8].pos.x;
-		dm->prj[0].gfx = 24;
-		dm->prj[0].mov.z = dm->spr[8].dir.z * -0.03;
-		dm->prj[0].mov.y = dm->spr[8].dir.y * -0.03;
-		dm->prj[0].mov.x = dm->spr[8].dir.x * -0.03;
+		dm->prj[i].gfx = 24;
+		dm->prj[i].mov.z = dm->spr[s].dir.z * -0.10;
+		dm->prj[i].mov.y = dm->spr[s].dir.y * -0.10;
+		dm->prj[i].mov.x = dm->spr[s].dir.x * -0.10;
+		dm->prj[i].pos.z = dm->spr[s].pos.z;// + (dm->prj[i].mov.z * 5);
+		dm->prj[i].pos.y = dm->spr[s].pos.y;// + (dm->prj[i].mov.y * 5);
+		dm->prj[i].pos.x = dm->spr[s].pos.x;// + (dm->prj[i].mov.x * 5);
+		dm->prj[i].size = 5;
+		dm->prj[i].move = 'm';
 	}
-	if (frm == 100 && !dm->prj[1].pos.x && dm->spr[8].move == 's')
+	if (dm->prj[i].move == 'm')
 	{
-		//printf("1 prj created\n");
-		dm->prj[1].pos.z = dm->spr[8].pos.z;
-		dm->prj[1].pos.y = dm->spr[8].pos.y;
-		dm->prj[1].pos.x = dm->spr[8].pos.x;
-		dm->prj[1].gfx = 24;
-		dm->prj[1].mov.z = dm->spr[8].dir.z * -0.03;
-		dm->prj[1].mov.y = dm->spr[8].dir.y * -0.03;
-		dm->prj[1].mov.x = dm->spr[8].dir.x * -0.03;
-	}
-	if (dm->prj[0].pos.x)
-	{
-		//printf("0 prj moving\n");
-		dm->prj[0].pos.z += dm->prj[0].mov.z;
-		dm->prj[0].pos.y += dm->prj[0].mov.y;
-		dm->prj[0].pos.x += dm->prj[0].mov.x;
-		draw_sprite_gfx(dm, dm->gfx[dm->prj[0].gfx], (int[7]){y, x, 1000, 1000, 0, 0, 4}, 2 / dm->prj[0].dist);
-	}
-	if (dm->prj[1].pos.x)
-	{
-		//printf("1 prj moving\n");
-		dm->prj[1].pos.z += dm->prj[1].mov.z;
-		dm->prj[1].pos.y += dm->prj[1].mov.y;
-		dm->prj[1].pos.x += dm->prj[1].mov.x;
-		draw_sprite_gfx(dm, dm->gfx[dm->prj[1].gfx], (int[7]){y, x, 1000, 1000, 0, 0, 4}, 2 / dm->prj[1].dist);
+		dm->prj[i].pos.z += dm->prj[i].mov.z;
+		dm->prj[i].pos.y += dm->prj[i].mov.y;
+		dm->prj[i].pos.x += dm->prj[i].mov.x;
 	}
 	frm++;
 	if (frm > 200)
 		frm = 0;
-	if (dm->prj[0].dist < 0.3)
+	if (dm->prj[i].move == 'm' && dm->prj[i].dist < 0.3)
 	{
-		//printf("0 prj hit player\n");
-		//dm->hp -= 1;
-		ft_bzero(&dm->prj[0], sizeof(t_sprite));
+		dm->hp -= 1;
+		ft_bzero(&dm->prj[i], sizeof(t_sprite));
 	}
-	else if (dm->area[(int)dm->prj[0].pos.z][(int)dm->prj[0].pos.y][(int)dm->prj[0].pos.z].b > 1)
-	{
-		//printf("0 prj hit wall\n");
-		ft_bzero(&dm->prj[0], sizeof(t_sprite));
-	}
+	if (dm->prj[i].move == 'm' && dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b > 1)
+		ft_bzero(&dm->prj[i], sizeof(t_sprite));
 }
 
 void	pokemon_trainer(t_doom *dm, int y, int x, double spra)
@@ -184,7 +191,6 @@ void	pokemon_trainer(t_doom *dm, int y, int x, double spra)
 		spra = atan2(dm->spr[i].face.y, dm->spr[i].face.x) * 180 / M_PI + 180;
 		sprb = atan2(0, 1) * 180 / M_PI + 180;
 		sprb = sprb - spra;
-		//printf("sprb: %f\n", sprb);
 		if (sprb < 45 && sprb > -45)
 			dm->gfx[dm->spr[i].gfx].y = 0;
 		else if (sprb > 135 || sprb < -135)
@@ -194,14 +200,14 @@ void	pokemon_trainer(t_doom *dm, int y, int x, double spra)
 		else
 			dm->gfx[dm->spr[i].gfx].y = 96;
 	}
-	if (dm->spr[i].dist <= 6 && dm->spr[i].dist >= 2.5)
+	if (dm->spr[i].dist <= 10 && dm->spr[i].dist >= 6.5)
 	{
 		if (dm->gfx[dm->spr[i].gfx].y != 144 && dm->spr[i].move != 'm'/* && you can see the sprite*/)
 			dm->spr[i].move = 'a';//alerted
 		dm->spr[i].mov.x = dm->spr[i].dir.x * -0.03;
 		dm->spr[i].mov.y = dm->spr[i].dir.y * -0.03;
 	}
-	else if (dm->spr[i].dist <= 2.5 /* && you can see the sprite*/)
+	else if (dm->spr[i].dist <= 6.5 /* && you can see the sprite*/)
 	{
 		dm->spr[i].move = 's';//shooting
 		dm->gfx[dm->spr[i].gfx].x = 0;
@@ -210,12 +216,54 @@ void	pokemon_trainer(t_doom *dm, int y, int x, double spra)
 	else
 		dm->spr[i].move = 'x';//stand still
 	ai_movement(dm, &dm->spr[i]);
-	ai_shooting(dm, y, x);
-	//printf("poke face: %f  %f  %f\n", dm->spr[i].face.z, dm->spr[i].face.y, dm->spr[i].face.x);
 	draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, 48, 32, 0, 0, i}, 25 / dm->spr[i].dist);
 	dm->spr[i].frame++;
 	if (dm->spr[i].frame == 32)
 		dm->spr[i].frame = 0;
+}
+
+/*
+** Second parameter is which projectile
+*/
+
+void	player_shooting(t_doom *dm, int i)
+{
+	static int	frm;
+
+	if (dm->shooting && dm->ani == 1 && dm->frm == 2)
+	{
+		dm->prj[i].gfx = 24;
+		dm->prj[i].mov.z = dm->dir.z * 0.60;
+		dm->prj[i].mov.y = dm->dir.y * 0.60;
+		dm->prj[i].mov.x = dm->dir.x * 0.60;
+		dm->prj[i].pos.z = dm->pos.z + (dm->prj[i].mov.z * 4);
+		dm->prj[i].pos.y = dm->pos.y + (dm->prj[i].mov.y * 4);
+		dm->prj[i].pos.x = dm->pos.x + (dm->prj[i].mov.x * 4);
+		dm->prj[i].size = 5;
+		dm->prj[i].move = 'm';
+	}
+	if (dm->prj[i].move == 'm')
+	{
+		dm->prj[i].pos.z += dm->prj[i].mov.z;
+		dm->prj[i].pos.y += dm->prj[i].mov.y;
+		dm->prj[i].pos.x += dm->prj[i].mov.x;
+	}
+	/*if (dm->prj[i].move == 'm' && dm->prj[i].dist < 0.3)
+	{
+		//printf("0 prj hit player\n");
+		//dm->hp -= 1;
+		ft_bzero(&dm->prj[i], sizeof(t_sprite));
+	}*/
+	if (dm->prj[i].move == 'm' && dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b > 1)
+	{
+		if (dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b == 6)
+		{
+			Mix_PlayChannel(-1, dm->windowbrk, 0);
+			dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].pt = 0;
+			dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b = 1;
+		}
+		ft_bzero(&dm->prj[i], sizeof(t_sprite));
+	}
 }
 
 void	draw_sprite(t_doom *dm, int y, int x, double spra)
@@ -253,6 +301,26 @@ void	draw_sprite(t_doom *dm, int y, int x, double spra)
 			pokemon_trainer(dm, y, x, spra);
 		else
 			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, dm->gfx[dm->spr[i].gfx].hgt, dm->gfx[dm->spr[i].gfx].wid, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
+	}
+	i = 0;
+	while (++i < 4)
+	{
+		if (i == 1)
+			ai_shooting(dm, i, 8);
+		if (i == 2 || i == 3)
+			player_shooting(dm, i);
+		spra = atan2(dm->prj[i].dir.y, dm->prj[i].dir.x);
+		if (spra < mina || spra > maxa)
+			spra += M_PI * 2;
+		if (spra < mina || spra > maxa)
+			spra -= M_PI * 2;
+		dm->prj[i].dist = tri_pythagor(dm->pos, dm->prj[i].pos);
+		dm->prj[i].dir.z = (dm->prj[i].pos.z - dm->pos.z) / dm->prj[i].dist;
+		dm->prj[i].dir.y = (dm->prj[i].pos.y - dm->pos.y) / dm->prj[i].dist;
+		dm->prj[i].dir.x = (dm->prj[i].pos.x - dm->pos.x) / dm->prj[i].dist;
+		x = dm->winw * ((spra - mina) / (maxa - mina)) - ((dm->gfx[dm->prj[i].gfx].wid / 2) * 2 / dm->prj[i].dist);
+		y = dm->winh * ((dm->prj[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z)) - ((dm->gfx[dm->prj[i].gfx].hgt / 2) * 2 / dm->prj[i].dist);
+		draw_projectile_gfx(dm, dm->gfx[dm->prj[i].gfx], (int[7]){y, x, 1000, 1000, 0, 0, i}, 4 / dm->prj[i].dist);
 	}
 	//printf("Screen angle %f %f\nProj angle %f\ndiff %f\nspr0 %f %f\n", mina, maxa, atan2(dm->spr[0].dir.y, dm->spr[4].dir.x) * 180 / M_PI + 180, maxa - mina, atan2(dm->spr[0].dir.y, dm->spr[0].dir.x), dm->spr[0].dist);
 }
