@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 16:15:49 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/23 13:40:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,18 @@ int				key_hold(int key, t_doom *dm)
 		menu_keys_hold(key, dm);
 		return (0);
 	}
-	if (key == LEFT || key == KEY_A)
-		dm->key.left = 1;
-	if (key == RIGHT || key == KEY_D)
-		dm->key.right = 1;
-	if (key == UP || key == KEY_W)
-		dm->key.up = 1;
-	if (key == DOWN || key == KEY_S)
-		dm->key.down = 1;
+	if (key == KEY_A)
+		dm->key.a = 1;
+	if (key == KEY_D)
+		dm->key.d = 1;
+	if (key == KEY_W)
+		dm->key.w = 1;
+	if (key == KEY_S)
+		dm->key.s = 1;
 	if (key == NUM_PLU)
 		dm->key.plus = 1;
 	if (key == NUM_MIN)
 		dm->key.minus = 1;
-	//if (key == KEY_W)
-	//	dm->keyw = 1;
-	//if (key == KEY_S)
-	//	dm->keys = 1;
-	/*if (key == KEY_A)
-		dm->keya = 1;
-	if (key == KEY_D)
-		dm->keyd = 1;*/
 	if (key == KEY_ONE)
 		dm->key.one = 1;
 	if (key == KEY_TWO)
@@ -92,6 +84,14 @@ int				key_hold(int key, t_doom *dm)
 		dm->pos.z += 0.2;
 		dm->crouching = 1;
 	}
+	if (key == UP)
+		dm->key.up = 1;
+	if (key == DOWN)
+		dm->key.down = 1;
+	if (key == LEFT)
+		dm->key.left = 1;
+	if (key == RIGHT)
+		dm->key.right = 1;
 	return (0);
 }
 
@@ -141,14 +141,22 @@ int				key_release(int key, t_doom *dm)
 			dm->texbool = (dm->texbool * dm->texbool) - 1;
 		if (key == KEY_TRE)
 			interact(dm);
-		if (key == LEFT || key == KEY_A)
-			dm->key.left = 0;
-		if (key == RIGHT || key == KEY_D)
-			dm->key.right = 0;
-		if (key == UP || key == KEY_W)
+		if (key == KEY_A)
+			dm->key.a = 0;
+		if (key == KEY_D)
+			dm->key.d = 0;
+		if (key == KEY_W)
+			dm->key.w = 0;
+		if (key == KEY_S)
+			dm->key.s = 0;
+		if (key == UP)
 			dm->key.up = 0;
-		if (key == DOWN || key == KEY_S)
+		if (key == DOWN)
 			dm->key.down = 0;
+		if (key == LEFT)
+			dm->key.left = 0;
+		if (key == RIGHT)
+			dm->key.right = 0;
 		if (key == 69)
 			dm->key.plus = 0;
 		if (key == 78)
@@ -159,7 +167,7 @@ int				key_release(int key, t_doom *dm)
 			dm->key.two = 0;
 		if (key == KEY_TRE)
 			dm->key.three = (dm->key.three == 0 ? 1 : 0);
-		if (key == KEY_I || key == SDL_SCANCODE_I)
+		if (key == KEY_I)
 			dm->keycard = (dm->keycard == 0 ? 1 : 0);
 		if (key == KEY_K && !dm->iframe)
 		{
@@ -167,7 +175,7 @@ int				key_release(int key, t_doom *dm)
 			dm->hp -= 1;
 			dm->iframe = IFRAME;
 		}
-		if (key == KEY_J || key == SDL_SCANCODE_J)
+		if (key == KEY_J)
 		{
 			dm->hp += 1;
 		}
@@ -181,8 +189,6 @@ int				key_release(int key, t_doom *dm)
 			dm->movsp += 0.03;
 			dm->pos.z -= 0.2;
 		}
-		//if (key == KEY_M)
-		//	reset_window(dm, 0);
 		if (key == KEY_R && !dm->reloading && !dm->shooting && dm->gun)
 		{
 			dm->reloading = 1;
@@ -280,11 +286,12 @@ int				move(t_doom *dm)
 {
 	if (dm->alive)
 	{
-		if ((dm->key.down || dm->key.up) && !dm->isoptions)
+
+		if ((dm->key.w || dm->key.s) && !dm->isoptions)
 			move_fb(dm);
-		if ((dm->key.left || dm->key.right) && !dm->isoptions)
+		if ((dm->key.a || dm->key.d) && !dm->isoptions)
 			strafe(dm, 0, 0);
-		if ((dm->key.w || dm->key.s || dm->key.a || dm->key.d) && !dm->isoptions)
+		if ((dm->key.up || dm->key.down || dm->key.left || dm->key.right) && !dm->isoptions)
 			cam_udy(dm);
 		if ((dm->key.one || dm->key.two) && !dm->isoptions)
 			jetpack(dm);

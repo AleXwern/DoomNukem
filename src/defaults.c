@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 13:21:26 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/23 14:26:39 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	resize_window(t_doom *dm)
 {
 	dm->winw = dm->event.window.data1;
 	dm->winh = dm->event.window.data2;
-	if (dm->winw > 1500 || dm->winh > 960)
+	/*if (dm->winw > 1500 || dm->winh > 960)
 	{
 		SDL_SetWindowSize(dm->win, 1500, 960);
 		dm->winw = 1500;
 		dm->winh = 960;
-	}
-	else if (dm->winw < 1080 || dm->winh < 720)
+	}*/
+	if (dm->winw < 1080 || dm->winh < 720)
 	{
 		SDL_SetWindowSize(dm->win, 1080, 720);
 		dm->winw = 1080;
@@ -88,6 +88,7 @@ void	reset_position(t_doom *dm)
 	dm->camshift = 1.0 - (dm->dir.z * 2);
 	dm->texbool = 1;
 	dm->airbrn = 1;
+	dm->alive = 1;
 }
 
 void	doom_default(t_doom *dm)

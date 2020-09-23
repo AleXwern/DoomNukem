@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 14:34:21 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/23 16:27:53 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 ** to work because of required flags.
 */
 #  include "SDL.h"
-#  include "SDL_image.h"
+//#  include "SDL_image.h"
 #  include "SDL_mixer.h"
 #  include <windows.h>
 #  include <share.h>
@@ -50,7 +50,7 @@
 ** Apple Mac OS specific includes
 */
 #  include "../frameworks/SDL2.framework/Headers/SDL.h"
-#  include "../frameworks/SDL2_image.framework/Headers/SDL_image.h"
+//#  include "../frameworks/SDL2_image.framework/Headers/SDL_image.h"
 #  include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 # endif
 
@@ -191,6 +191,7 @@ typedef struct	s_editor
 	Sint8		options[5];
 	double		maxval[5];
 	Sint8		minval[5];
+	char		*opt[11];
 	SDL_Event	ev;
 	Sint8		marea;
 	Sint8		mslider;

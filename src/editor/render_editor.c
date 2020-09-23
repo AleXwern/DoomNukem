@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_editor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/10 12:45:29 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/23 14:39:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	draw_sliders(t_doom *dm, t_editor *le, int x, int y)
 		{
 			x = -1;
 			le->options[i] = le->options[i] & 0x7f;
-			while (++x < dm->winw / 2 * (le->options[i] / le->maxval[i]) && x < dm->winw)
+			while (++x < dm->winw / 2 * (le->options[i] / le->maxval[i]) && (x + sx) < dm->winw)
 			{
 				if (0xffffcd38 + x > 0xffffcdff)
 					color = 0xffffcdff;
@@ -143,7 +143,7 @@ void	draw_sliders(t_doom *dm, t_editor *le, int x, int y)
 					color = 0xffffcd38 + x;
 				dm->img.data[dm->winw * (y + sy) + (x + sx)] = color;
 			}
-			while (++x < dm->winw / 2)
+			while ((++x + sx) < dm->winw)
 			{
 				if (x < (0xff * 2))
 					black = 0xff000000 + (x / 2 * 0x00010000) + (x / 2 * 0x00000100) + (x / 2);

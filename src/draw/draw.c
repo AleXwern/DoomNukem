@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 11:15:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/23 12:09:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+#include <sys/syscall.h>
 
 void	draw_sky(t_doom *dm)
 {
@@ -24,7 +25,8 @@ void	draw_sky(t_doom *dm)
 	while (dm->sboy < 0)
 		dm->sboy += 360;
 	if (dm->texbool)
-		dm->col = dm->gfx[0].data[1080 * ((dm->y + dm->sboy) % 360) + (dm->x + dm->sbox) % 1080];
+		dm->col = color_shift(dm->gfx[0].data[1080 * ((dm->y + dm->sboy) % 360)
+			+ (dm->x + dm->sbox) % 1080], 6, dm, 0);
 	else
 		dm->col = 0xff000000;
 	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;

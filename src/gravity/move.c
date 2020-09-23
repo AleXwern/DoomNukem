@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 14:35:04 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 15:37:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/23 13:38:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,12 @@ void	move_fb(t_doom *dm)
 	mov = dm->movsp * ((30.0 / dm->buffer) / dm->prefps);
 	if (mov > 1.0 || mov < -1.0)
 		mov /= fabs(mov) * 2;
-	if (dm->key.up)
+	if (dm->key.w)
 	{
 		dm->gravity.x = dm->dir.x * mov;
 		dm->gravity.y = dm->dir.y * mov;
 	}
-	if (dm->key.down)
+	if (dm->key.s)
 	{
 		dm->gravity.x = -dm->dir.x * mov;
 		dm->gravity.y = -dm->dir.y * mov;
@@ -165,14 +165,14 @@ void	strafe(t_doom *dm, double dirxtemp, double dirytemp)
 	mov = dm->movsp * ((30.0 / dm->buffer) / dm->prefps);
 	if (mov > 1.0)
 		mov = 0.99;
-	if (dm->key.left)
+	if (dm->key.a)
 	{
 		dir.x = dm->dir.y;
 		dir.y = dm->dir.x * -1;
 		dm->gravity.x = dir.x * mov;
 		dm->gravity.y = dir.y * mov;
 	}
-	if (dm->key.right)
+	if (dm->key.d)
 	{
 		dir.x = dm->dir.y * -1;
 		dir.y = dm->dir.x;

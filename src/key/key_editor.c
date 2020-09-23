@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 13:56:01 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/23 14:42:58 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_slider(t_editor* le, t_doom* dm, double x, int y)
 	if (dm->event.motion.x > 750 && y < 5)
 	{
 		x = 1.0 * (dm->event.motion.x - 750) / 750;
-		le->options[y] = le->maxval[y] * x;
+		le->options[y] = (le->maxval[y] + 1) * x;
 		if (le->options[y] < le->minval[y])
 			le->options[y] = le->minval[y];
 		le->cur = y;
