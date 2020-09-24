@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 14:26:39 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/24 12:23:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,18 @@ void	free_vram(t_doom* dm)
 	free(dm->data_r);
 	free(dm->maparr);
 	free(dm->wallarr);
-	free(dm->claimline);
+}
+
+void	alloc_vram(t_doom *dm)
+{
+	if (!(dm->maparr = (int*)ft_memalloc(sizeof(int) * dm->winw * dm->winh)))
+		error_out(MEM_ERROR, dm);
+	if (!(dm->wallarr = (double*)ft_memalloc(sizeof(double) * dm->winw * dm->winh)))
+		error_out(MEM_ERROR, dm);
+	if (!(dm->threads = (SDL_Thread**)ft_memalloc(sizeof(SDL_Thread*) * dm->trx)))
+		error_out(MEM_ERROR, dm);
+	if (!(dm->data_r = (t_doom*)ft_memalloc(sizeof(t_doom) * dm->trx)))
+		error_out(MEM_ERROR, dm);
 }
 
 void	resize_window(t_doom *dm)
@@ -58,19 +69,8 @@ void	resize_window(t_doom *dm)
 	dm->img = init_image(dm);
 	if (!(dm->rend = SDL_GetRenderer(dm->win)))
 		error_out(REN_ERROR, dm);
-	free(dm->threads);
-	free(dm->data_r);
-	free(dm->maparr);
-	free(dm->wallarr);
-	free(dm->claimline);
-	if (!(dm->maparr = (int*)ft_memalloc(sizeof(int) * dm->winw * dm->winh)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->wallarr = (double*)ft_memalloc(sizeof(double) * dm->winw * dm->winh)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->threads = (SDL_Thread**)ft_memalloc(sizeof(SDL_Thread*) * dm->trx)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->data_r = (t_doom*)ft_memalloc(sizeof(t_doom) * dm->trx)))
-		error_out(MEM_ERROR, dm);
+	free_vram(dm);
+	alloc_vram(dm);
 	wind_default(dm);
 }
 
@@ -112,14 +112,7 @@ void	doom_default(t_doom *dm)
 	dm->camshift = 1.0f;
 	dm->fpscap = 60;
 	dm->dm = dm;
-	if (!(dm->maparr = (int*)ft_memalloc(sizeof(int) * dm->winw * dm->winh)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->wallarr = (double*)ft_memalloc(sizeof(double) * dm->winw * dm->winh)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->threads = (SDL_Thread**)ft_memalloc(sizeof(SDL_Thread*) * dm->trx)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->data_r = (t_doom*)ft_memalloc(sizeof(t_doom) * dm->trx)))
-		error_out(MEM_ERROR, dm);
+	alloc_vram(dm);
 	if (!(Mix_PlayingMusic()))
 		Mix_PlayMusic(dm->music, 0);
 	dm->volume = 64;
@@ -139,10 +132,7 @@ void	reset_window(t_doom *dm, Uint8 arg)
 			error_out(REN_ERROR, dm);
 		dm->img = init_image(dm);
 	}
-	free(dm->threads);
-	free(dm->data_r);
-	free(dm->maparr);
-	free(dm->wallarr);
+	free_vram(dm);
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	doom_default(dm);
 }

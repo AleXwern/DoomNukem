@@ -6,7 +6,7 @@
 #    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/24 15:02:14 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/09/24 15:12:30 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,6 +105,9 @@ clean:
 fclean: clean
 	@echo Removing binaries.
 	@/bin/rm -f $(NAME)
+
+run: all
+	./doom-nukem
 
 winup:
 ifeq ($(OS),Windows_NT)

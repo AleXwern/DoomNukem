@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 13:40:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/24 12:49:36 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ int				mouse_move(int x, int y, t_doom *dm)
 	if (y && abs(y) < dm->winh)
 	{
 		rota.y = (double)y / dm->winh * OSCAM;
-		if (dm->dir.z + rota.y > -0.5 && dm->dir.z + rota.y < 0.5)
+		if (dm->dir.z + rota.y > -0.9 && dm->dir.z + rota.y < 0.9)
 			dm->dir.z += rota.y;
 		dm->camshift = 1.0 - (dm->dir.z * 2);
 		dm->sboy = dm->winh * (dm->dir.z + 0.5);

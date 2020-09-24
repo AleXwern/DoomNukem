@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/24 14:47:00 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/24 15:12:24 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ void	render(t_doom *dm)
 	}
 	if (dm->isoutline)
 		post_effects(dm);
-	draw_sprite(dm, 0, 0, 0);
+	//draw_sprite(dm, 0, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
 	if (dm->slidedoor != 'x')
