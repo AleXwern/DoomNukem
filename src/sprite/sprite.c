@@ -28,3 +28,18 @@ void	pickupitem(t_doom* dm)
 	else if (dm->spr[7].dist < 2.5 && !dm->chestopened)//chest
 		dm->chestopened = 1;
 }
+
+void	chest_object(t_doom *dm, int i, int y, int x)
+{
+	//chest width 197 height 197 per frame
+	if (dm->chestopened)
+		dm->gfx[dm->obj[i].gfx].x = (dm->obj[i].frame / 8) * 196;
+	else
+		dm->gfx[dm->obj[i].gfx].x = 0;
+	draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
+		(int[7]){y, x, 197, 197, 0, 0, i}, 3 / dm->obj[i].dist);
+	if (dm->chestopened && dm->obj[i].frame < 47)
+		dm->obj[i].frame++;
+	else if (dm->chestopened && dm->obj[i].frame == 47)
+		dm->drawgunandkeycard = 1;
+}

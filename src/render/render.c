@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 16:27:43 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/24 14:47:00 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,13 +210,6 @@ int		renthread(void *ptr)
 				dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
 				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
 				//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
-				//windowshooting before projectile was added
-				/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6 && dm->ani == 0 && dm->frm == 1)
-				{
-					Mix_PlayChannel(-1, dm->windowbrk, 0);
-					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
-					dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt = 0;
-				}*/
 			}
 			else
 			{

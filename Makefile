@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/23 14:48:01 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/24 15:02:14 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME =		doom-nukem
 OEXT = 		.o
 LEXT = 		.a
 FLG = 		-O2
-SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c sprite.c \
-			interact.c util.c menu.c gfx_draw.c posteff.c defaults.c \
+SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c \
+			util.c menu.c gfx_draw.c posteff.c defaults.c \
 			set_variables.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
 DRAWEXT =	draw_hud.c
@@ -30,7 +30,7 @@ GRAFILE	=	gravity.c move.c collision.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
-SRPFILE =	sprites.c
+SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c pokemon_ai.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/draw_extra/,$(DRAWEXT)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
@@ -44,7 +44,7 @@ SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/bmp/,$(BMPFILE)) \
 			$(addprefix ./src/text/,$(TXTFILE)) \
 			$(addprefix ./src/math/,$(MTHFILE)) \
-			$(addprefix ./src/sprite/,$(SRPFILE))
+			$(addprefix ./src/sprite/,$(SPRFILE))
 LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
@@ -60,7 +60,7 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/bmp/,$(BMPFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/text/,$(TXTFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/math/,$(MTHFILE:.c=$(OEXT))) \
-			$(addprefix ./obj/sprite/,$(SRPFILE:.c=$(OEXT)))
+			$(addprefix ./obj/sprite/,$(SPRFILE:.c=$(OEXT)))
 DEPNS =		$(OBJ:.o=.d)
 OBJDIR =	./obj/
 SRCDIR =	./src/
