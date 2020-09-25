@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 12:09:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:42:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,8 @@
 
 void	draw_sky(t_doom *dm)
 {
-	while (dm->sbox >= 1080)
-		dm->sbox -= 1080;
-	while (dm->sboy >= 360)
-		dm->sboy -= 360;
-	while (dm->sbox < 0)
-		dm->sbox += 1080;
-	while (dm->sboy < 0)
-		dm->sboy += 360;
+	dm->sbox = 1080 * (1 - atan2(dm->dir.x, dm->dir.y) / M_PI);
+	dm->sboy = 360 * (dm->dir.z + 0.9);
 	if (dm->texbool)
 		dm->col = color_shift(dm->gfx[0].data[1080 * ((dm->y + dm->sboy) % 360)
 			+ (dm->x + dm->sbox) % 1080], 6, dm, 0);

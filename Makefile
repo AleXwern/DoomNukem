@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/24 15:12:30 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/09/25 13:54:22 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ INCL =		-I ./SDL2 -I ./libft -I ./includes
 MLXLIB =	-L /usr/local/lib
 PWD =		$(shell pwd)
 OBJFRAME =	-F ./frameworks
-FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
+FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -framework SDL2_net -Wl,-rpath $(PWD)/frameworks
 RED =		\033[0;31m
 STOP =		\033[0m
 

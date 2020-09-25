@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/24 15:08:39 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:54:51 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 ** Apple Mac OS specific includes
 */
 #  include "../frameworks/SDL2.framework/Headers/SDL.h"
-//#  include "../frameworks/SDL2_image.framework/Headers/SDL_image.h"
+#  include "../frameworks/SDL2_net.framework/Headers/SDL_net.h"
 #  include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 # endif
 

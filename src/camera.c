@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 13:42:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:28:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	move_l(t_doom *dm, t_vector olddir, t_vector oldplane)
 		dm->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
 		dm->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
 		dm->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
-		dm->sbox -= (dm->winw / 64.0) * (rota / dm->rotsp);
 	}
 }
 
@@ -67,13 +66,8 @@ int		move_lr(t_doom *dm)
 		dm->dir.y = olddir.x * sin(rota) + olddir.y * cos(rota);
 		dm->plane.x = oldplane.x * cos(rota) - oldplane.y * sin(rota);
 		dm->plane.y = oldplane.x * sin(rota) + oldplane.y * cos(rota);
-		dm->sbox -= (dm->winw / 64) * (rota / dm->rotsp);
 	}
 	if (dm->key.right)
 		move_l(dm, olddir, oldplane);
-	if (dm->sbox < 0)
-		dm->sbox += dm->winw;
-	if (dm->sbox > dm->winw)
-		dm->sbox -= dm->winw;
 	return (0);
 }
