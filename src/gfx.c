@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 12:59:22 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 14:43:42 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,15 @@ void	comp_gfx(t_doom *dm, int i)
 	bpath = ft_strjoin(path, "gfx/");
 	if (!(dm->gfx = (t_gfx*)malloc(sizeof(t_gfx) * GFXCOUNT)))
 		error_out(MEM_ERROR, dm);
-	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/sky.bmp", ""), 0, 0);
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/sky.bmp"), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/floor.bmp", ""), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/wall.bmp", ""), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/stairu.bmp", ""), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/staird.bmp", ""), 0, 0);
 	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/door.bmp", ""), 0, 0);
 	//dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/warp.bmp", ""), 0, 0);
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/glass.bmp"), 0, 0);
+	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/glass.bmp"), 0, 0);
+	dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/glass.bmp", ""), 0, 0);
 	comp_hud_gfx(dm, bpath, i);
 	dm->tile -= 48;
 	SDL_free(path);

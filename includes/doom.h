@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 13:05:26 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 14:43:20 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 ** Apple Mac OS specific includes
 */
 #  include "../frameworks/SDL2.framework/Headers/SDL.h"
-//#  include "../frameworks/SDL2_image.framework/Headers/SDL_image.h"
+#  include "../frameworks/SDL2_net.framework/Headers/SDL_net.h"
 #  include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 # endif
 
