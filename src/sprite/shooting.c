@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/24 15:10:12 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 14:42:29 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,22 @@ void	ai_shooting(t_doom *dm, int i, int s)// mov: + 0.12   pos.z: + 0.08 if poke
 	if (dm->prj[i].frame == 0 && dm->prj[i].move != 'm' && dm->spr[s].move == 's')
 	{
 		dm->prj[i].gfx = 24;
-		dm->prj[i].mov = (t_vector){.z = (dm->spr[s].dir.z + 0.12) * -0.2,
+		if (s == 5)
+		{
+
+			dm->prj[i].mov = (t_vector){.z = (dm->spr[s].dir.z + 0.12) * -0.2,
 			.y = dm->spr[s].dir.y * -0.2, .x = dm->spr[s].dir.x * -0.2};
-		dm->prj[i].pos.z = (dm->spr[s].pos.z + 0.8) + (dm->prj[i].mov.z * 5);
+			dm->prj[i].pos.z = (dm->spr[s].pos.z + 0.8) + (dm->prj[i].mov.z * 5);
+		}
+		else
+		{
+			dm->prj[i].mov = (t_vector){.z = (dm->spr[s].dir.z + 0.14) * -0.2,
+			.y = dm->spr[s].dir.y * -0.2, .x = dm->spr[s].dir.x * -0.2};
+			dm->prj[i].pos.z = (dm->spr[s].pos.z + 0.8) + (dm->prj[i].mov.z * 5);
+		}
 		dm->prj[i].pos.y = dm->spr[s].pos.y + (dm->prj[i].mov.y * 5);
 		dm->prj[i].pos.x = dm->spr[s].pos.x + (dm->prj[i].mov.x * 5);
+		dm->prj[i].dir = dm->spr[s].dir;
 		dm->prj[i].size = 5;
 		dm->prj[i].move = 'm';
 	}

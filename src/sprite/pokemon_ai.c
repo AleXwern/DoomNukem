@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:28:29 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/24 15:02:17 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:13:07 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	ai_movement(t_doom *dm, t_sprite *s)
 	}
 }
 
-void	pokemon_trainer_dir(t_doom *dm, double spra, int i)
+void	pokemon_trainer_dir(t_doom *dm, int i)
 {
+	double	spra;
 	double	sprb;
 
 	if (dm->spr[i].move != 'x')
@@ -65,10 +66,10 @@ void	pokemon_trainer_dir(t_doom *dm, double spra, int i)
 **	Pokemon width 32, height 48 per frame
 */
 
-void	pokemon_trainer_mode(t_doom *dm, double spra, int i)
+void	pokemon_trainer_mode(t_doom *dm, int i)
 {
-	pokemon_trainer_dir(dm, spra, i);
-	if (dm->spr[i].dist <= 10 && dm->spr[i].dist >= 6.5)
+	pokemon_trainer_dir(dm, i);
+	if (dm->spr[i].dist <= 7 && dm->spr[i].dist >= 6.5)
 	{
 		if (dm->gfx[dm->spr[i].gfx].y != 144 && dm->spr[i].move != 'm'/* && you can see the sprite*/)
 			dm->spr[i].move = 'a';//alerted
@@ -78,7 +79,10 @@ void	pokemon_trainer_mode(t_doom *dm, double spra, int i)
 	else if (dm->spr[i].dist <= 6.5 /* && you can see the sprite*/)
 	{
 		dm->spr[i].move = 's';//shooting
-		dm->gfx[dm->spr[i].gfx].x = 0;
+		if (i == 6)
+			dm->gfx[dm->spr[i].gfx].x = 32;//charizard
+		else
+			dm->gfx[dm->spr[i].gfx].x = 0;//pokemontrainer
 		dm->gfx[dm->spr[i].gfx].y = 0;
 	}
 	else
@@ -86,12 +90,9 @@ void	pokemon_trainer_mode(t_doom *dm, double spra, int i)
 }
 
 
-void	pokemon_trainer(t_doom *dm, int y, int x, double spra)
+void	pokemon_trainer(t_doom *dm, int y, int x, int i)
 {
-	int	i;
-
-	i = 5;
-	pokemon_trainer_mode(dm, spra, i);
+	pokemon_trainer_mode(dm, i);
 	ai_movement(dm, &dm->spr[i]);
 	draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx],
 		(int[7]){y, x, 48, 32, 0, 0, i}, 25 / dm->spr[i].dist);

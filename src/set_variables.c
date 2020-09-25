@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/23 16:04:42 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:06:20 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	set_variables(t_doom *dm)
 	dm->magazine = 10;
 	dm->hp = 5;
 	dm->alive = 1;
-	dm->keycard = 1;
+	dm->keycard = 0;
 	dm->slidedoor = 'x';
 	dm->doorani = 0;
 	dm->doorfrm = 0;

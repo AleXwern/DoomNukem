@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/24 15:09:30 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:14:41 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,8 +182,8 @@ void	draw_objects(t_doom *dm, int y, int x, double spra)
 			chest_object(dm, i, y, x);
 		else if ((i == 1 || i == 2) && dm->drawgunandkeycard)
 				draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx], (int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt, dm->gfx[dm->obj[i].gfx].wid, 0, 0, i}, dm->obj[i].size / dm->obj[i].dist);
-		else
-			draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx], (int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt, dm->gfx[dm->obj[i].gfx].wid, 0, 0, i}, dm->obj[i].size / dm->obj[i].dist);
+		//else
+		//	draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx], (int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt, dm->gfx[dm->obj[i].gfx].wid, 0, 0, i}, dm->obj[i].size / dm->obj[i].dist);
 	}
 }
 
@@ -192,7 +192,7 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 	int	i;
 
 	i = -1;
-	while (++i < 6)
+	while (++i < 7)
 	{
 		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x);
 		if (spra < dm->mina || spra > dm->maxa)
@@ -208,7 +208,9 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z))
 			- ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
 		if (i == 5 && (dm->spr[i].hp > 0))
-			pokemon_trainer(dm, y, x, spra);
+			pokemon_trainer(dm, y, x, i);
+		else if (i == 6 && (dm->spr[i].hp > 0))
+			pokemon_trainer(dm, y, x, i);
 		else if (dm->spr[i].hp > 0)
 			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, dm->gfx[dm->spr[i].gfx].hgt,
 				dm->gfx[dm->spr[i].gfx].wid, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
@@ -223,11 +225,11 @@ void	draw_projectiles(t_doom *dm, int y, int x, double spra)
 	while (++i < 5)
 	{
 		if (i == 1)
-			ai_shooting(dm, i, 5);
-		else if (i == 2)
 			player_shooting(dm, i);
-		//else if (i == 3)
-		//	ai_shooting(dm, i, 2);//spr[2] is invisible enemy near the spawn upstairs
+		else if (i == 2)
+			ai_shooting(dm, i, 5);
+		else if (i == 3)
+			ai_shooting(dm, i, 6);//spr[6] is charizard
 		//else if (i == 4)
 		//	ai_shooting(dm, i, 3);//spr[3] is mantaray
 		spra = atan2(dm->prj[i].dir.y, dm->prj[i].dir.x);

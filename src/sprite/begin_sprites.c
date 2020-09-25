@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:54:01 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/24 14:19:27 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:07:06 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ void	sprite_set2(t_doom *dm)
 	dm->spr[5].frame = 0;
 	//dm->spr[5].size = 5;
 	dm->spr[5].face.x = 0;//use this as a "which direction is the trainer facing"//not in use at the moment
+
+	// Charizard
+	dm->spr[6].hp = 2;
+	dm->spr[6].pos.z = 6.8;
+	dm->spr[6].pos.y = 12.4;
+	dm->spr[6].pos.x = 5.4;
+	dm->spr[6].gfx = 26;
+	dm->spr[6].move = 'x';
+	dm->spr[6].frame = 0;
 
 	//chest
 	dm->obj[0].pos.z = 7.5;
