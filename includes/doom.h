@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 14:43:20 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 16:07:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,6 +398,7 @@ typedef struct		s_doom
 	int				isclick;
 	t_key			key;
 	int				crouching;
+	int				uncrouch;
 	int				mouseprevx;
 	int				mouseprevy;
 	int				*options[25];

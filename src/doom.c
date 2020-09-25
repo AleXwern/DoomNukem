@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 14:39:48 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/25 15:05:05 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void	network_test(t_doom *dm)
 void	error_out(char *msg, t_doom *dm)
 {
 	ft_putendl(msg);
-	network_test(dm);
+	//network_test(dm);
 	ft_putnbrln(sizeof(double*));
 	dm->killthread = 1;
 	SDL_SetRelativeMouseMode(SDL_FALSE);
