@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 13:41:47 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/25 16:08:16 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void			menu_keys_hold(int key, t_doom *dm)
+void	menu_keys_hold(int key, t_doom *dm)
 {
 	if (key == LEFT)
 	{
@@ -41,7 +41,7 @@ void			menu_keys_hold(int key, t_doom *dm)
 	}
 }
 
-int				key_hold(int key, t_doom *dm)
+int		key_hold(int key, t_doom *dm)
 {
 	if (dm->ismenu)
 	{
@@ -80,6 +80,7 @@ int				key_hold(int key, t_doom *dm)
 	}
 	if (key == KEY_C && !dm->crouching)
 	{
+		printf("started crouching\n");
 		dm->movsp -= 0.03;
 		dm->pos.z += 0.2;
 		dm->crouching = 1;
@@ -95,7 +96,7 @@ int				key_hold(int key, t_doom *dm)
 	return (0);
 }
 
-void			menu_keys(int key, t_doom *dm)
+void	menu_keys(int key, t_doom *dm)
 {
 	if (key == DOWN)
 		dm->cur++;
@@ -111,7 +112,7 @@ void			menu_keys(int key, t_doom *dm)
 		dm->minopt = dm->cur - 9;
 }
 
-int				key_release(int key, t_doom *dm)
+int		key_release(int key, t_doom *dm)
 {
 	if (key == ESC)
 	{
@@ -185,9 +186,18 @@ int				key_release(int key, t_doom *dm)
 			dm->isoutline = (dm->isoutline * dm->isoutline) - 1;
 		if (key == KEY_C && dm->crouching)
 		{
-			dm->crouching = 0;
-			dm->movsp += 0.03;
-			dm->pos.z -= 0.2;
+			if (dm->area[(int)(dm->pos.z - 0.2)][(int)dm->pos.y][(int)dm->pos.x].b <= 1)
+			{
+				//printf("uncrouched\n");
+				dm->crouching = 0;
+				dm->movsp += 0.03;
+				dm->pos.z -= 0.2;
+			}
+			else
+			{
+				//printf("can't uncrouch\n");
+				dm->uncrouch = 1;
+			}
 		}
 		if (key == KEY_R && !dm->reloading && !dm->shooting && dm->gun)
 		{
@@ -216,13 +226,13 @@ int				key_release(int key, t_doom *dm)
 	return (0);
 }
 
-int				x_press(t_doom *dm)
+int		x_press(t_doom *dm)
 {
 	error_out(FINE, dm);
 	return (0);
 }
 
-void			jetpack(t_doom *dm)
+void	jetpack(t_doom *dm)
 {
 	if (dm->key.one)
 	{
@@ -239,7 +249,7 @@ void			jetpack(t_doom *dm)
 	dm->airbrn = 1;
 }
 
-void			dir_single(t_doom *dm)
+void	dir_single(t_doom *dm)
 {
 	double		vect;
 
@@ -253,7 +263,7 @@ void			dir_single(t_doom *dm)
 	dm->plane.z *= vect;
 }
 
-int				mouse_move(int x, int y, t_doom *dm)
+int		mouse_move(int x, int y, t_doom *dm)
 {
 	t_vector	olddir;
 	t_vector	oldplane;
@@ -280,11 +290,10 @@ int				mouse_move(int x, int y, t_doom *dm)
 	return (0);
 }
 
-int				move(t_doom *dm)
+int		move(t_doom *dm)
 {
 	if (dm->alive)
 	{
-
 		if ((dm->key.w || dm->key.s) && !dm->isoptions)
 			move_fb(dm);
 		if ((dm->key.a || dm->key.d) && !dm->isoptions)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 11:41:19 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/25 16:08:35 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,9 +256,21 @@ void	render(t_doom *dm)
 	}
 	if (dm->isoutline)
 		post_effects(dm);
-	//draw_sprite(dm, 0, 0, 0);
+	draw_sprite(dm, 0, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
+	if (dm->uncrouch)
+	{
+		//printf("tries to uncrouch\n");
+		if (dm->area[(int)(dm->pos.z - 0.2)][(int)dm->pos.y][(int)dm->pos.x].b <= 1)
+		{
+			//printf("finally uncrouched\n");
+			dm->crouching = 0;
+			dm->movsp += 0.03;
+			dm->pos.z -= 0.2;
+			dm->uncrouch = 0;
+		}
+	}
 	if (dm->slidedoor != 'x')
 		slide_door(dm);
 	if (dm->alive && dm->hp <= 0)
