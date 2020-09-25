@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 14:43:20 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/25 15:38:19 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,24 @@ typedef struct	s_sprite
 	int			steps;//needed anymore?
 }				t_sprite;
 
+typedef struct	s_net
+{
+	t_vector	pos;
+	t_vector	dir;
+	t_vector	prj;
+	int			hp;
+	int			gfx;
+}				t_net;
+
+typedef struct	s_chunk
+{
+	t_net		plr[5];
+	int			id;
+}				t_chunk;
+
+#define NET		sizeof(*t_net)
+#define CHUNK	sizeof(*t_chunk)
+
 /*
 ** mlx	= MLX pointer
 ** win	= WIN pointer
@@ -280,10 +298,10 @@ typedef struct		s_doom
 	SDL_RWops		*rwops;
 	SDL_Event		event;
 	SDL_Thread		**threads;
-	SDL_mutex		*joblist;
-	SDL_mutex		*setdone;
-	SDL_mutex		*lock;
-	SDL_cond		*cond;
+	IPaddress		ip;
+	TCPsocket		sock;
+	int				netstat;
+	int				person;
 	struct s_doom	*data_r;
 	struct s_doom	*dm;
 	int				id;

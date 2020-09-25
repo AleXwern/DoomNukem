@@ -6,15 +6,16 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/25 13:54:22 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/25 15:51:15 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME =		doom-nukem
-OEXT = 		.o
-LEXT = 		.a
-FLG = 		-O2
+NAME	=	doom-nukem
+SERVER	=	doom-server
+OEXT	=	.o
+LEXT	= 	.a
+FLG		= 	-O2
 SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c \
 			util.c menu.c gfx_draw.c posteff.c defaults.c \
 			set_variables.c
@@ -31,6 +32,7 @@ BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
 SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c pokemon_ai.c
+SERVER	=	server.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/draw_extra/,$(DRAWEXT)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
@@ -45,6 +47,8 @@ SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/text/,$(TXTFILE)) \
 			$(addprefix ./src/math/,$(MTHFILE)) \
 			$(addprefix ./src/sprite/,$(SPRFILE))
+SRCSRV	=	$(addprefix ./src/server/,$(SERVER))
+OBJSRV	=	$(addprefix ./obj/server/,$(SERVER:.c=$(OEXT)))
 LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
@@ -98,6 +102,7 @@ $(NAME): $(OBJ) $(LIBFT)
 clean:
 	@echo "Removing Doom-Nukem libraries."
 	@/bin/rm -f $(OBJ)
+	@/bin/rm -f $(OBJSRV)
 	@/bin/rm -f $(DEPNS)
 	@echo Removing Libft libraries.
 	@make -C ./libft fclean
@@ -109,6 +114,15 @@ fclean: clean
 run: all
 	./doom-nukem
 
+server: $(OBJSRV) $(LIBFT)
+	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJ) $(LIBFT) $(MLXLIB)
+	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
+	@Rez -a icon.rsrc -o $(NAME)
+	@SetFile -a C $(NAME)
+	@rm icon.rsrc
+	@echo Executable created successfully.
+	@echo Run the executable as ./doom-server. No args.
+	
 winup:
 ifeq ($(OS),Windows_NT)
 	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/gfx
