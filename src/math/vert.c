@@ -57,4 +57,33 @@ t_vector	cross_prd(t_vector v, t_vector u)
 	c.y = (v.z * u.x) - (v.x * u.z);
 	c.z = (v.x * u.y) - (v.y * u.x);
 	return (c);
+<<<<<<< HEAD
 }
+
+t_vector	oper_vect(t_vector v, t_vector u, char o)
+{
+	t_vector	res;
+
+	if (o == 0)
+	{
+		res.x = v.x - u.x;
+		res.y = v.y - u.y;
+		res.z = v.z - u.z;
+	}
+	else if (o == 1)
+	{
+		res.x = v.x + u.x;
+		res.y = v.y + u.y;
+		res.z = v.z + u.z;
+	}
+	else
+	{
+		res.x = v.x * u.x;
+		res.y = v.y * u.y;
+		res.z = v.z * u.z;
+	}
+	return (res);
+}
+=======
+}
+>>>>>>> 77ea6ad2e0b5882fb4a9a4f913d2964cbba964ae
