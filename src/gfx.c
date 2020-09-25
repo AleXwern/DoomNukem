@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 12:42:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/25 14:43:42 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_img			init_image(t_doom *dm)
 void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 {
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/crosshair.bmp"), 0, 0);//25
-	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/GreyDragon.bmp"), 0, 0);//26
+	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/charizard.bmp"), 0, 0);//26
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/gun.bmp"), 0, 0);//27
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "hud/health.bmp"), 0, 0);//28
 	dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "SpriteSheets/inventory.bmp"), 0, 0);//29

@@ -15,17 +15,17 @@
 
 void	pickupitem(t_doom* dm)
 {
-	if (dm->spr[5].dist < 1.5)//keycard
+	if (dm->obj[2].dist < 1.5)//keycard
 	{
 		dm->keycard = 1;
-		ft_bzero(&dm->spr[5], sizeof(t_sprite));
+		ft_bzero(&dm->obj[2], sizeof(t_sprite));
 	}
-	else if (dm->spr[6].dist < 1.5)//pistol
+	else if (dm->obj[1].dist < 1.5)//pistol
 	{
 		dm->gun = 1;
-		ft_bzero(&dm->spr[6], sizeof(t_sprite));
+		ft_bzero(&dm->obj[1], sizeof(t_sprite));
 	}
-	else if (dm->spr[7].dist < 2.5 && !dm->chestopened)//chest
+	else if (dm->obj[0].dist < 2.5 && !dm->chestopened)//chest
 		dm->chestopened = 1;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 13:54:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/25 14:43:20 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -532,7 +532,7 @@ void				ai_shooting(t_doom *dm, int i, int s);
 void				player_shooting(t_doom *dm, int i);
 void				check_hit(t_doom *dm, int i, int x);
 void				chest_object(t_doom *dm, int i, int y, int x);
-void				pokemon_trainer(t_doom *dm, int y, int x, double spra);
+void				pokemon_trainer(t_doom *dm, int y, int x, int i);
 
 void				editor_key_press(Uint32 key, t_editor *le);
 void				editor_key_release(Uint32 key, t_editor *le, t_doom* dm);
