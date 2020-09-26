@@ -246,7 +246,7 @@ void	render(t_doom *dm)
 		dm->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&dm->data_r[x]);
 		x++;
 	}
-	if (i == 7 && dm->netstat)
+	if (i >= 3 && dm->netstat)
 	{
 		send_pos(dm);
 		recv_pos(dm);

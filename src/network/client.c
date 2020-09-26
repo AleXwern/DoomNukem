@@ -15,6 +15,8 @@
 
 int		connect_server(t_doom *dm)
 {
+	if (dm->netstat)
+		return;
 	dm->person = 10;
 	printf("Starting client...\n");
 	if (SDLNet_ResolveHost(&dm->ip, IP, 9999) == -1)
@@ -52,12 +54,8 @@ void	recv_pos(t_doom *dm)
 	recv = SDLNet_TCP_Recv(dm->sock, &data, sizeof(t_chunk));
 	printf("Recv %d out of %d\n", recv, sizeof(t_chunk));
 	i = -1;
-	if (recv <= 0)
-	{
-		dm->srv = SDLNet_TCP_Accept(dm->sock);
-		if (!dm->srv)
-			ft_putendl("Accept error");
-	}
+	if (recv == sizeof(t_chunk))
+		dm->id = data.id;
 	while (++i < 5)
 	{
 		if (i != data.id)

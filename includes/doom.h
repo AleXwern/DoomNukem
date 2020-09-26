@@ -307,7 +307,6 @@ typedef struct		s_doom
 	SDL_Thread		**threads;
 	IPaddress		ip;
 	TCPsocket		sock;
-	TCPsocket		srv;
 	int				netstat;
 	int				person;
 	struct s_doom	*data_r;

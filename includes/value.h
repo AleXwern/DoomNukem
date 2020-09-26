@@ -66,7 +66,7 @@
 # define IFRAME		50
 # define DFRAME		35
 # define PCOLL		0.2
-# define OP			10
+# define OP			11
 # define IP			"192.168.1.16"
 //# define IP		"10.13.1.1"
 

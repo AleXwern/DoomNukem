@@ -23,6 +23,8 @@ typedef struct	s_server
 	IPaddress	ip;
 	IPaddress	*remoteip[5];
 	t_chunk		data;
+	char		alive[5];
+	int			timeout[5];
 	int			id;
 	int			stop;
 }				t_server;

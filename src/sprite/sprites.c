@@ -194,6 +194,8 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 	i = -1;
 	while (++i < 7)
 	{
+		if (i == dm->id)
+			continue;
 		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x);
 		if (spra < dm->mina || spra > dm->maxa)
 			spra += M_PI * 2;

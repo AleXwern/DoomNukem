@@ -15,13 +15,20 @@
 
 void	menu_keys_hold(int key, t_doom *dm)
 {
-	if (key == LEFT)
+	if (key == RIGHT && dm->cur == 11)
+		dm->netstat = connect_server(dm);
+	else if (key == LEFT && dm->cur == 11)
+	{
+		SDLNet_TCP_Close(dm->sock);
+		dm->netstat = 0;
+	}
+	else if (key == LEFT && dm->cur != 11)
 	{
 		(*dm->options[dm->cur])--;
 		if ((*dm->options[dm->cur]) < 0)
 			(*dm->options[dm->cur]) = 0;
 	}
-	else if (key == RIGHT)
+	else if (key == RIGHT && dm->cur != 11)
 	{
 		(*dm->options[dm->cur])++;
 		if ((*dm->options[dm->cur]) > (int)dm->maxvalue[dm->cur])
@@ -123,6 +130,9 @@ int		key_release(int key, t_doom *dm)
 		reset_position(dm);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		dm->mousemovement = 0;
+		if (dm->netstat)
+			SDLNet_TCP_Close(dm->sock);
+		dm->netstat = 0;
 		return (1);
 	}
 	if (dm->alive)
