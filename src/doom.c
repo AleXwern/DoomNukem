@@ -23,6 +23,7 @@ void	error_out(char *msg, t_doom *dm)
 	dm->killthread = 1;
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_WaitThread(dm->fpsthread, NULL);
+	SDLNet_Quit();
 	SDL_Quit();
 	ft_putnbrln(sizeof(t_type));
 	//system("leaks doom-nukem");
@@ -123,6 +124,7 @@ int		main(int ac, char **av)
 	ft_bzero(dm, sizeof(t_doom));
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		error_out(SDL_ERROR, dm);
+	SDLNet_Init();
 	dm->tile = 4;
 	if (dm->tile < 1 || dm->tile > 6)
 		error_out(USAGE, dm);

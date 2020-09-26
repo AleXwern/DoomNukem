@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
 
 void	pickupitem(t_doom* dm)
 {

@@ -12,7 +12,6 @@
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-#include <sys/syscall.h>
 
 void	draw_sky(t_doom *dm)
 {

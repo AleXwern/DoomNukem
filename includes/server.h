@@ -22,6 +22,7 @@ typedef struct	s_server
 	TCPsocket	client[5];
 	IPaddress	ip;
 	IPaddress	*remoteip[5];
+	t_chunk		data;
 	int			id;
 	int			stop;
 }				t_server;

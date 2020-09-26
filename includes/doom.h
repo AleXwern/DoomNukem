@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 16:19:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/25 18:41:53 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 ** to work because of required flags.
 */
 #  include "SDL.h"
-//#  include "SDL_image.h"
+#  include "SDL_net.h"
 #  include "SDL_mixer.h"
 #  include <windows.h>
 #  include <share.h>
@@ -245,22 +245,29 @@ typedef struct	s_sprite
 	int			steps;//needed anymore?
 }				t_sprite;
 
-typedef struct	s_net
+#pragma pack(push, 1)
+
+typedef struct	s_bulk
 {
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	prj;
 	int			hp;
 	int			gfx;
-}				t_net;
+}				t_bulk;
+
+#pragma pack(pop)
+#pragma pack(push, 1)
 
 typedef struct	s_chunk
 {
-	t_net		plr[5];
+	t_bulk		plr[5];
 	int			id;
 }				t_chunk;
 
-#define NET		sizeof(*t_net)
+#pragma pack(pop)
+
+#define NET		sizeof(*t_bulk)
 #define CHUNK	sizeof(*t_chunk)
 
 /*
@@ -300,6 +307,7 @@ typedef struct		s_doom
 	SDL_Thread		**threads;
 	IPaddress		ip;
 	TCPsocket		sock;
+	TCPsocket		srv;
 	int				netstat;
 	int				person;
 	struct s_doom	*data_r;
@@ -603,5 +611,9 @@ t_gfx				read_bmp(char* file, int fd, int bread);
 
 double				dot_prd(t_vector v, t_vector u);
 double				tri_pythagor(t_vector f, t_vector s);
+
+int					connect_server(t_doom* dm);
+void				send_pos(t_doom* dm);
+void				recv_pos(t_doom* dm);
 
 #endif

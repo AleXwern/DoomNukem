@@ -15,8 +15,9 @@
 
 int		connect_server(t_doom *dm)
 {
+	dm->person = 10;
 	printf("Starting client...\n");
-	if (SDLNet_ResolveHost(&dm->ip, "10.13.1.1", 9999) == -1)
+	if (SDLNet_ResolveHost(&dm->ip, IP, 9999) == -1)
 	{
 		printf("SDLNet_ResolveHost: %s\n", SDLNet_GetError());
 		return (0);
@@ -32,12 +33,13 @@ int		connect_server(t_doom *dm)
 
 void	send_pos(t_doom *dm)
 {
-	t_net	data;
+	t_bulk	data;
 	int		sent;
 
-	data = (t_net){.dir = dm->dir, .pos = dm->pos, .hp = dm->hp, .gfx = dm->person};
-	sent = SDLNet_TCP_Send(dm->sock, &data, NET);
-	if (sent < NET)
+	data = (t_bulk){.dir = dm->dir, .pos = dm->pos, .hp = dm->hp, .gfx = dm->person};
+	sent = SDLNet_TCP_Send(dm->sock, &data, sizeof(t_bulk));
+	printf("Sent %d out of %d\n", sent, sizeof(t_bulk));
+	if (sent < sizeof(t_bulk))
 		printf("Missing bytes SEND: %s\n", SDLNet_GetError());
 }
 
@@ -47,8 +49,15 @@ void	recv_pos(t_doom *dm)
 	int		recv;
 	int		i;
 
-	recv = SDLNet_TCP_Recv(dm->sock, &data, CHUNK);
+	recv = SDLNet_TCP_Recv(dm->sock, &data, sizeof(t_chunk));
+	printf("Recv %d out of %d\n", recv, sizeof(t_chunk));
 	i = -1;
+	if (recv <= 0)
+	{
+		dm->srv = SDLNet_TCP_Accept(dm->sock);
+		if (!dm->srv)
+			ft_putendl("Accept error");
+	}
 	while (++i < 5)
 	{
 		if (i != data.id)
@@ -147,7 +156,7 @@ void	network_test(t_doom *dm) // THIS IS FOR TESTING PURPOSES
 		IPaddress ip;
 		TCPsocket tcpsock;
 
-		if (SDLNet_ResolveHost(&ip, "10.13.1.1", 9999) == -1)
+		if (SDLNet_ResolveHost(&ip, IP, 9999) == -1)
 		{
 			printf("SDLNet_ResolveHost: %s\n", SDLNet_GetError());
 			exit(1);
@@ -164,7 +173,7 @@ void	network_test(t_doom *dm) // THIS IS FOR TESTING PURPOSES
 		{
 			printf("message: ");
 			char message[1024];
-			fgets(message, 1024, stdin);
+			fgets(message, 1024, 0);
 			int len = strlen(message);
 
 			/* strip the newline */
