@@ -109,6 +109,10 @@ void	menu_keys(int key, t_doom *dm)
 		dm->cur++;
 	else if (key == UP)
 		dm->cur--;
+	else if (key == SPACE && (*dm->options[dm->cur]) < (int)dm->maxvalue[dm->cur] && dm->cur != 11)
+		(*dm->options[dm->cur]) = (int)dm->maxvalue[dm->cur];
+	else if (key == SPACE && dm->cur != 11)
+		(*dm->options[dm->cur]) = 0;
 	if (dm->cur < 0)
 		dm->cur = OP;
 	if (dm->cur > OP)
@@ -117,6 +121,18 @@ void	menu_keys(int key, t_doom *dm)
 		dm->minopt = 0;
 	if (dm->cur - dm->minopt > 9)
 		dm->minopt = dm->cur - 9;
+	if (dm->cur == 8)
+	{
+		if (dm->tile < 1)
+			dm->tile = 1;
+		destroy_gfx(dm, -1);
+		comp_gfx(dm, 0);
+	}
+	else if (dm->cur == 9)
+	{
+		Mix_VolumeMusic(dm->volume);
+		Mix_Volume(-1, dm->volume);
+	}
 }
 
 int		key_release(int key, t_doom *dm)

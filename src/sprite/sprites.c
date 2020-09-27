@@ -202,6 +202,8 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 		if (spra < dm->mina || spra > dm->maxa)
 			spra -= M_PI * 2;
 		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
+		if (dm->spr[i].dist < 1)
+			continue;
 		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
 		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
 		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;

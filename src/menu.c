@@ -117,8 +117,8 @@ void	options_menu(t_doom *dm)
 	SDL_RenderPresent(dm->rend);
 	if (i >= 3 && dm->netstat)
 	{
-		send_pos(dm);
-		recv_pos(dm);
+		if (send_pos(dm))
+			recv_pos(dm);
 		i = 0;
 	}
 	i++;

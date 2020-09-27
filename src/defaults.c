@@ -60,11 +60,11 @@ void	resize_window(t_doom *dm)
 		dm->winw = 1500;
 		dm->winh = 960;
 	}*/
-	if (dm->winw < 1080 || dm->winh < 720)
+	if (dm->winw < 360 || dm->winh < 244)
 	{
-		SDL_SetWindowSize(dm->win, 1080, 720);
-		dm->winw = 1080;
-		dm->winh = 720;
+		SDL_SetWindowSize(dm->win, 360, 244);
+		dm->winw = 360;
+		dm->winh = 244;
 	}
 	dm->img = init_image(dm);
 	if (!(dm->rend = SDL_GetRenderer(dm->win)))

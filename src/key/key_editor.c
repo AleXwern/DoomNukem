@@ -96,11 +96,11 @@ void	editor_key_release(Uint32 key, t_editor *le, t_doom* dm)
 {
 	if (key == ESC)
 		le->quit = 1;
-	if (key == DOWN)
+	else if (key == DOWN)
 		le->cur++;
-	if (key == UP)
+	else if (key == UP)
 		le->cur--;
-	if (key == KEY_S)
+	else if (key == KEY_S)
 		save_file(dm, 0, "1s", -1);
 	if (le->cur > 4)
 		le->cur = 0;
@@ -112,8 +112,12 @@ void	editor_key_press(Uint32 key, t_editor *le)
 {
 	if (key == LEFT)
 		le->options[le->cur]--;
-	if (key == RIGHT)
+	else if (key == RIGHT)
 		le->options[le->cur]++;
+	else if (key == SPACE && le->options[le->cur] < le->maxval[le->cur])
+		le->options[le->cur] = le->maxval[le->cur];
+	else if (key == SPACE)
+		le->options[le->cur] = le->minval[le->cur];
 	if (le->options[le->cur] > le->maxval[le->cur])
 		le->options[le->cur] = le->maxval[le->cur];
 	if (le->options[le->cur] < le->minval[le->cur])

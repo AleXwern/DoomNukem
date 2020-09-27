@@ -7,6 +7,7 @@ Hive Helsinki project DoomNukem by anystrom, tberkul and ?????????
 
 # How to use -> WIN64:
 1. Soon! It exists but needs some nice and user friendly way to compile (low-prio atm)
+2. Before that you can get a Windows version in Release tab although it can be outdated.
 
 # Controls
 
@@ -31,7 +32,8 @@ Game
 Menus (main/game/editor menus)
 1. Arrow up/down - Scroll options
 2. Arrow left/right - Increase/decrease value
-3. Space - Select current option
+3. Space - Select current option (main menu)
+4. Space - Set value to min/max
 
 Editor
 1. S - Save the map

@@ -33,7 +33,7 @@ int		connect_server(t_doom *dm)
 	return (1);
 }
 
-void	send_pos(t_doom *dm)
+int		send_pos(t_doom *dm)
 {
 	t_bulk	data;
 	int		sent;
@@ -42,7 +42,13 @@ void	send_pos(t_doom *dm)
 	sent = SDLNet_TCP_Send(dm->sock, &data, sizeof(t_bulk));
 	printf("Sent %d out of %d\n", sent, sizeof(t_bulk));
 	if (sent < sizeof(t_bulk))
-		printf("Missing bytes SEND: %s\n", SDLNet_GetError());
+	{
+		dm->netstat = 0;
+		SDLNet_TCP_Close(dm->sock);
+		return (0);
+	}
+		//printf("Missing bytes SEND: %s\n", SDLNet_GetError());
+	return (1);
 }
 
 void	recv_pos(t_doom *dm)
@@ -51,11 +57,14 @@ void	recv_pos(t_doom *dm)
 	int		recv;
 	int		i;
 
+	ft_putstr("Socket status: ");
+	ft_putnbrln(!SDLNet_SocketReady(dm->sock));
 	recv = SDLNet_TCP_Recv(dm->sock, &data, sizeof(t_chunk));
 	printf("Recv %d out of %d\n", recv, sizeof(t_chunk));
 	i = -1;
-	if (recv == sizeof(t_chunk))
-		dm->id = data.id;
+	if (data.id > 3 || data.id < 0 || recv < sizeof(t_chunk))
+		return;
+	dm->id = data.id;
 	while (++i < 5)
 	{
 		if (i != data.id)

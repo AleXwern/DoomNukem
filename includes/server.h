@@ -16,15 +16,17 @@
 # include "doom.h"
 # include "value.h"
 
+# define MAXPLAYER 4
+
 typedef struct	s_server
 {
 	TCPsocket	server;
-	TCPsocket	client[5];
+	TCPsocket	client[MAXPLAYER];
 	IPaddress	ip;
-	IPaddress	*remoteip[5];
+	IPaddress	*remoteip[MAXPLAYER];
 	t_chunk		data;
-	char		alive[5];
-	int			timeout[5];
+	char		alive[MAXPLAYER];
+	int			timeout[MAXPLAYER];
 	int			id;
 	int			stop;
 }				t_server;

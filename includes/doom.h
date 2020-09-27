@@ -612,7 +612,7 @@ double				dot_prd(t_vector v, t_vector u);
 double				tri_pythagor(t_vector f, t_vector s);
 
 int					connect_server(t_doom* dm);
-void				send_pos(t_doom* dm);
+int					send_pos(t_doom* dm);
 void				recv_pos(t_doom* dm);
 
 #endif
