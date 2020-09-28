@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 16:08:35 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:05:10 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,14 +287,14 @@ void	render(t_doom *dm)
 		set_text(dm, "you died\npress space", (int[3]){dm->winh / 2 - 26, dm->winw / 2 - 210, 0xf70e0e}, 2);
 		SDL_RenderPresent(dm->rend);
 	}
-	//printf("%f  %f  %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
 	if (dm->iframe == IFRAME)
-		Mix_PlayChannel(-1, dm->gettingHit, 0);
+		Mix_PlayChannel(-1, dm->hit, 0);
 	if (dm->alive)
 		SDL_RenderPresent(dm->rend);
 	if (dm->iframe)
 		dm->iframe--;
 	dm->fps++;
+	set_text(dm, dm->fpschar, (int[3]){0, 0, 0xf70e0e}, 0.6);
 	/*printf("Matrix:\nPOS %f %f %f\nDIR %f %f %f\nPLN %f %f %f\n",
 			dm->pos.z, dm->pos.y, dm->pos.x,
 			dm->dir.z, dm->dir.y, dm->dir.x,

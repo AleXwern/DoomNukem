@@ -13,25 +13,34 @@
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+/*
+**keycard
+**pistol
+**chest
+*/
+
 void	pickupitem(t_doom* dm)
 {
-	if (dm->obj[2].dist < 1.5)//keycard
+	if (dm->obj[2].dist < 1.5)
 	{
 		dm->keycard = 1;
 		ft_bzero(&dm->obj[2], sizeof(t_sprite));
 	}
-	else if (dm->obj[1].dist < 1.5)//pistol
+	else if (dm->obj[1].dist < 1.5)
 	{
 		dm->gun = 1;
 		ft_bzero(&dm->obj[1], sizeof(t_sprite));
 	}
-	else if (dm->obj[0].dist < 2.5 && !dm->chestopened)//chest
+	else if (dm->obj[0].dist < 2.5 && !dm->chestopened)
 		dm->chestopened = 1;
 }
 
+/*
+**chest width 197 height 197 per frame
+*/
+
 void	chest_object(t_doom *dm, int i, int y, int x)
 {
-	//chest width 197 height 197 per frame
 	if (dm->chestopened)
 		dm->gfx[dm->obj[i].gfx].x = (dm->obj[i].frame / 8) * 196;
 	else

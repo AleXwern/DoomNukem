@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/24 12:23:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:02:46 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,36 +30,10 @@ void	wind_default(t_doom *dm)
 	ft_bzero(&dm->key, sizeof(t_key));
 }
 
-void	free_vram(t_doom* dm)
-{
-	free(dm->threads);
-	free(dm->data_r);
-	free(dm->maparr);
-	free(dm->wallarr);
-}
-
-void	alloc_vram(t_doom *dm)
-{
-	if (!(dm->maparr = (int*)ft_memalloc(sizeof(int) * dm->winw * dm->winh)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->wallarr = (double*)ft_memalloc(sizeof(double) * dm->winw * dm->winh)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->threads = (SDL_Thread**)ft_memalloc(sizeof(SDL_Thread*) * dm->trx)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->data_r = (t_doom*)ft_memalloc(sizeof(t_doom) * dm->trx)))
-		error_out(MEM_ERROR, dm);
-}
-
 void	resize_window(t_doom *dm)
 {
 	dm->winw = dm->event.window.data1;
 	dm->winh = dm->event.window.data2;
-	/*if (dm->winw > 1500 || dm->winh > 960)
-	{
-		SDL_SetWindowSize(dm->win, 1500, 960);
-		dm->winw = 1500;
-		dm->winh = 960;
-	}*/
 	if (dm->winw < 360 || dm->winh < 244)
 	{
 		SDL_SetWindowSize(dm->win, 360, 244);
@@ -117,7 +91,7 @@ void	doom_default(t_doom *dm)
 		Mix_PlayMusic(dm->music, 0);
 	dm->volume = 64;
 	Mix_VolumeMusic(64);
-	printf("Threads: %d\n", dm->trx);
+	dm->fpschar = ft_strdup("30");
 }
 
 void	reset_window(t_doom *dm, Uint8 arg)

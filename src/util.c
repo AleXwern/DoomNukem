@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/16 16:00:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:08:30 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-int		fps_capper(void* ptr)
+int		fps_capper(void *ptr)
 {
 	t_doom	*dm;
 
@@ -26,7 +26,7 @@ int		fps_capper(void* ptr)
 	return (1);
 }
 
-int		fps_counter(void* ptr)
+int		fps_counter(void *ptr)
 {
 	t_doom	*dm;
 
@@ -34,11 +34,12 @@ int		fps_counter(void* ptr)
 	while (!dm->killthread)
 	{
 		SDL_Delay(1000);
-		//printf("FPS: %d\n", dm->fps / dm->trx);
-		printf("FPS: %d\n", dm->fps);
+		free(dm->fpschar);
+		dm->fpschar = ft_itoa(dm->fps);
 		if (dm->fps > 0 && !dm->ismenu)
 			dm->prefps = dm->fps;
-		dm->fallsp.z = (0.6 * (30.0 / dm->buffer / dm->prefps)) / dm->prefps / (dm->buffer / 5.0);
+		dm->fallsp.z = (0.6 * (30.0 / dm->buffer / dm->prefps))
+			/ dm->prefps / (dm->buffer / 5.0);
 		dm->fps = 0;
 	}
 	return (1);

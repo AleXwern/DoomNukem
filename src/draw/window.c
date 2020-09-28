@@ -3,15 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 13:21:56 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 10:42:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 13:09:44 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
+void	ext_dda_check(t_doom *dm)
+{
+	if (dm->map.z < 0 || dm->map.y < 0 || dm->map.x < 0
+		|| dm->map.z >= 9 || dm->map.y >= 25 || dm->map.x >= 25)
+	{
+		dm->hit = 2;
+		return ;
+	}
+	dm->blk = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x];
+	if (dm->blk.b == 6)
+		dm->hit = 0;
+	else if (dm->blk.pt && dm->blk.b > 1)
+		part_check(dm);
+	else if (dm->blk.b > 6)
+		dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
+	else if (dm->blk.b > 1)
+		dm->hit = 1;
+}
 
 void	ext_dda(t_doom *dm)
 {
@@ -36,20 +55,7 @@ void	ext_dda(t_doom *dm)
 			dm->map.z += dm->stepz;
 			dm->side = 2;
 		}
-		if (dm->map.z < 0 || dm->map.y < 0 || dm->map.x < 0 || dm->map.z >= 9 || dm->map.y >= 25 || dm->map.x >= 25)
-		{
-			dm->hit = 2;
-			return;
-		}
-		dm->blk = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x];
-		if (dm->blk.b == 6)
-			dm->hit = 0;
-		else if (dm->blk.pt && dm->blk.b > 1)
-			part_check(dm);
-		else if (dm->blk.b > 6)
-			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
-		else if (dm->blk.b > 1)
-			dm->hit = 1;
+		ext_dda_check(dm);
 	}
 }
 
@@ -62,7 +68,8 @@ void	ext_raytwo(t_doom *dm)
 	else
 		dm->col = 0xffF0330A;
 	dm->wallarr[dm->winw * dm->y + dm->x] = dm->walldist;
-	dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z + dm->map.y + dm->map.x;
+	dm->maparr[dm->winw * dm->y + dm->x] = dm->side + 1 + dm->map.z +
+		dm->map.y + dm->map.x;
 	dm->wincol = 0;
 	if (dm->hit == 2)
 		draw_sky(dm);
@@ -70,8 +77,6 @@ void	ext_raytwo(t_doom *dm)
 		render_floor(dm);
 	else
 		wall_stripe(dm);
-	//if (dm->x == 540 && dm->y == 359)
-	//	printf("%08x %08x\n", dm->col, dm->rcol);
 	dm->col = avg_color(dm->rcol, dm->col);
 	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
 }
@@ -80,11 +85,14 @@ void	ext_ray(t_doom *dm)
 {
 	ext_dda(dm);
 	if (dm->side == 0)
-		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
+		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) /
+			dm->rayd.x;
 	else if (dm->side == 1)
-		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
+		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) /
+			dm->rayd.y;
 	else
-		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
+		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) /
+			dm->rayd.z;
 	if (dm->walldist < 0.0001)
 		dm->walldist += 0.01;
 	dm->lineh = (dm->winh / dm->walldist);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 16:08:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/28 13:31:14 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ int		key_release(int key, t_doom *dm)
 			dm->keycard = (dm->keycard == 0 ? 1 : 0);
 		if (key == KEY_K && !dm->iframe)
 		{
-			Mix_PlayChannel(-1, dm->gettingHit, 0);
+			Mix_PlayChannel(-1, dm->hit, 0);
 			dm->hp -= 1;
 			dm->iframe = IFRAME;
 		}

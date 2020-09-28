@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shooting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/25 15:20:06 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/28 13:31:05 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	check_hit(t_doom *dm, int i, int x)
 			{
 				dm->spr[x].hp -= 1;
 				ft_bzero(&dm->prj[i], sizeof(t_sprite));
-				Mix_PlayChannel(-1, dm->gettingHit, 0);
+				Mix_PlayChannel(-1, dm->hit, 0);
 				return ;
 			}
 		}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/25 15:51:15 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/28 15:30:30 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LEXT	= 	.a
 FLG		= 	-O2
 SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c \
 			util.c menu.c gfx_draw.c posteff.c defaults.c \
-			set_variables.c
+			set_variables.c misc_alloc.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
 DRAWEXT =	draw_hud.c
 FILESYS =	fileformat.c save_level.c

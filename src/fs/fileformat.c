@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/18 13:26:58 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:21:03 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-// Remember to clear Windows spesific open functions for final version.
-
-void	validate_flr(t_doom *dm, int y, int x, t_block blk)
+void		validate_flr(t_doom *dm, int y, int x, t_block blk)
 {
 	while (++y < dm->height)
 	{
@@ -25,7 +23,7 @@ void	validate_flr(t_doom *dm, int y, int x, t_block blk)
 	}
 }
 
-void	validate_map(t_doom *dm, int i, int a, t_block blk)
+void		validate_map(t_doom *dm, int i, int a, t_block blk)
 {
 	while (++a < dm->mxflr)
 	{
@@ -45,13 +43,13 @@ void	validate_map(t_doom *dm, int i, int a, t_block blk)
 	validate_flr(dm, -1, -1, blk);
 }
 
-void	fill_area(t_doom* dm, int y, int x)
+void		fill_area(t_doom *dm, int y, int x)
 {
 	while (++x < 25)
 		dm->area[dm->flr][y][x].b = 2;
 }
 
-int		templen(char **temp)
+int			templen(char **temp)
 {
 	int		i;
 
@@ -61,7 +59,7 @@ int		templen(char **temp)
 	return (i);
 }
 
-void	comp_block(t_doom *dm, char **temp, int x, int y)
+void		comp_block(t_doom *dm, char **temp, int x, int y)
 {
 	dm->area[dm->flr][y][x].b = ft_atoi(temp[0]);
 	dm->area[dm->flr][y][x].lgt = ft_atoi(temp[1]);
@@ -81,7 +79,7 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 	free_memory(temp);
 }
 
-int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
+int			get_next_matrix(t_doom *dm, char **temp, int x, int y)
 {
 	int		wid;
 
@@ -90,7 +88,7 @@ int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 		return (0);
 	if (temp[0][0] == 'z')
 		return (0);
-	if (!(dm->area[dm->flr][y] = (MAPTYPE*)ft_memalloc(sizeof(MAPTYPE) * 25)))
+	if (!(dm->area[dm->flr][y] = (t_block*)ft_memalloc(sizeof(t_block) * 25)))
 		error_out(MEM_ERROR, dm);
 	while (temp[x] && x < 25)
 	{
@@ -103,7 +101,7 @@ int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 	return (1);
 }
 
-void	fileformat(int fd, t_doom *dm, int y)
+void		fileformat(int fd, t_doom *dm, int y)
 {
 	char	**temp;
 	char	*gnl;
@@ -117,7 +115,7 @@ void	fileformat(int fd, t_doom *dm, int y)
 		if (get_next_matrix(dm, temp, 0, y) == 0)
 		{
 			free_memory(temp);
-			break;
+			break ;
 		}
 		y++;
 		free_memory(temp);
@@ -130,28 +128,26 @@ void	fileformat(int fd, t_doom *dm, int y)
 		error_out(FIL_ERROR, dm);
 }
 
-void	comp_map(t_doom *dm)
+void		comp_map(t_doom *dm)
 {
 	int		fd;
-	char*	fpath;
-	char*	path;
+	char	*fpath;
+	char	*path;
 
 	dm->width = 25;
-	if (!(dm->area = (MAPTYPE***)ft_memalloc(sizeof(MAPTYPE**) * 9)))
+	if (!(dm->area = (t_block***)ft_memalloc(sizeof(t_block**) * 9)))
 		error_out(MEM_ERROR, dm);
 	path = SDL_GetBasePath();
 	fpath = ft_strjoin(path, "map/1s");
 	fd = open(fpath, O_RDONLY);
 	SDL_free(path);
-	ft_putendl(fpath);
 	free(fpath);
 	if (fd == -1)
 		error_out(FLR_ERROR, dm);
 	while (dm->flr < dm->mxflr)
 	{
-		//if (dm->flr >= dm->mxflr)
-		//	break ;
-		if (!(dm->area[dm->flr] = (MAPTYPE**)ft_memalloc(sizeof(MAPTYPE*) * 25)))
+		if (!(dm->area[dm->flr] = (t_block**)ft_memalloc(sizeof(t_block*)
+				* 25)))
 			error_out(MEM_ERROR, dm);
 		fileformat(fd, dm, 0);
 		dm->flr++;

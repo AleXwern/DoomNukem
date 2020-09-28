@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 15:10:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 14:02:10 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	defaults(t_editor *le, t_doom *dm)
 	ft_bzero(le, sizeof(t_editor));
 	dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x].b = 7;
 	le->blk = 2;
-	le->options[0] = 2;				//floor
-	le->options[1] = 15;			//light
-	le->options[2] = 0;				//plane type, NULL-ZYX, PN
-	le->options[3] = 1;				//plane thickness
-	le->options[4] = 0;				//metadata
+	le->options[0] = 2;
+	le->options[1] = 15;
+	le->options[2] = 0;
+	le->options[3] = 1;
+	le->options[4] = 0;
 	le->maxval[0] = dm->mxflr - 1;
 	le->maxval[1] = 15.0;
 	le->maxval[2] = 8.0;

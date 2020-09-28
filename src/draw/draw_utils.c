@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/20 12:48:37 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 11:53:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 13:59:44 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ Uint32	rl_color(int lgt, Uint32 col)
 	Uint8	b;
 
 	mod = lgt / 15.0;
-	r = R(col) * mod;
-	g = G(col) * mod;
-	b = B(col) * mod;
-	col = ARGB(r, g, b);
+	r = ((col >> 16) & 0xff) * mod;
+	g = ((col >> 8) & 0xff) * mod;
+	b = (col & 0xff) * mod;
+	col = (0xff000000 | (r << 16) | (b << 8) | g);
 	return (col);
 }
 
@@ -59,10 +59,10 @@ Uint32	color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret)
 	if (ret > 255)
 		ret = 255;
 	ret = 255 - ret;
-	r = R(color) * ret / 255.0;
-	g = G(color) * ret / 255.0;
-	b = B(color) * ret / 255.0;
-	ret = ARGB(r, g, b);
+	r = ((color >> 16) & 0xff) * ret / 255.0;
+	g = ((color >> 8) & 0xff) * ret / 255.0;
+	b = (color & 0xff) * ret / 255.0;
+	ret = (0xff000000 | (r << 16) | (b << 8) | g);
 	return (ret);
 }
 
