@@ -17,7 +17,6 @@ int		connect_server(t_doom *dm)
 {
 	if (dm->netstat)
 		return (1);
-	dm->person = 10;
 	ft_putendl("Starting client...");
 	if (SDLNet_ResolveHost(&dm->ip, IP, 9999) == -1)
 		return (0);
@@ -33,7 +32,7 @@ int		send_pos(t_doom *dm)
 	int		sent;
 
 	data = (t_bulk){.dir = dm->dir, .pos = dm->pos, .hp = dm->hp,
-					.gfx = dm->person};
+					.gfx = dm->person + 16};
 	sent = SDLNet_TCP_Send(dm->sock, &data, sizeof(t_bulk));
 	if (sent < sizeof(t_bulk))
 	{

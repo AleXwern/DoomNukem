@@ -57,7 +57,7 @@ void	check_hit(t_doom *dm, int i, int x)
 			{
 				dm->spr[x].hp -= 1;
 				ft_bzero(&dm->prj[i], sizeof(t_sprite));
-				Mix_PlayChannel(-1, dm->hit, 0);
+				Mix_PlayChannel(-1, dm->ishit, 0);
 				return ;
 			}
 		}

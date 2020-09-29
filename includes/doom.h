@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 15:31:21 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/29 19:32:41 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,14 @@ typedef struct		s_key
 
 }					t_key;
 
-typedef union		u_type
-{
-	int				i;
-	double			d;
-}					t_type;
+/*
+** Vector structs
+** Both have same XYZ variables to represent direction
+** in 3D space.
+** t_vector is double form to calculate precice positions and
+** t_ivector is handier way to pull data from arrays without
+** having to use typecasting.
+*/
 
 typedef struct		s_vector
 {
@@ -121,29 +124,6 @@ typedef struct		s_ivector
 }					t_ivector;
 
 /*
-** Party member info
-** name		= party member name
-** maxhp	= max HP
-** hp		= current hp
-** defend	= 1 if defend option was chosen
-** row		= front or back row
-** DEFEND and BACK ROW reduce damage by half (stackable)
-** BACK ROW reduce damage dealt
-*/
-
-typedef struct		s_chara
-{
-	char			*name;
-	int				maxhp;
-	int				hp;
-	int				row;
-	int				action;
-	int				defend;
-	int				target;
-	int				gfxid;
-}					t_chara;
-
-/*
 ** GFX library
 ** 0 = Skybox
 ** 1 = Floor
@@ -152,6 +132,9 @@ typedef struct		s_chara
 ** 4 = Stairs down
 ** 5 = Door
 ** 6 = Secret warp
+**
+** t_img is the screen data itself
+** t_gfx is different graphics that will be used to render the world.
 */
 
 typedef struct		s_img
@@ -159,8 +142,6 @@ typedef struct		s_img
 	SDL_Surface		*tex;
 	SDL_Texture		*img;
 	Uint32			*data;
-	int				wid;
-	int				hgt;
 }					t_img;
 
 typedef struct		s_gfx
@@ -174,15 +155,21 @@ typedef struct		s_gfx
 	Uint32			y;
 }					t_gfx;
 
+/*
+** Level editor struct
+** Maybe not needed but my own reasoning at the time was to minimize the
+** size of the main struct even is a little bit.
+*/
+
 typedef struct		s_editor
 {
 	Uint8			flr;
 	Uint8			quit;
-	Uint32			**level;
 	t_vector		spawn;
 	t_vector		end;
 	Sint8			cur;
 	Uint8			blk;
+	//t_block		blk;
 	Sint8			options[5];
 	double			maxval[5];
 	Sint8			minval[5];
@@ -239,7 +226,12 @@ typedef struct		s_sprite
 	char			move;
 }					t_sprite;
 
-# pragma pack(push, 1)
+/*
+** Structs to pass data to and back with server.
+** We want to minimize the traffic so we only send our position aka t_bulk
+** but we want everyone's positions so t_chunck is list of those + our server
+** ID at that given transmission.
+*/
 
 typedef struct		s_bulk
 {
@@ -250,20 +242,14 @@ typedef struct		s_bulk
 	int				gfx;
 }					t_bulk;
 
-# pragma pack(pop)
-# pragma pack(push, 1)
-
 typedef struct		s_chunk
 {
 	t_bulk			plr[5];
 	int				id;
 }					t_chunk;
 
-# pragma pack(pop)
-
 /*
-** mlx	= MLX pointer
-** win	= WIN pointer
+** win	= Window pointer
 ** pc	= player info
 ** tile	= graphic set
 ** gfx	= library of graphics
@@ -315,7 +301,6 @@ typedef struct		s_doom
 	t_sprite		obj[9];
 	Uint32			gfram;
 	int				gfxcount;
-	t_chara			*chara;
 	int				height;
 	int				width;
 	int				winh;
@@ -462,7 +447,7 @@ typedef struct		s_doom
 	Mix_Chunk		*doorsound;
 	Mix_Chunk		*doorknob;
 	Mix_Chunk		*teleport;
-	Mix_Chunk		*hit;
+	Mix_Chunk		*ishit;
 	Mix_Chunk		*death;
 	Mix_Chunk		*mondeath;
 	Mix_Chunk		*windowbrk;

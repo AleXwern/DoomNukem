@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 13:14:41 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/29 17:30:52 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,13 +208,15 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
 		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
 		x = dm->winw * ((spra - dm->mina) / (dm->maxa - dm->mina)) -
-			((dm->gfx[dm->spr[i].gfx].wid / 2) * 2 / dm->spr[i].dist);
+			14 * 2 / dm->spr[i].dist;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z))
-			- ((dm->gfx[dm->spr[i].gfx].hgt / 2) * 2 / dm->spr[i].dist);
-		if (i == 5 && (dm->spr[i].hp > 0))
+			- (18 * 2 / dm->spr[i].dist);
+		if (i <= 6)
+			pokemon_trainer(dm, y, x, i);
+		/*if (i == 5 && (dm->spr[i].hp > 0))
 			pokemon_trainer(dm, y, x, i);
 		else if (i == 6 && (dm->spr[i].hp > 0))
-			pokemon_trainer(dm, y, x, i);
+			pokemon_trainer(dm, y, x, i);*/
 		else if (dm->spr[i].hp > 0)
 			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, dm->gfx[dm->spr[i].gfx].hgt,
 				dm->gfx[dm->spr[i].gfx].wid, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 13:23:46 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/10 14:20:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/29 19:38:01 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ void	main_menu(t_doom *dm)
 	//SDL_UpdateWindowSurface(dm->win);
 	SDL_RenderPresent(dm->rend);
 	mouse_move(1, 0, dm);
-	dm->fps++;
+	//dm->fps++;
 	dm->keyck(dm);
 }

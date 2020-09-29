@@ -100,9 +100,9 @@ t_gfx	read_bmp(char *file, int fd, int bread)
 	ft_bzero(&gfx, sizeof(t_gfx));
 	fd = open(file, O_RDONLY);
 	free(file);
-	ft_putendl(file);
 	if (fd == -1)
 		return (gfx);
+	//ft_putendl(file);
 	bread = read(fd, &bmp, sizeof(bmp));
 	if (bmp.bm != 0x4d42)
 		return (gfx);

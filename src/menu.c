@@ -89,6 +89,9 @@ void	options_menu_create(t_doom *dm)
 	dm->options[11] = &dm->netstat;
 	dm->maxvalue[11] = 1;
 	dm->optext[11] = "connect";
+	dm->options[12] = &dm->person;
+	dm->maxvalue[12] = 6;
+	dm->optext[12] = "avatar";
 }
 
 void	menu_text(t_doom *dm, int opt, int y)

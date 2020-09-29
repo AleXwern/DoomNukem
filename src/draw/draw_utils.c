@@ -43,7 +43,7 @@ Uint32	rl_color(int lgt, Uint32 col)
 	r = ((col >> 16) & 0xff) * mod;
 	g = ((col >> 8) & 0xff) * mod;
 	b = (col & 0xff) * mod;
-	col = (0xff000000 | (r << 16) | (b << 8) | g);
+	col = (0xff000000 | (r << 16) | (g << 8) | b);
 	return (col);
 }
 
@@ -62,7 +62,7 @@ Uint32	color_shift(Uint32 color, double shift, t_doom *dm, Uint32 ret)
 	r = ((color >> 16) & 0xff) * ret / 255.0;
 	g = ((color >> 8) & 0xff) * ret / 255.0;
 	b = (color & 0xff) * ret / 255.0;
-	ret = (0xff000000 | (r << 16) | (b << 8) | g);
+	ret = (0xff000000 | (r << 16) | (g << 8) | b);
 	return (ret);
 }
 
@@ -72,9 +72,9 @@ Uint32	avg_color(Uint32 rcol, Uint32 col)
 	Uint8	g;
 	Uint8	b;
 
-	r = R(col) * (R(rcol) / 255.0);
-	g = G(col) * (G(rcol) / 255.0);
-	b = B(col) * (B(rcol) / 255.0);
-	col = ARGB(r, g, b);
+	r = ((col >> 16) & 0xff) * (((rcol >> 16) & 0xff) / 255.0);
+	g = ((col >> 8) & 0xff) * (((rcol >> 8) & 0xff) / 255.0);
+	b = (col & 0xff) * (rcol & 0xff) / 255.0;
+	col = (0xff000000 | (r << 16) | (g << 8) | b);
 	return (col);
 }

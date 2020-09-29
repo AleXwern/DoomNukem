@@ -53,7 +53,7 @@ void	init_audio(t_doom *dm)
 	dm->doorsound = Mix_LoadWAV("Audio/SoundEffects/door.wav");
 	dm->teleport = Mix_LoadWAV("Audio/SoundEffects/teleport.wav");
 	dm->doorknob = Mix_LoadWAV("Audio/SoundEffects/doorknob.wav");
-	dm->hit = Mix_LoadWAV("Audio/SoundEffects/gettinghit.wav");
+	dm->ishit = Mix_LoadWAV("Audio/SoundEffects/gettinghit.wav");
 	dm->death = Mix_LoadWAV("Audio/SoundEffects/osrsDeath.wav");
 	dm->mondeath = Mix_LoadWAV("Audio/SoundEffects/osrsMonsterDeath.wav");
 	dm->windowbrk = Mix_LoadWAV("Audio/SoundEffects/windowShatter.wav");

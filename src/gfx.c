@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 15:29:41 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/29 19:48:05 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ void	destroy_gfx(t_doom* dm, int i)
 	while (++i < dm->gfxcount)
 	{
 		if (dm->gfx[i].wid > 0)
-		{
-			ft_putstr("Clear GFX: ");
-			ft_putnbrln(i);
 			free(dm->gfx[i].data);
-		}
 	}
 	free(dm->gfx);
 }
@@ -66,15 +62,15 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 
 void	comp_foe(t_doom *dm, char *bpath, int i)
 {
-	dm->gfx[16] = read_bmp(ft_strjoin(bpath, "foe/foe0.bmp"), 0, 0);
-	dm->gfx[17] = read_bmp(ft_strjoin(bpath, "foe/foe1.bmp"), 0, 0);
-	dm->gfx[18] = read_bmp(ft_strjoin(bpath, "foe/foe2.bmp"), 0, 0);
+	dm->gfx[16] = read_bmp(ft_strjoin(bpath, "foe/foe1.bmp"), 0, 0);
+	dm->gfx[17] = read_bmp(ft_strjoin(bpath, "foe/foe2.bmp"), 0, 0);
+	dm->gfx[18] = read_bmp(ft_strjoin(bpath, "foe/foe3.bmp"), 0, 0);
 	dm->gfx[19] = read_bmp(ft_strjoin(bpath, "foe/foe4.bmp"), 0, 0);
 	dm->gfx[20] = read_bmp(ft_strjoin(bpath, "foe/foe5.bmp"), 0, 0);
 	dm->gfx[21] = read_bmp(ft_strjoin(bpath, "foe/foe6.bmp"), 0, 0);
 	dm->gfx[22] = read_bmp(ft_strjoin(bpath, "foe/foe7.bmp"), 0, 0);
 	dm->gfx[23] = read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0, 0);
-	dm->gfx[24] = read_bmp(ft_strjoin(bpath, "foe/foeP.bmp"), 0, 0);
+	dm->gfx[24] = read_bmp(ft_strjoin(bpath, "foe/projectile.bmp"), 0, 0);
 	comp_spritesheets(dm, bpath, i);
 }
 
@@ -83,7 +79,7 @@ void	comp_hud_gfx(t_doom *dm, char *bpath, int i)
 	dm->gfx[7] = read_bmp(ft_strjoin(bpath, "misc/spawn.bmp"), 0, 0);
 	dm->gfx[8] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
 	dm->gfx[9] = read_bmp(ft_strjoin(bpath, "hud/options.bmp"), 0, 0);
-	dm->gfx[10] = read_bmp(ft_strjoin(bpath, "foe/foe3.bmp"), 0, 0);
+	dm->gfx[10] = read_bmp(ft_strjoin(bpath, "foe/wyvern.bmp"), 0, 0);
 	dm->gfx[11] = read_bmp(ft_strjoin(bpath, "hud/btlmenu.bmp"), 0, 0);
 	dm->gfx[12] = read_bmp(ft_strjoin(bpath, "hud/btlsel.bmp"), 0, 0);
 	dm->gfx[13] = read_bmp(ft_strjoin(bpath, "hud/pcturn.bmp"), 0, 0);

@@ -198,7 +198,7 @@ int		key_release(int key, t_doom *dm)
 			dm->keycard = (dm->keycard == 0 ? 1 : 0);
 		if (key == KEY_K && !dm->iframe)
 		{
-			Mix_PlayChannel(-1, dm->hit, 0);
+			Mix_PlayChannel(-1, dm->ishit, 0);
 			dm->hp -= 1;
 			dm->iframe = IFRAME;
 		}

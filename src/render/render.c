@@ -6,14 +6,14 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 15:05:10 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/29 11:05:56 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-#include <stdio.h>//remove this when project is done.
+#include <stdio.h>
 
 void	adjusted_dda(t_doom *dm)
 {
@@ -61,10 +61,11 @@ void	dda_sys(t_doom *dm)
 	get_ppos(dm, dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x]);
 	while (dm->hit == 0)
 	{
-		if (dm->map.z < 0 || dm->map.y < 0 || dm->map.x < 0 || dm->map.z >= 9 || dm->map.y >= 25 || dm->map.x >= 25)
+		if (dm->map.z < 0 || dm->map.y < 0 || dm->map.x < 0
+			|| dm->map.z >= 9 || dm->map.y >= 25 || dm->map.x >= 25)
 		{
 			dm->hit = 2;
-			return;
+			return ;
 		}
 		dm->blk = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x];
 		if (dm->blk.pt && !dm->adj && dm->blk.b > 1)
@@ -280,6 +281,7 @@ void	render(t_doom *dm)
 	}
 	if (dm->slidedoor != 'x')
 		slide_door(dm);
+	set_text(dm, dm->fpschar, (int[3]) {20, 350, 0xf70e0e }, 1);
 	if (dm->alive && dm->hp <= 0)
 	{
 		dm->alive = 0;
@@ -288,13 +290,12 @@ void	render(t_doom *dm)
 		SDL_RenderPresent(dm->rend);
 	}
 	if (dm->iframe == IFRAME)
-		Mix_PlayChannel(-1, dm->hit, 0);
+		Mix_PlayChannel(-1, dm->ishit, 0);
 	if (dm->alive)
 		SDL_RenderPresent(dm->rend);
 	if (dm->iframe)
 		dm->iframe--;
 	dm->fps++;
-	set_text(dm, dm->fpschar, (int[3]){0, 0, 0xf70e0e}, 0.6);
 	/*printf("Matrix:\nPOS %f %f %f\nDIR %f %f %f\nPLN %f %f %f\n",
 			dm->pos.z, dm->pos.y, dm->pos.x,
 			dm->dir.z, dm->dir.y, dm->dir.x,

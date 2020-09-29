@@ -17,5 +17,5 @@ void	cross_point_xz(t_vector tmap, t_vector slope)
 {
 	double	step;
 
-
+	step = 0;
 }

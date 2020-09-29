@@ -13,6 +13,8 @@
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+#include <stdio.h>
+
 void	defaults(t_editor *le, t_doom *dm)
 {
 	ft_bzero(le, sizeof(t_editor));

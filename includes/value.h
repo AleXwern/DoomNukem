@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 14:34:14 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/29 19:48:48 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@
 # define IFRAME		50
 # define DFRAME		35
 # define PCOLL		0.2
-# define OP			11
-# define IP			"192.168.1.16"
+# define OP			12
+# define IP			"10.13.1.1"
 /*
-**# define IP		"10.13.1.1"
+**# define IP		"10.13.1.1" Use this with Macs
+**# define IP		"192.168.1.16"
 */
 
 /*
