@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:28:29 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/30 16:54:36 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/30 16:57:23 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,6 @@ void	pokemon_trainer_mode(t_doom *dm, int i)
 	}
 	else if (dm->spr[i].dist <= 6.5 /* && you can see the sprite*/)
 		dm->spr[i].move = 's';//shooting
-<<<<<<< HEAD
-		// if (i == 6)
-		// 	dm->gfx[dm->spr[i].gfx].x = 28;//charizard
-		// else
-		dm->gfx[dm->spr[i].gfx].x = 0;
-		dm->gfx[dm->spr[i].gfx].y = 0;
-	}
-=======
->>>>>>> 39eff7b591d5dc98fc9e071646ba07c720acb8fc
 	else
 		dm->spr[i].move = 'x';//stand still
 }
