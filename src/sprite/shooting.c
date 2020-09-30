@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shooting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/28 13:31:05 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/30 15:10:09 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	check_hit(t_doom *dm, int i, int x)
 			{
 				dm->spr[x].hp = 0;
 				Mix_PlayChannel(-1, dm->mondeath, 0);
+				//printf("killed enemy\n");
 				ft_bzero(&dm->prj[i], sizeof(t_sprite));
 				ft_bzero(&dm->spr[x], sizeof(t_sprite));
 				return ;
@@ -56,6 +57,7 @@ void	check_hit(t_doom *dm, int i, int x)
 			else if (dm->spr[x].hp > 1)
 			{
 				dm->spr[x].hp -= 1;
+				//printf("hit enemy\n");
 				ft_bzero(&dm->prj[i], sizeof(t_sprite));
 				Mix_PlayChannel(-1, dm->ishit, 0);
 				return ;
@@ -69,6 +71,7 @@ void	check_hit(t_doom *dm, int i, int x)
 				dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].pt = 0;
 				dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b = 1;
 			}
+			//printf("hit wall\n");
 			ft_bzero(&dm->prj[i], sizeof(t_sprite));
 			return ;
 		}
