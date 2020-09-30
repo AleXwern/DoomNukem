@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/30 11:42:06 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/30 16:46:09 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,6 +113,7 @@ clean:
 fclean: clean
 	@echo Removing binaries.
 	@/bin/rm -f $(NAME)
+	@/bin/rm -f $(SERVER)
 
 run: all
 	./doom-nukem

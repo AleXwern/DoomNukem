@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 14:59:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 14:36:14 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/30 15:05:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	recv_pos(t_doom *dm)
 			dm->spr[i].gfx = data.plr[i].gfx;
 			dm->spr[i].hp = data.plr[i].hp;
 			dm->prj[i].pos = data.plr[i].prj;
+			dm->spr[i].size = 17;
 		}
 	}
 }

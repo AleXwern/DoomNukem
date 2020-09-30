@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:05:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/30 16:37:49 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,6 @@ typedef struct		s_block
 	Uint8			pt;
 	Uint8			pln;
 	Uint8			meta;
-	Uint8			hp;
 }					t_block;
 
 typedef struct		s_sprite

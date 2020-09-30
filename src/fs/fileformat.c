@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:03:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/30 14:11:51 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void		comp_block(t_doom *dm, char **temp, int x, int y)
 	dm->area[dm->flr][y][x].pt = ft_atoi(temp[2]);
 	dm->area[dm->flr][y][x].pln = ft_atoi(temp[3]);
 	dm->area[dm->flr][y][x].meta = ft_atoi(temp[4]);
-	dm->area[dm->flr][y][x].hp = 100;
 	if (dm->area[dm->flr][y][x].b == 7)
 	{
 		dm->spw.x = x + 0.51;
