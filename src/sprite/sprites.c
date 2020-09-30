@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/29 17:30:52 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/30 16:42:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,9 +181,7 @@ void	draw_objects(t_doom *dm, int y, int x, double spra)
 		if (i == 0)
 			chest_object(dm, i, y, x);
 		else if ((i == 1 || i == 2) && dm->drawgunandkeycard)
-				draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx], (int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt, dm->gfx[dm->obj[i].gfx].wid, 0, 0, i}, dm->obj[i].size / dm->obj[i].dist);
-		//else
-		//	draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx], (int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt, dm->gfx[dm->obj[i].gfx].wid, 0, 0, i}, dm->obj[i].size / dm->obj[i].dist);
+			draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx], (int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt, dm->gfx[dm->obj[i].gfx].wid, 0, 0, i}, dm->obj[i].size / dm->obj[i].dist);
 	}
 }
 
@@ -201,22 +199,18 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 			spra += M_PI * 2;
 		if (spra < dm->mina || spra > dm->maxa)
 			spra -= M_PI * 2;
-		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos);
+		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos) - 0.2;
 		if (dm->spr[i].dist < 1)
 			continue;
 		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
 		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
 		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
-		x = dm->winw * ((spra - dm->mina) / (dm->maxa - dm->mina)) -
-			14 * 2 / dm->spr[i].dist;
-		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z))
-			- (18 * 2 / dm->spr[i].dist);
+		x = dm->winw * ((spra - dm->mina) / (dm->maxa - dm->mina)) - 
+			14 * dm->spr[i].size / dm->spr[i].dist;
+		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z -
+			dm->min.z)) - 18 * dm->spr[i].size  / dm->spr[i].dist;
 		if (i <= 6)
 			pokemon_trainer(dm, y, x, i);
-		/*if (i == 5 && (dm->spr[i].hp > 0))
-			pokemon_trainer(dm, y, x, i);
-		else if (i == 6 && (dm->spr[i].hp > 0))
-			pokemon_trainer(dm, y, x, i);*/
 		else if (dm->spr[i].hp > 0)
 			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, dm->gfx[dm->spr[i].gfx].hgt,
 				dm->gfx[dm->spr[i].gfx].wid, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
