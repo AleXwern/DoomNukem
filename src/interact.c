@@ -6,16 +6,16 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/09/23 13:49:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/30 12:48:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-#include <stdio.h>//remove when done
+#include <stdio.h>
 
-int		get_warpdest(t_doom* dm, t_vector pos, t_vector warp)
+int		get_warpdest(t_doom *dm, t_vector pos, t_vector warp)
 {
 	t_vector	relative;
 
@@ -35,7 +35,7 @@ int		get_warpdest(t_doom* dm, t_vector pos, t_vector warp)
 	return (1);
 }
 
-int		get_stairdest(t_doom* dm, int obj, t_vector pos, t_vector stair)
+int		get_stairdest(t_doom *dm, int obj, t_vector pos, t_vector stair)
 {
 	t_vector	relative;
 
@@ -56,27 +56,26 @@ int		get_stairdest(t_doom* dm, int obj, t_vector pos, t_vector stair)
 	return (1);
 }
 
-void	get_doortype(t_doom* dm, t_vector pos, t_vector door, t_block blk)
+void	get_doortype(t_doom *dm, t_vector pos, t_vector door, t_block blk)
 {
 	t_vector	relative;
 
 	if (blk.pt || blk.b != 5)
-		return;
+		return ;
 	relative.x = round(pos.x - door.x);
 	relative.y = round(pos.y - door.y);
 	if (relative.y != 0 && relative.x != 0)
-		return;
+		return ;
 	if (relative.y != 0)
 		dm->area[(int)dm->pos.z][(int)door.y][(int)door.x].pt = 5;
 	else
 		dm->area[(int)dm->pos.z][(int)door.y][(int)door.x].pt = 3;
-
 }
 
 void	lab_move(t_doom *dm, int obj, t_vector stair)
 {
 	if (!get_stairdest(dm, (obj - 3.5) * 2, dm->pos, stair))
-		return;
+		return ;
 	if ((int)dm->pos.z == dm->mxflr - 1 && (int)dm->pos.z == 0)
 		error_out(LAB_OUT, dm);
 }
@@ -127,7 +126,8 @@ int		interact(t_doom *dm)
 	get_doortype(dm, dm->pos, tarpos, *blk);
 	if (blk->b == 3 || blk->b == 4)
 		lab_move(dm, blk->b, tarpos);
-	else if (blk->b == 5 && blk->pln == 15 && dm->keycard && dm->slidedoor == 'x')
+	else if (blk->b == 5 && blk->pln == 15
+		&& dm->keycard && dm->slidedoor == 'x')
 	{
 		dm->slidedoor = 'o';
 		dm->slideblock = blk;
@@ -137,7 +137,8 @@ int		interact(t_doom *dm)
 	}
 	else if (blk->b == 5 && !dm->keycard)
 		Mix_PlayChannel(-1, dm->doorknob, 0);
-	else if (blk->b == 5 && blk->pln <= 2 && dm->keycard && dm->slidedoor == 'x')
+	else if (blk->b == 5 && blk->pln <= 2
+		&& dm->keycard && dm->slidedoor == 'x')
 	{
 		dm->slidedoor = 'c';
 		dm->slideblock = blk;

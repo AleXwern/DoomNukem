@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/11 13:28:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 13:11:47 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@
 void	draw_hud(t_doom *dm)
 {
 	draw_hp(dm);
-	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);//inventory
+	draw_gfx(dm, dm->gfx[29], 0, dm->winh - 110);
 	if (dm->keycard)
-		draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 125, 140, 200, 0, 0}, 0.35);//keycard
+		draw_pgfx_sc(dm, dm->gfx[30], (int[6]){(dm->winh - 78), 125, 140, 200,
+			0, 0}, 0.35);
 	if (dm->gun)
 	{
-		draw_pgfx_sc(dm, dm->gfx[36], (int[6]){(dm->winh - 78), 20, 272, 380, 0, 0}, 0.2);//pistol in inventory
+		draw_pgfx_sc(dm, dm->gfx[36], (int[6]){(dm->winh - 78), 20, 272, 380,
+			0, 0}, 0.2);
 		draw_gun(dm);
 		draw_ammo(dm);
-		draw_gfx(dm, dm->gfx[25], (int)(dm->winw * 0.5 - 25), (int)(dm->winh * 0.5) - 25);//crosshair
+		draw_gfx(dm, dm->gfx[25], (int)(dm->winw * 0.5 - 25), (int)(dm->winh
+			* 0.5) - 25);
 	}
 }
 
@@ -34,21 +37,16 @@ void	draw_gun(t_doom *dm)
 	{
 		dm->gfx[27].x = 160 * dm->ani;
 		if (dm->winw > 1150)
-			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
+			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320),
+				(int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
 		else
-			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 - 10), 160, 160, 0, 0}, 2);
+			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320),
+				(int)(dm->winw * 0.5 - 10), 160, 160, 0, 0}, 2);
 		if (dm->shooting)
 		{
 			dm->frm++;
 			if (dm->ani == 1 && dm->frm == 2)
-			{
 				Mix_PlayChannel(-1, dm->gunshot, 0);
-				/*if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 1)//if enemy hit, make a soundeffect. Now just testing with block instead of enemy.
-				{
-					Mix_PlayChannel(-1, dm->gettingHit, 0);
-					//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
-				}*/
-			}
 			if (dm->frm >= 3)
 			{
 				if (dm->ani == 5)
@@ -71,9 +69,11 @@ void	reloading_gun(t_doom *dm)
 {
 	dm->gfx[27].x = 160 * dm->ani + 960;
 	if (dm->winw > 1150)
-		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
+		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320),
+			(int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
 	else
-		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320), (int)(dm->winw * 0.5 - 16), 160, 160, 0, 0}, 2);
+		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320),
+			(int)(dm->winw * 0.5 - 16), 160, 160, 0, 0}, 2);
 	dm->frm++;
 	if (dm->ani == 2 && dm->frm == 2)
 		Mix_PlayChannel(-1, dm->reload, 0);
@@ -96,17 +96,16 @@ void	draw_ammo(t_doom *dm)
 	char	*ammo;
 
 	ammo = ft_itoa(dm->magazine);
-	set_text(dm, ammo, (int[3]){(dm->winh - 60), (dm->winw - 85), 0xE71313}, 1.5);
+	set_text(dm, ammo, (int[3]){(dm->winh - 60), (dm->winw - 85),
+		0xE71313}, 1.5);
 	free(ammo);
 }
 
 void	draw_hp(t_doom *dm)
 {
-	//int	health;
 	int	x;
 	int	i;
 
-	//health = dm->hp / 5;
 	x = 20;
 	i = -1;
 	dm->gfx[28].x = 0;

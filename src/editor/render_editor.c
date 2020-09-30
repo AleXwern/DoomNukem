@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   render_editor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 14:39:59 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:15:15 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	draw_blk_select(t_doom* dm, t_editor *le, int x, int y)
+void	draw_blk_select(t_doom *dm, t_editor *le, int x, int y)
 {
 	int		tx;
 	int		blk;
@@ -28,14 +28,17 @@ void	draw_blk_select(t_doom* dm, t_editor *le, int x, int y)
 			if (x % 107 == 0 || y % 107 == 0)
 				dm->img.data[dm->winw * (y + 375) + (x + 750)] = 0xfffcba03;
 			else if (le->blk == blk)
-				dm->img.data[dm->winw * (y + 375) + (x + 750)] = dm->gfx[blk].data[dm->gfx[blk].wid * y + tx];
+				dm->img.data[dm->winw * (y + 375) + (x + 750)] =
+					dm->gfx[blk].data[dm->gfx[blk].wid * y + tx];
 			else
-				dm->img.data[dm->winw * (y + 375) + (x + 750)] = DARK2(dm->gfx[blk].data[dm->gfx[blk].wid * y + tx]);
+				dm->img.data[dm->winw * (y + 375) + (x + 750)] =
+					((dm->gfx[blk].data[dm->gfx[blk].wid * y + tx]) >> 2)
+					& DARKEN2;
 			y++;
 		}
 		x++;
 		tx++;
-		if (tx >= 107)//x >= ((le->blk - 1) * 107) && x < (le->blk * 107))
+		if (tx >= 107)
 		{
 			tx = 0;
 			blk++;
@@ -58,7 +61,6 @@ void	draw_bg(t_doom *dm, t_gfx gfx)
 		while (++gx < dm->winw)
 		{
 			x = gx * (gfx.wid / ((double)dm->winw));
-			//dm->img.data[dm->winw * gy + gx] = gfx.data[gfx.wid * y + x];
 			dm->img.data[dm->winw * gy + gx] = 0xff000000;
 		}
 	}
@@ -80,11 +82,17 @@ void	draw_block(t_doom *dm, t_gfx blk, double x, double y)
 		gx = -1;
 		while (++gx < dm->winw / dm->width * 0.5)
 		{
-			color = blk.data[(int)(blk.wid * (gy * (blk.hgt / (dm->winh / dm->height))) + gx * (blk.wid / (dm->winw / dm->width * 0.5)))];
-			if (dm->flr == dm->mxflr - 1 && dm->area[dm->flr][dm->y][dm->x].b == 1)
-				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = (color >> 1) & DARKEN;
-			else if (dm->area[ckflr][dm->y][dm->x].b == 1 && dm->area[dm->flr][dm->y][dm->x].b == 1)
-				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = (color >> 1) & DARKEN;
+			color = blk.data[(int)(blk.wid * (gy * (blk.hgt / (dm->winh
+				/ dm->height))) + gx * (blk.wid / (dm->winw / dm->width
+				* 0.5)))];
+			if (dm->flr == dm->mxflr - 1 && dm->area[dm->flr][dm->y]
+					[dm->x].b == 1)
+				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] =
+					(color >> 1) & DARKEN;
+			else if (dm->area[ckflr][dm->y][dm->x].b == 1 &&
+					dm->area[dm->flr][dm->y][dm->x].b == 1)
+				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] =
+					(color >> 1) & DARKEN;
 			else
 				dm->img.data[(int)(dm->winw * (y + gy) + (x + gx))] = color;
 		}
@@ -135,7 +143,8 @@ void	draw_sliders(t_doom *dm, t_editor *le, int x, int y)
 		{
 			x = -1;
 			le->options[i] = le->options[i] & 0x7f;
-			while (++x < dm->winw / 2 * (le->options[i] / le->maxval[i]) && (x + sx) < dm->winw)
+			while (++x < dm->winw / 2 * (le->options[i] / le->maxval[i]) &&
+				(x + sx) < dm->winw)
 			{
 				if (0xffffcd38 + x > 0xffffcdff)
 					color = 0xffffcdff;
@@ -146,7 +155,8 @@ void	draw_sliders(t_doom *dm, t_editor *le, int x, int y)
 			while ((++x + sx) < dm->winw)
 			{
 				if (x < (0xff * 2))
-					black = 0xff000000 + (x / 2 * 0x00010000) + (x / 2 * 0x00000100) + (x / 2);
+					black = 0xff000000 + (x / 2 * 0x00010000) +
+						(x / 2 * 0x00000100) + (x / 2);
 				else
 					black = 0xffffffff;
 				dm->img.data[dm->winw * (y + sy) + (x + sx - 1)] = black;
@@ -173,15 +183,4 @@ void	draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y)
 			x++;
 		}
 	}
-	/*if (le->cur == 0)
-		set_text(dm, "floor", (int[3]){dm->winh - 200, dm->winw / 2 + 40, 0xE71313}, 1);
-	else if (le->cur == 1)
-		set_text(dm, "lighting", (int[3]){dm->winh - 200, dm->winw / 2 + 40, 0xE71313}, 1);
-	else if (le->cur == 2)
-		set_text(dm, "blockstart", (int[3]){dm->winh - 200, dm->winw / 2 + 40, 0xE71313}, 1);
-	else if (le->cur == 3)
-		set_text(dm, "block thickness", (int[3]){dm->winh - 200, dm->winw / 2 + 40, 0xE71313}, 1);
-	else if (le->cur == 4)
-		set_text(dm, "meta", (int[3]){dm->winh - 200, dm->winw / 2 + 40, 0xE71313}, 1);
-	*/
 }

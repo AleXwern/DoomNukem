@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 15:39:58 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 16:02:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 13:40:33 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 # include "doom.h"
 # include "value.h"
 
+# define MAXPLAYER 4
+
 typedef struct	s_server
 {
 	TCPsocket	server;
-	TCPsocket	client[5];
+	TCPsocket	client[MAXPLAYER];
 	IPaddress	ip;
-	IPaddress	*remoteip[5];
+	IPaddress	*remoteip[MAXPLAYER];
+	t_chunk		data;
+	char		alive[MAXPLAYER];
+	int			timeout[MAXPLAYER];
 	int			id;
 	int			stop;
 }				t_server;

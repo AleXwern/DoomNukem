@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/21 15:40:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/30 13:03:02 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ void	key_release_menu(int key, t_doom *dm)
 			ft_bzero(&dm->key, sizeof(t_key));
 			reset_position(dm);
 			dm->ismenu = 0;
-			dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x].b = 1;
-			//Mix_PlayChannel(-1, dm->readyForAction, 0);
+			dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 1;
 		}
 		else if (dm->sel == 1)
 			editor_main(dm);
 		else if (dm->sel == 2)
-			printf("Show help/keys and credits.\n"); //help_n_credits(dm);
+			printf("Show help/keys and credits.\n");
 		else
 			error_out(FINE, dm);
 	}

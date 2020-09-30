@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 16:08:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/30 13:37:43 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 
 void	menu_keys_hold(int key, t_doom *dm)
 {
-	if (key == LEFT)
+	if (key == RIGHT && dm->cur == 11)
+		dm->netstat = connect_server(dm);
+	else if (key == LEFT && dm->cur == 11)
+	{
+		SDLNet_TCP_Close(dm->sock);
+		dm->netstat = 0;
+	}
+	else if (key == LEFT && dm->cur != 11)
 	{
 		(*dm->options[dm->cur])--;
 		if ((*dm->options[dm->cur]) < 0)
 			(*dm->options[dm->cur]) = 0;
 	}
-	else if (key == RIGHT)
+	else if (key == RIGHT && dm->cur != 11)
 	{
 		(*dm->options[dm->cur])++;
 		if ((*dm->options[dm->cur]) > (int)dm->maxvalue[dm->cur])
@@ -102,6 +109,10 @@ void	menu_keys(int key, t_doom *dm)
 		dm->cur++;
 	else if (key == UP)
 		dm->cur--;
+	else if (key == SPACE && (*dm->options[dm->cur]) < (int)dm->maxvalue[dm->cur] && dm->cur != 11)
+		(*dm->options[dm->cur]) = (int)dm->maxvalue[dm->cur];
+	else if (key == SPACE && dm->cur != 11)
+		(*dm->options[dm->cur]) = 0;
 	if (dm->cur < 0)
 		dm->cur = OP;
 	if (dm->cur > OP)
@@ -110,6 +121,18 @@ void	menu_keys(int key, t_doom *dm)
 		dm->minopt = 0;
 	if (dm->cur - dm->minopt > 9)
 		dm->minopt = dm->cur - 9;
+	if (dm->cur == 8)
+	{
+		if (dm->tile < 1)
+			dm->tile = 1;
+		destroy_gfx(dm, -1);
+		comp_gfx(dm, 0);
+	}
+	else if (dm->cur == 9)
+	{
+		Mix_VolumeMusic(dm->volume);
+		Mix_Volume(-1, dm->volume);
+	}
 }
 
 int		key_release(int key, t_doom *dm)
@@ -123,6 +146,9 @@ int		key_release(int key, t_doom *dm)
 		reset_position(dm);
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		dm->mousemovement = 0;
+		if (dm->netstat)
+			SDLNet_TCP_Close(dm->sock);
+		dm->netstat = 0;
 		return (1);
 	}
 	if (dm->alive)
@@ -172,7 +198,7 @@ int		key_release(int key, t_doom *dm)
 			dm->keycard = (dm->keycard == 0 ? 1 : 0);
 		if (key == KEY_K && !dm->iframe)
 		{
-			Mix_PlayChannel(-1, dm->gettingHit, 0);
+			Mix_PlayChannel(-1, dm->ishit, 0);
 			dm->hp -= 1;
 			dm->iframe = IFRAME;
 		}
@@ -249,20 +275,6 @@ void	jetpack(t_doom *dm)
 	dm->airbrn = 1;
 }
 
-void	dir_single(t_doom *dm)
-{
-	double		vect;
-
-	vect = sqrt((dm->dir.y * dm->dir.y) + (dm->dir.x * dm->dir.x));
-	vect = sqrt((vect * vect) + (dm->dir.z * dm->dir.z));
-	dm->dir.z /= vect;
-	dm->dir.y /= vect;
-	dm->dir.x /= vect;
-	dm->plane.y /= vect;
-	dm->plane.x /= vect;
-	dm->plane.z *= vect;
-}
-
 int		mouse_move(int x, int y, t_doom *dm)
 {
 	t_vector	olddir;
@@ -286,7 +298,6 @@ int		mouse_move(int x, int y, t_doom *dm)
 			dm->dir.z += rota.y;
 		dm->camshift = 1.0 - (dm->dir.z * 2);
 	}
-	//dir_single(dm);
 	return (0);
 }
 

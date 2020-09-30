@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/25 15:51:15 by anystrom         ###   ########.fr        #
+#    Updated: 2020/09/30 11:42:06 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LEXT	= 	.a
 FLG		= 	-O2
 SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c \
 			util.c menu.c gfx_draw.c posteff.c defaults.c \
-			set_variables.c
+			set_variables.c misc_alloc.c
 KEYFILE =	key_editor.c key_game.c key_menu.c key_state.c
 DRAWEXT =	draw_hud.c
 FILESYS =	fileformat.c save_level.c
@@ -32,7 +32,8 @@ BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
 SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c pokemon_ai.c
-SERVER	=	server.c
+CLIFILE =	client.c
+SRVFILE	=	server.c
 SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/draw_extra/,$(DRAWEXT)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
@@ -46,9 +47,10 @@ SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/bmp/,$(BMPFILE)) \
 			$(addprefix ./src/text/,$(TXTFILE)) \
 			$(addprefix ./src/math/,$(MTHFILE)) \
-			$(addprefix ./src/sprite/,$(SPRFILE))
-SRCSRV	=	$(addprefix ./src/server/,$(SERVER))
-OBJSRV	=	$(addprefix ./obj/server/,$(SERVER:.c=$(OEXT)))
+			$(addprefix ./src/sprite/,$(SPRFILE)) \
+			$(addprefix ./src/network/,$(CLIFILE))
+SRCSRV	=	$(addprefix ./src/server/,$(SRVFILE))
+OBJSRV	=	$(addprefix ./obj/server/,$(SRVFILE:.c=$(OEXT)))
 LIBFT =		$(addprefix ./obj/libft,$(LEXT))
 OBJS =		$(SRC:.c=$(OEXT))
 OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
@@ -64,7 +66,8 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/bmp/,$(BMPFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/text/,$(TXTFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/math/,$(MTHFILE:.c=$(OEXT))) \
-			$(addprefix ./obj/sprite/,$(SPRFILE:.c=$(OEXT)))
+			$(addprefix ./obj/sprite/,$(SPRFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/network/,$(CLIFILE:.c=$(OEXT)))
 DEPNS =		$(OBJ:.o=.d)
 OBJDIR =	./obj/
 SRCDIR =	./src/
@@ -115,10 +118,10 @@ run: all
 	./doom-nukem
 
 server: $(OBJSRV) $(LIBFT)
-	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJ) $(LIBFT) $(MLXLIB)
+	gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJSRV) $(LIBFT) $(MLXLIB)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
-	@Rez -a icon.rsrc -o $(NAME)
-	@SetFile -a C $(NAME)
+	@Rez -a icon.rsrc -o $(SERVER)
+	@SetFile -a C $(SERVER)
 	@rm icon.rsrc
 	@echo Executable created successfully.
 	@echo Run the executable as ./doom-server. No args.

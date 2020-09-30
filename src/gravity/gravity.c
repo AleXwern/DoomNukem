@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/06 19:02:20 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/08/06 19:02:20 by AleXwern         ###   ########.fr       */
+/*   Created: 2020/09/30 12:18:33 by anystrom          #+#    #+#             */
+/*   Updated: 2020/09/30 13:27:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,33 +88,37 @@ int		check_ver_ucoll(t_block blk, t_doom *dm)
 		return (ver_move(blk, dm));
 }
 
-void	gravity(t_doom* dm)
+void	gravity(t_doom *dm)
 {
-	//dm->airbrn = 1;
 	if (dm->key.two || dm->isgravity || dm->ismenu || !dm->airbrn)
-		return;
+		return ;
 	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)
 		dm->gravity.z /= fabs(dm->gravity.z);
 	if (dm->pos.z + dm->gravity.z < 0)
 		error_out(VOID_OVER, dm);
 	if (dm->gravity.z < 0)
 	{
-		if (check_ver_ucoll(dm->area[(int)(dm->pos.z + dm->gravity.z)][(int)(dm->pos.y)][(int)dm->pos.x], dm))
+		if (check_ver_ucoll(dm->area[(int)(dm->pos.z + dm->gravity.z)]
+				[(int)(dm->pos.y)][(int)dm->pos.x], dm))
 			dm->pos.z += dm->gravity.z;
 	}
-	else if (check_ver_coll(dm->area[(int)(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x], dm))
+	else if (check_ver_coll(dm->area[(int)(dm->pos.z + 0.6)]
+			[(int)(dm->pos.y)][(int)dm->pos.x], dm))
 		dm->pos.z += dm->gravity.z;
 	else
 	{
 		dm->airbrn = 0;
 		dm->gravity.z = 0;
-		if (dm->pos.z - (int)dm->pos.z > 0.4 && dm->area[(int)(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x].pt == 2)
-			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x]) + 0.4;
-		else if (dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x].pt == 2)
-			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]) - 0.6;
+		if (dm->pos.z - (int)dm->pos.z > 0.4 && dm->area[(int)(dm->pos.z +
+				0.6)][(int)(dm->pos.y)][(int)dm->pos.x].pt == 2)
+			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
+				(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x]) + 0.4;
+		else if (dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)]
+				[(int)dm->pos.x].pt == 2)
+			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
+			(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]) - 0.6;
 		else
 			dm->pos.z = (int)dm->pos.z + 0.4;
-
 	}
 	dm->gravity.z += dm->fallsp.z;
 	if (dm->gravity.z > 0.17 * (30.0 / dm->buffer / dm->prefps))

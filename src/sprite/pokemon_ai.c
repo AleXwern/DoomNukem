@@ -18,7 +18,7 @@ void	ai_movement(t_doom *dm, t_sprite *s)
 	// "HASA" (Highly Advanced Super Ai)
 	if (s->move == 'a')//alerted
 	{
-		if (dm->gfx[s->gfx].y == 48 || dm->gfx[s->gfx].y == 96)
+		if (dm->gfx[s->gfx].y == 37 || dm->gfx[s->gfx].y == 74)
 			dm->gfx[s->gfx].y = 0;
 		s->move = 'm';
 	}
@@ -42,7 +42,7 @@ void	pokemon_trainer_dir(t_doom *dm, int i)
 	double	sprb;
 
 	if (dm->spr[i].move != 'x')
-		dm->gfx[dm->spr[i].gfx].x = (dm->spr[i].frame / 8) * 32;
+		dm->gfx[dm->spr[i].gfx].x = (dm->spr[i].frame / 8) * 28;
 	else
 		dm->gfx[dm->spr[i].gfx].x = 0;
 	dm->spr[i].face = dm->spr[i].dir;////
@@ -54,11 +54,11 @@ void	pokemon_trainer_dir(t_doom *dm, int i)
 		if (sprb < 45 && sprb > -45)
 			dm->gfx[dm->spr[i].gfx].y = 0;
 		else if (sprb > 135 || sprb < -135)
-			dm->gfx[dm->spr[i].gfx].y = 144;
+			dm->gfx[dm->spr[i].gfx].y = 111;
 		else if (sprb >= 45)
-			dm->gfx[dm->spr[i].gfx].y = 48;
+			dm->gfx[dm->spr[i].gfx].y = 37;
 		else
-			dm->gfx[dm->spr[i].gfx].y = 96;
+			dm->gfx[dm->spr[i].gfx].y = 74;
 	}
 }
 
@@ -71,7 +71,7 @@ void	pokemon_trainer_mode(t_doom *dm, int i)
 	pokemon_trainer_dir(dm, i);
 	if (dm->spr[i].dist <= 7 && dm->spr[i].dist >= 6.5)
 	{
-		if (dm->gfx[dm->spr[i].gfx].y != 144 && dm->spr[i].move != 'm'/* && you can see the sprite*/)
+		if (dm->gfx[dm->spr[i].gfx].y != 111 && dm->spr[i].move != 'm'/* && you can see the sprite*/)
 			dm->spr[i].move = 'a';//alerted
 		dm->spr[i].mov.x = dm->spr[i].dir.x * -0.03;
 		dm->spr[i].mov.y = dm->spr[i].dir.y * -0.03;
@@ -80,7 +80,7 @@ void	pokemon_trainer_mode(t_doom *dm, int i)
 	{
 		dm->spr[i].move = 's';//shooting
 		if (i == 6)
-			dm->gfx[dm->spr[i].gfx].x = 32;//charizard
+			dm->gfx[dm->spr[i].gfx].x = 28;//charizard
 		else
 			dm->gfx[dm->spr[i].gfx].x = 0;//pokemontrainer
 		dm->gfx[dm->spr[i].gfx].y = 0;
@@ -95,7 +95,7 @@ void	pokemon_trainer(t_doom *dm, int y, int x, int i)
 	pokemon_trainer_mode(dm, i);
 	ai_movement(dm, &dm->spr[i]);
 	draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx],
-		(int[7]){y, x, 48, 32, 0, 0, i}, 25 / dm->spr[i].dist);
+		(int[7]){y, x, 37, 28, 0, 0, i}, 25 / dm->spr[i].dist);
 	dm->spr[i].frame++;
 	if (dm->spr[i].frame == 32)
 		dm->spr[i].frame = 0;

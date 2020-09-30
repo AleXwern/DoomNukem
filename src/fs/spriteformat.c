@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spriteformat.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 14:20:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/17 14:22:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:22:14 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	comp_sprite(t_doom *dm, int i)
 
 	while (++i < 9)
 	{
-
+		i += 0;
 	}
 }

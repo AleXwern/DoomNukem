@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 13:21:45 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/08/25 13:21:45 by AleXwern         ###   ########.fr       */
+/*   Created: 2020/09/30 12:16:01 by anystrom          #+#    #+#             */
+/*   Updated: 2020/09/30 12:45:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ t_gfx	read_bmp(char *file, int fd, int bread)
 	ft_bzero(&gfx, sizeof(t_gfx));
 	fd = open(file, O_RDONLY);
 	free(file);
-	ft_putendl(file);
 	if (fd == -1)
 		return (gfx);
 	bread = read(fd, &bmp, sizeof(bmp));

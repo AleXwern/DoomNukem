@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   begin_sprites.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:54:01 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/25 13:07:06 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/09/29 19:13:32 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sprite_set2(t_doom *dm)
 	dm->spr[5].pos.z = 6.6;
 	dm->spr[5].pos.y = 12.4;
 	dm->spr[5].pos.x = 16.4;
-	dm->spr[5].gfx = 32;
+	dm->spr[5].gfx = 22;
 	dm->spr[5].move = 'x';
 	dm->spr[5].frame = 0;
 	//dm->spr[5].size = 5;
@@ -31,7 +31,7 @@ void	sprite_set2(t_doom *dm)
 	dm->spr[6].pos.z = 6.8;
 	dm->spr[6].pos.y = 12.4;
 	dm->spr[6].pos.x = 5.4;
-	dm->spr[6].gfx = 26;
+	dm->spr[6].gfx = 16;
 	dm->spr[6].move = 'x';
 	dm->spr[6].frame = 0;
 
@@ -68,11 +68,6 @@ void	sprite_set2(t_doom *dm)
 void	sprite_set(t_doom *dm)
 {
 	static int	i;
-	double		mov;
-
-	mov = dm->movsp * ((30.0 / dm->buffer) / dm->prefps);
-	if (mov > 1.0 || mov < -1.0)
-		mov /= fabs(mov) * 2;
 
 	if (i)
 		return;
@@ -80,7 +75,7 @@ void	sprite_set(t_doom *dm)
 	dm->spr[0].pos.z = 7.2;
 	dm->spr[0].pos.y = 12.42;
 	dm->spr[0].pos.x = 12.4;
-	dm->spr[0].gfx = 34;
+	dm->spr[0].gfx = 18;
 	dm->spr[0].size = 1;
 	while (++i < 4)
 	{
@@ -88,7 +83,7 @@ void	sprite_set(t_doom *dm)
 		dm->spr[i].pos.z = (rand() % 90) / 10;
 		dm->spr[i].pos.y = (rand() % 250) / 10;
 		dm->spr[i].pos.x = (rand() % 250) / 10;
-		dm->spr[i].gfx = (rand() % 8) + 15;
+		dm->spr[i].gfx = (rand() % 7) + 16;;
 		dm->spr[i].size = 1;
 		dm->spr[i].move = 's';//so that all sprites will shoot
 	}

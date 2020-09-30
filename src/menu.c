@@ -23,6 +23,8 @@ void	draw_bars(t_doom *dm, int y, int x, int pc)
 	while (++pc < 10 + dm->minopt)
 	{
 		sy = ((pc - dm->minopt) * (dm->winh / 10));
+		if (sy < 0)
+			sy = 0;
 		sx = dm->winw / 2;
 		y = 0;
 		while (++y < dm->winh / 10 - 1)
@@ -84,6 +86,12 @@ void	options_menu_create(t_doom *dm)
 	dm->options[10] = &dm->hp;
 	dm->maxvalue[10] = 5;
 	dm->optext[10] = "health";
+	dm->options[11] = &dm->netstat;
+	dm->maxvalue[11] = 1;
+	dm->optext[11] = "connect";
+	dm->options[12] = &dm->person;
+	dm->maxvalue[12] = 6;
+	dm->optext[12] = "avatar";
 }
 
 void	menu_text(t_doom *dm, int opt, int y)
@@ -103,10 +111,19 @@ void	menu_text(t_doom *dm, int opt, int y)
 
 void	options_menu(t_doom *dm)
 {
+	static int i;
+
 	options_menu_create(dm);
 	draw_menu(dm, 0, 0, dm->cur - dm->minopt);
 	draw_bars(dm, -1, -1, -1);
 	menu_text(dm, dm->minopt, -1);
 	SDL_RenderPresent(dm->rend);
+	if (i >= 3 && dm->netstat)
+	{
+		if (send_pos(dm))
+			recv_pos(dm);
+		i = 0;
+	}
+	i++;
 	dm->fps++;
 }

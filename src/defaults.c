@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/24 12:23:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/30 13:05:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,41 +30,15 @@ void	wind_default(t_doom *dm)
 	ft_bzero(&dm->key, sizeof(t_key));
 }
 
-void	free_vram(t_doom* dm)
-{
-	free(dm->threads);
-	free(dm->data_r);
-	free(dm->maparr);
-	free(dm->wallarr);
-}
-
-void	alloc_vram(t_doom *dm)
-{
-	if (!(dm->maparr = (int*)ft_memalloc(sizeof(int) * dm->winw * dm->winh)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->wallarr = (double*)ft_memalloc(sizeof(double) * dm->winw * dm->winh)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->threads = (SDL_Thread**)ft_memalloc(sizeof(SDL_Thread*) * dm->trx)))
-		error_out(MEM_ERROR, dm);
-	if (!(dm->data_r = (t_doom*)ft_memalloc(sizeof(t_doom) * dm->trx)))
-		error_out(MEM_ERROR, dm);
-}
-
 void	resize_window(t_doom *dm)
 {
 	dm->winw = dm->event.window.data1;
 	dm->winh = dm->event.window.data2;
-	/*if (dm->winw > 1500 || dm->winh > 960)
+	if (dm->winw < 360 || dm->winh < 244)
 	{
-		SDL_SetWindowSize(dm->win, 1500, 960);
-		dm->winw = 1500;
-		dm->winh = 960;
-	}*/
-	if (dm->winw < 1080 || dm->winh < 720)
-	{
-		SDL_SetWindowSize(dm->win, 1080, 720);
-		dm->winw = 1080;
-		dm->winh = 720;
+		SDL_SetWindowSize(dm->win, 360, 244);
+		dm->winw = 360;
+		dm->winh = 244;
 	}
 	dm->img = init_image(dm);
 	if (!(dm->rend = SDL_GetRenderer(dm->win)))
@@ -76,7 +50,7 @@ void	resize_window(t_doom *dm)
 
 void	reset_position(t_doom *dm)
 {
-	dm->pos = dm->spawn;
+	dm->pos = dm->spw;
 	dm->dir.x = 1.0;
 	dm->dir.y = 0.0;
 	dm->dir.z = 0.0;
@@ -117,7 +91,7 @@ void	doom_default(t_doom *dm)
 		Mix_PlayMusic(dm->music, 0);
 	dm->volume = 64;
 	Mix_VolumeMusic(64);
-	printf("Threads: %d\n", dm->trx);
+	dm->fpschar = ft_strdup("30");
 }
 
 void	reset_window(t_doom *dm, Uint8 arg)

@@ -6,23 +6,25 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 15:10:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/30 13:03:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+#include <stdio.h>
+
 void	defaults(t_editor *le, t_doom *dm)
 {
 	ft_bzero(le, sizeof(t_editor));
-	dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x].b = 7;
+	dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 7;
 	le->blk = 2;
-	le->options[0] = 2;				//floor
-	le->options[1] = 15;			//light
-	le->options[2] = 0;				//plane type, NULL-ZYX, PN
-	le->options[3] = 1;				//plane thickness
-	le->options[4] = 0;				//metadata
+	le->options[0] = 2;
+	le->options[1] = 15;
+	le->options[2] = 0;
+	le->options[3] = 1;
+	le->options[4] = 0;
 	le->maxval[0] = dm->mxflr - 1;
 	le->maxval[1] = 15.0;
 	le->maxval[2] = 8.0;
@@ -91,7 +93,7 @@ void	editor_main(t_doom *dm)
 	}
 	SDL_SetWindowSize(dm->win, WINX, WINY);
 	free(le);
-	dm->pos = dm->spawn;
+	dm->pos = dm->spw;
 	if (le->quit == 2)
 		error_out(FINE, dm);
 	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .pln = 15, .pt = 0});
