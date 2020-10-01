@@ -6,15 +6,16 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/30 16:46:09 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/01 12:22:56 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	=	doom-nukem
-SERVER	=	doom-server
+SERVER	=	server-nukem
 OEXT	=	.o
 LEXT	= 	.a
+# Remember -Wall -Wextra -Werror -> -O2 inclusion is debatable since it was a thing back then 
 FLG		= 	-O2
 SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c \
 			util.c menu.c gfx_draw.c posteff.c defaults.c \
@@ -68,11 +69,10 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/math/,$(MTHFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/sprite/,$(SPRFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/network/,$(CLIFILE:.c=$(OEXT)))
-DEPNS =		$(OBJ:.o=.d)
+DEPNS =		$(OBJ:.o=.d) $(OBJSRV:.o=.d)
 OBJDIR =	./obj/
 SRCDIR =	./src/
 INCL =		-I ./SDL2 -I ./libft -I ./includes
-MLXLIB =	-L /usr/local/lib
 PWD =		$(shell pwd)
 OBJFRAME =	-F ./frameworks
 FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -framework SDL2_net -Wl,-rpath $(PWD)/frameworks
@@ -94,13 +94,13 @@ $(OBJDIR)%.o:$(SRCDIR)%.c
 	@gcc -g $(OBJFRAME) $(FLG) -MMD $(INCL) -o $@ -c $<
 
 $(NAME): $(OBJ) $(LIBFT)
-	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
+	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
 	@Rez -a icon.rsrc -o $(NAME)
 	@SetFile -a C $(NAME)
 	@rm icon.rsrc
 	@echo Executable created successfully. Get maps with 'make git'.
-	@echo Run the executable as ./doom-nukem. No args.
+	@echo Run the executable as ./$(NAME). No args.
 
 clean:
 	@echo "Removing Doom-Nukem libraries."
@@ -118,23 +118,17 @@ fclean: clean
 run: all
 	./doom-nukem
 
-server: $(OBJSRV) $(LIBFT)
-	gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJSRV) $(LIBFT) $(MLXLIB)
+$(SERVER): $(OBJSRV) $(LIBFT)
+	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJSRV) $(LIBFT)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
 	@Rez -a icon.rsrc -o $(SERVER)
 	@SetFile -a C $(SERVER)
 	@rm icon.rsrc
 	@echo Executable created successfully.
-	@echo Run the executable as ./doom-server. No args.
-	
-winup:
-ifeq ($(OS),Windows_NT)
-	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/gfx
-	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/Audio
-	@cp -r gfx ../../../../source/repos/DoomNukem/x64/Debug/
-	@cp -r Audio ../../../../source/repos/DoomNukem/x64/Debug/
-else
-	@echo "Nothing to do."
-endif
+	@echo Run the executable as ./$(SERVER). No args.
+
+both: $(NAME) $(SERVER)
+
+reboth: fclean both
 
 re: fclean all

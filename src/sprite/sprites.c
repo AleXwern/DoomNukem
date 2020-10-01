@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 12:43:30 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:15:18 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,10 +239,10 @@ void	draw_projectiles(t_doom *dm, int y, int x, double spra)
 		dm->prj[i].dir.y = (dm->prj[i].pos.y - dm->pos.y) / dm->prj[i].dist;
 		dm->prj[i].dir.x = (dm->prj[i].pos.x - dm->pos.x) / dm->prj[i].dist;
 		x = dm->winw * ((spra - dm->mina) / (dm->maxa - dm->mina)) -
-			((dm->gfx[dm->prj[i].gfx].wid / 2) * 2 / dm->prj[i].dist);
-		y = dm->winh * ((dm->prj[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z))
-			- ((dm->gfx[dm->prj[i].gfx].hgt / 2) * 2 / dm->prj[i].dist);
-		draw_projectile_gfx(dm, dm->gfx[dm->prj[i].gfx],
+			104 / dm->prj[i].dist;
+		y = dm->winh * ((dm->prj[i].dir.z - dm->min.z) / (dm->max.z -
+			dm->min.z)) - 104  / dm->prj[i].dist;
+		draw_projectile_gfx(dm, dm->gfx[24],
 			(int[7]){y, x, 1000, 1000, 0, 0, i}, 4 / dm->prj[i].dist);
 	}
 }

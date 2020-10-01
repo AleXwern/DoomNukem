@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:54:01 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/01 13:13:31 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:14:58 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	sprite_set2(t_doom *dm)
 	dm->obj[0].pos.x = 20.5;
 	dm->obj[0].gfx = 37;
 	dm->obj[0].frame = 0;
-	dm->obj[0].size = 3;
+	dm->obj[0].size = 17;
 	//printf("chest loc = %d  %d  %d\n", (int)(dm->obj[7].pos.z), (int)dm->obj[7].pos.y, (int)dm->obj[7].pos.x);
 
 	// Pistol
@@ -71,7 +71,7 @@ void	sprite_set2(t_doom *dm)
 	dm->obj[1].pos.y = 4.5;
 	dm->obj[1].pos.x = 20.5;
 	dm->obj[1].gfx = 36;
-	dm->obj[1].size = 1;
+	dm->obj[1].size = 17;
 
 	// Keycard
 	//dm->obj[2].pos.z = 3.0;
