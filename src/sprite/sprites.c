@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 16:42:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:06:47 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,11 +241,11 @@ void	draw_projectiles(t_doom *dm, int y, int x, double spra)
 		dm->prj[i].dir.z = (dm->prj[i].pos.z - dm->pos.z) / dm->prj[i].dist;
 		dm->prj[i].dir.y = (dm->prj[i].pos.y - dm->pos.y) / dm->prj[i].dist;
 		dm->prj[i].dir.x = (dm->prj[i].pos.x - dm->pos.x) / dm->prj[i].dist;
-		x = dm->winw * ((spra - dm->mina) / (dm->maxa - dm->mina)) -
-			((dm->gfx[dm->prj[i].gfx].wid / 2) * 2 / dm->prj[i].dist);
-		y = dm->winh * ((dm->prj[i].dir.z - dm->min.z) / (dm->max.z - dm->min.z))
-			- ((dm->gfx[dm->prj[i].gfx].hgt / 2) * 2 / dm->prj[i].dist);
-		draw_projectile_gfx(dm, dm->gfx[dm->prj[i].gfx],
+		x = dm->winw * ((spra - dm->mina) / (dm->maxa - dm->mina)) - 
+			104 / dm->prj[i].dist;
+		y = dm->winh * ((dm->prj[i].dir.z - dm->min.z) / (dm->max.z -
+			dm->min.z)) - 104  / dm->prj[i].dist;
+		draw_projectile_gfx(dm, dm->gfx[24],
 			(int[7]){y, x, 1000, 1000, 0, 0, i}, 4 / dm->prj[i].dist);
 	}
 }

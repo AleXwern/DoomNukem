@@ -6,14 +6,14 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 14:59:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 15:05:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:56:50 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-int		connect_server(t_doom *dm)
+int				connect_server(t_doom *dm)
 {
 	if (dm->netstat)
 		return (1);
@@ -26,29 +26,33 @@ int		connect_server(t_doom *dm)
 	return (1);
 }
 
-int		send_pos(t_doom *dm)
+int				send_pos(t_doom *dm)
 {
-	t_bulk	data;
-	int		sent;
+	t_bulk		data;
+	int			sent;
+	static int	buffer;
 
 	data = (t_bulk){.dir = dm->dir, .pos = dm->pos, .hp = dm->hp,
-					.gfx = dm->person + 16};
+					.gfx = dm->person + 16, .prj = dm->prj[dm->id].pos};
 	sent = SDLNet_TCP_Send(dm->sock, &data, sizeof(t_bulk));
 	if (sent < sizeof(t_bulk))
+		buffer++;
+	if (buffer > 300)
 	{
 		ft_putendl(CON_ERROR);
 		dm->netstat = 0;
+		buffer = 0;
 		SDLNet_TCP_Close(dm->sock);
 		return (0);
 	}
 	return (1);
 }
 
-void	recv_pos(t_doom *dm)
+void			recv_pos(t_doom *dm)
 {
-	t_chunk	data;
-	int		recv;
-	int		i;
+	t_chunk		data;
+	int			recv;
+	int			i;
 
 	recv = SDLNet_TCP_Recv(dm->sock, &data, sizeof(t_chunk));
 	i = -1;
