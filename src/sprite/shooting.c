@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shooting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/01 13:15:13 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:48:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ai_shooting(t_doom *dm, int i)
 	dm->prj[i].frame++;
 	if (dm->prj[i].frame > 50)
 		dm->prj[i].frame = 0;
-	if (dm->prj[i].move == 'm' && dm->prj[i].dist < 0.4)
+	if (dm->prj[i].move == 'm' && dm->prj[i].dist < 0.6)
 	{
 		if (!dm->iframe && dm->invincible != 4)
 		{

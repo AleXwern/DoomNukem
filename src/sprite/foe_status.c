@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   foe_status.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 13:02:44 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 14:10:40 by anystrom         ###   ########.fr       */
+/*   Created: 2020/10/01 14:06:51 by anystrom          #+#    #+#             */
+/*   Updated: 2020/10/01 14:08:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
 
-void	game_loop(t_doom *dm)
+/*
+**	's' -shooting
+**	'x' -stand still
+**	'a' -alerted
+**	'm' -moving/passive
+*/
+
+int		foe_ismoving(t_sprite *spr)
 {
-	static Uint32	buffer;
-	
-	dm->keyck(dm);
-	if (dm->buffer < 1)
-		dm->buffer = 1;
-	dm->rng += (dm->pos.z + dm->pos.y + dm->pos.x) * M_PI;
-	if (buffer > dm->buffer)
+	if (spr->move != 'a' && spr->move != 's')
 	{
-		dm->cycle(dm);
-		buffer = 0;
+		if (spr->mov.z != 0 && spr->mov.y != 0 && spr->mov.x != 0)
+			spr->move = 'm';
+		else
+			spr->move = 'x';
 	}
-	buffer++;
+	if (spr->move = 'x')
+		return (0);
+	return (1);
 }

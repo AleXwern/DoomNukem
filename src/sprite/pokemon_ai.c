@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pokemon_ai.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:28:29 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/01 12:30:41 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:40:09 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	pokemon_trainer_dir(t_doom *dm, int i)
 void	pokemon_trainer_mode(t_doom *dm, int i)
 {
 	pokemon_trainer_dir(dm, i);
+	if (dm->spr[i].dist <= 8)
+		dm->spr[i].face = (t_vector){.z = dm->spr[i].dir.z * -1, .y = dm->spr[i].dir.y * -1, .x = dm->spr[i].dir.x * -1};
 	if (dm->spr[i].dist <= 8 && dm->spr[i].dist >= 3.5)
 	{
 		if (/*dm->gfx[dm->spr[i].gfx].y != 111 this is if player is sneaking up from behind && */dm->spr[i].move != 'm'/* && you can see the sprite*/)

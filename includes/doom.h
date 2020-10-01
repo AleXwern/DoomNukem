@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 12:38:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 14:11:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,7 +328,7 @@ typedef struct		s_doom
 	t_block			blk;
 	int				winb;
 	int				texbool;
-	double			rng;
+	Uint32			rng;
 	int				fcomb;
 	int				aggro;
 	int				iscombat;
