@@ -6,13 +6,13 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 14:44:52 by exam              #+#    #+#             */
-/*   Updated: 2020/01/20 16:31:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:27:10 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_puthex(int num)
+void	ft_puthex(unsigned int num)
 {
 	char			c;
 

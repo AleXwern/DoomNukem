@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 14:57:00 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 15:01:48 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,7 +328,7 @@ typedef struct		s_doom
 	t_block			blk;
 	int				winb;
 	int				texbool;
-	double			rng;
+	Uint32			rng;
 	int				fcomb;
 	int				aggro;
 	int				iscombat;

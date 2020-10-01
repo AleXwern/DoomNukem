@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/01 12:22:56 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/01 13:31:49 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ MTHFILE =	vert.c
 SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c pokemon_ai.c
 CLIFILE =	client.c
 SRVFILE	=	server.c
-SRC =		$(addprefix ./src/,$(SRCFILE)) \
+SRC		=	$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/draw_extra/,$(DRAWEXT)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
 			$(addprefix ./src/editor/,$(EDTFILE)) \
@@ -52,9 +52,9 @@ SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/network/,$(CLIFILE))
 SRCSRV	=	$(addprefix ./src/server/,$(SRVFILE))
 OBJSRV	=	$(addprefix ./obj/server/,$(SRVFILE:.c=$(OEXT)))
-LIBFT =		$(addprefix ./obj/libft,$(LEXT))
-OBJS =		$(SRC:.c=$(OEXT))
-OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
+LIBFT	=	$(addprefix ./obj/libft,$(LEXT))
+OBJS	=	$(SRC:.c=$(OEXT))
+OBJ		=	$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/key/,$(KEYFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/draw_extra/,$(DRAWEXT:.c=$(OEXT))) \
 			$(addprefix ./obj/editor/,$(EDTFILE:.c=$(OEXT))) \
@@ -69,15 +69,16 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/math/,$(MTHFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/sprite/,$(SPRFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/network/,$(CLIFILE:.c=$(OEXT)))
-DEPNS =		$(OBJ:.o=.d) $(OBJSRV:.o=.d)
-OBJDIR =	./obj/
-SRCDIR =	./src/
-INCL =		-I ./SDL2 -I ./libft -I ./includes
-PWD =		$(shell pwd)
+DEPNS	=	$(OBJ:.o=.d) $(OBJSRV:.o=.d)
+OBJDIR	=	./obj/
+SRCDIR	=	./src/
+INCL	=	-I ./SDL2 -I ./libft -I ./includes
+PWD		=	$(shell pwd)
 OBJFRAME =	-F ./frameworks
 FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -framework SDL2_net -Wl,-rpath $(PWD)/frameworks
-RED =		\033[0;31m
-STOP =		\033[0m
+RED		=	\033[0;31m
+BLUE	=	\033[0;34m
+STOP	=	\033[0m
 
 .PHONY: all clean fclean re obj
 
@@ -99,8 +100,8 @@ $(NAME): $(OBJ) $(LIBFT)
 	@Rez -a icon.rsrc -o $(NAME)
 	@SetFile -a C $(NAME)
 	@rm icon.rsrc
-	@echo Executable created successfully. Get maps with 'make git'.
-	@echo Run the executable as ./$(NAME). No args.
+	@echo "Executable created successfully."
+	@echo "Run the executable as $(BLUE)./$(NAME)$(STOP). No args."
 
 clean:
 	@echo "Removing Doom-Nukem libraries."
@@ -124,8 +125,8 @@ $(SERVER): $(OBJSRV) $(LIBFT)
 	@Rez -a icon.rsrc -o $(SERVER)
 	@SetFile -a C $(SERVER)
 	@rm icon.rsrc
-	@echo Executable created successfully.
-	@echo Run the executable as ./$(SERVER). No args.
+	@echo "Executable created successfully."
+	@echo "Run the executable as $(BLUE)./$(SERVER)$(STOP). No args."
 
 both: $(NAME) $(SERVER)
 

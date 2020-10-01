@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 14:56:47 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 15:19:58 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,12 +186,11 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 			14 * dm->spr[i].size / dm->spr[i].dist;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z -
 			dm->min.z)) - 18 * dm->spr[i].size  / dm->spr[i].dist;
-		if (i > 3)
+		if (i > 3)//AI
 			pokemon_trainer(dm, y, x, i);
-		else
-			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x,
-				dm->gfx[dm->spr[i].gfx].hgt, dm->gfx[dm->spr[i].gfx].wid,
-				0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
+		else//if another player
+			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx],
+			(int[7]){y, x, 37, 28, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
 	}
 }
 

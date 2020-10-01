@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/01 13:31:15 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 15:01:37 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ai_shooting(t_doom *dm, int i)
 		dm->prj[i].pos.y += dm->prj[i].mov.y;
 		dm->prj[i].pos.x += dm->prj[i].mov.x;
 	}
-	if (dm->prj[i].move == 'm' && dm->prj[i].dist < 0.4)
+	if (dm->prj[i].move == 'm' && dm->prj[i].dist < 0.6)
 	{
 		if (!dm->iframe && dm->invincible != 4)
 		{
