@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_ditoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 15:43:13 by anystrom          #+#    #+#             */
-/*   Updated: 2019/11/02 14:42:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/08/06 21:58:11 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <math.h>
 
 static int		ft_itoabuilder(char *num, long n, int i)
 {
@@ -32,7 +33,7 @@ static int		ft_itoabuilder(char *num, long n, int i)
 	return (i);
 }
 
-char			*ft_itoa(int n)
+char			*ft_ditoa(double n)
 {
 	char	*num;
 

@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/29 19:48:48 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/29 22:17:02 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@
 # define PCOLL		0.2
 # define OP			12
 # define IP			"10.13.1.1"
+# ifdef _WIN64
+#  define MUSIC		"Audio/Music/str4E.wav"
+# if __APPLE__
+#  define MUSIC		"Audio/Music/str4E.mp3"
+# endif
 /*
 **# define IP		"10.13.1.1" Use this with Macs
 **# define IP		"192.168.1.16"
