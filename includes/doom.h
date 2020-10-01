@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 16:37:49 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:38:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -428,6 +428,7 @@ typedef struct		s_doom
 	int				frm;
 	int				magazine;
 	int				hp;
+	int				invincible;
 	int				alive;
 	int				keycard;
 	int				chestopened;
@@ -487,7 +488,7 @@ t_img				init_image(t_doom *dm);
 t_vector			cross_prd(t_vector v, t_vector u);
 t_vector			oper_vect(t_vector v, t_vector u, char o);
 
-void				ai_shooting(t_doom *dm, int i, int s);
+void				ai_shooting(t_doom *dm, int i);
 void				alloc_vram(t_doom *dm);
 void				cam_udy(t_doom *dm);
 void				check_area(t_editor *le, SDL_Event ev);

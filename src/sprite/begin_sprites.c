@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   begin_sprites.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:54:01 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/29 19:13:32 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:13:31 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,44 @@
 
 void	sprite_set2(t_doom *dm)
 {
+	int	i;
 	// PokemonTrainer
 	dm->spr[5].hp = 2;
-	dm->spr[5].pos.z = 6.6;
+	dm->spr[5].pos.z = 7.4;
 	dm->spr[5].pos.y = 12.4;
 	dm->spr[5].pos.x = 16.4;
 	dm->spr[5].gfx = 22;
 	dm->spr[5].move = 'x';
 	dm->spr[5].frame = 0;
-	//dm->spr[5].size = 5;
+	dm->spr[5].size = 25;
 	dm->spr[5].face.x = 0;//use this as a "which direction is the trainer facing"//not in use at the moment
 
 	// Charizard
 	dm->spr[6].hp = 2;
-	dm->spr[6].pos.z = 6.8;
+	dm->spr[6].pos.z = 7.4;
 	dm->spr[6].pos.y = 12.4;
 	dm->spr[6].pos.x = 5.4;
 	dm->spr[6].gfx = 16;
 	dm->spr[6].move = 'x';
 	dm->spr[6].frame = 0;
+	dm->spr[6].size = 25;
+
+	i = 7;
+	dm->spr[i].hp = 2;
+	dm->spr[i].pos.z = 7.4;
+	dm->spr[i].pos.y = 14.4;
+	dm->spr[i].pos.x = 12.4;
+	dm->spr[i].gfx = 18;//dragon
+	dm->spr[i].size = 25;
+	dm->spr[i].move = 'x';
+	i++;
+	dm->spr[i].hp = 2;
+	dm->spr[i].pos.z = 7.4;
+	dm->spr[i].pos.y = 3.4;
+	dm->spr[i].pos.x = 5.4;
+	dm->spr[i].gfx = 21;//aggron
+	dm->spr[i].size = 25;
+	dm->spr[i].move = 'x';
 
 	//chest
 	dm->obj[0].pos.z = 7.5;
@@ -67,24 +86,21 @@ void	sprite_set2(t_doom *dm)
 
 void	sprite_set(t_doom *dm)
 {
-	static int	i;
+	int	i;
+	//static int	i;
 
-	if (i)
-		return;
-	dm->spr[0].hp = 2;
-	dm->spr[0].pos.z = 7.2;
-	dm->spr[0].pos.y = 12.42;
-	dm->spr[0].pos.x = 12.4;
-	dm->spr[0].gfx = 18;
-	dm->spr[0].size = 1;
-	while (++i < 4)
+	// if (i)
+	// 	return;
+	i = 3;
+	while (++i < 5)
 	{
 		dm->spr[i].hp = 1 * (i + 1);
-		dm->spr[i].pos.z = (rand() % 90) / 10;
-		dm->spr[i].pos.y = (rand() % 250) / 10;
-		dm->spr[i].pos.x = (rand() % 250) / 10;
-		dm->spr[i].gfx = (rand() % 7) + 16;;
-		dm->spr[i].size = 1;
+		dm->spr[i].pos.z = 7.4;//(rand() % 90) / 10;
+		dm->spr[i].pos.y = (rand() % (25 - 1 + 1)) + 1;//(rand() % 250) / 10;
+		dm->spr[i].pos.x = (rand() % (25 - 1 + 1)) + 1;//(rand() % 250) / 10;
+		dm->spr[i].gfx = (rand() % (23 - 16 + 1)) + 16;//(rand() % 7) + 16;
+		//printf("y %f  x %f   gfx %d\n", dm->spr[i].pos.y, dm->spr[i].pos.x, dm->spr[i].gfx);
+		dm->spr[i].size = 25;
 		dm->spr[i].move = 's';//so that all sprites will shoot
 	}
 	sprite_set2(dm);

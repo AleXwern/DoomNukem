@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:28:29 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/30 16:57:23 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:30:41 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	pokemon_trainer_dir(t_doom *dm, int i)
 	double	spra;
 	double	sprb;
 
-	if (dm->spr[i].move != 'x')
+	if (dm->spr[i].move == 'm')
 		dm->gfx[dm->spr[i].gfx].x = (dm->spr[i].frame / 8) * 28;
 	else
 		dm->gfx[dm->spr[i].gfx].x = (dm->spr[i].frame < 16 ? 0 : 56);
@@ -69,14 +69,14 @@ void	pokemon_trainer_dir(t_doom *dm, int i)
 void	pokemon_trainer_mode(t_doom *dm, int i)
 {
 	pokemon_trainer_dir(dm, i);
-	if (dm->spr[i].dist <= 7 && dm->spr[i].dist >= 6.5)
+	if (dm->spr[i].dist <= 8 && dm->spr[i].dist >= 3.5)
 	{
-		if (dm->gfx[dm->spr[i].gfx].y != 111 && dm->spr[i].move != 'm'/* && you can see the sprite*/)
+		if (/*dm->gfx[dm->spr[i].gfx].y != 111 this is if player is sneaking up from behind && */dm->spr[i].move != 'm'/* && you can see the sprite*/)
 			dm->spr[i].move = 'a';//alerted
 		dm->spr[i].mov.x = dm->spr[i].dir.x * -0.03;
 		dm->spr[i].mov.y = dm->spr[i].dir.y * -0.03;
 	}
-	else if (dm->spr[i].dist <= 6.5 /* && you can see the sprite*/)
+	else if (dm->spr[i].dist <= 3.5 /* && you can see the sprite*/)
 		dm->spr[i].move = 's';//shooting
 	else
 		dm->spr[i].move = 'x';//stand still
@@ -92,4 +92,5 @@ void	pokemon_trainer(t_doom *dm, int y, int x, int i)
 	dm->spr[i].frame++;
 	if (dm->spr[i].frame == 32)
 		dm->spr[i].frame = 0;
+	ai_shooting(dm, i);
 }

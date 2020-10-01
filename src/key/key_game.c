@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:37:43 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/01 11:49:33 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,11 @@ int		key_release(int key, t_doom *dm)
 		if (key == KEY_TRE)
 			interact(dm);
 		if (key == KEY_A)
+		{
+			if (dm->invincible == 3)
+				dm->invincible++;
 			dm->key.a = 0;
+		}
 		if (key == KEY_D)
 			dm->key.d = 0;
 		if (key == KEY_W)
@@ -209,7 +213,12 @@ int		key_release(int key, t_doom *dm)
 		if (key == KEY_SHIFT)
 			dm->movsp -= 0.10;
 		if (key == KEY_L)
-			dm->isoutline = (dm->isoutline * dm->isoutline) - 1;
+		{
+			if (dm->invincible == 2)
+				dm->invincible++;
+			else
+				dm->isoutline = (dm->isoutline * dm->isoutline) - 1;
+		}
 		if (key == KEY_C && dm->crouching)
 		{
 			if (dm->area[(int)(dm->pos.z - 0.2)][(int)dm->pos.y][(int)dm->pos.x].b <= 1)
@@ -236,6 +245,16 @@ int		key_release(int key, t_doom *dm)
 			dm->plane.z -= 0.05;
 		if (key == KEY_H)
 			dm->plane.z += 0.05;
+		if (key == KEY_E)
+			if (dm->invincible == 1)
+				dm->invincible++;
+		if (key == KEY_X)
+		{
+			if (dm->invincible == 0)
+				dm->invincible++;
+			else if (dm->invincible == 4)
+				dm->invincible = 0;
+		}
 	}
 	else
 	{

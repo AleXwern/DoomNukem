@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 16:42:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/01 12:43:30 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,15 +205,16 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
 		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
 		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
-		x = dm->winw * ((spra - dm->mina) / (dm->maxa - dm->mina)) - 
+		x = dm->winw * ((spra - dm->mina) / (dm->maxa - dm->mina)) -
 			14 * dm->spr[i].size / dm->spr[i].dist;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z -
 			dm->min.z)) - 18 * dm->spr[i].size  / dm->spr[i].dist;
 		if (i <= 6)
 			pokemon_trainer(dm, y, x, i);
 		else if (dm->spr[i].hp > 0)
-			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x, dm->gfx[dm->spr[i].gfx].hgt,
-				dm->gfx[dm->spr[i].gfx].wid, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
+			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x,
+				dm->gfx[dm->spr[i].gfx].hgt, dm->gfx[dm->spr[i].gfx].wid,
+				0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
 	}
 }
 
@@ -221,17 +222,13 @@ void	draw_projectiles(t_doom *dm, int y, int x, double spra)
 {
 	int	i;
 
-	i = 0;
-	while (++i < 5)
+	i = -1;
+	while (++i < 9)
 	{
-		if (i == 1)
-			player_shooting(dm, i);
-		else if (i == 2)
-			ai_shooting(dm, i, 5);
-		else if (i == 3)
-			ai_shooting(dm, i, 6);//spr[6] is charizard
-		//else if (i == 4)
-		//	ai_shooting(dm, i, 3);//spr[3] is mantaray
+		if (i <= 3)
+			player_shooting(dm, dm->id);
+		else if (i > 3)
+			ai_shooting(dm, i);
 		spra = atan2(dm->prj[i].dir.y, dm->prj[i].dir.x);
 		if (spra < dm->mina || spra > dm->maxa)
 			spra += M_PI * 2;

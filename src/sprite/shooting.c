@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/30 15:10:09 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:13:21 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	check_hit(t_doom *dm, int i, int x)
 {
 	while (++x < 9)
 	{
-		if ((tri_pythagor(dm->prj[i].pos, dm->spr[x].pos)) < 0.6)
+		if ((tri_pythagor(dm->prj[i].pos, dm->spr[x].pos)) < 0.5)
 		{
 			if (dm->spr[x].hp == 1)
 			{
@@ -82,23 +82,17 @@ void	check_hit(t_doom *dm, int i, int x)
 ** Second parameter is which projectile to handle
 ** Third parameter is which sprite that's firing the projectile
 */
-void	ai_shooting(t_doom *dm, int i, int s)
+void	ai_shooting(t_doom *dm, int i)
 {
-	if (dm->prj[i].frame == 0 && dm->prj[i].move != 'm' && dm->spr[s].move == 's')
+	if (dm->prj[i].frame == 0 && dm->spr[i].move == 's')
 	{
 		dm->prj[i].gfx = 24;
-		if (dm->spr[s].dist >= 4)
-		{
-			dm->prj[i].mov = (t_vector){.z = (dm->spr[s].dir.z + 0.12) * -0.2,
-				.y = dm->spr[s].dir.y * -0.2, .x = dm->spr[s].dir.x * -0.2};
-		}
-		else
-			dm->prj[i].mov = (t_vector){.z = (dm->spr[s].dir.z + 0.3) * -0.2,
-				.y = dm->spr[s].dir.y * -0.2, .x = dm->spr[s].dir.x * -0.2};
-		dm->prj[i].pos.z = (dm->spr[s].pos.z + 0.8) + (dm->prj[i].mov.z * 1);
-		dm->prj[i].pos.y = dm->spr[s].pos.y + (dm->prj[i].mov.y * 1);
-		dm->prj[i].pos.x = dm->spr[s].pos.x + (dm->prj[i].mov.x * 1);
-		dm->prj[i].dir = dm->spr[s].dir;
+		dm->prj[i].mov = (t_vector){.z = (dm->spr[i].dir.z) * -0.2,
+			.y = dm->spr[i].dir.y * -0.2, .x = dm->spr[i].dir.x * -0.2};
+		dm->prj[i].pos.z = (dm->spr[i].pos.z) + (dm->prj[i].mov.z * 1);
+		dm->prj[i].pos.y = dm->spr[i].pos.y + (dm->prj[i].mov.y * 1);
+		dm->prj[i].pos.x = dm->spr[i].pos.x + (dm->prj[i].mov.x * 1);
+		dm->prj[i].dir = dm->spr[i].dir;
 		dm->prj[i].size = 5;
 		dm->prj[i].move = 'm';
 	}
@@ -113,7 +107,7 @@ void	ai_shooting(t_doom *dm, int i, int s)
 		dm->prj[i].frame = 0;
 	if (dm->prj[i].move == 'm' && dm->prj[i].dist < 0.4)
 	{
-		if (!dm->iframe)
+		if (!dm->iframe && dm->invincible != 4)
 		{
 			dm->hp -= 1;
 			dm->iframe = 50;

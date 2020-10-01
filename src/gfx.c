@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 14:25:47 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 11:21:35 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 	dm->gfx[41] = read_bmp(ft_strjoin(bpath, "misc/handlegr.bmp"), 0, 0);
 	dm->gfx[42] = read_bmp(ft_strjoin(bpath, "misc/handlegl.bmp"), 0, 0);
 }
+
+/*
+**	charizard 16
+**	pokemon trainer 17
+**	dragon 18
+**	foe4 19
+**	foe5 20
+**	aggron 21
+**	foe6 22
+*/
 
 void	comp_foe(t_doom *dm, char *bpath, int i)
 {
