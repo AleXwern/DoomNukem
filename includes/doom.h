@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 12:38:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 14:57:00 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -573,7 +573,7 @@ void				single_loop_z(t_doom *dm);
 void				slide_door(t_doom *dm);
 void				slope_dda_xzn(t_doom *dm);
 void				slope_dda_xzp(t_doom *dm);
-void				sprite_set(t_doom *dm);
+void				sprite_set(t_doom *dm, int i);
 void				strafe(t_doom *dm, double dirxtemp, double dirytemp);
 void				suffrocate(t_doom *dm, t_block blk, t_vector bpos);
 void				validate_map(t_doom *dm, int i, int a, t_block blk);

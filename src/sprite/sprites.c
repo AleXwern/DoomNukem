@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 13:15:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 14:56:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,29 +137,6 @@ void	draw_object_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 	}
 }
 
-/*void	set_projectile(t_doom *dm)
-{
-	static int	frm;
-	if (frm == 0)
-	{
-		dm->spr[4].hp = 100 * (i + 1);
-		dm->spr[4].pos.z = dm->spr[0].pos.z;
-		dm->spr[4].pos.y = dm->spr[0].pos.y;
-		dm->spr[4].pos.x = dm->spr[0].pos.x;
-		dm->spr[4].gfx = 23;
-		dm->spr[4].mov.z = dm->spr[0].dir.z * -0.04;
-		dm->spr[4].mov.y = dm->spr[0].dir.y * -0.04;
-		dm->spr[4].mov.x = dm->spr[0].dir.x * -0.04;
-	}
-	dm->spr[4].pos.z += dm->spr[0].mov.z;
-	dm->spr[4].pos.y += dm->spr[0].mov.y;
-	dm->spr[4].pos.x += dm->spr[0].mov.x;
-	draw_sprite_gfx(dm, dm->gfx[dm->spr[4].gfx], (int[7]){y, x, 1000, 1000, 0, 0, 4}, 2 / dm->spr[4].dist);
-	frm++;
-	if (frm > 600)
-		frm = 0;
-}*/
-
 void	draw_objects(t_doom *dm, int y, int x, double spra)
 {
 	int	i;
@@ -190,7 +167,7 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 	int	i;
 
 	i = -1;
-	while (++i < 7)
+	while (++i < 9)
 	{
 		if (i == dm->id)
 			continue;
@@ -209,9 +186,9 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 			14 * dm->spr[i].size / dm->spr[i].dist;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z -
 			dm->min.z)) - 18 * dm->spr[i].size  / dm->spr[i].dist;
-		if (i <= 6)
+		if (i > 3)
 			pokemon_trainer(dm, y, x, i);
-		else if (dm->spr[i].hp > 0)
+		else
 			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx], (int[7]){y, x,
 				dm->gfx[dm->spr[i].gfx].hgt, dm->gfx[dm->spr[i].gfx].wid,
 				0, 0, i}, dm->spr[i].size / dm->spr[i].dist);

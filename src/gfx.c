@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 11:21:35 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 14:43:42 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 **	charizard 16
 **	pokemon trainer 17
 **	dragon 18
-**	foe4 19
-**	foe5 20
-**	aggron 21
-**	foe6 22
+**	aggron 19
+**	woman 20
+**	greenguy 21
+**	brownguy 22
 */
 
 void	comp_foe(t_doom *dm, char *bpath, int i)
@@ -75,7 +75,7 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 	dm->gfx[20] = read_bmp(ft_strjoin(bpath, "foe/foe5.bmp"), 0, 0);
 	dm->gfx[21] = read_bmp(ft_strjoin(bpath, "foe/foe6.bmp"), 0, 0);
 	dm->gfx[22] = read_bmp(ft_strjoin(bpath, "foe/foe7.bmp"), 0, 0);
-	dm->gfx[23] = read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0, 0);
+	dm->gfx[23] = read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0, 0);//not in use
 	dm->gfx[24] = read_bmp(ft_strjoin(bpath, "foe/projectile.bmp"), 0, 0);
 	comp_spritesheets(dm, bpath, i);
 }
