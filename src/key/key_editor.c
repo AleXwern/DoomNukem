@@ -6,14 +6,14 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 14:42:58 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/30 13:34:36 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	set_slider(t_editor* le, t_doom* dm, double x, int y)
+void	set_slider(t_editor *le, t_doom *dm, double x, int y)
 {
 	y = dm->event.motion.y / 75;
 	if (dm->event.motion.x > 750 && y < 5)
@@ -26,7 +26,7 @@ void	set_slider(t_editor* le, t_doom* dm, double x, int y)
 	}
 }
 
-void	draw_screen(t_editor* le, t_doom* dm, int x, int y)
+void	draw_screen(t_editor *le, t_doom *dm, int x, int y)
 {
 	y = dm->event.motion.y / 30;
 	x = dm->event.motion.x / 30;
@@ -38,10 +38,10 @@ void	draw_screen(t_editor* le, t_doom* dm, int x, int y)
 			return ;
 		if (le->blk == 7)
 		{
-			dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x].b = 1;
-			dm->spawn.x = x + 0.51;
-			dm->spawn.y = y + 0.51;
-			dm->spawn.z = le->options[0] + 0.5;
+			dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 1;
+			dm->spw.x = x + 0.51;
+			dm->spw.y = y + 0.51;
+			dm->spw.z = le->options[0] + 0.5;
 		}
 		if (dm->area[le->options[0]][y][x].b != 7)
 		{
@@ -71,7 +71,7 @@ void	draw_screen(t_editor* le, t_doom* dm, int x, int y)
 		set_slider(le, dm, x, y);
 }
 
-void	check_area(t_editor* le, SDL_Event ev)
+void	check_area(t_editor *le, SDL_Event ev)
 {
 	if (ev.motion.x >= 0 && ev.motion.y >= 0 && ev.button.button == 1)
 	{
@@ -92,7 +92,7 @@ void	check_area(t_editor* le, SDL_Event ev)
 		le->mcopy = 1;
 }
 
-void	editor_key_release(Uint32 key, t_editor *le, t_doom* dm)
+void	editor_key_release(Uint32 key, t_editor *le, t_doom *dm)
 {
 	if (key == ESC)
 		le->quit = 1;
@@ -122,5 +122,4 @@ void	editor_key_press(Uint32 key, t_editor *le)
 		le->options[le->cur] = le->maxval[le->cur];
 	if (le->options[le->cur] < le->minval[le->cur])
 		le->options[le->cur] = le->minval[le->cur];
-	//printf("Min %d max %f\n", le->minval[le->cur], le->maxval[le->cur]);
 }

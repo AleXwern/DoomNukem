@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 15:02:46 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/01 14:08:27 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	resize_window(t_doom *dm)
 
 void	reset_position(t_doom *dm)
 {
-	dm->pos = dm->spawn;
+	dm->pos = dm->spw;
 	dm->dir.x = 1.0;
 	dm->dir.y = 0.0;
 	dm->dir.z = 0.0;
@@ -74,7 +74,7 @@ void	doom_default(t_doom *dm)
 	dm->prefps = 30;
 	dm->buffer = BUFFER;
 	set_variables(dm);
-	sprite_set(dm);
+	sprite_set(dm, 4);
 	dm->owinh = dm->winh;
 	dm->owinw = dm->winw;
 	wind_default(dm);

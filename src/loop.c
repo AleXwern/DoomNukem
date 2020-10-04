@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 13:02:44 by anystrom          #+#    #+#             */
-/*   Updated: 2020/07/20 15:34:43 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/01 14:10:40 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	game_loop(t_doom *dm)
 	dm->keyck(dm);
 	if (dm->buffer < 1)
 		dm->buffer = 1;
+	dm->rng += (dm->pos.z + dm->pos.y + dm->pos.x) * M_PI;
 	if (buffer > dm->buffer)
 	{
 		dm->cycle(dm);

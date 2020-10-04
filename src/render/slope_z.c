@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_z.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 14:26:15 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/30 12:45:03 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_vector	xz_vect_intersect(t_vector v, t_vector u, t_doom *dm)
 	return (ret);
 }
 
-void	slope_dda_xzn(t_doom* dm)
+void		slope_dda_xzn(t_doom* dm)
 {
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
@@ -42,10 +42,9 @@ void	slope_dda_xzn(t_doom* dm)
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop_z(dm);
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
-		//xz_vect_intersect(dm->rayd, (t_vector){.z = -1, .y = 1, .x = 0}, dm);
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			printf("RMAP %f >= %f\n", dm->rmap2.z, dm->rmap2.y);
-		if (dm->rmap2.z >= dm->rmap2.y || dm->rmap2.z < LIMN || dm->rmap2.y > LIM)// || dm->rmap2.z > 0)
+		if (dm->rmap2.z >= dm->rmap2.y || dm->rmap2.z < LIMN || dm->rmap2.y > LIM)
 			return;
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			printf("Suitable point XZN\n");
@@ -57,7 +56,7 @@ void	slope_dda_xzn(t_doom* dm)
 	}
 }
 
-void	slope_dda_xzp(t_doom* dm)
+void		slope_dda_xzp(t_doom* dm)
 {
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;

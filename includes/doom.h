@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/29 19:32:41 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/02 13:38:42 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,13 +182,13 @@ typedef struct		s_editor
 }					t_editor;
 
 /*
-**	Datablock for blocks
-**	b	- blocktype (tex)
-**	lgt	- lightning of the block
+**	Datablock for well... blocks
+**	b	- blocktype (main texture and main function)
+**	lgt	- lightning of the block 0-15
 **	pt	- planetype, how block is split
-**	pln	- plane, where it's split
+**	pln	- plane, where it's split 0-15
 **	meta- extra data for misc features
-**	hp	- used to determine when block is broken
+**	hp	- used to determine block integrity
 **	PLANE TYPE
 **	0 - none
 **	1 - Z, filled up
@@ -329,7 +329,7 @@ typedef struct		s_doom
 	t_block			blk;
 	int				winb;
 	int				texbool;
-	double			rng;
+	int				rng;
 	int				fcomb;
 	int				aggro;
 	int				iscombat;
@@ -340,6 +340,7 @@ typedef struct		s_doom
 	int				stepz;
 	int				hit;
 	int				hithalf;
+	int				invincible;
 	t_vector		hitpos;
 	int				side;
 	double			lineh;
@@ -360,7 +361,7 @@ typedef struct		s_doom
 	int				rotation;
 	double			poszz;
 	int				airbrn;
-	t_vector		spawn;
+	t_vector		spw;
 	t_vector		pos;
 	t_vector		gravity;
 	t_vector		fallsp;
@@ -464,6 +465,7 @@ double				tri_pythagor(t_vector f, t_vector s);
 
 int					check_sprite_dist(t_doom *dm, double mov, int i);
 int					connect_server(t_doom *dm);
+int					foe_ismoving(t_sprite *spr);
 int					fps_capper(void *ptr);
 int					fps_counter(void *ptr);
 int					get_x(int pc);
@@ -488,7 +490,7 @@ t_img				init_image(t_doom *dm);
 t_vector			cross_prd(t_vector v, t_vector u);
 t_vector			oper_vect(t_vector v, t_vector u, char o);
 
-void				ai_shooting(t_doom *dm, int i, int s);
+void				ai_shooting(t_doom *dm, int i);
 void				alloc_vram(t_doom *dm);
 void				cam_udy(t_doom *dm);
 void				check_area(t_editor *le, SDL_Event ev);
@@ -531,6 +533,9 @@ void				editor_key_release(Uint32 key, t_editor *le, t_doom *dm);
 void				editor_main(t_doom *dm);
 void				error_out(char *msg, t_doom *dm);
 void				ext_ray(t_doom *dm);
+void				foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i);
+void				foe_dir(t_doom* dm, t_sprite* spr, double spra);
+void				foe_passive_cycle(t_doom *dm, t_sprite *spr, int i);
 void				free_map(t_doom *dm, int f, int y);
 void				free_memory(char **arr);
 void				free_vram(t_doom *dm);

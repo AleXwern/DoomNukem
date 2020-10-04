@@ -3,18 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/09/28 15:30:30 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/10/01 13:31:49 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME	=	doom-nukem
-SERVER	=	doom-server
+SERVER	=	server-nukem
 OEXT	=	.o
 LEXT	= 	.a
+# Remember -Wall -Wextra -Werror -> -O2 inclusion is debatable since it was a thing back then 
 FLG		= 	-O2
 SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c \
 			util.c menu.c gfx_draw.c posteff.c defaults.c \
@@ -32,8 +33,9 @@ BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
 SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c pokemon_ai.c
-SERVER	=	server.c
-SRC =		$(addprefix ./src/,$(SRCFILE)) \
+CLIFILE =	client.c
+SRVFILE	=	server.c
+SRC		=	$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/draw_extra/,$(DRAWEXT)) \
 			$(addprefix ./src/key/,$(SRCFILE)) \
 			$(addprefix ./src/editor/,$(EDTFILE)) \
@@ -46,12 +48,13 @@ SRC =		$(addprefix ./src/,$(SRCFILE)) \
 			$(addprefix ./src/bmp/,$(BMPFILE)) \
 			$(addprefix ./src/text/,$(TXTFILE)) \
 			$(addprefix ./src/math/,$(MTHFILE)) \
-			$(addprefix ./src/sprite/,$(SPRFILE))
-SRCSRV	=	$(addprefix ./src/server/,$(SERVER))
-OBJSRV	=	$(addprefix ./obj/server/,$(SERVER:.c=$(OEXT)))
-LIBFT =		$(addprefix ./obj/libft,$(LEXT))
-OBJS =		$(SRC:.c=$(OEXT))
-OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
+			$(addprefix ./src/sprite/,$(SPRFILE)) \
+			$(addprefix ./src/network/,$(CLIFILE))
+SRCSRV	=	$(addprefix ./src/server/,$(SRVFILE))
+OBJSRV	=	$(addprefix ./obj/server/,$(SRVFILE:.c=$(OEXT)))
+LIBFT	=	$(addprefix ./obj/libft,$(LEXT))
+OBJS	=	$(SRC:.c=$(OEXT))
+OBJ		=	$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/key/,$(KEYFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/draw_extra/,$(DRAWEXT:.c=$(OEXT))) \
 			$(addprefix ./obj/editor/,$(EDTFILE:.c=$(OEXT))) \
@@ -64,17 +67,18 @@ OBJ =		$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/bmp/,$(BMPFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/text/,$(TXTFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/math/,$(MTHFILE:.c=$(OEXT))) \
-			$(addprefix ./obj/sprite/,$(SPRFILE:.c=$(OEXT)))
-DEPNS =		$(OBJ:.o=.d)
-OBJDIR =	./obj/
-SRCDIR =	./src/
-INCL =		-I ./SDL2 -I ./libft -I ./includes
-MLXLIB =	-L /usr/local/lib
-PWD =		$(shell pwd)
+			$(addprefix ./obj/sprite/,$(SPRFILE:.c=$(OEXT))) \
+			$(addprefix ./obj/network/,$(CLIFILE:.c=$(OEXT)))
+DEPNS	=	$(OBJ:.o=.d) $(OBJSRV:.o=.d)
+OBJDIR	=	./obj/
+SRCDIR	=	./src/
+INCL	=	-I ./SDL2 -I ./libft -I ./includes
+PWD		=	$(shell pwd)
 OBJFRAME =	-F ./frameworks
 FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -framework SDL2_net -Wl,-rpath $(PWD)/frameworks
-RED =		\033[0;31m
-STOP =		\033[0m
+RED		=	\033[0;31m
+BLUE	=	\033[0;34m
+STOP	=	\033[0m
 
 .PHONY: all clean fclean re obj
 
@@ -91,13 +95,13 @@ $(OBJDIR)%.o:$(SRCDIR)%.c
 	@gcc -g $(OBJFRAME) $(FLG) -MMD $(INCL) -o $@ -c $<
 
 $(NAME): $(OBJ) $(LIBFT)
-	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(MLXLIB)
+	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
 	@Rez -a icon.rsrc -o $(NAME)
 	@SetFile -a C $(NAME)
 	@rm icon.rsrc
-	@echo Executable created successfully. Get maps with 'make git'.
-	@echo Run the executable as ./doom-nukem. No args.
+	@echo "Executable created successfully."
+	@echo "Run the executable as $(BLUE)./$(NAME)$(STOP). No args."
 
 clean:
 	@echo "Removing Doom-Nukem libraries."
@@ -110,27 +114,22 @@ clean:
 fclean: clean
 	@echo Removing binaries.
 	@/bin/rm -f $(NAME)
+	@/bin/rm -f $(SERVER)
 
 run: all
 	./doom-nukem
 
-server: $(OBJSRV) $(LIBFT)
-	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJ) $(LIBFT) $(MLXLIB)
+$(SERVER): $(OBJSRV) $(LIBFT)
+	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJSRV) $(LIBFT)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
-	@Rez -a icon.rsrc -o $(NAME)
-	@SetFile -a C $(NAME)
+	@Rez -a icon.rsrc -o $(SERVER)
+	@SetFile -a C $(SERVER)
 	@rm icon.rsrc
-	@echo Executable created successfully.
-	@echo Run the executable as ./doom-server. No args.
-	
-winup:
-ifeq ($(OS),Windows_NT)
-	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/gfx
-	@rm -r ../../../../source/repos/DoomNukem/x64/Debug/Audio
-	@cp -r gfx ../../../../source/repos/DoomNukem/x64/Debug/
-	@cp -r Audio ../../../../source/repos/DoomNukem/x64/Debug/
-else
-	@echo "Nothing to do."
-endif
+	@echo "Executable created successfully."
+	@echo "Run the executable as $(BLUE)./$(SERVER)$(STOP). No args."
+
+both: $(NAME) $(SERVER)
+
+reboth: fclean both
 
 re: fclean all

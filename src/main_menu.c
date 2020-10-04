@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 13:23:46 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/29 19:38:01 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/30 13:29:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 			col = dm->gfx[15].data[dm->gfx[15].wid * y + x];
 			if (col == 0xffff00ff || col == 0x00ff00ff)
 				x += 0;
-			else if (gy > (cur * dm->winh / 7) + dm->winh / 4 && gy < ((cur + 1) * dm->winh / 7) + dm->winh / 4)
+			else if (gy > (cur * dm->winh / 7) + dm->winh / 4 &&
+				gy < ((cur + 1) * dm->winh / 7) + dm->winh / 4)
 			{
 				dm->img.data[dm->winw * gy + gx] = col;
 				if ((col & 0xfff) == 0xf00)
@@ -48,14 +49,14 @@ void	bg_render(t_doom *dm)
 {
 	static int	x;
 
-	//x = 0;
 	if (dm->trx < 1)
 		dm->trx = 1;
 	while (x < dm->trx)
 	{
 		dm->data_r[x] = *dm;
 		dm->data_r[x].x = x;
-		dm->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&dm->data_r[x]);
+		dm->threads[x] = SDL_CreateThread(renthread, "Thread",
+			(void*)&dm->data_r[x]);
 		x++;
 	}
 	while (x > 0)
@@ -66,7 +67,6 @@ void	bg_render(t_doom *dm)
 		else
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
-	//SDL_RenderPresent(dm->rend);
 	dm->fps++;
 }
 
@@ -74,12 +74,7 @@ void	main_menu(t_doom *dm)
 {
 	bg_render(dm);
 	draw_main_menu(dm, 0, 0, dm->sel);
-	//draw_bars(dm, -1, -1, -1);
-	//dm->tex = SDL_CreateTextureFromSurface(dm->rend, dm->img.tex);
-	//SDL_RenderCopy(dm->rend, dm->tex, NULL, NULL);
-	//SDL_UpdateWindowSurface(dm->win);
 	SDL_RenderPresent(dm->rend);
 	mouse_move(1, 0, dm);
-	//dm->fps++;
 	dm->keyck(dm);
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/23 14:53:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/09/30 12:55:45 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
 		gx = 0;
 		while ((gx + gfx.x) < gfx.wid && (xy[1] + gx) < dm->winw && gx < max[1])
 		{
-			if ((gfx.data[gfx.wid * (gfx.y + gy) + (gx + gfx.x)] & 0xffffff) != 0xff00ffff)
+			if ((gfx.data[gfx.wid * (gfx.y + gy) + (gx + gfx.x)]
+					& 0xffffff) != 0xff00ffff)
 				dm->img.data[dm->winw * (xy[0] + gy) + (xy[1] + gx)] =
 						gfx.data[gfx.wid * (gfx.y + gy) + (gx + gfx.x)];
 			gx++;
@@ -43,6 +44,7 @@ void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
 **	5 = pass 0
 **	pass point like (int[6]){1, 1, 1000, 1000, 0, 0}
 */
+
 void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 {
 	int		gy;
@@ -53,18 +55,21 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 	{
 		yx[4] = gy * (gfx.hgt / (gfx.hgt * size));
 		gx = 0;
-		while (gx < gfx.wid * size && (yx[1] + gx) < dm->winw && gx < yx[3] * size)
+		while (gx < gfx.wid * size && (yx[1] + gx) < dm->winw && gx <
+			yx[3] * size)
 		{
 			yx[5] = gx * (gfx.wid / (gfx.wid * size));
-			if (gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
-				gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xff00ff)
-				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
+			if (gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)]
+				!= 0xffff00ff && gfx.data[gfx.wid * (yx[4] + gfx.y) +
+				(yx[5] + gfx.x)] != 0xff00ff)
+				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] =
+					gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
 			gx++;
 		}
 		gy++;
 	}
 }
-         
+
 /*
 **	int YX values
 **	0 = Y start point on screen
@@ -73,6 +78,7 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 **	3 = pass 0
 **	pass point like (int[4]){1, 1, 0, 0}
 */
+
 void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 {
 	int		gy;
@@ -88,7 +94,8 @@ void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 			yx[3] = gx * (gfx.wid / (gfx.wid * size));
 			if (gfx.data[gfx.wid * yx[2] + yx[3]] != 0xffff00ff &&
 				gfx.data[gfx.wid * yx[2] + yx[3]] != 0xff00ff)
-				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] = gfx.data[gfx.wid * yx[2] + yx[3]];
+				dm->img.data[dm->winw * (yx[0] + gy) + (yx[1] + gx)] =
+					gfx.data[gfx.wid * yx[2] + yx[3]];
 			gx++;
 		}
 		gy++;
@@ -130,8 +137,8 @@ void	draw_gfx(t_doom *dm, t_gfx gfx, int x, int y)
 		while (gx < gfx.wid && (x + gx) < dm->winw)
 		{
 			if (gfx.data[gfx.wid * gy + gx] != 0xffff00ff)
-				dm->img.data[dm->winw * (y + gy) + (x + gx)] = gfx.data[gfx.wid *
-					gy + gx];
+				dm->img.data[dm->winw * (y + gy) + (x + gx)] =
+					gfx.data[gfx.wid * gy + gx];
 			gx++;
 		}
 		gy++;

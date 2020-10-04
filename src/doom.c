@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/29 22:17:24 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/02 13:35:28 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ int		main(int ac, char **av)
 		if (!(dm->rend = SDL_GetRenderer(dm->win)))
 			error_out(REN_ERROR, dm);
 	dm->img = init_image(dm);
-	dm->spawn.x = 2.51;
-	dm->spawn.y = 2.51;
-	dm->spawn.z = 2.5;
+	dm->spw = (t_vector){.x = 2.51, .y = 2.51, .z = 2.5};
 	comp_map(dm);
 	comp_gfx(dm, 0);
 	setup(dm);

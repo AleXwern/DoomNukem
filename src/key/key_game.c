@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 13:31:14 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/01 11:49:33 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,11 @@ int		key_release(int key, t_doom *dm)
 		if (key == KEY_TRE)
 			interact(dm);
 		if (key == KEY_A)
+		{
+			if (dm->invincible == 3)
+				dm->invincible++;
 			dm->key.a = 0;
+		}
 		if (key == KEY_D)
 			dm->key.d = 0;
 		if (key == KEY_W)
@@ -209,7 +213,12 @@ int		key_release(int key, t_doom *dm)
 		if (key == KEY_SHIFT)
 			dm->movsp -= 0.10;
 		if (key == KEY_L)
-			dm->isoutline = (dm->isoutline * dm->isoutline) - 1;
+		{
+			if (dm->invincible == 2)
+				dm->invincible++;
+			else
+				dm->isoutline = (dm->isoutline * dm->isoutline) - 1;
+		}
 		if (key == KEY_C && dm->crouching)
 		{
 			if (dm->area[(int)(dm->pos.z - 0.2)][(int)dm->pos.y][(int)dm->pos.x].b <= 1)
@@ -236,6 +245,16 @@ int		key_release(int key, t_doom *dm)
 			dm->plane.z -= 0.05;
 		if (key == KEY_H)
 			dm->plane.z += 0.05;
+		if (key == KEY_E)
+			if (dm->invincible == 1)
+				dm->invincible++;
+		if (key == KEY_X)
+		{
+			if (dm->invincible == 0)
+				dm->invincible++;
+			else if (dm->invincible == 4)
+				dm->invincible = 0;
+		}
 	}
 	else
 	{
@@ -275,20 +294,6 @@ void	jetpack(t_doom *dm)
 	dm->airbrn = 1;
 }
 
-void	dir_single(t_doom *dm)
-{
-	double		vect;
-
-	vect = sqrt((dm->dir.y * dm->dir.y) + (dm->dir.x * dm->dir.x));
-	vect = sqrt((vect * vect) + (dm->dir.z * dm->dir.z));
-	dm->dir.z /= vect;
-	dm->dir.y /= vect;
-	dm->dir.x /= vect;
-	dm->plane.y /= vect;
-	dm->plane.x /= vect;
-	dm->plane.z *= vect;
-}
-
 int		mouse_move(int x, int y, t_doom *dm)
 {
 	t_vector	olddir;
@@ -312,7 +317,6 @@ int		mouse_move(int x, int y, t_doom *dm)
 			dm->dir.z += rota.y;
 		dm->camshift = 1.0 - (dm->dir.z * 2);
 	}
-	//dir_single(dm);
 	return (0);
 }
 

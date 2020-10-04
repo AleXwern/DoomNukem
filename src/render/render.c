@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/29 11:05:56 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:01:00 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ int		renthread(void *ptr)
 	return (1);
 }
 
-void	render(t_doom *dm)
+void	threads(t_doom *dm)
 {
 	static int	x;
 	static int	i;
@@ -247,7 +247,7 @@ void	render(t_doom *dm)
 		dm->threads[x] = SDL_CreateThread(renthread, "Thread", (void*)&dm->data_r[x]);
 		x++;
 	}
-	if (i >= 3 && dm->netstat)
+	if (i >= 0 && dm->netstat)
 	{
 		if (send_pos(dm))
 			recv_pos(dm);
@@ -262,6 +262,11 @@ void	render(t_doom *dm)
 		else
 			SDL_WaitThread(dm->threads[x], NULL);
 	}
+}
+
+void	render(t_doom *dm)
+{
+	threads(dm);
 	if (dm->isoutline)
 		post_effects(dm);
 	draw_sprite(dm, 0, 0, 0);

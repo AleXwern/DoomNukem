@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 14:02:10 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/30 13:03:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	defaults(t_editor *le, t_doom *dm)
 {
 	ft_bzero(le, sizeof(t_editor));
-	dm->area[(int)dm->spawn.z][(int)dm->spawn.y][(int)dm->spawn.x].b = 7;
+	dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 7;
 	le->blk = 2;
 	le->options[0] = 2;
 	le->options[1] = 15;
@@ -93,7 +93,7 @@ void	editor_main(t_doom *dm)
 	}
 	SDL_SetWindowSize(dm->win, WINX, WINY);
 	free(le);
-	dm->pos = dm->spawn;
+	dm->pos = dm->spw;
 	if (le->quit == 2)
 		error_out(FINE, dm);
 	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .pln = 15, .pt = 0});

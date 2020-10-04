@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 15:38:41 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 14:25:28 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/30 11:46:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	check_alive(t_server *srv, int i)
 	}
 }
 
-void	recv_pos(t_server *srv)
+void	recv_data(t_server *srv)
 {
 	t_bulk	data;
 	int		i;
@@ -96,8 +96,9 @@ void	kill_extra(t_server *srv)
 
 	if (!(ksock = SDLNet_TCP_Accept(srv->server)))
 		return ;
-	if (!(kip = SDLNet_TCP_GetPeerAddress(srv->client)))
+	if (!(kip = SDLNet_TCP_GetPeerAddress(ksock)))
 		return ;
+	ft_putendl("Killed extra connection");
 	SDLNet_TCP_Close(ksock);
 }
 
@@ -117,13 +118,13 @@ int		main(int ac, char **av)
 		{
 			check_alive(&srv, -1);
 			send_chunck(&srv);
-			recv_pos(&srv);
+			recv_data(&srv);
 		}
 		if (srv.id < MAXPLAYER)
 		{
 			if (!(srv.client[srv.id] = SDLNet_TCP_Accept(srv.server)))
 				continue;
-			if (!(srv.remoteip[srv.id] = SDLNet_TCP_GetPeerAddress(srv.client)))
+			if (!(srv.remoteip[srv.id] = SDLNet_TCP_GetPeerAddress(srv.client[srv.id])))
 				continue;
 			srv.alive[srv.id] = 1;
 			srv.id++;

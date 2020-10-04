@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/30 16:09:13 by anystrom          #+#    #+#              #
-#    Updated: 2020/08/17 13:03:34 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/01 13:26:09 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ OBJS = $(SRCS:.c=$(OEXT))
 INCLS = ./
 OBJFLD = ../obj/
 GREEN = \033[0;32m
+PURPLE = \033[0;35m
 STOP = \033[0m
 
 .PHONY: all clean fclean re
@@ -56,6 +57,7 @@ ifeq ($(OS),Windows_NT)
 else
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
+	@echo "Compiled $(PURPLE)$(NAME)$(STOP)"
 endif
 	@mv $(OBJS) ../obj
 	@mv $(NAME) ../obj

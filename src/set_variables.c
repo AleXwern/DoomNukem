@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/25 16:07:36 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/01 11:30:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void	set_variables(t_doom *dm)
 	dm->doorani = 0;
 	dm->doorfrm = 0;
 	dm->uncrouch = 0;
+	dm->invincible = 0;
 }

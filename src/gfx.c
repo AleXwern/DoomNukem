@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/29 19:48:05 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/01 14:43:42 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	destroy_gfx(t_doom* dm, int i)
+void	destroy_gfx(t_doom *dm, int i)
 {
 	while (++i < dm->gfxcount)
 	{
@@ -23,7 +23,7 @@ void	destroy_gfx(t_doom* dm, int i)
 	free(dm->gfx);
 }
 
-t_img			init_image(t_doom *dm)
+t_img	init_image(t_doom *dm)
 {
 	t_img	image;
 
@@ -39,26 +39,32 @@ t_img			init_image(t_doom *dm)
 
 void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 {
-	dm->gfx[25] = read_bmp(ft_strjoin(bpath, "SpriteSheets/crosshair.bmp"), 0, 0);
-	dm->gfx[26] = read_bmp(ft_strjoin(bpath, "SpriteSheets/charizard.bmp"), 0, 0);
-	dm->gfx[27] = read_bmp(ft_strjoin(bpath, "SpriteSheets/gun.bmp"), 0, 0);
+	dm->gfx[25] = read_bmp(ft_strjoin(bpath, "hud/crosshair.bmp"), 0, 0);
+	dm->gfx[27] = read_bmp(ft_strjoin(bpath, "hud/gun.bmp"), 0, 0);
 	dm->gfx[28] = read_bmp(ft_strjoin(bpath, "hud/health.bmp"), 0, 0);
-	dm->gfx[29] = read_bmp(ft_strjoin(bpath, "SpriteSheets/inventory.bmp"), 0, 0);
-	dm->gfx[30] = read_bmp(ft_strjoin(bpath, "SpriteSheets/keycard.bmp"), 0, 0);
-	dm->gfx[31] = read_bmp(ft_strjoin(bpath, "SpriteSheets/numbers.bmp"), 0, 0);
-	dm->gfx[32] = read_bmp(ft_strjoin(bpath, "SpriteSheets/PokemonTrainer.bmp"), 0, 0);
+	dm->gfx[29] = read_bmp(ft_strjoin(bpath, "hud/inventory.bmp"), 0, 0);
+	dm->gfx[30] = read_bmp(ft_strjoin(bpath, "obj/keycard.bmp"), 0, 0);
 	dm->gfx[33] = read_bmp(ft_strjoin(bpath, "misc/alpha.bmp"), 0, 0);
 	dm->gfx[34] = read_bmp(ft_strjoin(bpath, "foe/foeF0.bmp"), 0, 0);
 	dm->gfx[35] = read_bmp(ft_strjoin(bpath, "foe/foeF1.bmp"), 0, 0);
-	dm->gfx[36] = read_bmp(ft_strjoin(bpath, "SpriteSheets/pistol.bmp"), 0, 0);
-	dm->gfx[37] = read_bmp(ft_strjoin(bpath, "SpriteSheets/chest.bmp"), 0, 0);
+	dm->gfx[36] = read_bmp(ft_strjoin(bpath, "obj/pistol.bmp"), 0, 0);
+	dm->gfx[37] = read_bmp(ft_strjoin(bpath, "obj/chest.bmp"), 0, 0);
 	dm->gfx[38] = read_bmp(ft_strjoin(bpath, "misc/goldore.bmp"), 0, 0);
-	dm->gfx[39] = read_bmp(ft_strjoin(bpath, "misc/keycardreaderredright.bmp"), 0, 0);
-	dm->gfx[40] = read_bmp(ft_strjoin(bpath, "misc/keycardreaderredleft.bmp"), 0, 0);
-	dm->gfx[41] = read_bmp(ft_strjoin(bpath, "misc/keycardreadergreenright.bmp"), 0, 0);
-	dm->gfx[42] = read_bmp(ft_strjoin(bpath, "misc/keycardreadergreenleft.bmp"), 0, 0);
-	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
+	dm->gfx[39] = read_bmp(ft_strjoin(bpath, "misc/handlerr.bmp"), 0, 0);
+	dm->gfx[40] = read_bmp(ft_strjoin(bpath, "misc/handlerl.bmp"), 0, 0);
+	dm->gfx[41] = read_bmp(ft_strjoin(bpath, "misc/handlegr.bmp"), 0, 0);
+	dm->gfx[42] = read_bmp(ft_strjoin(bpath, "misc/handlegl.bmp"), 0, 0);
 }
+
+/*
+**	charizard 16
+**	pokemon trainer 17
+**	dragon 18
+**	aggron 19
+**	woman 20
+**	greenguy 21
+**	brownguy 22
+*/
 
 void	comp_foe(t_doom *dm, char *bpath, int i)
 {
@@ -69,7 +75,7 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 	dm->gfx[20] = read_bmp(ft_strjoin(bpath, "foe/foe5.bmp"), 0, 0);
 	dm->gfx[21] = read_bmp(ft_strjoin(bpath, "foe/foe6.bmp"), 0, 0);
 	dm->gfx[22] = read_bmp(ft_strjoin(bpath, "foe/foe7.bmp"), 0, 0);
-	dm->gfx[23] = read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0, 0);
+	dm->gfx[23] = read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0, 0);//not in use
 	dm->gfx[24] = read_bmp(ft_strjoin(bpath, "foe/projectile.bmp"), 0, 0);
 	comp_spritesheets(dm, bpath, i);
 }
@@ -99,14 +105,18 @@ void	comp_gfx(t_doom *dm, int i)
 	if (!(dm->gfx = (t_gfx*)malloc(sizeof(t_gfx) * GFXCOUNT)))
 		error_out(MEM_ERROR, dm);
 	dm->gfx[0] = read_bmp(ft_strjoin(bpath, "misc/sky.bmp"), 0, 0);
-	dm->gfx[1] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/floor.bmp", ""), 0, 0);
-	dm->gfx[2] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/wall.bmp", ""), 0, 0);
-	dm->gfx[3] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/stairu.bmp", ""), 0, 0);
-	dm->gfx[4] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/staird.bmp", ""), 0, 0);
-	dm->gfx[5] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/door.bmp", ""), 0, 0);
-	//dm->gfx[i++] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/warp.bmp", ""), 0, 0);
-	//dm->gfx[i++] = read_bmp(ft_strjoin(bpath, "misc/glass.bmp"), 0, 0);
-	dm->gfx[6] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile, "/glass.bmp", ""), 0, 0);
+	dm->gfx[1] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,
+		"/floor.bmp", ""), 0, 0);
+	dm->gfx[2] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,
+		"/wall.bmp", ""), 0, 0);
+	dm->gfx[3] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,
+		"/stairu.bmp", ""), 0, 0);
+	dm->gfx[4] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,
+		"/staird.bmp", ""), 0, 0);
+	dm->gfx[5] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,
+		"/door.bmp", ""), 0, 0);
+	dm->gfx[6] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,
+		"/glass.bmp", ""), 0, 0);
 	comp_hud_gfx(dm, bpath, i);
 	dm->tile -= 48;
 	SDL_free(path);

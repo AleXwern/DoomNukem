@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 15:21:03 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/09/30 14:11:51 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,11 @@ void		comp_block(t_doom *dm, char **temp, int x, int y)
 	dm->area[dm->flr][y][x].pt = ft_atoi(temp[2]);
 	dm->area[dm->flr][y][x].pln = ft_atoi(temp[3]);
 	dm->area[dm->flr][y][x].meta = ft_atoi(temp[4]);
-	dm->area[dm->flr][y][x].hp = 100;
 	if (dm->area[dm->flr][y][x].b == 7)
 	{
-		dm->spawn.x = x + 0.51;
-		dm->spawn.y = y + 0.51;
-		dm->spawn.z = dm->flr + 0.5;
+		dm->spw.x = x + 0.51;
+		dm->spw.y = y + 0.51;
+		dm->spw.z = dm->flr + 0.5;
 		dm->area[dm->flr][y][x].b = 1;
 	}
 	if (dm->area[dm->flr][y][x].b > 8 || dm->area[dm->flr][y][x].b < 1)
@@ -152,7 +151,6 @@ void		comp_map(t_doom *dm)
 		fileformat(fd, dm, 0);
 		dm->flr++;
 	}
-	//comp_sprites(dm);
 	dm->height = 25;
 	close(fd);
 	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .pln = 15, .pt = 0});

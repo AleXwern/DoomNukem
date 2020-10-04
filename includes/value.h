@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/29 22:17:02 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/02 12:52:47 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,18 @@
 # define DFRAME		35
 # define PCOLL		0.2
 # define OP			12
-# define IP			"10.13.1.1"
-# ifdef _WIN64
+# define IP			"192.168.1.16"
+# define BACKS		111
+# define FRONTS		0
+# define LEFTS		37
+# define RIGHTS		74
+# ifdef __APPLE__
+#  define MUSIC		"Audio/Music/str4E.ogg"
+# elif _WIN64
+/*
+** Missing some dll file so I'll just use the massive wav file for now.
+*/
 #  define MUSIC		"Audio/Music/str4E.wav"
-# if __APPLE__
-#  define MUSIC		"Audio/Music/str4E.mp3"
 # endif
 /*
 **# define IP		"10.13.1.1" Use this with Macs

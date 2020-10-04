@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/06 19:04:11 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/08/06 19:04:11 by AleXwern         ###   ########.fr       */
+/*   Created: 2020/09/30 12:24:25 by anystrom          #+#    #+#             */
+/*   Updated: 2020/09/30 12:44:17 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 **chest
 */
 
-void	pickupitem(t_doom* dm)
+void	pickupitem(t_doom *dm)
 {
 	if (dm->obj[2].dist < 1.5)
 	{
