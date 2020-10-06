@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 13:38:00 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:51:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -477,6 +477,7 @@ int					key_hold(int key, t_doom *dm);
 int					key_press(int key, t_doom *dm);
 int					key_release(int key, t_doom *dm);
 int					light_map(t_vector map, int side, t_block ***area);
+int					get_blocklight(t_doom *dm, t_vector pos);
 int					load_level(t_editor *le, t_doom *dm);
 int					mouse_move(int x, int y, t_doom *dm);
 int					move(t_doom *dm);
