@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   gfx_draw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 13:42:25 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/06 14:11:16 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
+void	draw_part_gfx(t_doom *dm, t_gfx gfx, Uint32 *max, Uint32 *xy)
 {
-	int	gx;
-	int	gy;
+	Uint32	gx;
+	Uint32	gy;
 
 	gy = 0;
 	while ((gfx.y + gy) < gfx.hgt && (xy[0] + gy) < dm->winh && gy < max[0])
@@ -47,10 +47,8 @@ void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
 
 void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 {
-	int		gy;
-	int		gx;
-	int		lgt;
-	Uint32	col;
+	Uint32		gy;
+	Uint32		gx;
 
 	gy = 0;
 	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh && gy < yx[2] * size)
@@ -83,8 +81,8 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 
 void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 {
-	int		gy;
-	int		gx;
+	Uint32		gy;
+	Uint32		gx;
 
 	gy = 0;
 	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh)
@@ -104,10 +102,10 @@ void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 	}
 }
 
-void	draw_menu(t_doom *dm, int x, int y, int cur)
+void	draw_menu(t_doom *dm, Uint32 x, Uint32 y, int cur)
 {
-	int		gy;
-	int		gx;
+	Uint32	gy;
+	Uint32	gx;
 
 	gy = -1;
 	while (++gy < dm->winh)
@@ -127,10 +125,10 @@ void	draw_menu(t_doom *dm, int x, int y, int cur)
 	}
 }
 
-void	draw_gfx(t_doom *dm, t_gfx gfx, int x, int y)
+void	draw_gfx(t_doom *dm, t_gfx gfx, Uint32 x, Uint32 y)
 {
-	int	gx;
-	int	gy;
+	Uint32	gx;
+	Uint32	gy;
 
 	gy = 0;
 	while (gy < gfx.hgt && (y + gy) < dm->winh)

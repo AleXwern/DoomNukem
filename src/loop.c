@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 13:02:44 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 14:10:40 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 14:05:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	game_loop(t_doom *dm)
 {
-	static Uint32	buffer;
+	static int	buffer;
 	
 	dm->keyck(dm);
 	if (dm->buffer < 1)

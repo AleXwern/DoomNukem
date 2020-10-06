@@ -6,14 +6,14 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:03:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/11 13:53:57 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 14:08:16 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	draw_bars(t_doom *dm, int y, int x, int pc)
+void	draw_bars(t_doom *dm, Uint32 y, Uint32 x, int pc)
 {
 	int		sy;
 	int		sx;

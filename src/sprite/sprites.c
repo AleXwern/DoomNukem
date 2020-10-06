@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 13:51:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 15:19:48 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	sprite_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 		if (dm->spr[yx[6]].dist > dm->winarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])])
 			col = avg_color(col, dm->window[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])]);
 		lgt = get_blocklight(dm, dm->spr[yx[6]].pos);
-		col = color_shift((gfx.data[gfx.wid * (yx[4] + gfx.y)
-			+ (yx[5] + gfx.x)]), dm->spr[yx[6]].dist, dm, 0);
+		col = color_shift(col, dm->spr[yx[6]].dist, dm, 0);
 		col = rl_color(lgt, col);
 		dm->img.data[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])] = col;
 		dm->wallarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])]
@@ -181,7 +180,6 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 	i = -1;
 	while (++i < 9)
 	{
-		//printf("%s no %d\nGFX %d dist %f\n", (i > 3 ? "Foe" : "Player"), i, dm->spr[i].gfx, dm->spr[i].dist);
 		if (i == dm->id || !dm->spr[i].gfx)
 			continue;
 		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x);
@@ -190,7 +188,7 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 		if (spra < dm->mina || spra > dm->maxa)
 			spra -= M_PI * 2;
 		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos) - 0.2;
-		if (dm->spr[i].dist < 1)
+		if (dm->spr[i].dist < 0.8)
 			continue;
 		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
 		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;

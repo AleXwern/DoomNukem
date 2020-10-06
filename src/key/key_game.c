@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 11:49:33 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/06 14:14:50 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	menu_keys_hold(int key, t_doom *dm)
 		if (dm->tile < 1)
 			dm->tile = 1;
 		destroy_gfx(dm, -1);
-		comp_gfx(dm, 0);
+		comp_gfx(dm);
 	}
 	else if (dm->cur == 9)
 	{
@@ -126,7 +126,7 @@ void	menu_keys(int key, t_doom *dm)
 		if (dm->tile < 1)
 			dm->tile = 1;
 		destroy_gfx(dm, -1);
-		comp_gfx(dm, 0);
+		comp_gfx(dm);
 	}
 	else if (dm->cur == 9)
 	{
