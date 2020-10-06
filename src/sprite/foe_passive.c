@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foe_passive.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 14:11:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 14:29:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/02 12:10:26 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,30 @@
 **	'm' -moving
 */
 
-void	foe_passive_cycle(t_doom *dm, t_sprite *spr)
+void	foe_passive_cycle(t_doom *dm, t_sprite *spr, int i)
 {
-	static int	cycle;
-	static int	frm;
+	static int	cycle[5];
+	static int	frm[5];
 
 	if (spr->move != 'x' && spr->move != 'm')
 	{
-		cycle = 0;
+		cycle[i] = 0;
 		return ;
 	}
-	if (frm >= cycle)
+	dm->rng += (spr->pos.z + spr->pos.y + spr->pos.x) * M_PI;
+	if (++frm[i] >= cycle[i])
 	{
-		frm = 0;
-		cycle = dm->rng % 400 + 70;
+		frm[i] = 0;
+		cycle[i] = dm->rng % 400 + 70;
 	}
-	if (!frm)
+	if (frm[i])
 		return;
 	if (dm->rng % 100 > 77)
 		spr->mov = (t_vector){.z = 0, .y = 0, .x = 0};
 	else if (dm->rng % 100 > 90)
-		spr->mov = (t_vector){.y = spr->dir.y * -0.03, .x = spr->dir.x * -0.03};
+		spr->mov = (t_vector){.y = spr->dir.y * 0.03, .x = spr->dir.x * 0.03 };
 	else
-		spr->mov = (t_vector){.y = dm->rng % 3 - 1, .x = dm->rng % 3 - 1};
-	frm++;
+		spr->mov = (t_vector){.y = ((dm->rng % 213 - 106) / 106.0) * 0.03,
+							.x = ((dm->rng % 97 - 48) / 48.0) * 0.03 };
+	spr->face = spr->mov;
 }

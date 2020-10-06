@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:04:56 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/02 13:35:28 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	init_audio(t_doom *dm)
 {
 	SDL_Init(SDL_INIT_AUDIO);
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-	{
 		ft_putendl("Failed to initialize SDL_Mixer!");
-	}
 	dm->music = Mix_LoadMUS(MUSIC);
 	dm->reload = Mix_LoadWAV("Audio/SoundEffects/reload.wav");
 	dm->gunshot = Mix_LoadWAV("Audio/SoundEffects/gunshot.wav");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 14:11:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/02 13:38:42 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,13 +182,13 @@ typedef struct		s_editor
 }					t_editor;
 
 /*
-**	Datablock for blocks
-**	b	- blocktype (tex)
-**	lgt	- lightning of the block
+**	Datablock for well... blocks
+**	b	- blocktype (main texture and main function)
+**	lgt	- lightning of the block 0-15
 **	pt	- planetype, how block is split
-**	pln	- plane, where it's split
+**	pln	- plane, where it's split 0-15
 **	meta- extra data for misc features
-**	hp	- used to determine when block is broken
+**	hp	- used to determine block integrity
 **	PLANE TYPE
 **	0 - none
 **	1 - Z, filled up
@@ -205,6 +205,7 @@ typedef struct		s_block
 	Uint8			pt;
 	Uint8			pln;
 	Uint8			meta;
+	Uint8			hp;
 }					t_block;
 
 typedef struct		s_sprite
@@ -328,7 +329,7 @@ typedef struct		s_doom
 	t_block			blk;
 	int				winb;
 	int				texbool;
-	Uint32			rng;
+	int				rng;
 	int				fcomb;
 	int				aggro;
 	int				iscombat;
@@ -339,6 +340,7 @@ typedef struct		s_doom
 	int				stepz;
 	int				hit;
 	int				hithalf;
+	int				invincible;
 	t_vector		hitpos;
 	int				side;
 	double			lineh;
@@ -428,7 +430,6 @@ typedef struct		s_doom
 	int				frm;
 	int				magazine;
 	int				hp;
-	int				invincible;
 	int				alive;
 	int				keycard;
 	int				chestopened;
@@ -464,6 +465,7 @@ double				tri_pythagor(t_vector f, t_vector s);
 
 int					check_sprite_dist(t_doom *dm, double mov, int i);
 int					connect_server(t_doom *dm);
+int					foe_ismoving(t_sprite *spr);
 int					fps_capper(void *ptr);
 int					fps_counter(void *ptr);
 int					get_x(int pc);
@@ -531,6 +533,9 @@ void				editor_key_release(Uint32 key, t_editor *le, t_doom *dm);
 void				editor_main(t_doom *dm);
 void				error_out(char *msg, t_doom *dm);
 void				ext_ray(t_doom *dm);
+void				foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i);
+void				foe_dir(t_doom* dm, t_sprite* spr, double spra);
+void				foe_passive_cycle(t_doom *dm, t_sprite *spr, int i);
 void				free_map(t_doom *dm, int f, int y);
 void				free_memory(char **arr);
 void				free_vram(t_doom *dm);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 12:27:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/04 22:56:03 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@
 # define PCOLL		0.2
 # define OP			12
 # define IP			"10.13.1.1"
+# define BACKS		111
+# define FRONTS		0
+# define LEFTS		37
+# define RIGHTS		74
 # ifdef __APPLE__
 #  define MUSIC		"Audio/Music/str4E.ogg"
 # elif _WIN64

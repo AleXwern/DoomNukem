@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 11:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 13:27:23 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/01 20:35:03 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+/*
+**	Macros to fulfill spesific UNIX/Windows standards.
+**	Purely there so it's easier to work with multiple devices.
+*/
+# if _WIN64
+# define	read(X, Y, Z)	_read(X, Y, Z)
+# define	write(X, Y, Z)	_write(X, Y, Z)
+#endif
 
 int		ft_abs(int num);
 int		ft_atoi(const char *str);
@@ -45,6 +54,7 @@ char	*ft_strcat(char *dest, const char *src);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strdup(const char *s1);
+char	*ft_strfjoin(char* s1, char* s2);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strmap(char const *s, char (*f)(char));
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
@@ -58,6 +68,7 @@ char	*ft_strstr(const char *haystack, const char *needle);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s);
 
+size_t	ft_doublesize(double num);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *str);
 
@@ -79,6 +90,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putnbrln(int n);
 void	ft_putstr(char const *s);
 void	ft_putstr_fd(const char *s, int fd);
+void	*ft_replace(char* str, char s, char r, size_t max);
 void	ft_sleep(int sleep);
 void	ft_strclr(char *s);
 void	ft_strdel(char **as);

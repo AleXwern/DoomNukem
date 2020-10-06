@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pokemon_ai.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 14:28:29 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/01 13:40:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/01 15:17:27 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,27 @@ void	pokemon_trainer_dir(t_doom *dm, int i)
 }
 
 /*
-**	Pokemon width 32, height 48 per frame
+**
 */
 
 void	pokemon_trainer_mode(t_doom *dm, int i)
 {
 	pokemon_trainer_dir(dm, i);
 	if (dm->spr[i].dist <= 8)
-		dm->spr[i].face = (t_vector){.z = dm->spr[i].dir.z * -1, .y = dm->spr[i].dir.y * -1, .x = dm->spr[i].dir.x * -1};
+		dm->spr[i].face = (t_vector){.z = dm->spr[i].dir.z * -1,
+		.y = dm->spr[i].dir.y * -1, .x = dm->spr[i].dir.x * -1};
 	if (dm->spr[i].dist <= 8 && dm->spr[i].dist >= 3.5)
 	{
-		if (/*dm->gfx[dm->spr[i].gfx].y != 111 this is if player is sneaking up from behind && */dm->spr[i].move != 'm'/* && you can see the sprite*/)
+		if (dm->gfx[dm->spr[i].gfx].y != 111 && dm->spr[i].move != 'm')
 			dm->spr[i].move = 'a';//alerted
 		dm->spr[i].mov.x = dm->spr[i].dir.x * -0.03;
 		dm->spr[i].mov.y = dm->spr[i].dir.y * -0.03;
 	}
-	else if (dm->spr[i].dist <= 3.5 /* && you can see the sprite*/)
+	else if (dm->spr[i].dist <= 3.5)
 		dm->spr[i].move = 's';//shooting
 	else
 		dm->spr[i].move = 'x';//stand still
 }
-
 
 void	pokemon_trainer(t_doom *dm, int y, int x, int i)
 {
