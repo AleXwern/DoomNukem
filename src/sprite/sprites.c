@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/02 13:42:30 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:47:17 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	sprite_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 		dm->spr[yx[6]].dist < dm->wallarr[dm->winw
 		* (yx[0] + g[0]) + (yx[1] + g[1])])
 	{
-		dm->img.data[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])]
-			= color_shift(gfx.data[gfx.wid * (yx[4] + gfx.y)
-				+ (yx[5] + gfx.x)],
-			dm->spr[yx[6]].dist, dm, 0);
+		dm->col = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
+		if (dm->spr[yx[6]].dist > dm->winarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])])
+			dm->col = avg_color(dm->col, dm->window[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])]);
+		dm->col = color_shift(dm->col, dm->spr[yx[6]].dist, dm, 0);
+		dm->img.data[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])] = dm->col;
 		dm->wallarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])]
 			= dm->spr[yx[6]].dist;
 	}
@@ -169,7 +170,8 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 	i = -1;
 	while (++i < 9)
 	{
-		if (i == dm->id)
+		//printf("%s no %d\nGFX %d dist %f\n", (i > 3 ? "Foe" : "Player"), i, dm->spr[i].gfx, dm->spr[i].dist);
+		if (i == dm->id || !dm->spr[i].gfx)
 			continue;
 		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x);
 		if (spra < dm->mina || spra > dm->maxa)
@@ -189,11 +191,7 @@ void	draw_sprites(t_doom *dm, int y, int x, double spra)
 		if (i > 3)//AI
 			foe_ai(dm, &dm->spr[i], (int[2]){y, x}, i);
 		else//if another player
-		{
-			foe_dir(dm, &dm->spr[i], 0);
-			draw_sprite_gfx(dm, dm->gfx[dm->spr[i].gfx],
-				(int[7]) {y, x, 37, 28, 0, 0, i}, dm->spr[i].size / dm->spr[i].dist);
-		}
+			plr_status(dm, &dm->spr[i], (int[2]){y, x}, i);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 11:12:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:38:00 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,8 +291,10 @@ typedef struct		s_doom
 	int				id;
 	int				*claimline;
 	int				*done;
-	double			*wallarr;
+	float			*wallarr;
+	float			*winarr;
 	int				*maparr;
+	Uint32			*window;
 	int				killthread;
 	int				tile;
 	t_gfx			*gfx;
@@ -560,6 +562,7 @@ void				part_dda_zn(t_doom *dm, double plane);
 void				part_dda_zp(t_doom *dm, double plane);
 void				pickupitem(t_doom *dm);
 void				player_shooting(t_doom *dm, int i);
+void				plr_status(t_doom *dm, t_sprite *spr, int *yx, int i);
 void				pokemon_trainer(t_doom *dm, int y, int x, int i);
 void				post_effects(t_doom *dm);
 void				recv_pos(t_doom *dm);

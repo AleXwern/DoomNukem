@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 13:01:00 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:39:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ void	rc_init(t_doom *dm)
 	dm->map.x = ((int)dm->pos.x);
 	dm->map.y = ((int)dm->pos.y);
 	dm->map.z = ((int)dm->pos.z);
-	//printf("Cam: %f %f\n RayD: %f %f %f\n Map: %f %f %f\n", dm->camx, dm->camy, dm->raydz, dm->raydy, dm->raydx, dm->map.z, dm->map.y, dm->map.x);
 	dda_prep(dm);
 	dda_sys(dm);
 	if (dm->side == 0)
@@ -154,6 +153,8 @@ void	rc_init(t_doom *dm)
 		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
 	if (dm->hit != 2 && dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b == 6)
 		dm->wincol = 1;
+	dm->window[dm->winw * dm->y + dm->x] = 0xffffffff;
+	dm->winarr[dm->winw * dm->y + dm->x] = 100;
 	if (dm->walldist < 0.0001)
 		dm->walldist += 0.01;
 }
@@ -240,6 +241,7 @@ void	threads(t_doom *dm)
 
 	if (dm->trx < 1)
 		dm->trx = 1;
+	//ft_bzero(dm->img.data, dm->winw * dm->winh);
 	while (x < dm->trx)
 	{
 		dm->data_r[x] = *dm;

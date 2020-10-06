@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/04 22:56:03 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 12:01:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define LOD_ERROR	"Could not load the level"
 # define VOID_OVER	"You fell off the world. Game over!"
 # define NET_ERROR	"Could not start SDLNet."
-# define CON_ERROR	"There was and issue with server connection!"
+# define CON_ERROR	"There was an issue with server connection!"
 
 # define HIT_OPP	" dealt damage to "
 # define CHA_OPP	" charged at "

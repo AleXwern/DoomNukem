@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 14:11:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 11:24:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:57:40 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	foe_passive_cycle(t_doom *dm, t_sprite *spr, int i)
 	static int	cycle[5];
 	static int	frm[5];
 
-	printf("%d Cycle %d of %d type %c\n", i, frm[i], cycle[i], spr->move);
+	//printf("%d Cycle %d of %d type %c\n", i, frm[i], cycle[i], spr->move);
 	if (spr->move != 'x' && spr->move != 'm')
 	{
 		cycle[i] = 0;

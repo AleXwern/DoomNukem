@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 13:50:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 11:29:43 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:02:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	foe_dir(t_doom *dm, t_sprite *spr, double spra)
 
 void	foe_mode(t_doom *dm, t_sprite *spr)
 {
-	if ((spr->dist <= 8 && dm->gfx[spr->gfx].y != BACKS) ||
-		spr->dist <= 5)
+	if (((spr->dist <= 8 && dm->gfx[spr->gfx].y != BACKS) ||
+		spr->dist <= 5) && fabs(dm->pos.z - spr->pos.z) <= 4)
 	{
 		spr->face = (t_vector){ .y = spr->dir.y * -1,
 			.x = spr->dir.x * -1 };
@@ -127,6 +127,8 @@ void	foe_move(t_doom *dm, t_sprite *spr)
 
 void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 {
+	double	dist;
+
 	foe_dir(dm, spr, 0);
 	foe_mode(dm, spr);
 	foe_passive_cycle(dm, spr, i);
@@ -138,6 +140,7 @@ void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 	foe_shooting(dm, spr, &dm->prj[i]);
 	foe_move(dm, spr);
 	foe_collision(dm, spr, -1, i);
+	dist = spr->dist * (1.0 - ((fabs(dm->winw / 2.0 - yx[1]) / (dm->winw / 2)) / 8));
 	draw_sprite_gfx(dm, dm->gfx[spr->gfx],
-		(int[7]) {yx[0], yx[1], 37, 28, 0, 0, i}, spr->size / spr->dist);
+		(int[7]) {yx[0], yx[1], 37, 28, 0, 0, i}, spr->size / dist);
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 14:59:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 12:56:50 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 12:00:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int				send_pos(t_doom *dm)
 	sent = SDLNet_TCP_Send(dm->sock, &data, sizeof(t_bulk));
 	if (sent < sizeof(t_bulk))
 		buffer++;
+	else
+		buffer = 0;
 	if (buffer > 300)
 	{
 		ft_putendl(CON_ERROR);
