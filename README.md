@@ -1,5 +1,5 @@
 # DoomNukem
-Hive Helsinki project DoomNukem by anystrom, tberkul and ?????????
+Hive Helsinki project DoomNukem by anystrom, tbergkul and ?????????
 
 # How to use -> UNIX:
 1. Compile game with 'make' and run ./doom-nukem
