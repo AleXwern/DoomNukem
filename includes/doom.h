@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 13:51:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 17:03:18 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <math.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
+# include <stdio.h> //remove when project is done!
 
 # if _WIN64
 
@@ -336,6 +337,9 @@ typedef struct		s_doom
 	int				aggro;
 	int				iscombat;
 	int				ismenu;
+	int				sy;
+	int				sx;
+	Uint32			black;
 	int				xmax;
 	int				stepx;
 	int				stepy;
@@ -474,7 +478,6 @@ int					get_x(int pc);
 int					get_y(int pc);
 int					interact(t_doom *dm);
 int					key_hold(int key, t_doom *dm);
-int					key_press(int key, t_doom *dm);
 int					key_release(int key, t_doom *dm);
 int					light_map(t_vector map, int side, t_block ***area);
 int					get_blocklight(t_doom *dm, t_vector pos);
@@ -526,9 +529,10 @@ void				draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size);
 void				draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx,
 						double size);
 void				draw_screen(t_editor *le, t_doom *dm, int x, int y);
+int					draw_screen_more(t_editor *le, t_doom *dm, int x, int y);
 void				draw_sky(t_doom *dm);
 void				draw_sliders(t_doom *dm, t_editor *le, int x, int y);
-void				draw_sprite(t_doom *dm, int y, int x, double spra);
+void				draw_sprite(t_doom *dm, int y, int x);
 void				draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx,
 						double size);
 void				editor_key_press(Uint32 key, t_editor *le);
@@ -550,10 +554,13 @@ void				key_state_game(t_doom *dm);
 void				key_state_menu(t_doom *dm);
 void				lab_move(t_doom *dm, int obj, t_vector stair);
 void				main_menu(t_doom *dm);
+void				menu_keys(int key, t_doom *dm);
+void				menu_keys_hold(int key, t_doom *dm);
 void				mouse_movex(int dir, t_doom *dm);
 void				mouse_movey(int dir, t_doom *dm);
 void				move_fb(t_doom *dm);
 void				options_menu(t_doom *dm);
+void				options_menu_create(t_doom *dm);
 void				part_check(t_doom *dm);
 void				part_dda_xn(t_doom *dm, double plane);
 void				part_dda_xp(t_doom *dm, double plane);

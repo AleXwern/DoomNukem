@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_editor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:34:36 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 15:41:08 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,8 @@ void	draw_screen(t_editor *le, t_doom *dm, int x, int y)
 	x = dm->event.motion.x / 30;
 	if (le->marea && dm->event.motion.x < 750)
 	{
-		if (y >= dm->height || x >= dm->width)
+		if (draw_screen_more(le, dm, x, y))
 			return ;
-		if (y < 0 || x < 0)
-			return ;
-		if (le->blk == 7)
-		{
-			dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 1;
-			dm->spw.x = x + 0.51;
-			dm->spw.y = y + 0.51;
-			dm->spw.z = le->options[0] + 0.5;
-		}
-		if (dm->area[le->options[0]][y][x].b != 7)
-		{
-			dm->area[le->options[0]][y][x].b = le->blk;
-			dm->area[le->options[0]][y][x].lgt = le->options[1];
-			dm->area[le->options[0]][y][x].pt = le->options[2];
-			if (le->blk == 1 || le->blk == 7)
-				dm->area[le->options[0]][y][x].pt = 0;
-			else
-				dm->area[le->options[0]][y][x].pln = le->options[3];
-			dm->area[le->options[0]][y][x].meta = le->options[4];
-		}
 	}
 	else if (le->mcopy && dm->event.motion.x < 750)
 	{
@@ -86,7 +66,6 @@ void	check_area(t_editor *le, SDL_Event ev)
 		}
 		if (le->blk > 7)
 			le->blk = 7;
-		printf("Mouse %d %d\n", ev.motion.x, ev.motion.y);
 	}
 	else if (ev.motion.x >= 0 && ev.motion.y >= 0 && ev.button.button == 3)
 		le->mcopy = 1;

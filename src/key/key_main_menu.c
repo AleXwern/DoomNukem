@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_menu.c                                         :+:      :+:    :+:   */
+/*   key_main_menu.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:03:02 by anystrom         ###   ########.fr       */
+/*   Created: 2020/10/06 15:49:29 by tbergkul          #+#    #+#             */
+/*   Updated: 2020/10/06 15:49:43 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	key_release_menu(int key, t_doom *dm)
+/*
+**	The following two functions handle keys pressed at the main menu.
+*/
+
+void	key_release_menu_more(int key, t_doom *dm)
 {
 	if (key == ESC)
 		error_out(FINE, dm);
@@ -21,6 +25,11 @@ void	key_release_menu(int key, t_doom *dm)
 		dm->sel++;
 	if (key == UP)
 		dm->sel--;
+}
+
+void	key_release_menu(int key, t_doom *dm)
+{
+	key_release_menu_more(key, dm);
 	if (key == SPACE)
 	{
 		if (dm->sel == 0)
@@ -36,7 +45,7 @@ void	key_release_menu(int key, t_doom *dm)
 		else if (dm->sel == 1)
 			editor_main(dm);
 		else if (dm->sel == 2)
-			printf("Show help/keys and credits.\n");
+			ft_putendl("Show help/keys and credits.\n");
 		else
 			error_out(FINE, dm);
 	}

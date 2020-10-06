@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 13:39:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 17:02:52 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
-#include <stdio.h>
 
 void	adjusted_dda(t_doom *dm)
 {
@@ -207,12 +205,7 @@ int		renthread(void *ptr)
 			else if (dm->x == dm->winw - 1 && dm->y == dm->winh - 1)
 				printf("RaydXY %f %f %f\n", dm->rayd.z, dm->rayd.y, dm->rayd.x);*/
 			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2 && dm->hit != 2)
-			{
-				//printf("Sid: %f %f %f\nDelta: %f %f %f\nDir: %f %f %f\nRay: %f %f %f\nMap: %f %f %f\nMad: %f %f %f\nWallD: %f\nSide %d %d\nRmapZ %f %f\n----\n", dm->sided.z, dm->sided.y, dm->sided.x, dm->deltad.z, dm->deltad.y, dm->deltad.x, dm->dir.z, dm->dir.y, dm->dir.x, dm->rayd.z, dm->rayd.y, dm->rayd.x, dm->map.z, dm->map.y, dm->map.x, dm->pos.z + (dm->rayd.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist), dm->walldist, dm->side, dm->area[(int)dm->rmap1.z][(int)dm->rmap1.y][(int)dm->rmap1.x].b, dm->rmap1.z, dm->rmap2.z);
 				dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
-				//printf("%f %f %f\n---\n", dm->pos.z + (dm->dir.z * dm->walldist), dm->pos.y + (dm->dir.y * dm->walldist), dm->pos.x + (dm->dir.x * dm->walldist));
-				//printf("\n\n\nblock hit = %hhu\n\n\n", dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b);
-			}
 			else
 			{
 				if (dm->hit == 2)
@@ -271,7 +264,7 @@ void	render(t_doom *dm)
 	threads(dm);
 	if (dm->isoutline)
 		post_effects(dm);
-	draw_sprite(dm, 0, 0, 0);
+	draw_sprite(dm, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
 	if (dm->uncrouch)

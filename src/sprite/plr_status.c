@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plr_status.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:51:22 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 13:04:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 14:37:43 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,16 @@ void	plr_dir(t_doom *dm, t_sprite *spr, double spra)
 		dm->gfx[spr->gfx].y = RIGHTS;
 }
 
-void				plr_status(t_doom *dm, t_sprite *spr, int *yx, int i)
+void	plr_status(t_doom *dm, t_sprite *spr, int *yx, int i)
 {
-	double			dist;
-	
+	double	dist;
+
 	spr->frame++;
 	if (spr->frame >= 32)
 		spr->frame = 0;
 	plr_dir(dm, &dm->spr[i], 0);
-	dist = spr->dist * (1.0 - ((fabs(dm->winw / 2.0 - yx[1]) / (dm->winw / 2)) / 6));
+	dist = spr->dist * (1.0 - ((fabs(dm->winw / 2.0 - yx[1])
+		/ (dm->winw / 2)) / 6));
 	draw_sprite_gfx(dm, dm->gfx[spr->gfx],
 		(int[7]) {yx[0], yx[1], 37, 28, 0, 0, i}, spr->size / dist);
 }

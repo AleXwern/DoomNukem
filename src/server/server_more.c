@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.h                                           :+:      :+:    :+:   */
+/*   server_more.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/25 15:39:58 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 15:17:58 by tbergkul         ###   ########.fr       */
+/*   Created: 2020/10/06 15:14:39 by tbergkul          #+#    #+#             */
+/*   Updated: 2020/10/06 15:17:49 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVER_H
-# define SERVER_H
+#include "../../includes/server.h"
 
-# include "doom.h"
-# include "value.h"
-
-# define MAXPLAYER 4
-
-typedef struct	s_server
+void	kill_extra(t_server *srv)
 {
-	TCPsocket	server;
-	TCPsocket	client[MAXPLAYER];
-	IPaddress	ip;
-	IPaddress	*remoteip[MAXPLAYER];
-	t_chunk		data;
-	char		alive[MAXPLAYER];
-	int			timeout[MAXPLAYER];
-	int			id;
-	int			stop;
-}				t_server;
+	TCPsocket	ksock;
+	IPaddress	*kip;
 
-void	kill_extra(t_server *srv);
-
-#endif
+	if (!(ksock = SDLNet_TCP_Accept(srv->server)))
+		return ;
+	if (!(kip = SDLNet_TCP_GetPeerAddress(ksock)))
+		return ;
+	ft_putendl("Killed extra connection");
+	SDLNet_TCP_Close(ksock);
+}

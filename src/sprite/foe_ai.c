@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foe_ai.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 13:50:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 13:51:01 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 14:41:25 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
 		ft_bzero(prj, sizeof(t_sprite));
 }
 
-void	foe_collision(t_doom* dm, t_sprite* spr, int i, int s)
+void	foe_collision(t_doom *dm, t_sprite *spr, int i, int s)
 {
 	t_vector	npos;
 	double		dist;
@@ -140,7 +140,8 @@ void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 	foe_shooting(dm, spr, &dm->prj[i]);
 	foe_move(dm, spr);
 	foe_collision(dm, spr, -1, i);
-	dist = spr->dist * (1.0 - ((fabs(dm->winw / 2.0 - yx[1]) / (dm->winw / 2)) / 8));
+	dist = spr->dist * (1.0 - ((fabs(dm->winw / 2.0 - yx[1])
+		/ (dm->winw / 2)) / 8));
 	draw_sprite_gfx(dm, dm->gfx[spr->gfx],
 		(int[7]) {yx[0], yx[1], 37, 28, 0, 0, i}, spr->size / dist);
 }
