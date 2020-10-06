@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 15:00:07 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/06 17:06:58 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	sprite_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 			col = avg_color(col, dm->window[dm->winw
 				* (yx[0] + g[0]) + (yx[1] + g[1])]);
 		lgt = get_blocklight(dm, dm->spr[yx[6]].pos);
-		col = color_shift((gfx.data[gfx.wid * (yx[4] + gfx.y)
-			+ (yx[5] + gfx.x)]), dm->spr[yx[6]].dist, dm, 0);
+		col = color_shift(col, dm->spr[yx[6]].dist, dm, 0);
 		col = rl_color(lgt, col);
 		dm->img.data[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])] = col;
 		dm->wallarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])] =
@@ -198,7 +197,7 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x);
 		spra_check(dm, spra);
 		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos) - 0.2;
-		if (dm->spr[i].dist < 1)
+		if (dm->spr[i].dist < 0.8)
 			continue;
 		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
 		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;

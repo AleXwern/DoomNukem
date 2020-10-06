@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 17:03:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/06 17:04:57 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,6 @@ typedef struct		s_doom
 	SDL_Surface		*surf;
 	SDL_Texture		*tex;
 	t_img			img;
-	SDL_RWops		*rwops;
 	SDL_Event		event;
 	SDL_Thread		**threads;
 	IPaddress		ip;
@@ -502,8 +501,7 @@ void				cam_udy(t_doom *dm);
 void				check_area(t_editor *le, SDL_Event ev);
 void				check_hit(t_doom *dm, int i, int x);
 void				chest_object(t_doom *dm, int i, int y, int x);
-void				comp_foe(t_doom *dm, char *bpath, int i);
-void				comp_gfx(t_doom *dm, int i);
+void				comp_gfx(t_doom *dm);
 void				comp_map(t_doom *dm);
 void				curt_down(t_doom *dm);
 void				curt_up(t_doom *dm);
@@ -515,16 +513,16 @@ void				draw_bg(t_doom *dm, t_gfx gfx);
 void				draw_blk_select(t_doom *dm, t_editor *le, int x, int y);
 void				draw_crosshair(t_doom *dm);
 void				draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y);
-void				draw_gfx(t_doom *dm, t_gfx gfx, int x, int y);
+void				draw_gfx(t_doom *dm, t_gfx gfx, Uint32 x, Uint32 y);
 void				draw_gun(t_doom *dm);
 void				draw_hp(t_doom *dm);
 void				draw_hud(t_doom *dm);
 void				draw_level_screen(t_doom *dm, t_editor *le, double x,
 						double y);
-void				draw_menu(t_doom *dm, int x, int y, int cur);
+void				draw_menu(t_doom *dm, Uint32 x, Uint32 y, int cur);
 void				draw_object_gfx(t_doom *dm, t_gfx gfx, int *yx,
 						double size);
-void				draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy);
+void				draw_part_gfx(t_doom *dm, t_gfx gfx, Uint32 *max, Uint32 *xy);
 void				draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size);
 void				draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx,
 						double size);

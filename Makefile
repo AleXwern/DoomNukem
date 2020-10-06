@@ -6,7 +6,7 @@
 #    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/06 17:01:09 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/10/06 17:07:31 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,7 +106,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	@echo "Run the executable as $(BLUE)./$(NAME)$(STOP). No args."
 
 clean:
-	@echo "Removing Doom-Nukem libraries."
+	@echo "Removing Doom-Nukem libraries and dependancies."
 	@/bin/rm -f $(OBJ)
 	@/bin/rm -f $(OBJSRV)
 	@/bin/rm -f $(DEPNS)

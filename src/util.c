@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 15:08:30 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 14:46:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,30 @@ int		fps_capper(void *ptr)
 
 int		fps_counter(void *ptr)
 {
-	t_doom	*dm;
+	t_doom		*dm;
+	Uint32		fpsarr[10];
+	Uint32		i;
+	Uint32		fps;
 
 	dm = (t_doom*)ptr;
+	i = 0;
+	fps = 0;
+	ft_bzero(fpsarr, 40);
 	while (!dm->killthread)
 	{
-		SDL_Delay(1000);
+		SDL_Delay(100);
+		if (dm->ismenu)
+			continue;
 		free(dm->fpschar);
-		dm->fpschar = ft_itoa(dm->fps);
+		fps -= fpsarr[i];
+		fpsarr[i] = dm->fps;
+		fps += dm->fps;
+		i++;
+		if (i >= 10)
+			i = 0;
+		dm->fpschar = ft_itoa(fps);
 		if (dm->fps > 0 && !dm->ismenu)
-			dm->prefps = dm->fps;
+			dm->prefps = fps;
 		dm->fallsp.z = (0.6 * (30.0 / dm->buffer / dm->prefps))
 			/ dm->prefps / (dm->buffer / 5.0);
 		dm->fps = 0;

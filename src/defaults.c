@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 16:32:29 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/06 17:07:04 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 void	wind_default(t_doom *dm)
 {
-	double	temp;
-
 	dm->shift = 15;
 	dm->crouching = 0;
 	dm->mousemovement = 0;
