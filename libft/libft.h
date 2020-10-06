@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 11:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 20:35:03 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:13:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 **	Macros to fulfill spesific UNIX/Windows standards.
 **	Purely there so it's easier to work with multiple devices.
 */
+# define INT_MIN	-2147483648
 # if _WIN64
 # define	read(X, Y, Z)	_read(X, Y, Z)
 # define	write(X, Y, Z)	_write(X, Y, Z)

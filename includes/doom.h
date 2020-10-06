@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/02 13:38:42 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:12:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -578,7 +578,7 @@ void				single_loop_z(t_doom *dm);
 void				slide_door(t_doom *dm);
 void				slope_dda_xzn(t_doom *dm);
 void				slope_dda_xzp(t_doom *dm);
-void				sprite_set(t_doom *dm);
+void				sprite_set(t_doom *dm, int i);
 void				strafe(t_doom *dm, double dirxtemp, double dirytemp);
 void				suffrocate(t_doom *dm, t_block blk, t_vector bpos);
 void				validate_map(t_doom *dm, int i, int a, t_block blk);

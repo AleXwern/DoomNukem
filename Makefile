@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/01 13:31:49 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/06 11:14:35 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ GRAFILE	=	gravity.c move.c collision.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
-SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c pokemon_ai.c
+SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c pokemon_ai.c foe_ai.c foe_passive.c foe_status.c
 CLIFILE =	client.c
 SRVFILE	=	server.c
 SRC		=	$(addprefix ./src/,$(SRCFILE)) \

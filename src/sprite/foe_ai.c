@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foe_ai.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 13:50:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/02 13:34:33 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:29:43 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 void	foe_dir(t_doom *dm, t_sprite *spr, double spra)
 {
-	if (!foe_ismoving(spr))
+	if (foe_ismoving(spr))
 		dm->gfx[spr->gfx].x = (spr->frame / 8) * 28;
 	else
 		dm->gfx[spr->gfx].x = (spr->frame < 16 ? 0 : 56);
@@ -69,7 +69,7 @@ void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
 		prj->pos.z = spr->pos.z + (prj->mov.z * 2);
 		prj->pos.y = spr->pos.y + (prj->mov.y * 2);
 		prj->pos.x = spr->pos.x + (prj->mov.x * 2);
-		prj->move == 'm';
+		prj->move = 'a';
 	}
 	if (prj->move == 'm')
 	{
@@ -131,18 +131,11 @@ void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 	foe_mode(dm, spr);
 	foe_passive_cycle(dm, spr, i);
 	spr->frame++;
-	if (spr->move != 'x' && spr->move != 'm')
-	{
-		//if (spr->frame >= 36 && spr->dist < 4)
-		//	spr->frame = 0;
-		if (spr->frame >= 32 && spr->dist < 8)
-			spr->frame = 0;
-		if (spr->frame == 0)
-			spr->move = 's';
-	}
-	else if (spr->frame >= 32)
+	if (spr->frame >= 32)
 		spr->frame = 0;
-	foe_shooting(dm, spr, &dm->prj[i], i);
+	if (spr->move == 'a' && spr->frame == 0)
+		spr->move = 's';
+	foe_shooting(dm, spr, &dm->prj[i]);
 	foe_move(dm, spr);
 	foe_collision(dm, spr, -1, i);
 	draw_sprite_gfx(dm, dm->gfx[spr->gfx],
