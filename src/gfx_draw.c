@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx_draw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 12:55:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:42:25 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 {
 	int		gy;
 	int		gx;
+	int		lgt;
+	Uint32	col;
 
 	gy = 0;
 	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh && gy < yx[2] * size)

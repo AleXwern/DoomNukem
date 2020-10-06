@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/02 13:42:30 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:43:22 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,20 @@
 
 void	sprite_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 {
+	int		lgt;
+	Uint32	col;
+
 	if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid &&
 		yx[0] + g[0] > -1 && yx[1] + g[1] > -1 &&
 		gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
 		dm->spr[yx[6]].dist < dm->wallarr[dm->winw
 		* (yx[0] + g[0]) + (yx[1] + g[1])])
 	{
-		dm->img.data[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])]
-			= color_shift(gfx.data[gfx.wid * (yx[4] + gfx.y)
-				+ (yx[5] + gfx.x)],
-			dm->spr[yx[6]].dist, dm, 0);
+		lgt = get_blocklight(dm, dm->spr[yx[6]].pos);
+		col = color_shift((gfx.data[gfx.wid * (yx[4] + gfx.y)
+			+ (yx[5] + gfx.x)]), dm->spr[yx[6]].dist, dm, 0);
+		col = rl_color(lgt, col);
+		dm->img.data[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])] = col;
 		dm->wallarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])]
 			= dm->spr[yx[6]].dist;
 	}
@@ -102,15 +106,20 @@ void	draw_projectile_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 
 void	object_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 {
+	int		lgt;
+	Uint32	col;
+
 	if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid &&
 		yx[0] + g[0] > -1 && yx[1] + g[1] > -1 &&
 		gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
 		dm->obj[yx[6]].dist < dm->wallarr[dm->winw
 		* (yx[0] + g[0]) + (yx[1] + g[1])])
 	{
-		dm->img.data[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])]
-			= color_shift(gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)],
-			dm->obj[yx[6]].dist, dm, 0);
+		lgt = get_blocklight(dm, dm->obj[yx[6]].pos);
+		col = color_shift((gfx.data[gfx.wid * (yx[4] + gfx.y)
+			+ (yx[5] + gfx.x)]), dm->obj[yx[6]].dist, dm, 0);
+		col = rl_color(lgt, col);
+		dm->img.data[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])] = col;
 		dm->wallarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])]
 			= dm->obj[yx[6]].dist;
 	}

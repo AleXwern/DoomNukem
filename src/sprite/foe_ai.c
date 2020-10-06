@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foe_ai.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 13:50:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 11:29:43 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 12:20:34 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,17 +127,17 @@ void	foe_move(t_doom *dm, t_sprite *spr)
 
 void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 {
-	foe_dir(dm, spr, 0);
-	foe_mode(dm, spr);
-	foe_passive_cycle(dm, spr, i);
-	spr->frame++;
-	if (spr->frame >= 32)
-		spr->frame = 0;
-	if (spr->move == 'a' && spr->frame == 0)
-		spr->move = 's';
-	foe_shooting(dm, spr, &dm->prj[i]);
-	foe_move(dm, spr);
-	foe_collision(dm, spr, -1, i);
+	// foe_dir(dm, spr, 0);
+	// foe_mode(dm, spr);
+	// foe_passive_cycle(dm, spr, i);
+	// spr->frame++;
+	// if (spr->frame >= 32)
+	// 	spr->frame = 0;
+	// if (spr->move == 'a' && spr->frame == 0)
+	// 	spr->move = 's';
+	// foe_shooting(dm, spr, &dm->prj[i]);
+	// foe_move(dm, spr);
+	// foe_collision(dm, spr, -1, i);
 	draw_sprite_gfx(dm, dm->gfx[spr->gfx],
 		(int[7]) {yx[0], yx[1], 37, 28, 0, 0, i}, spr->size / spr->dist);
 }

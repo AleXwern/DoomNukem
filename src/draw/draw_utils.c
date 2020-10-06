@@ -3,19 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/20 12:48:37 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 13:59:44 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:43:16 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+int		get_blocklight(t_doom *dm, t_vector pos)
+{
+	return (dm->area[(int)pos.z][(int)pos.y][(int)pos.x].lgt);
+}
+
 int		light_map(t_vector map, int side, t_block ***area)
 {
-	int		lgt;
+	int	lgt;
 
 	if (side == 0)
 		lgt = area[(int)map.z][(int)map.y][(int)map.x - 1].lgt;

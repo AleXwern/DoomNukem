@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 11:12:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:39:09 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,6 +475,7 @@ int					key_hold(int key, t_doom *dm);
 int					key_press(int key, t_doom *dm);
 int					key_release(int key, t_doom *dm);
 int					light_map(t_vector map, int side, t_block ***area);
+int					get_blocklight(t_doom *dm, t_vector pos);
 int					load_level(t_editor *le, t_doom *dm);
 int					mouse_move(int x, int y, t_doom *dm);
 int					move(t_doom *dm);

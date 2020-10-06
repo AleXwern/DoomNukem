@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:54:01 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/01 14:43:55 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/06 12:39:15 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	obj_set(t_doom *dm, int i)
 	dm->obj[i].pos.y = 4.5;
 	dm->obj[i].pos.x = 20.5;
 	dm->obj[i].gfx = 36;
-	dm->obj[i++].size = 17;
+	dm->obj[i++].size = 1;
 	// Keycard
 	//dm->obj[i].pos.z = 3.0;
 	//dm->obj[i].pos.y = 6.0;
