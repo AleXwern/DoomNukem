@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/06 17:07:31 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/10/07 16:10:02 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ EDTFILE =	editor.c render_editor.c
 ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c window.c draw_more.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
-			part_dda.c
+			part_dda.c slope_dda.c
 GRAFILE	=	gravity.c move.c collision.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c

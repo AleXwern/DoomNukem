@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foe_ai.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 13:50:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 14:41:25 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:43:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	foe_dir(t_doom *dm, t_sprite *spr, double spra)
 		dm->gfx[spr->gfx].x = (spr->frame < 16 ? 0 : 56);
 	spra = (atan2(spr->dir.y, spr->dir.x) - atan2(spr->face.y, spr->face.x))
 		* 180 / M_PI;
-	//spra = spra - spra;
 	if (spra >= 180)
 		spra -= 360;
 	else if (spra <= -180)
@@ -69,7 +68,7 @@ void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
 		prj->pos.z = spr->pos.z + (prj->mov.z * 2);
 		prj->pos.y = spr->pos.y + (prj->mov.y * 2);
 		prj->pos.x = spr->pos.x + (prj->mov.x * 2);
-		prj->move = 'a';
+		prj->move = 'm';
 	}
 	if (prj->move == 'm')
 	{
@@ -96,6 +95,16 @@ void	foe_collision(t_doom *dm, t_sprite *spr, int i, int s)
 	double		dist;
 
 	npos = spr->pos;
+	dist = tri_pythagor(dm->pos, spr->pos);
+	if (dist < 1.2 && fabs(dm->pos.z - spr->pos.z) < 1.3)
+	{
+		npos.x -= spr->mov.x;
+		npos.y -= spr->mov.y;
+		if (dm->area[(int)npos.z][(int)spr->pos.y][(int)npos.x].b <= 1)
+			spr->pos.x = npos.x;
+		if (dm->area[(int)npos.z][(int)npos.y][(int)spr->pos.x].b <= 1)
+			spr->pos.y = npos.y;
+	}
 	while (++i < 9)
 	{
 		dist = tri_pythagor(spr->pos, dm->spr[i].pos);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/06 16:33:14 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:08:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	set_variables(t_doom *dm)
 	dm->doorani = 0;
 	dm->doorfrm = 0;
 	dm->uncrouch = 0;
-	dm->invincible = 0;
+	dm->invincible = 4;
 }

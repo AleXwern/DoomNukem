@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 14:01:53 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/25 13:28:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:25:49 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	cam_udy(t_doom *dm)
 	olddir = dm->dir;
 	if (dm->key.up)
 	{
-		if (dm->dir.z > -0.5)
+		if (dm->dir.z > -0.9)
 			dm->dir.z -= 0.05 * ((30.0 / dm->buffer) / dm->prefps);
 	}
 	if (dm->key.down)
 	{
-		if (dm->dir.z < 0.5)
+		if (dm->dir.z < 0.9)
 			dm->dir.z += 0.05 * ((30.0 / dm->buffer) / dm->prefps);
 	}
 	if (dm->key.left || dm->key.right)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 17:06:58 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:48:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 	int	gx;
 
 	gy = 0;
+	printf("Expected begin %d with %d and %d with %d\n", yx[0], gfx.hgt * size, yx[1], gfx.wid * size);
 	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh
 		&& gy < yx[2] * size)
 	{
@@ -69,6 +70,7 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 		}
 		gy++;
 	}
+	printf("Expected end %d %d\n", yx[0], yx[1]);
 }
 
 void	projectile_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
@@ -161,7 +163,7 @@ void	spra_check(t_doom *dm, double spra)
 
 void	draw_objects(t_doom *dm, int y, int x, int i)
 {
-	static double	spra;
+	double	spra;
 
 	while (++i < 3)
 	{
@@ -188,7 +190,7 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 
 void	draw_sprites(t_doom *dm, int y, int x, int i)
 {
-	static double	spra;
+	double	spra;
 
 	while (++i < 9)
 	{
@@ -206,6 +208,7 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 			14 * dm->spr[i].size / dm->spr[i].dist;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z -
 			dm->min.z)) - 18 * dm->spr[i].size / dm->spr[i].dist;
+		printf("spr %d %d\n", x, y);
 		if (i > 3)
 			foe_ai(dm, &dm->spr[i], (int[2]){y, x}, i);
 		else
@@ -215,14 +218,14 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 
 void	draw_projectiles(t_doom *dm, int y, int x, int i)
 {
-	static double	spra;
+	double	spra;
 
 	while (++i < 9)
 	{
 		if (i <= 3)
 			player_shooting(dm, dm->id);
-		else if (i > 3)
-			ai_shooting(dm, i);
+		//else if (i > 3)
+		//	ai_shooting(dm, i);
 		spra = atan2(dm->prj[i].dir.y, dm->prj[i].dir.x);
 		spra_check(dm, spra);
 		dm->prj[i].dist = tri_pythagor(dm->pos, dm->prj[i].pos);

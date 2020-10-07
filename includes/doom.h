@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 17:04:57 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:48:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,50 +54,50 @@
 
 typedef struct		s_key
 {
-	Sint8			esc;
-	Sint8			one;
-	Sint8			two;
-	Sint8			three;
-	Sint8			four;
-	Sint8			five;
-	Sint8			six;
-	Sint8			seven;
-	Sint8			eight;
-	Sint8			nine;
-	Sint8			zero;
-	Sint8			q;
-	Sint8			w;
-	Sint8			e;
-	Sint8			r;
-	Sint8			t;
-	Sint8			y;
-	Sint8			u;
-	Sint8			i;
-	Sint8			o;
-	Sint8			p;
-	Sint8			a;
-	Sint8			s;
-	Sint8			d;
-	Sint8			f;
-	Sint8			g;
-	Sint8			h;
-	Sint8			j;
-	Sint8			k;
-	Sint8			l;
-	Sint8			z;
-	Sint8			x;
-	Sint8			c;
-	Sint8			v;
-	Sint8			b;
-	Sint8			n;
-	Sint8			m;
-	Sint8			space;
-	Sint8			left;
-	Sint8			right;
-	Sint8			down;
-	Sint8			up;
-	Sint8			plus;
-	Sint8			minus;
+	char			esc;
+	char			one;
+	char			two;
+	char			three;
+	char			four;
+	char			five;
+	char			six;
+	char			seven;
+	char			eight;
+	char			nine;
+	char			zero;
+	char			q;
+	char			w;
+	char			e;
+	char			r;
+	char			t;
+	char			y;
+	char			u;
+	char			i;
+	char			o;
+	char			p;
+	char			a;
+	char			s;
+	char			d;
+	char			f;
+	char			g;
+	char			h;
+	char			j;
+	char			k;
+	char			l;
+	char			z;
+	char			x;
+	char			c;
+	char			v;
+	char			b;
+	char			n;
+	char			m;
+	char			space;
+	char			left;
+	char			right;
+	char			down;
+	char			up;
+	char			plus;
+	char			minus;
 
 }					t_key;
 
@@ -142,18 +142,18 @@ typedef struct		s_img
 {
 	SDL_Surface		*tex;
 	SDL_Texture		*img;
-	Uint32			*data;
+	uint32_t		*data;
 }					t_img;
 
 typedef struct		s_gfx
 {
 	Uint32			*data;
-	Uint32			wid;
-	Uint32			hgt;
-	Uint32			bpp;
-	Uint32			pitch;
-	Uint32			x;
-	Uint32			y;
+	int				wid;
+	int				hgt;
+	int				bpp;
+	int				pitch;
+	int				x;
+	int				y;
 }					t_gfx;
 
 /*
@@ -168,18 +168,18 @@ typedef struct		s_editor
 	Uint8			quit;
 	t_vector		spawn;
 	t_vector		end;
-	Sint8			cur;
+	char			cur;
 	Uint8			blk;
 	//t_block		blk;
-	Sint8			options[5];
-	double			maxval[5];
-	Sint8			minval[5];
+	char			options[5];
+	float			maxval[5];
+	char			minval[5];
 	char			*opt[11];
 	SDL_Event		ev;
-	Sint8			marea;
-	Sint8			mslider;
-	Sint8			mblock;
-	Sint8			mcopy;
+	char			marea;
+	char			mslider;
+	char			mblock;
+	char			mcopy;
 }					t_editor;
 
 /*
@@ -220,8 +220,8 @@ typedef struct		s_sprite
 	int				size;
 	double			dist;
 	int				iframe;
-	Uint32			x;
-	Uint32			y;
+	int				x;
+	int				y;
 	int				frame;
 	t_vector		face;
 	char			move;
@@ -294,14 +294,14 @@ typedef struct		s_doom
 	float			*wallarr;
 	float			*winarr;
 	int				*maparr;
-	Uint32			*window;
+	uint32_t		*window;
 	int				killthread;
 	int				tile;
 	t_gfx			*gfx;
 	t_sprite		spr[9];
 	t_sprite		prj[9];
 	t_sprite		obj[9];
-	Uint32			gfram;
+	uint32_t		gfram;
 	int				gfxcount;
 	int				height;
 	int				width;
@@ -312,7 +312,7 @@ typedef struct		s_doom
 	void			(*cycle)(struct s_doom*);
 	void			(*keyck)(struct s_doom*);
 	char			*syssmg[2];
-	Uint32			iframe;
+	uint32_t		iframe;
 	int				cur;
 	int				sel;
 	int				plr;
@@ -338,7 +338,7 @@ typedef struct		s_doom
 	int				ismenu;
 	int				sy;
 	int				sx;
-	Uint32			black;
+	uint32_t		black;
 	int				xmax;
 	int				stepx;
 	int				stepy;
@@ -354,7 +354,7 @@ typedef struct		s_doom
 	int				texnum;
 	int				texx;
 	int				texy;
-	Uint32			col;
+	uint32_t		col;
 	int				sbox;
 	int				sboy;
 	int				cellx;
@@ -419,7 +419,7 @@ typedef struct		s_doom
 	int				isgravity;
 	int				shift;
 	SDL_Thread		*fpsthread;
-	Uint32			fps;
+	uint32_t		fps;
 	char			*fpschar;
 	int				trx;
 	int				fpscap;
@@ -460,11 +460,12 @@ typedef struct		s_doom
 	Mix_Chunk		*doorsliding;
 }					t_doom;
 
-Uint32				avg_color(Uint32 rcol, Uint32 col);
-Uint32				color_shift(Uint32 color, double shift, t_doom *dm,
-						Uint32 ret);
-Uint32				rl_color(int lgt, Uint32 col);
+uint32_t			avg_color(uint32_t rcol, uint32_t col);
+uint32_t			color_shift(uint32_t color, double shift, t_doom *dm,
+						uint32_t ret);
+uint32_t			rl_color(int lgt, uint32_t col);
 
+double				create_plane_yz(t_vector rayd, t_vector rmap, t_doom *dm);
 double				dot_prd(t_vector v, t_vector u);
 double				tri_pythagor(t_vector f, t_vector s);
 
@@ -477,7 +478,7 @@ int					get_x(int pc);
 int					get_y(int pc);
 int					interact(t_doom *dm);
 int					key_hold(int key, t_doom *dm);
-int					key_release(int key, t_doom *dm);
+int					key_release(int	 key, t_doom *dm);
 int					light_map(t_vector map, int side, t_block ***area);
 int					get_blocklight(t_doom *dm, t_vector pos);
 int					load_level(t_editor *le, t_doom *dm);
@@ -495,7 +496,7 @@ t_img				init_image(t_doom *dm);
 t_vector			cross_prd(t_vector v, t_vector u);
 t_vector			oper_vect(t_vector v, t_vector u, char o);
 
-void				ai_shooting(t_doom *dm, int i);
+void				ai_shooting(t_doom *dm, int	 i);
 void				alloc_vram(t_doom *dm);
 void				cam_udy(t_doom *dm);
 void				check_area(t_editor *le, SDL_Event ev);
@@ -513,33 +514,34 @@ void				draw_bg(t_doom *dm, t_gfx gfx);
 void				draw_blk_select(t_doom *dm, t_editor *le, int x, int y);
 void				draw_crosshair(t_doom *dm);
 void				draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y);
-void				draw_gfx(t_doom *dm, t_gfx gfx, Uint32 x, Uint32 y);
+void				draw_gfx(t_doom *dm, t_gfx gfx, int x, int y);
 void				draw_gun(t_doom *dm);
 void				draw_hp(t_doom *dm);
 void				draw_hud(t_doom *dm);
 void				draw_level_screen(t_doom *dm, t_editor *le, double x,
 						double y);
-void				draw_menu(t_doom *dm, Uint32 x, Uint32 y, int cur);
+void				draw_menu(t_doom *dm, int x, int y, int cur);
 void				draw_object_gfx(t_doom *dm, t_gfx gfx, int *yx,
 						double size);
-void				draw_part_gfx(t_doom *dm, t_gfx gfx, Uint32 *max, Uint32 *xy);
+void				draw_part_gfx(t_doom *dm, t_gfx gfx, int *max,
+						int *xy);
 void				draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size);
 void				draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx,
 						double size);
 void				draw_screen(t_editor *le, t_doom *dm, int x, int y);
-int					draw_screen_more(t_editor *le, t_doom *dm, int x, int y);
+int						draw_screen_more(t_editor *le, t_doom *dm, int x, int y);
 void				draw_sky(t_doom *dm);
 void				draw_sliders(t_doom *dm, t_editor *le, int x, int y);
 void				draw_sprite(t_doom *dm, int y, int x);
 void				draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx,
 						double size);
-void				editor_key_press(Uint32 key, t_editor *le);
-void				editor_key_release(Uint32 key, t_editor *le, t_doom *dm);
+void				editor_key_press(uint32_t key, t_editor *le);
+void				editor_key_release(uint32_t key, t_editor *le, t_doom *dm);
 void				editor_main(t_doom *dm);
 void				error_out(char *msg, t_doom *dm);
 void				ext_ray(t_doom *dm);
 void				foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i);
-void				foe_dir(t_doom* dm, t_sprite* spr, double spra);
+void				foe_dir(t_doom *dm, t_sprite *spr, double spra);
 void				foe_passive_cycle(t_doom *dm, t_sprite *spr, int i);
 void				free_map(t_doom *dm, int f, int y);
 void				free_memory(char **arr);
@@ -587,7 +589,7 @@ void				single_loop_z(t_doom *dm);
 void				slide_door(t_doom *dm);
 void				slope_dda_xzn(t_doom *dm);
 void				slope_dda_xzp(t_doom *dm);
-void				sprite_set(t_doom *dm, int i);
+void				sprite_set(t_doom *dm, int	 i);
 void				strafe(t_doom *dm, double dirxtemp, double dirytemp);
 void				suffrocate(t_doom *dm, t_block blk, t_vector bpos);
 void				validate_map(t_doom *dm, int i, int a, t_block blk);
