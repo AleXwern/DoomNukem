@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 17:04:57 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:08:16 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@
 #  define _CRT_SECURE_NO_WARNINGS
 # endif
 
+//	check allowed headers
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
-# include <stdio.h> //remove when project is done!
+# include <stdio.h>
 
 # if _WIN64
 
@@ -32,6 +33,7 @@
 ** Mainly to get win spesific versions of C functions like open -> _sopen_s
 ** to work because of required flags.
 */
+
 #  include "SDL.h"
 #  include "SDL_net.h"
 #  include "SDL_mixer.h"
@@ -47,6 +49,7 @@
 /*
 ** Apple Mac OS specific includes
 */
+
 #  include "../frameworks/SDL2.framework/Headers/SDL.h"
 #  include "../frameworks/SDL2_net.framework/Headers/SDL_net.h"
 #  include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
@@ -170,7 +173,6 @@ typedef struct		s_editor
 	t_vector		end;
 	Sint8			cur;
 	Uint8			blk;
-	//t_block		blk;
 	Sint8			options[5];
 	double			maxval[5];
 	Sint8			minval[5];
@@ -199,6 +201,7 @@ typedef struct		s_editor
 **	5 - X, filled W
 **	6 - X, filled E
 */
+
 typedef struct		s_block
 {
 	Uint8			b;
@@ -248,30 +251,6 @@ typedef struct		s_chunk
 	t_bulk			plr[5];
 	int				id;
 }					t_chunk;
-
-/*
-** win	= Window pointer
-** pc	= player info
-** tile	= graphic set
-** gfx	= library of graphics
-** menucur	= COMBAT: cursor position
-** menugfx	= COMBAT: menu gfx
-** img	= current scene render
-** chara	= list of party members
-** x	= screen X pos
-** y	= screen Y pos
-** spawn	= spawn XY pos
-** hold
-** flr
-** mapset
-** map
-** winb
-** rng
-** fcomb
-** aggro
-** iscombat
-** ismenu
-*/
 
 typedef struct		s_doom
 {
@@ -329,6 +308,15 @@ typedef struct		s_doom
 	int				mapset;
 	t_block			***area;
 	t_block			blk;
+	Uint32			blkcol;
+	int				blktx;
+	int				selectedblk;
+	int				ckflr;
+	double			tmpx;
+	double			tmpy;
+	int				sldry;
+	int				sldrx;
+	Uint32			sldrcol;
 	int				winb;
 	int				texbool;
 	int				rng;
@@ -495,16 +483,20 @@ t_img				init_image(t_doom *dm);
 t_vector			cross_prd(t_vector v, t_vector u);
 t_vector			oper_vect(t_vector v, t_vector u, char o);
 
-void				ai_shooting(t_doom *dm, int i);
 void				alloc_vram(t_doom *dm);
 void				cam_udy(t_doom *dm);
 void				check_area(t_editor *le, SDL_Event ev);
-void				check_hit(t_doom *dm, int i, int x);
+int					check_hor_coll(t_block blk, t_doom *dm, double mov,
+						char dir);
+int					check_sprite_dist(t_doom *dm, double mov, int i);
+int					check_yx(char dir, t_block tblk, t_doom *dm);
 void				chest_object(t_doom *dm, int i, int y, int x);
 void				comp_gfx(t_doom *dm);
 void				comp_map(t_doom *dm);
 void				curt_down(t_doom *dm);
 void				curt_up(t_doom *dm);
+void				dda_prep(t_doom *dm);
+void				dda_sys(t_doom *dm);
 void				demodraw_sprite(t_doom *dm);
 void				destroy_gfx(t_doom *dm, int i);
 void				doom_default(t_doom *dm);
@@ -520,10 +512,13 @@ void				draw_hud(t_doom *dm);
 void				draw_level_screen(t_doom *dm, t_editor *le, double x,
 						double y);
 void				draw_menu(t_doom *dm, Uint32 x, Uint32 y, int cur);
+void				draw_objects(t_doom *dm, int y, int x, int i);
 void				draw_object_gfx(t_doom *dm, t_gfx gfx, int *yx,
 						double size);
-void				draw_part_gfx(t_doom *dm, t_gfx gfx, Uint32 *max, Uint32 *xy);
+void				draw_part_gfx(t_doom *dm, t_gfx gfx, Uint32 *max,
+						Uint32 *xy);
 void				draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size);
+void				draw_projectiles(t_doom *dm, int y, int x, int i);
 void				draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx,
 						double size);
 void				draw_screen(t_editor *le, t_doom *dm, int x, int y);
@@ -539,12 +534,16 @@ void				editor_main(t_doom *dm);
 void				error_out(char *msg, t_doom *dm);
 void				ext_ray(t_doom *dm);
 void				foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i);
-void				foe_dir(t_doom* dm, t_sprite* spr, double spra);
+void				foe_dir(t_doom *dm, t_sprite *spr, double spra);
 void				foe_passive_cycle(t_doom *dm, t_sprite *spr, int i);
+void				foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj);
 void				free_map(t_doom *dm, int f, int y);
 void				free_memory(char **arr);
 void				free_vram(t_doom *dm);
 void				game_loop(t_doom *dm);
+void				get_doortype(t_doom *dm, t_vector pos, t_vector door,
+						t_block blk);
+double				get_coll_down(t_block blk);
 void				gravity(t_doom *dm);
 void				key_release_menu(int key, t_doom *dm);
 void				key_state_editor(t_editor *le, t_doom *dm);
@@ -587,9 +586,11 @@ void				single_loop_z(t_doom *dm);
 void				slide_door(t_doom *dm);
 void				slope_dda_xzn(t_doom *dm);
 void				slope_dda_xzp(t_doom *dm);
+void				spra_check(t_doom *dm, double spra);
 void				sprite_set(t_doom *dm, int i);
-void				strafe(t_doom *dm, double dirxtemp, double dirytemp);
+void				strafe(t_doom *dm);
 void				suffrocate(t_doom *dm, t_block blk, t_vector bpos);
+int					templen(char **temp);
 void				validate_map(t_doom *dm, int i, int a, t_block blk);
 void				wall_stripe(t_doom *dm);
 void				wind_default(t_doom *dm);

@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:03:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:04:49 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
-#include <stdio.h>
 
 void	defaults(t_editor *le, t_doom *dm)
 {

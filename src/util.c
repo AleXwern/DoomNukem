@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 14:46:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 13:17:35 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,24 @@ int		fps_capper(void *ptr)
 	return (1);
 }
 
+void	fps_counter2(t_doom *dm, Uint32 *i, Uint32 *fps)
+{
+	if (*i >= 10)
+		*i = 0;
+	dm->fpschar = ft_itoa(*fps);
+	if (dm->fps > 0 && !dm->ismenu)
+		dm->prefps = *fps;
+	dm->fallsp.z = (0.6 * (30.0 / dm->buffer / dm->prefps))
+		/ dm->prefps / (dm->buffer / 5.0);
+	dm->fps = 0;
+}
+
 int		fps_counter(void *ptr)
 {
-	t_doom		*dm;
-	Uint32		fpsarr[10];
-	Uint32		i;
-	Uint32		fps;
+	t_doom	*dm;
+	Uint32	fpsarr[10];
+	Uint32	i;
+	Uint32	fps;
 
 	dm = (t_doom*)ptr;
 	i = 0;
@@ -47,14 +59,7 @@ int		fps_counter(void *ptr)
 		fpsarr[i] = dm->fps;
 		fps += dm->fps;
 		i++;
-		if (i >= 10)
-			i = 0;
-		dm->fpschar = ft_itoa(fps);
-		if (dm->fps > 0 && !dm->ismenu)
-			dm->prefps = fps;
-		dm->fallsp.z = (0.6 * (30.0 / dm->buffer / dm->prefps))
-			/ dm->prefps / (dm->buffer / 5.0);
-		dm->fps = 0;
+		fps_counter2(dm, &i, &fps);
 	}
 	return (1);
 }

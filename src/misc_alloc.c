@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   misc_alloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:20:26 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 13:38:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 13:41:20 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
+
+void	destroy_gfx(t_doom *dm, int i)
+{
+	while (++i < dm->gfxcount)
+	{
+		if (dm->gfx[i].wid > 0)
+			free(dm->gfx[i].data);
+	}
+	free(dm->gfx);
+}
 
 void	free_vram(t_doom *dm)
 {

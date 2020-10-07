@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 13:02:44 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 14:05:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 13:24:07 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	game_loop(t_doom *dm)
 {
 	static int	buffer;
-	
+
 	dm->keyck(dm);
 	if (dm->buffer < 1)
 		dm->buffer = 1;

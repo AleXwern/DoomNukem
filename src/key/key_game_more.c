@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:42:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/06 16:42:38 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:29:34 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		move(t_doom *dm)
 		if ((dm->key.w || dm->key.s) && !dm->isoptions)
 			move_fb(dm);
 		if ((dm->key.a || dm->key.d) && !dm->isoptions)
-			strafe(dm, 0, 0);
+			strafe(dm);
 		if ((dm->key.up || dm->key.down || dm->key.left || dm->key.right)
 			&& !dm->isoptions)
 			cam_udy(dm);

@@ -3,25 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 14:04:10 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 13:40:56 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
-
-void	destroy_gfx(t_doom *dm, int i)
-{
-	while (++i < dm->gfxcount)
-	{
-		if (dm->gfx[i].wid > 0)
-			free(dm->gfx[i].data);
-	}
-	free(dm->gfx);
-}
 
 t_img	init_image(t_doom *dm)
 {

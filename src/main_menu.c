@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 13:23:46 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 14:07:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 13:22:29 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
+
+void	draw_main_menu2(t_doom *dm, Uint32 col, Uint32 gy, Uint32 gx)
+{
+	dm->img.data[dm->winw * gy + gx] = col;
+	if ((col & 0xfff) == 0xf00)
+		dm->img.data[dm->winw * gy + gx] = 0xfff9ff53;
+	else if (col == 0xffc0ceca)
+		dm->img.data[dm->winw * gy + gx] = 0xffbab522;
+}
 
 void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 {
@@ -33,11 +42,7 @@ void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 			else if (gy > (cur * dm->winh / 7) + dm->winh / 4 &&
 				gy < ((cur + 1) * dm->winh / 7) + dm->winh / 4)
 			{
-				dm->img.data[dm->winw * gy + gx] = col;
-				if ((col & 0xfff) == 0xf00)
-					dm->img.data[dm->winw * gy + gx] = 0xfff9ff53;
-				else if (col == 0xffc0ceca)
-					dm->img.data[dm->winw * gy + gx] = 0xffbab522;
+				draw_main_menu2(dm, col, gy, gx);
 			}
 			else
 				dm->img.data[dm->winw * gy + gx] = col;
