@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 17:07:44 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:09:15 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 	int	gx;
 
 	gy = 0;
-	printf("Expected begin %d with %d and %d with %d\n", yx[0], gfx.hgt * size, yx[1], gfx.wid * size);
+	printf("Test %f %d %f\n", gfx.hgt * size, gfx.hgt, size);
 	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh
 		&& gy < yx[2] * size)
 	{
