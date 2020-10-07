@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 13:45:36 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:07:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 	int	gx;
 
 	gy = 0;
+	printf("Expected begin %d with %d and %d with %d\n", yx[0], gfx.hgt * size, yx[1], gfx.wid * size);
 	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh
 		&& gy < yx[2] * size)
 	{
@@ -69,6 +70,7 @@ void	draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 		}
 		gy++;
 	}
+	printf("Expected end %d %d\n", yx[0], yx[1]);
 }
 
 void	spra_check(t_doom *dm, double spra)
@@ -81,7 +83,7 @@ void	spra_check(t_doom *dm, double spra)
 
 void	draw_sprites(t_doom *dm, int y, int x, int i)
 {
-	static double	spra;
+	double	spra;
 
 	while (++i < 9)
 	{
@@ -99,6 +101,7 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 			14 * dm->spr[i].size / dm->spr[i].dist;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z -
 			dm->min.z)) - 18 * dm->spr[i].size / dm->spr[i].dist;
+		printf("spr %d %d\n", x, y);
 		if (i > 3)
 			foe_ai(dm, &dm->spr[i], (int[2]){y, x}, i);
 		else

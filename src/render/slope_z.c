@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 12:45:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:57:12 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void		slope_dda_xzp(t_doom* dm)
 			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 				printf("Suitable point XZP %d\n", dm->side);
 			dm->sided.z += dm->deltad.z;
-			dm->map.z += dm->stepz * (dm->rmap2.z * (1 - dm->rayd.z));
+			//dm->map.z += dm->stepz * (dm->rmap2.z * (1 - dm->rayd.z));
+			dm->map.z += dm->stepz * create_plane_yz(dm->rayd, dm->rmap1, dm);
 			dm->side = 2;
 			dm->hit = 1;
 			dm->hithalf++;

@@ -6,17 +6,17 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 14:11:16 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:30:52 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	draw_part_gfx(t_doom *dm, t_gfx gfx, Uint32 *max, Uint32 *xy)
+void	draw_part_gfx(t_doom *dm, t_gfx gfx, int *max, int *xy)
 {
-	Uint32	gx;
-	Uint32	gy;
+	int	gx;
+	int	gy;
 
 	gy = 0;
 	while ((gfx.y + gy) < gfx.hgt && (xy[0] + gy) < dm->winh && gy < max[0])
@@ -47,8 +47,8 @@ void	draw_part_gfx(t_doom *dm, t_gfx gfx, Uint32 *max, Uint32 *xy)
 
 void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 {
-	Uint32		gy;
-	Uint32		gx;
+	int		gy;
+	int		gx;
 
 	gy = 0;
 	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh && gy < yx[2] * size)
@@ -81,8 +81,8 @@ void	draw_pgfx_sc(t_doom *dm, t_gfx gfx, int *yx, double size)
 
 void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 {
-	Uint32		gy;
-	Uint32		gx;
+	int		gy;
+	int		gx;
 
 	gy = 0;
 	while (gy < gfx.hgt * size && (yx[0] + gy) < dm->winh)
@@ -102,10 +102,10 @@ void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 	}
 }
 
-void	draw_menu(t_doom *dm, Uint32 x, Uint32 y, int cur)
+void	draw_menu(t_doom *dm, int x, int y, int cur)
 {
-	Uint32	gy;
-	Uint32	gx;
+	int	gy;
+	int	gx;
 
 	gy = -1;
 	while (++gy < dm->winh)
@@ -125,10 +125,10 @@ void	draw_menu(t_doom *dm, Uint32 x, Uint32 y, int cur)
 	}
 }
 
-void	draw_gfx(t_doom *dm, t_gfx gfx, Uint32 x, Uint32 y)
+void	draw_gfx(t_doom *dm, t_gfx gfx, int x, int y)
 {
-	Uint32	gx;
-	Uint32	gy;
+	int	gx;
+	int	gy;
 
 	gy = 0;
 	while (gy < gfx.hgt && (y + gy) < dm->winh)
