@@ -9,7 +9,7 @@ X Walls can be partially transparent, unveiling the room behind.
 X Decorative elements can be placed on the walls over the main texture (paintings, posters... ).
 X Objects or characters can be placed in the world as sprites that always face the player.
 X Objects or characters can be placed in the world as multiple sprites displayed according to the orientation between the object and the player (you’ll see the object or character from behind and from the side as you walk around it).
-• Each room or area has a light control tool, affecting both the walls and the objects within.
+X Each room or area has a light control tool, affecting both the walls and the objects within.
 X Text messages can be displayed during the game over the rest of the graphics.
 X There must be a HUD (life, currency, ammunition, carried artifacts...) By that we mean several elements arranged on the player’s view and not a simple one-block banner.
 

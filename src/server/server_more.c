@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   server_more.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 13:02:44 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 13:24:07 by tbergkul         ###   ########.fr       */
+/*   Created: 2020/10/06 15:14:39 by tbergkul          #+#    #+#             */
+/*   Updated: 2020/10/06 15:17:49 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
-#include "../includes/value.h"
+#include "../../includes/server.h"
 
-void	game_loop(t_doom *dm)
+void	kill_extra(t_server *srv)
 {
-	static int	buffer;
+	TCPsocket	ksock;
+	IPaddress	*kip;
 
-	dm->keyck(dm);
-	if (dm->buffer < 1)
-		dm->buffer = 1;
-	dm->rng += (dm->pos.z + dm->pos.y + dm->pos.x) * M_PI;
-	if (buffer > dm->buffer)
-	{
-		dm->cycle(dm);
-		buffer = 0;
-	}
-	buffer++;
+	if (!(ksock = SDLNet_TCP_Accept(srv->server)))
+		return ;
+	if (!(kip = SDLNet_TCP_GetPeerAddress(ksock)))
+		return ;
+	ft_putendl("Killed extra connection");
+	SDLNet_TCP_Close(ksock);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 15:38:41 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 11:46:53 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/06 15:20:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,29 +89,21 @@ void	send_chunck(t_server *srv)
 	}
 }
 
-void	kill_extra(t_server *srv)
+void	init_server(t_server *srv)
 {
-	TCPsocket	ksock;
-	IPaddress	*kip;
-
-	if (!(ksock = SDLNet_TCP_Accept(srv->server)))
-		return ;
-	if (!(kip = SDLNet_TCP_GetPeerAddress(ksock)))
-		return ;
-	ft_putendl("Killed extra connection");
-	SDLNet_TCP_Close(ksock);
+	ft_bzero(srv, sizeof(t_server));
+	SDLNet_Init();
+	if (SDLNet_ResolveHost(&srv->ip, NULL, 9999) == -1)
+		exit(1);
+	if (!(srv->server = SDLNet_TCP_Open(&srv->ip)))
+		exit(2);
 }
 
 int		main(int ac, char **av)
 {
 	t_server	srv;
 
-	ft_bzero(&srv, sizeof(t_server));
-	SDLNet_Init();
-	if (SDLNet_ResolveHost(&srv.ip, NULL, 9999) == -1)
-		exit(1);
-	if (!(srv.server = SDLNet_TCP_Open(&srv.ip)))
-		exit(2);
+	init_server(&srv);
 	while (!srv.stop)
 	{
 		if (srv.id > 0)
@@ -124,7 +116,8 @@ int		main(int ac, char **av)
 		{
 			if (!(srv.client[srv.id] = SDLNet_TCP_Accept(srv.server)))
 				continue;
-			if (!(srv.remoteip[srv.id] = SDLNet_TCP_GetPeerAddress(srv.client[srv.id])))
+			if (!(srv.remoteip[srv.id] =
+				SDLNet_TCP_GetPeerAddress(srv.client[srv.id])))
 				continue;
 			srv.alive[srv.id] = 1;
 			srv.id++;

@@ -6,16 +6,69 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/01 15:01:37 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:38:26 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+int		check_hit2(t_doom *dm, int i)
+{
+	if (dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y]
+		[(int)dm->prj[i].pos.x].b > 1)
+	{
+		if (dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y]
+			[(int)dm->prj[i].pos.x].b == 6)
+		{
+			Mix_PlayChannel(-1, dm->windowbrk, 0);
+			dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y]
+				[(int)dm->prj[i].pos.x].pt = 0;
+			dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y]
+				[(int)dm->prj[i].pos.x].b = 1;
+		}
+		ft_bzero(&dm->prj[i], sizeof(t_sprite));
+		return (1);
+	}
+	return (0);
+}
+
+/*
+**	Second parameter is which projectile to handle
+**	Third parameter is used as id for enemy sprites
+*/
+
+void	check_hit(t_doom *dm, int i, int x)
+{
+	while (++x < 9)
+	{
+		if ((tri_pythagor(dm->prj[i].pos, dm->spr[x].pos)) < 0.5)
+		{
+			if (dm->spr[x].hp == 1)
+			{
+				dm->spr[x].hp = 0;
+				Mix_PlayChannel(-1, dm->mondeath, 0);
+				ft_bzero(&dm->prj[i], sizeof(t_sprite));
+				ft_bzero(&dm->spr[x], sizeof(t_sprite));
+				return ;
+			}
+			else if (dm->spr[x].hp > 1)
+			{
+				dm->spr[x].hp -= 1;
+				ft_bzero(&dm->prj[i], sizeof(t_sprite));
+				Mix_PlayChannel(-1, dm->ishit, 0);
+				return ;
+			}
+		}
+		if (check_hit2(dm, i))
+			return ;
+	}
+}
+
 /*
 ** Second parameter is which projectile to handle
 */
+
 void	player_shooting(t_doom *dm, int i)
 {
 	if (dm->shooting && dm->ani == 1 && dm->frm == 2)
@@ -39,50 +92,45 @@ void	player_shooting(t_doom *dm, int i)
 	}
 }
 
-void	check_hit(t_doom *dm, int i, int x)
+void	foe_shooting2(t_doom *dm, t_sprite *prj)
 {
-	while (++x < 9)
+	if (!dm->iframe && dm->invincible != 4)
 	{
-		if ((tri_pythagor(dm->prj[i].pos, dm->spr[x].pos)) < 0.5)
-		{
-			if (dm->spr[x].hp == 1)
-			{
-				dm->spr[x].hp = 0;
-				Mix_PlayChannel(-1, dm->mondeath, 0);
-				//printf("killed enemy\n");
-				ft_bzero(&dm->prj[i], sizeof(t_sprite));
-				ft_bzero(&dm->spr[x], sizeof(t_sprite));
-				return ;
-			}
-			else if (dm->spr[x].hp > 1)
-			{
-				dm->spr[x].hp -= 1;
-				//printf("hit enemy\n");
-				ft_bzero(&dm->prj[i], sizeof(t_sprite));
-				Mix_PlayChannel(-1, dm->ishit, 0);
-				return ;
-			}
-		}
-		if (dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b > 1)
-		{
-			if (dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b == 6)
-			{
-				Mix_PlayChannel(-1, dm->windowbrk, 0);
-				dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].pt = 0;
-				dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b = 1;
-			}
-			//printf("hit wall\n");
-			ft_bzero(&dm->prj[i], sizeof(t_sprite));
-			return ;
-		}
+		dm->hp -= 1;
+		dm->iframe = 50;
 	}
+	ft_bzero(prj, sizeof(t_sprite));
+}
+
+void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
+{
+	if (spr->move == 's')
+	{
+		prj->mov = (t_vector){.z = spr->dir.z * -0.2,
+			.y = spr->dir.y * -0.2, .x = spr->dir.x * -0.2};
+		prj->pos.z = spr->pos.z + (prj->mov.z * 2);
+		prj->pos.y = spr->pos.y + (prj->mov.y * 2);
+		prj->pos.x = spr->pos.x + (prj->mov.x * 2);
+		prj->move = 'm';
+	}
+	if (prj->move == 'm')
+	{
+		prj->pos.z += prj->mov.z;
+		prj->pos.y += prj->mov.y;
+		prj->pos.x += prj->mov.x;
+	}
+	if (prj->move == 'm' && prj->dist < 0.6)
+		foe_shooting2(dm, prj);
+	if (prj->move == 'm' && dm->area[(int)prj->pos.z][(int)prj->pos.y]
+		[(int)prj->pos.x].b > 1)
+		ft_bzero(prj, sizeof(t_sprite));
 }
 
 /*
-** Second parameter is which projectile to handle
-** Third parameter is which sprite that's firing the projectile
+** Second parameter is which projectile to handle/////////////NOT USED?
 */
-void	ai_shooting(t_doom *dm, int i)
+
+/*void	ai_shooting(t_doom *dm, int i)
 {
 	if (dm->spr[i].move == 's' && dm->spr[i].frame == 0)
 	{
@@ -111,6 +159,7 @@ void	ai_shooting(t_doom *dm, int i)
 		}
 		ft_bzero(&dm->prj[i], sizeof(t_sprite));
 	}
-	if (dm->prj[i].move == 'm' && dm->area[(int)dm->prj[i].pos.z][(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b > 1)
+	if (dm->prj[i].move == 'm' && dm->area[(int)dm->prj[i].pos.z]
+		[(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b > 1)
 		ft_bzero(&dm->prj[i], sizeof(t_sprite));
-}
+}*/

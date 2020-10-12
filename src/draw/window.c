@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 13:21:56 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 13:09:44 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 13:40:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ext_raytwo(t_doom *dm)
 
 void	ext_ray(t_doom *dm)
 {
+	dm->winarr[dm->winw * dm->y + dm->x] = dm->walldist;
 	ext_dda(dm);
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) /
@@ -98,5 +99,6 @@ void	ext_ray(t_doom *dm)
 	dm->lineh = (dm->winh / dm->walldist);
 	side_check(dm);
 	dm->rcol = dm->col;
+	dm->window[dm->winw * dm->y + dm->x] = dm->rcol;
 	ext_raytwo(dm);
 }

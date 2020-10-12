@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foe_passive.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 14:11:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/02 12:10:26 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 14:35:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 **	Passive
 **	'x' -stand still
 **	'm' -moving
+**	printf("%d Cycle %d of %d type %c\n", i, frm[i], cycle[i], spr->move);
 */
 
 void	foe_passive_cycle(t_doom *dm, t_sprite *spr, int i)
@@ -38,7 +39,7 @@ void	foe_passive_cycle(t_doom *dm, t_sprite *spr, int i)
 		cycle[i] = dm->rng % 400 + 70;
 	}
 	if (frm[i])
-		return;
+		return ;
 	if (dm->rng % 100 > 77)
 		spr->mov = (t_vector){.z = 0, .y = 0, .x = 0};
 	else if (dm->rng % 100 > 90)

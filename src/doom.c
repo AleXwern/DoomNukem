@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/02 13:35:28 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/07 13:39:00 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
-
-#include <stdio.h>
 
 void	error_out(char *msg, t_doom *dm)
 {
@@ -100,7 +98,7 @@ int		main(int ac, char **av)
 	dm->img = init_image(dm);
 	dm->spw = (t_vector){.x = 2.51, .y = 2.51, .z = 2.5};
 	comp_map(dm);
-	comp_gfx(dm, 0);
+	comp_gfx(dm);
 	setup(dm);
 	return (0);
 }

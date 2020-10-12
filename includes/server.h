@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 15:39:58 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/28 13:40:33 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:08:03 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ typedef struct	s_server
 	int			id;
 	int			stop;
 }				t_server;
+
+void			kill_extra(t_server *srv);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/09/28 13:11:47 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/06 14:22:53 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	draw_hud(t_doom *dm)
 	{
 		draw_pgfx_sc(dm, dm->gfx[36], (int[6]){(dm->winh - 78), 20, 272, 380,
 			0, 0}, 0.2);
-		draw_gun(dm);
+		if (!dm->reloading)
+			draw_gun(dm);
+		else
+			reloading_gun(dm);
 		draw_ammo(dm);
 		draw_gfx(dm, dm->gfx[25], (int)(dm->winw * 0.5 - 25), (int)(dm->winh
 			* 0.5) - 25);
@@ -33,36 +36,31 @@ void	draw_hud(t_doom *dm)
 
 void	draw_gun(t_doom *dm)
 {
-	if (!dm->reloading)
+	dm->gfx[27].x = 160 * dm->ani;
+	if (dm->winw > 1150)
+		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320),
+			(int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
+	else
+		draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320),
+			(int)(dm->winw * 0.5 - 10), 160, 160, 0, 0}, 2);
+	if (dm->shooting)
 	{
-		dm->gfx[27].x = 160 * dm->ani;
-		if (dm->winw > 1150)
-			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320),
-				(int)(dm->winw * 0.5 + 80), 160, 160, 0, 0}, 2);
-		else
-			draw_pgfx_sc(dm, dm->gfx[27], (int[6]){(dm->winh - 320),
-				(int)(dm->winw * 0.5 - 10), 160, 160, 0, 0}, 2);
-		if (dm->shooting)
+		dm->frm++;
+		if (dm->ani == 1 && dm->frm == 2)
+			Mix_PlayChannel(-1, dm->gunshot, 0);
+		if (dm->frm >= 3)
 		{
-			dm->frm++;
-			if (dm->ani == 1 && dm->frm == 2)
-				Mix_PlayChannel(-1, dm->gunshot, 0);
-			if (dm->frm >= 3)
+			if (dm->ani == 5)
 			{
-				if (dm->ani == 5)
-				{
-					dm->ani = 0;
-					dm->shooting = 0;
-					dm->magazine--;
-				}
-				else
-					dm->ani++;
-				dm->frm = 0;
+				dm->ani = 0;
+				dm->shooting = 0;
+				dm->magazine--;
 			}
+			else
+				dm->ani++;
+			dm->frm = 0;
 		}
 	}
-	if (dm->reloading)
-		reloading_gun(dm);
 }
 
 void	reloading_gun(t_doom *dm)

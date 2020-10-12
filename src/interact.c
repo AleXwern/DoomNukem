@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/09/30 12:48:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 13:36:27 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
-
-#include <stdio.h>
 
 int		get_warpdest(t_doom *dm, t_vector pos, t_vector warp)
 {
@@ -56,22 +54,6 @@ int		get_stairdest(t_doom *dm, int obj, t_vector pos, t_vector stair)
 	return (1);
 }
 
-void	get_doortype(t_doom *dm, t_vector pos, t_vector door, t_block blk)
-{
-	t_vector	relative;
-
-	if (blk.pt || blk.b != 5)
-		return ;
-	relative.x = round(pos.x - door.x);
-	relative.y = round(pos.y - door.y);
-	if (relative.y != 0 && relative.x != 0)
-		return ;
-	if (relative.y != 0)
-		dm->area[(int)dm->pos.z][(int)door.y][(int)door.x].pt = 5;
-	else
-		dm->area[(int)dm->pos.z][(int)door.y][(int)door.x].pt = 3;
-}
-
 void	lab_move(t_doom *dm, int obj, t_vector stair)
 {
 	if (!get_stairdest(dm, (obj - 3.5) * 2, dm->pos, stair))
@@ -80,32 +62,30 @@ void	lab_move(t_doom *dm, int obj, t_vector stair)
 		error_out(LAB_OUT, dm);
 }
 
-void	slide_door(t_doom *dm)
+void	interact2(t_doom *dm, t_block *blk)
 {
-	if (dm->slidedoor == 'o')
+	if (blk->b == 5)
 	{
-		dm->slideblock->pln = dm->doorani;
-		dm->doorfrm++;
-		if (dm->doorfrm == 4)
+		if (blk->pln == 15 && dm->keycard && dm->slidedoor == 'x')
 		{
-			dm->doorani--;
-			dm->doorfrm = 0;
+			dm->slidedoor = 'o';
+			dm->slideblock = blk;
+			dm->doorani = 15;
+			blk->meta = 6;
+			Mix_PlayChannel(-1, dm->doorsliding, 0);
 		}
-		if (dm->doorani == 1)
-			dm->slidedoor = 'x';
-	}
-	else if (dm->slidedoor == 'c')
-	{
-		dm->slideblock->pln = dm->doorani;
-		dm->doorfrm++;
-		if (dm->doorfrm == 4)
+		else if (!dm->keycard)
+			Mix_PlayChannel(-1, dm->doorknob, 0);
+		else if (blk->pln <= 2 && dm->keycard && dm->slidedoor == 'x')
 		{
-			dm->doorani++;
-			dm->doorfrm = 0;
+			dm->slidedoor = 'c';
+			dm->slideblock = blk;
+			dm->doorani = 2;
+			blk->meta = 5;
+			Mix_PlayChannel(-1, dm->doorsliding, 0);
 		}
-		if (dm->doorani == 16)
-			dm->slidedoor = 'x';
 	}
+	dm->cycle(dm);
 }
 
 int		interact(t_doom *dm)
@@ -126,32 +106,12 @@ int		interact(t_doom *dm)
 	get_doortype(dm, dm->pos, tarpos, *blk);
 	if (blk->b == 3 || blk->b == 4)
 		lab_move(dm, blk->b, tarpos);
-	else if (blk->b == 5 && blk->pln == 15
-		&& dm->keycard && dm->slidedoor == 'x')
-	{
-		dm->slidedoor = 'o';
-		dm->slideblock = blk;
-		dm->doorani = 15;
-		blk->meta = 6;
-		Mix_PlayChannel(-1, dm->doorsliding, 0);
-	}
-	else if (blk->b == 5 && !dm->keycard)
-		Mix_PlayChannel(-1, dm->doorknob, 0);
-	else if (blk->b == 5 && blk->pln <= 2
-		&& dm->keycard && dm->slidedoor == 'x')
-	{
-		dm->slidedoor = 'c';
-		dm->slideblock = blk;
-		dm->doorani = 2;
-		blk->meta = 5;
-		Mix_PlayChannel(-1, dm->doorsliding, 0);
-	}
+	else if (blk->b == 5 || blk->b == 0)
+		interact2(dm, blk);
 	else if (blk->b == 6)
 	{
 		Mix_PlayChannel(-1, dm->teleport, 0);
 		get_warpdest(dm, dm->pos, tarpos);
 	}
-	if (blk->b == 5 || blk->b == 0)
-		dm->cycle(dm);
 	return (0);
 }

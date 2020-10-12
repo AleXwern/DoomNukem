@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/04 22:56:03 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/07 13:38:08 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 
 # include "doom.h"
 
+/*
+** When the program exists, or in few cases needs to return feedback because
+** of failed action, it'll always give some form of feedback about what
+** caused program to exit in those cases.
+** The program will ALWAYS exit through error_out function located in doom.c.
+*/
 # define G_ERROR	"General error happened. Exiting program."
 # define B_ARG		"Error: Bad argument."
 # define USAGE		"Usage:	./doomnukem"
@@ -40,7 +46,7 @@
 # define LOD_ERROR	"Could not load the level"
 # define VOID_OVER	"You fell off the world. Game over!"
 # define NET_ERROR	"Could not start SDLNet."
-# define CON_ERROR	"There was and issue with server connection!"
+# define CON_ERROR	"There was an issue with server connection!"
 
 # define HIT_OPP	" dealt damage to "
 # define CHA_OPP	" charged at "
@@ -55,7 +61,6 @@
 */
 # define WINX		1080
 # define WINY		720
-# define MAXAGGRO	999999
 # define GFXCOUNT	43
 # define THREADS	6
 # define BUFFER		6
@@ -65,17 +70,21 @@
 # define DFRAME		35
 # define PCOLL		0.2
 # define OP			12
-# define IP			"10.13.1.1"
 # define BACKS		111
 # define FRONTS		0
 # define LEFTS		37
 # define RIGHTS		74
 # ifdef __APPLE__
+/*
+** Only include the OGG file in the final repo.
+*/
 #  define MUSIC		"Audio/Music/str4E.ogg"
+#  define IP		"10.13.1.1"
 # elif _WIN64
 /*
 ** Missing some dll file so I'll just use the massive wav file for now.
 */
+#  define IP		"192.168.1.16"
 #  define MUSIC		"Audio/Music/str4E.wav"
 # endif
 /*
@@ -87,6 +96,7 @@
 ** Keycodes - SDL defines by platform, ours is to fit old system
 ** and flat laziness not to replace the old ones + there are few
 ** platform specific keys we just standardized.
+** Don't use SDL_SCANCODE for checks as it's the same as KEY.
 */
 # define ESC		SDL_SCANCODE_ESCAPE
 # define KEY_ONE	SDL_SCANCODE_1
@@ -155,6 +165,9 @@
 
 /*
 ** Colors
+** DARKEN colors are to be used as (color >> X) & DARKEN[X] where X is the value on definition name.
+** 32-bit colors have alpha channel but we are going full retro feeling and using magenta as
+** color-to-be-ignored value.
 */
 # define COLOR_RED		16711680
 # define COLOR_GREEN	65280

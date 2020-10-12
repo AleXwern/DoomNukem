@@ -6,22 +6,12 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/01 14:43:42 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/07 13:40:56 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
-
-void	destroy_gfx(t_doom *dm, int i)
-{
-	while (++i < dm->gfxcount)
-	{
-		if (dm->gfx[i].wid > 0)
-			free(dm->gfx[i].data);
-	}
-	free(dm->gfx);
-}
 
 t_img	init_image(t_doom *dm)
 {
@@ -37,7 +27,7 @@ t_img	init_image(t_doom *dm)
 	return (image);
 }
 
-void	comp_spritesheets(t_doom *dm, char *bpath, int i)
+void	comp_spritesheets(t_doom *dm, char *bpath)
 {
 	dm->gfx[25] = read_bmp(ft_strjoin(bpath, "hud/crosshair.bmp"), 0, 0);
 	dm->gfx[27] = read_bmp(ft_strjoin(bpath, "hud/gun.bmp"), 0, 0);
@@ -66,7 +56,7 @@ void	comp_spritesheets(t_doom *dm, char *bpath, int i)
 **	brownguy 22
 */
 
-void	comp_foe(t_doom *dm, char *bpath, int i)
+void	comp_foe(t_doom *dm, char *bpath)
 {
 	dm->gfx[16] = read_bmp(ft_strjoin(bpath, "foe/foe1.bmp"), 0, 0);
 	dm->gfx[17] = read_bmp(ft_strjoin(bpath, "foe/foe2.bmp"), 0, 0);
@@ -77,10 +67,10 @@ void	comp_foe(t_doom *dm, char *bpath, int i)
 	dm->gfx[22] = read_bmp(ft_strjoin(bpath, "foe/foe7.bmp"), 0, 0);
 	dm->gfx[23] = read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0, 0);//not in use
 	dm->gfx[24] = read_bmp(ft_strjoin(bpath, "foe/projectile.bmp"), 0, 0);
-	comp_spritesheets(dm, bpath, i);
+	comp_spritesheets(dm, bpath);
 }
 
-void	comp_hud_gfx(t_doom *dm, char *bpath, int i)
+void	comp_hud_gfx(t_doom *dm, char *bpath)
 {
 	dm->gfx[7] = read_bmp(ft_strjoin(bpath, "misc/spawn.bmp"), 0, 0);
 	dm->gfx[8] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
@@ -91,10 +81,10 @@ void	comp_hud_gfx(t_doom *dm, char *bpath, int i)
 	dm->gfx[13] = read_bmp(ft_strjoin(bpath, "hud/pcturn.bmp"), 0, 0);
 	dm->gfx[14] = read_bmp(ft_strjoin(bpath, "hud/pcsel.bmp"), 0, 0);
 	dm->gfx[15] = read_bmp(ft_strjoin(bpath, "hud/mainmenu.bmp"), 0, 0);
-	comp_foe(dm, bpath, i);
+	comp_foe(dm, bpath);
 }
 
-void	comp_gfx(t_doom *dm, int i)
+void	comp_gfx(t_doom *dm)
 {
 	char	*bpath;
 	char	*path;
@@ -117,7 +107,7 @@ void	comp_gfx(t_doom *dm, int i)
 		"/door.bmp", ""), 0, 0);
 	dm->gfx[6] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,
 		"/glass.bmp", ""), 0, 0);
-	comp_hud_gfx(dm, bpath, i);
+	comp_hud_gfx(dm, bpath);
 	dm->tile -= 48;
 	SDL_free(path);
 	free(bpath);

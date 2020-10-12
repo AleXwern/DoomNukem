@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:15:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 12:55:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:30:52 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 
 void	draw_menu(t_doom *dm, int x, int y, int cur)
 {
-	int		gy;
-	int		gx;
+	int	gy;
+	int	gx;
 
 	gy = -1;
 	while (++gy < dm->winh)
