@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:18:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:27:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:23:03 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
-double	get_coll_down(t_block blk)
-{
-	if (blk.pt <= 1)
-		return (0);
-	else if (blk.pt == 2)
-		return (1 - blk.pln / 15.0);
-	return (0);
-}
 
 int		ver_move(t_block blk, t_doom *dm)
 {
@@ -88,6 +79,22 @@ int		check_ver_ucoll(t_block blk, t_doom *dm)
 		return (ver_move(blk, dm));
 }
 
+void	gravity2(t_doom *dm)
+{
+	dm->airbrn = 0;
+	dm->gravity.z = 0;
+	if (dm->pos.z - (int)dm->pos.z > 0.4 && dm->area[(int)(dm->pos.z +
+			0.6)][(int)(dm->pos.y)][(int)dm->pos.x].pt == 2)
+		dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
+			(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x]) + 0.4;
+	else if (dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)]
+			[(int)dm->pos.x].pt == 2)
+		dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
+		(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]) - 0.6;
+	else
+		dm->pos.z = (int)dm->pos.z + 0.4;
+}
+
 void	gravity(t_doom *dm)
 {
 	if (dm->key.two || dm->isgravity || dm->ismenu || !dm->airbrn)
@@ -106,20 +113,7 @@ void	gravity(t_doom *dm)
 			[(int)(dm->pos.y)][(int)dm->pos.x], dm))
 		dm->pos.z += dm->gravity.z;
 	else
-	{
-		dm->airbrn = 0;
-		dm->gravity.z = 0;
-		if (dm->pos.z - (int)dm->pos.z > 0.4 && dm->area[(int)(dm->pos.z +
-				0.6)][(int)(dm->pos.y)][(int)dm->pos.x].pt == 2)
-			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
-				(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x]) + 0.4;
-		else if (dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)]
-				[(int)dm->pos.x].pt == 2)
-			dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
-			(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]) - 0.6;
-		else
-			dm->pos.z = (int)dm->pos.z + 0.4;
-	}
+		gravity2(dm);
 	dm->gravity.z += dm->fallsp.z;
 	if (dm->gravity.z > 0.17 * (30.0 / dm->buffer / dm->prefps))
 		dm->gravity.z = 0.17 * (30.0 / dm->buffer / dm->prefps);

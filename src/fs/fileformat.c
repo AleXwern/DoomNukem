@@ -3,63 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 14:11:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:04:01 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void		validate_flr(t_doom *dm, int y, int x, t_block blk)
-{
-	while (++y < dm->height)
-	{
-		x = -1;
-		while (++x < dm->width)
-			dm->area[dm->mxflr - 1][y][x] = blk;
-	}
-}
-
-void		validate_map(t_doom *dm, int i, int a, t_block blk)
-{
-	while (++a < dm->mxflr)
-	{
-		i = -1;
-		while (++i < dm->width)
-		{
-			dm->area[a][0][i] = blk;
-			dm->area[a][dm->height - 1][i] = blk;
-		}
-		i = -1;
-		while (++i < dm->height)
-		{
-			dm->area[a][i][0] = blk;
-			dm->area[a][i][dm->width - 1] = blk;
-		}
-	}
-	validate_flr(dm, -1, -1, blk);
-}
-
-void		fill_area(t_doom *dm, int y, int x)
-{
-	while (++x < 25)
-		dm->area[dm->flr][y][x].b = 2;
-}
-
-int			templen(char **temp)
-{
-	int		i;
-
-	i = 0;
-	while (temp[i])
-		i++;
-	return (i);
-}
-
-void		comp_block(t_doom *dm, char **temp, int x, int y)
+void	comp_block(t_doom *dm, char **temp, int x, int y)
 {
 	dm->area[dm->flr][y][x].b = ft_atoi(temp[0]);
 	dm->area[dm->flr][y][x].lgt = ft_atoi(temp[1]);
@@ -78,7 +32,7 @@ void		comp_block(t_doom *dm, char **temp, int x, int y)
 	free_memory(temp);
 }
 
-int			get_next_matrix(t_doom *dm, char **temp, int x, int y)
+int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 {
 	int		wid;
 
@@ -100,7 +54,13 @@ int			get_next_matrix(t_doom *dm, char **temp, int x, int y)
 	return (1);
 }
 
-void		fileformat(int fd, t_doom *dm, int y)
+void	fill_area(t_doom *dm, int y, int x)
+{
+	while (++x < 25)
+		dm->area[dm->flr][y][x].b = 2;
+}
+
+void	fileformat(int fd, t_doom *dm, int y)
 {
 	char	**temp;
 	char	*gnl;
@@ -127,7 +87,7 @@ void		fileformat(int fd, t_doom *dm, int y)
 		error_out(FIL_ERROR, dm);
 }
 
-void		comp_map(t_doom *dm)
+void	comp_map(t_doom *dm)
 {
 	int		fd;
 	char	*fpath;

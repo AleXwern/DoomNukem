@@ -98,7 +98,7 @@ t_gfx	read_bmp(char *file, int fd, int bread)
 	t_gfx		gfx;
 
 	ft_bzero(&gfx, sizeof(t_gfx));
-	fd = open(file, O_RDONLY);
+	fd = open(file, O_RDONLY | O_BINARY);
 	free(file);
 	if (fd == -1)
 		return (gfx);

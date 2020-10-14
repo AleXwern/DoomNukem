@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 12:43:48 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:00:43 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/07 14:23:07 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
+double	get_coll_down(t_block blk)
+{
+	if (blk.pt <= 1)
+		return (0);
+	else if (blk.pt == 2)
+		return (1 - blk.pln / 15.0);
+	return (0);
+}
 
 void	suffrocate(t_doom *dm, t_block blk, t_vector bpos)
 {

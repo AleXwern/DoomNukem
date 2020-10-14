@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/07 16:10:02 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/14 12:38:25 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,24 +17,25 @@ OEXT	=	.o
 LEXT	= 	.a
 # Remember -Wall -Wextra -Werror -> -O2 inclusion is debatable since it was a thing back in 90s
 FLG		= 	-O2
-SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c \
+SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c door.c \
 			util.c menu.c menu2.c gfx_draw.c posteff.c defaults.c \
 			set_variables.c misc_alloc.c
 KEYFILE =	key_editor.c key_editor_more.c key_game_hold.c key_game_more.c \
 			key_game_release.c key_in_game_menu.c key_main_menu.c key_state.c
 DRAWEXT =	draw_hud.c
-FILESYS =	fileformat.c save_level.c
-EDTFILE =	editor.c render_editor.c
+FILESYS =	fileformat.c fileformat2.c save_level.c
+EDTFILE =	editor.c render_editor.c render_editor2.c
 ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c window.c draw_more.c
-RNDFILE =	plane_z.c plane_y.c plane_x.c render.c slope_z.c \
-			part_dda.c slope_dda.c
-GRAFILE	=	gravity.c move.c collision.c
+RNDFILE =	plane_z.c plane_y.c plane_x.c render.c render2.c render3.c \
+			slope_z.c part_dda.c slope_dda.c
+GRAFILE	=	gravity.c move.c move2.c collision.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
-SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c pokemon_ai.c \
-			foe_ai.c foe_passive.c foe_status.c plr_status.c
+SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c \
+			foe_ai.c foe_passive.c foe_status.c plr_status.c \
+			draw_projectiles.c draw_objects.c
 CLIFILE =	client.c
 SRVFILE	=	server.c server_more.c
 SRC		=	$(addprefix ./src/,$(SRCFILE)) \
