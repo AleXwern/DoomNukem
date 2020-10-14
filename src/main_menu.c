@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 13:23:46 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 13:22:29 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:22:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	draw_main_menu2(t_doom *dm, Uint32 col, Uint32 gy, Uint32 gx)
 
 void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 {
-	Uint32	gy;
-	Uint32	gx;
+	int		gy;
+	int		gx;
 	Uint32	col;
 
 	gy = -1;
@@ -40,10 +40,8 @@ void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 			if (col == 0xffff00ff || col == 0x00ff00ff)
 				x += 0;
 			else if (gy > (cur * dm->winh / 7) + dm->winh / 4 &&
-				gy < ((cur + 1) * dm->winh / 7) + dm->winh / 4)
-			{
+					gy < ((cur + 1) * dm->winh / 7) + dm->winh / 4)
 				draw_main_menu2(dm, col, gy, gx);
-			}
 			else
 				dm->img.data[dm->winw * gy + gx] = col;
 		}

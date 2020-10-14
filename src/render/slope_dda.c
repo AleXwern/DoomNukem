@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:26:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 12:38:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:26:12 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,21 @@ int		cross_pln(t_vector *ray, t_vector *plane, t_vector *i, double s)
 	return (1);
 }
 
-double	create_plane_yz(t_vector rayd, t_vector rmap, t_doom *dm)
+void	intersect(t_vector *plane, t_vector *ray, t_vector *p)
+{
+	double	d;
+	double	t;
+
+	d = dot_prd(plane[0], (t_vector){.z = -plane[1].z, .y = -plane[1].y, .x = -plane[1].x});
+	t = -(d + dot_prd(ray[0], plane[1]) / dot_prd(ray[1], plane[1]));
+	*p = (t_vector){
+		.z = ray[0].z + t * ray[1].z,
+		.y = ray[0].y + t * ray[1].y,
+		.x = ray[0].x + t * ray[1].x,
+			};
+}
+
+double	create_plane_yz(t_vector rayd, t_vector rmap, t_doom *dm, int side)
 {
 	t_vector	plane[2];
 	t_vector	point;
@@ -52,11 +66,21 @@ double	create_plane_yz(t_vector rayd, t_vector rmap, t_doom *dm)
 	};
 	ray[0] = (t_vector){.z = rmap.z - (int)rmap.z, .y = rmap.y - (int)rmap.y, .x = rmap.x - (int)rmap.x};
 	ray[1] = rayd;
-	if (cross_pln(ray, plane, &point, 0) == 1)
+	if (side == 1)
+		ray[0].y = 1;
+	intersect(plane, ray, &point);
+	//if (dm->x == 500 && dm->y == 360)
+	//	printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.z);
+	if (point.z >= 0 && point.z <= 1)
+		return (point.z);
+	if (dm->x == 500 && dm->y == 360)
+		printf("Return def\n");
+	return (1);
+	/*if (cross_pln(ray, plane, &point, 0) == 1)
 	{
 		if (dm->x == 500 && dm->y == 360)
 			printf("Cross point %f %f %f\n", point.z, point.y, point.x);
 		return (point.z);
 	}
-	return (1);
+	return (1);*/
 }

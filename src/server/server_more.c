@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_more.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:14:39 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/06 15:17:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:43:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,13 @@ void	kill_extra(t_server *srv)
 		return ;
 	ft_putendl("Killed extra connection");
 	SDLNet_TCP_Close(ksock);
+}
+
+void	check_args(t_server *srv, char *av)
+{
+	int		idle;
+
+	idle = ft_atoi(av);
+	if (idle > 0)
+		srv->maxidle = idle;
 }

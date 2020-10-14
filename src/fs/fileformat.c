@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 15:04:01 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 12:52:58 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
 
 void	fill_area(t_doom *dm, int y, int x)
 {
+	if (!(dm->area[dm->flr][y] = (t_block*)ft_memalloc(sizeof(t_block) * 25)))
+		error_out(MEM_ERROR, dm);
 	while (++x < 25)
 		dm->area[dm->flr][y][x].b = 2;
+	dm->height = y;
 }
 
 void	fileformat(int fd, t_doom *dm, int y)
@@ -68,7 +71,7 @@ void	fileformat(int fd, t_doom *dm, int y)
 	while (get_next_line(fd, &gnl) == 1)
 	{
 		if (y > 25)
-			error_out(FIL_ERROR, dm);
+			break;
 		temp = ft_strsplit(gnl, ' ');
 		free(gnl);
 		if (get_next_matrix(dm, temp, 0, y) == 0)

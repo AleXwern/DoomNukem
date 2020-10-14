@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:18:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 14:23:03 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:53:39 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
+#define HEIGHT 0.3
 
 int		ver_move(t_block blk, t_doom *dm)
 {
@@ -46,7 +48,7 @@ int		check_ver_coll(t_block blk, t_doom *dm)
 		return (1);
 	else if (blk.pt == 2)
 	{
-		hgt = (int)(dm->pos.z + 0.6) + (1 - blk.pln / 15.0) - 0.598;
+		hgt = (int)(dm->pos.z + HEIGHT) + (1 - blk.pln / 15.0) - HEIGHT;
 		if (hgt > dm->pos.z + dm->gravity.z)
 			return (1);
 		return (0);
@@ -83,16 +85,16 @@ void	gravity2(t_doom *dm)
 {
 	dm->airbrn = 0;
 	dm->gravity.z = 0;
-	if (dm->pos.z - (int)dm->pos.z > 0.4 && dm->area[(int)(dm->pos.z +
-			0.6)][(int)(dm->pos.y)][(int)dm->pos.x].pt == 2)
+	if (dm->pos.z - (int)dm->pos.z > (1 - HEIGHT) && dm->area[(int)(dm->pos.z +
+			HEIGHT)][(int)(dm->pos.y)][(int)dm->pos.x].pt == 2)
 		dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
-			(dm->pos.z + 0.6)][(int)(dm->pos.y)][(int)dm->pos.x]) + 0.4;
+		(dm->pos.z + HEIGHT)][(int)(dm->pos.y)][(int)dm->pos.x]) + (1 - HEIGHT);
 	else if (dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)]
 			[(int)dm->pos.x].pt == 2)
 		dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
-		(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]) - 0.6;
+		(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]) - HEIGHT;
 	else
-		dm->pos.z = (int)dm->pos.z + 0.4;
+		dm->pos.z = (int)dm->pos.z + (1 - HEIGHT);
 }
 
 void	gravity(t_doom *dm)
@@ -109,7 +111,7 @@ void	gravity(t_doom *dm)
 				[(int)(dm->pos.y)][(int)dm->pos.x], dm))
 			dm->pos.z += dm->gravity.z;
 	}
-	else if (check_ver_coll(dm->area[(int)(dm->pos.z + 0.6)]
+	else if (check_ver_coll(dm->area[(int)(dm->pos.z + HEIGHT)]
 			[(int)(dm->pos.y)][(int)dm->pos.x], dm))
 		dm->pos.z += dm->gravity.z;
 	else

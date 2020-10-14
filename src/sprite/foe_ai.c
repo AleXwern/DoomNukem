@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foe_ai.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 13:50:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 17:09:22 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 14:07:40 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 
 	foe_dir(dm, spr, 0);
 	foe_mode(dm, spr);
-	foe_passive_cycle(dm, spr, i);
+	foe_passive_cycle(dm, spr, i - 4);
 	spr->frame++;
 	if (spr->frame >= 32)
 		spr->frame = 0;

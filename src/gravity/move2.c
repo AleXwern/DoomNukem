@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:24:42 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/07 14:41:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:25:24 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int		check_sprite_dist(t_doom *dm, double mov, int i)
 			npos.x -= dm->spr[i].dir.x * mov;
 			npos.y -= dm->spr[i].dir.y * mov;
 			if (check_hor_coll(dm->area[(int)npos.z][(int)(npos.y)]
-				[(int)npos.x], dm, mov, 'x'))
+				[(int)npos.x], dm, 'x'))
 				dm->pos.x = npos.x;
 			if (check_hor_coll(dm->area[(int)npos.z][(int)(npos.y)]
-				[(int)npos.x], dm, mov, 'y'))
+				[(int)npos.x], dm, 'y'))
 				dm->pos.y = npos.y;
 		}
 	}
@@ -65,10 +65,10 @@ int		check_yx(char dir, t_block tblk, t_doom *dm)
 void	strafe2(t_doom *dm, double mov)
 {
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y +
-		dm->gravity.y)][(int)dm->pos.x], dm, mov, 'y'))
+		dm->gravity.y)][(int)dm->pos.x], dm, 'y'))
 		dm->pos.y += dm->gravity.y;
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y]
-		[(int)(dm->pos.x + dm->gravity.x)], dm, mov, 'x'))
+		[(int)(dm->pos.x + dm->gravity.x)], dm, 'x'))
 		dm->pos.x += dm->gravity.x;
 	check_sprite_dist(dm, mov, -1);
 	dm->airbrn = 1;

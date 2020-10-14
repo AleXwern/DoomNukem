@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:16:01 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 12:45:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:15:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/value.h"
 #include "../../includes/bmp.h"
 
-int		read_to_pixdata(t_bmphead bmp, int bread, int fd)
+int		read_to_pixdata(t_bmphead bmp, uint32_t bread, int fd)
 {
 	int		toread;
 	char	dummy[2000];

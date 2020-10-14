@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 14:59:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 12:00:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:13:09 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				send_pos(t_doom *dm)
 	data = (t_bulk){.dir = dm->dir, .pos = dm->pos, .hp = dm->hp,
 					.gfx = dm->person + 16, .prj = dm->prj[dm->id].pos};
 	sent = SDLNet_TCP_Send(dm->sock, &data, sizeof(t_bulk));
-	if (sent < sizeof(t_bulk))
+	if (sent < (int)sizeof(t_bulk))
 		buffer++;
 	else
 		buffer = 0;

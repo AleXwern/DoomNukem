@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:19:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 12:19:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:18:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ void	write_int(int num, int fd)
 
 void	write_file(t_doom *dm, int fd, int x, int y)
 {
-	char	c;
-	char	*data;
-
 	while (++y < 25)
 	{
 		x = -1;

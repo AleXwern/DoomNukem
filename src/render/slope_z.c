@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 15:57:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:25:06 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void		slope_dda_xzn(t_doom* dm)
 
 void		slope_dda_xzp(t_doom* dm)
 {
+	int side = dm->side;
+	
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
 	else if (dm->side == 1)
@@ -74,16 +76,15 @@ void		slope_dda_xzp(t_doom* dm)
 		single_loop_z(dm);
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
 		dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) - (int)dm->tmap.x;
-		xz_vect_intersect(dm->rayd, (t_vector){.z = -0.5, .y = -1, .x = 0}, dm);
-		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("RMAP %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
+		//xz_vect_intersect(dm->rayd, (t_vector){.z = -0.5, .y = -1, .x = 0}, dm);
+		//if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+		//	printf("RMAP %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
 		if (dm->rmap2.z > dm->rmap2.y || dm->rmap2.z <= LIMN || dm->rmap2.y >= LIM)
 		{
-			if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-				printf("Suitable point XZP %d\n", dm->side);
+			//if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			//	printf("Suitable point XZP %d\n", dm->side);
 			dm->sided.z += dm->deltad.z;
-			//dm->map.z += dm->stepz * (dm->rmap2.z * (1 - dm->rayd.z));
-			dm->map.z += dm->stepz * create_plane_yz(dm->rayd, dm->rmap1, dm);
+			dm->map.z += dm->stepz * create_plane_yz(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
 			dm->hithalf++;

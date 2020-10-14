@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_editor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 15:30:38 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:18:58 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	draw_level_screen(t_doom *dm, t_editor *le, double x, double y)
 
 void	draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y)
 {
-	int	i;
 	int	sy;
 	int	sx;
 

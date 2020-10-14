@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 15:38:41 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 15:20:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:39:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	send_chunck(t_server *srv)
 	}
 }
 
-void	init_server(t_server *srv)
+void	init_server(t_server *srv, int ac, char **av)
 {
 	ft_bzero(srv, sizeof(t_server));
 	SDLNet_Init();
@@ -97,13 +97,16 @@ void	init_server(t_server *srv)
 		exit(1);
 	if (!(srv->server = SDLNet_TCP_Open(&srv->ip)))
 		exit(2);
+	srv->maxidle = 690;
+	if (ac >= 2)
+		check_args(srv, av[1]);
 }
 
 int		main(int ac, char **av)
 {
 	t_server	srv;
 
-	init_server(&srv);
+	init_server(&srv, ac, av);
 	while (!srv.stop)
 	{
 		if (srv.id > 0)

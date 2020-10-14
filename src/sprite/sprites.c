@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 17:09:15 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:45:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 			14 * dm->spr[i].size / dm->spr[i].dist;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z -
 			dm->min.z)) - 18 * dm->spr[i].size / dm->spr[i].dist;
-		if (i == 8)
-			printf("spr %d %d %d\n", x, y, dm->spr[i].gfx);
 		if (i > 3)
 			foe_ai(dm, &dm->spr[i], (int[2]){y, x}, i);
 		else

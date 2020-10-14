@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:21:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/07 16:21:46 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:32:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	rc_init(t_doom *dm)
 	else
 		dm->walldist = (dm->map.z - dm->pos.z +
 			(1 - dm->stepz) * 0.5) / dm->rayd.z;
+	if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+		printf("%f = (%f - %f + (1 - %d) * 0.5) / %f\n", dm->walldist, dm->map.z, dm->pos.z, dm->stepz, dm->rayd.z);
 	if (dm->hit != 2 && dm->area[(int)dm->map.z]
 		[(int)dm->map.y][(int)dm->map.x].b == 6)
 		dm->wincol = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foe_passive.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 14:11:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 14:35:44 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 14:09:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	foe_passive_cycle(t_doom *dm, t_sprite *spr, int i)
 	if (++frm[i] >= cycle[i])
 	{
 		frm[i] = 0;
-		cycle[i] = dm->rng % 400 + 70;
+		cycle[i] = dm->rng % 300 + 80;
 	}
 	if (frm[i])
 		return ;

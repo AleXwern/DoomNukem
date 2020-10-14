@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/03 14:35:04 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 14:51:45 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:55:23 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
+#define HEIGHT 0.3
 
 int		check_part_walls2(char dir, t_block tblk, t_doom *dm)
 {
@@ -27,7 +29,7 @@ int		check_part_walls2(char dir, t_block tblk, t_doom *dm)
 	return (0);
 }
 
-int		check_part_walls(char dir, t_block tblk, t_doom *dm, double mov)
+int		check_part_walls(char dir, t_block tblk, t_doom *dm)
 {
 	if (tblk.pt < 3 || tblk.pt > 6)
 		return (0);
@@ -56,7 +58,7 @@ int		check_part_walls(char dir, t_block tblk, t_doom *dm, double mov)
 
 int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int plnd)
 {
-	hgt = ((int)dm->pos.z + (1 - blk.pln / 15.0) - 0.6) - dm->pos.z;
+	hgt = ((int)dm->pos.z + (1 - blk.pln / 15.0) - HEIGHT) - dm->pos.z;
 	plnd = blk.pln;
 	blk = dm->area[(int)(dm->pos.z - 0.15)][(int)(dm->pos.y)]
 		[(int)(dm->pos.x)];
@@ -79,7 +81,7 @@ int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int plnd)
 	return (0);
 }
 
-int		check_hor_coll(t_block blk, t_doom *dm, double mov, char dir)
+int		check_hor_coll(t_block blk, t_doom *dm, char dir)
 {
 	if (blk.b <= 1 || (blk.pt == 1 && blk.pln < 6))
 		return (1);
@@ -88,7 +90,7 @@ int		check_hor_coll(t_block blk, t_doom *dm, double mov, char dir)
 	else if (blk.pt == 2)
 		return (check_hor_coll2(blk, dm, 0, 0));
 	else
-		return (check_part_walls(dir, blk, dm, mov));
+		return (check_part_walls(dir, blk, dm));
 	return (0);
 }
 
@@ -110,10 +112,10 @@ void	move_fb(t_doom *dm)
 		dm->gravity.y = -dm->dir.y * mov;
 	}
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y +
-		dm->gravity.y)][(int)dm->pos.x], dm, mov, 'y'))
+		dm->gravity.y)][(int)dm->pos.x], dm, 'y'))
 		dm->pos.y += dm->gravity.y;
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y]
-		[(int)(dm->pos.x + dm->gravity.x)], dm, mov, 'x'))
+		[(int)(dm->pos.x + dm->gravity.x)], dm, 'x'))
 		dm->pos.x += dm->gravity.x;
 	check_sprite_dist(dm, mov, -1);
 	dm->airbrn = 1;

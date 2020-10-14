@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_in_game_menu.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 17:09:54 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:20:23 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	These functions handle keys pressed in the in-game menu.
 */
 
-void	menu_keys_hold_more(int key, t_doom *dm)
+void	menu_keys_hold_more(t_doom *dm)
 {
 	if (dm->cur == 8)
 	{
@@ -54,10 +54,10 @@ void	menu_keys_hold(int key, t_doom *dm)
 		if ((*dm->options[dm->cur]) > (int)dm->maxvalue[dm->cur])
 			(*dm->options[dm->cur]) = (int)dm->maxvalue[dm->cur];
 	}
-	menu_keys_hold_more(key, dm);
+	menu_keys_hold_more(dm);
 }
 
-void	menu_keys_more(int key, t_doom *dm)
+void	menu_keys_more(t_doom *dm)
 {
 	if (dm->cur == 8)
 	{
@@ -92,5 +92,5 @@ void	menu_keys(int key, t_doom *dm)
 		dm->minopt = 0;
 	if (dm->cur - dm->minopt > 9)
 		dm->minopt = dm->cur - 9;
-	menu_keys_more(key, dm);
+	menu_keys_more(dm);
 }
