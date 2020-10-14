@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 13:50:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 14:07:40 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:06:06 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,9 @@ void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 		spr->frame = 0;
 	if (spr->move == 'a' && spr->frame == 0)
 		spr->move = 's';
-	foe_shooting(dm, spr, &dm->prj[i]);
 	foe_move(dm, spr);
 	foe_collision(dm, spr, -1, i);
 	dist = spr->dist * (1.0 - ((fabs(dm->winw / 2.0) / (dm->winw / 2)) / 6));
-	//printf("Spr %d rdist %f adist %f\n", i, spr->dist, dist);
 	draw_sprite_gfx(dm, dm->gfx[spr->gfx],
 		(int[7]){yx[0], yx[1], 37, 28, 0, 0, i}, spr->size / dist);
 }

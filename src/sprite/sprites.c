@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 13:45:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:05:57 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	sprite_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 		yx[0] + g[0] > -1 &&
 		yx[1] + g[1] > -1 &&
 		gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
-		dm->spr[yx[6]].dist < dm->wallarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])])
+		dm->spr[yx[6]].dist < dm->wallarr[dm->winw *
+		(yx[0] + g[0]) + (yx[1] + g[1])])
 	{
 		col = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
 		if (dm->spr[yx[6]].dist >

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 16:21:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:11:23 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,20 @@ void	render(t_doom *dm)
 	draw_sprite(dm, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
-	if (dm->uncrouch)
+	/*if (dm->uncrouch)
 	{
-		if (dm->area[(int)(dm->pos.z - 0.2)][(int)dm->pos.y]
-			[(int)dm->pos.x].b <= 1)
+		printf("uncrouch ON\n");
+		if (!dm->crouching)
 		{
-			dm->crouching = 0;
-			dm->movsp += 0.03;
-			dm->pos.z -= 0.2;
+			printf("was not crouching so unset uncrouch\n");
 			dm->uncrouch = 0;
 		}
-	}
+		else if (dm->area[(int)(dm->pos.z - 0.2)][(int)dm->pos.y]
+			[(int)dm->pos.x].b <= 1)
+		{
+			printf("finally uncrouched\n");
+			reset_crouching(dm);
+		}
+	}*/
 	render2(dm);
 }

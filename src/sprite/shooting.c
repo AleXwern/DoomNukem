@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/07 14:38:26 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:15:45 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,15 @@ void	player_shooting(t_doom *dm, int i)
 
 void	foe_shooting2(t_doom *dm, t_sprite *prj)
 {
-	if (!dm->iframe && dm->invincible != 4)
+	if (prj->move == 'm' && prj->dist < 0.6)
 	{
-		dm->hp -= 1;
-		dm->iframe = 50;
+		if (!dm->iframe && dm->invincible != 4)
+		{
+			dm->hp -= 1;
+			dm->iframe = 50;
+		}
+		ft_bzero(prj, sizeof(t_sprite));
 	}
-	ft_bzero(prj, sizeof(t_sprite));
 }
 
 void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
@@ -115,51 +118,21 @@ void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
 	}
 	if (prj->move == 'm')
 	{
-		prj->pos.z += prj->mov.z;
-		prj->pos.y += prj->mov.y;
-		prj->pos.x += prj->mov.x;
-	}
-	if (prj->move == 'm' && prj->dist < 0.6)
-		foe_shooting2(dm, prj);
-	if (prj->move == 'm' && dm->area[(int)prj->pos.z][(int)prj->pos.y]
-		[(int)prj->pos.x].b > 1)
-		ft_bzero(prj, sizeof(t_sprite));
-}
-
-/*
-** Second parameter is which projectile to handle/////////////NOT USED?
-*/
-
-/*void	ai_shooting(t_doom *dm, int i)
-{
-	if (dm->spr[i].move == 's' && dm->spr[i].frame == 0)
-	{
-		dm->prj[i].gfx = 24;
-		dm->prj[i].mov = (t_vector){.z = dm->spr[i].dir.z * -0.2,
-			.y = dm->spr[i].dir.y * -0.2, .x = dm->spr[i].dir.x * -0.2};
-		dm->prj[i].pos.z = dm->spr[i].pos.z + (dm->prj[i].mov.z * 2);
-		dm->prj[i].pos.y = dm->spr[i].pos.y + (dm->prj[i].mov.y * 2);
-		dm->prj[i].pos.x = dm->spr[i].pos.x + (dm->prj[i].mov.x * 2);
-		dm->prj[i].dir = dm->spr[i].dir;
-		dm->prj[i].size = 5;
-		dm->prj[i].move = 'm';
-	}
-	if (dm->prj[i].move == 'm')
-	{
-		dm->prj[i].pos.z += dm->prj[i].mov.z;
-		dm->prj[i].pos.y += dm->prj[i].mov.y;
-		dm->prj[i].pos.x += dm->prj[i].mov.x;
-	}
-	if (dm->prj[i].move == 'm' && dm->prj[i].dist < 0.6)
-	{
-		if (!dm->iframe && dm->invincible != 4)
+		if ((dm->area[(int)(prj->pos.z + prj->mov.z)][(int)prj->pos.y]
+			[(int)prj->pos.x].b <= 1) && (dm->area[(int)prj->pos.z]
+			[(int)(prj->pos.y + prj->mov.y)][(int)prj->pos.x].b <= 1)
+			&& (dm->area[(int)prj->pos.z]
+			[(int)prj->pos.y][(int)(prj->pos.x + prj->mov.x)].b <= 1))
 		{
-			dm->hp -= 1;
-			dm->iframe = 50;
+			prj->pos.z += prj->mov.z;
+			prj->pos.y += prj->mov.y;
+			prj->pos.x += prj->mov.x;
 		}
-		ft_bzero(&dm->prj[i], sizeof(t_sprite));
+		else
+			ft_bzero(prj, sizeof(t_sprite));
 	}
-	if (dm->prj[i].move == 'm' && dm->area[(int)dm->prj[i].pos.z]
-		[(int)dm->prj[i].pos.y][(int)dm->prj[i].pos.x].b > 1)
-		ft_bzero(&dm->prj[i], sizeof(t_sprite));
-}*/
+	foe_shooting2(dm, prj);
+	/*if (prj->move == 'm' && dm->area[(int)prj->pos.z][(int)prj->pos.y]
+		[(int)prj->pos.x].b > 1)
+		ft_bzero(prj, sizeof(t_sprite));*/
+}

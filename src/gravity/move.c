@@ -5,15 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/03 14:35:04 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 15:55:23 by anystrom         ###   ########.fr       */
+/*   Created: 2020/10/14 16:09:19 by anystrom          #+#    #+#             */
+/*   Updated: 2020/10/14 16:09:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
-#define HEIGHT 0.3
 
 int		check_part_walls2(char dir, t_block tblk, t_doom *dm)
 {
@@ -58,7 +56,7 @@ int		check_part_walls(char dir, t_block tblk, t_doom *dm)
 
 int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int plnd)
 {
-	hgt = ((int)dm->pos.z + (1 - blk.pln / 15.0) - HEIGHT) - dm->pos.z;
+	hgt = ((int)dm->pos.z + (1 - blk.pln / 15.0) - dm->plrhight) - dm->pos.z;
 	plnd = blk.pln;
 	blk = dm->area[(int)(dm->pos.z - 0.15)][(int)(dm->pos.y)]
 		[(int)(dm->pos.x)];

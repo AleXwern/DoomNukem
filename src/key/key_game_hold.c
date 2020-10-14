@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 16:40:46 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:55:41 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,7 @@ void	key_hold2(int key, t_doom *dm)
 			dm->shift = 0;
 	}
 	if (key == KEY_C && !dm->crouching)
-	{
-		printf("started crouching\n");
-		dm->movsp -= 0.03;
-		dm->pos.z += 0.2;
-		dm->crouching = 1;
-	}
+		crouch(dm);
 	if (key == KEY_ONE)
 		dm->key.one = 1;
 	if (key == KEY_TWO)
@@ -67,4 +62,22 @@ int		key_hold(int key, t_doom *dm)
 		dm->key.right = 1;
 	key_hold2(key, dm);
 	return (0);
+}
+
+void	crouch(t_doom *dm)
+{
+	dm->crouching = 1;
+	dm->uncrouch = 0;
+	dm->movsp -= 0.03;
+	dm->plrhight = 0.4;
+	dm->airbrn = 1;
+}
+
+void	reset_crouching(t_doom *dm)
+{
+	dm->crouching = 0;
+	dm->uncrouch = 0;
+	dm->movsp += 0.03;
+	dm->plrhight = 0.6;
+	dm->airbrn = 1;
 }
