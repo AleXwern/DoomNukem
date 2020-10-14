@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 17:09:15 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 13:30:59 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	sprite_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 		yx[0] + g[0] > -1 &&
 		yx[1] + g[1] > -1 &&
 		gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)] != 0xffff00ff &&
-		dm->spr[yx[6]].dist < dm->wallarr[dm->winw * (yx[0] + g[0]) + (yx[1] + g[1])])
+		dm->spr[yx[6]].dist < dm->wallarr[dm->winw *
+		(yx[0] + g[0]) + (yx[1] + g[1])])
 	{
 		col = gfx.data[gfx.wid * (yx[4] + gfx.y) + (yx[5] + gfx.x)];
 		if (dm->spr[yx[6]].dist >
@@ -104,8 +105,8 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 			14 * dm->spr[i].size / dm->spr[i].dist;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z -
 			dm->min.z)) - 18 * dm->spr[i].size / dm->spr[i].dist;
-		if (i == 8)
-			printf("spr %d %d %d\n", x, y, dm->spr[i].gfx);
+		//if (i == 8)
+		//	printf("spr %d %d %d\n", x, y, dm->spr[i].gfx);
 		if (i > 3)
 			foe_ai(dm, &dm->spr[i], (int[2]){y, x}, i);
 		else

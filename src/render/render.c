@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 16:21:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:44:52 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,17 @@ void	render(t_doom *dm)
 	pickupitem(dm);
 	if (dm->uncrouch)
 	{
-		if (dm->area[(int)(dm->pos.z - 0.2)][(int)dm->pos.y]
+		printf("uncrouch ON\n");
+		if (!dm->crouching)
+		{
+			printf("was not crouching so unset uncrouch\n");
+			dm->uncrouch = 0;
+		}
+		else if (dm->area[(int)(dm->pos.z - 0.2)][(int)dm->pos.y]
 			[(int)dm->pos.x].b <= 1)
 		{
-			dm->crouching = 0;
-			dm->movsp += 0.03;
-			dm->pos.z -= 0.2;
-			dm->uncrouch = 0;
+			printf("finally uncrouched\n");
+			reset_crouching(dm);
 		}
 	}
 	render2(dm);

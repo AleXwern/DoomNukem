@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 12:37:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:54:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,6 +396,7 @@ typedef struct		s_doom
 	double			texpos;
 	int				isclick;
 	t_key			key;
+	double			plrhight;
 	int				crouching;
 	int				uncrouch;
 	int				mouseprevx;
@@ -500,6 +501,7 @@ typedef struct		s_doom
  void				chest_object(t_doom *dm, int i, int y, int x);
  void				comp_gfx(t_doom *dm);
  void				comp_map(t_doom *dm);
+ void				crouch(t_doom *dm);
  void				curt_down(t_doom *dm);
  void				curt_up(t_doom *dm);
  void				dda_prep(t_doom *dm);
@@ -582,6 +584,7 @@ typedef struct		s_doom
  void				reloading_gun(t_doom *dm);
  void				render(t_doom *dm);
  void				render_floor(t_doom *dm);
+ void				reset_crouching(t_doom *dm);
  void				reset_position(t_doom *dm);
  void				reset_window(t_doom *dm, uint8_t arg);
  void				resize_window(t_doom *dm);

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:12:40 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/07 13:23:23 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:30:33 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	key_release_5(int key, t_doom *dm)
 		dm->reloading = 1;
 		dm->ani = 2;
 	}
-	if (key == SPACE)
+	if (key == SPACE && !dm->crouching)
 		dm->key.space = 3;
 	if (key == KEY_E)
 		if (dm->invincible == 1)
@@ -59,14 +59,12 @@ void	key_release_4(int key, t_doom *dm)
 	{
 		if (dm->area[(int)(dm->pos.z - 0.2)][(int)dm->pos.y]
 			[(int)dm->pos.x].b <= 1)
-		{
-			dm->crouching = 0;
-			dm->movsp += 0.03;
-			dm->pos.z -= 0.2;
-		}
+			reset_crouching(dm);
 		else
 			dm->uncrouch = 1;
 	}
+	if (key == KEY_B)//remove when crouching works
+		dm->pos.x -= 0.5;
 	key_release_5(key, dm);
 }
 
