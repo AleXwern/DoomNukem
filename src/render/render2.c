@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:21:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/15 16:23:39 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/15 16:28:24 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,18 @@ void	rc_init(t_doom *dm)
 	else
 		dm->walldist = (dm->map.z - dm->pos.z +
 			(1 - dm->stepz) * 0.5) / dm->rayd.z;
-	if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-		printf("%f = (%f - %f + (1 - %d) * 0.5) / %f\n", dm->walldist, dm->map.z, dm->pos.z, dm->stepz, dm->rayd.z);
+	//if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+	//	printf("%.16f = (%f - %f + (1 - %d) * 0.5) / %.16f side is %d\n", dm->walldist, dm->map.z, dm->pos.z, dm->stepz, dm->rayd.z, dm->side);
 	if (dm->hit != 2 && dm->area[(int)dm->map.z]
 		[(int)dm->map.y][(int)dm->map.x].b == 6)
 		dm->wincol = 1;
 	dm->window[dm->winw * dm->y + dm->x] = 0xffffffff;
 	dm->winarr[dm->winw * dm->y + dm->x] = 100;
-	if (dm->walldist < 0.0001)
-		dm->walldist += 0.01;
+	if (dm->walldist < LIMN)
+		dm->walldist = dm->wallarr[dm->winw * (dm->y - 1) + dm->x];
+	//if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+	//	printf("%f\n", dm->walldist);
+	//dm->walldist += 0.01;
 }
 
 void	side_check(t_doom *dm)

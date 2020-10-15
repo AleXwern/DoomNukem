@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:56:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/04 13:23:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:19:07 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	part_check(t_doom *dm)
 	else if (pt == 6)
 		part_dda_xn(dm, plane);
 	else if (pt == 7)
-		slope_dda_xzn(dm);
+		slope_dda_yzt(dm, dm->side);
 	else
-		slope_dda_xzp(dm);
+		slope_dda_yzb(dm, dm->side);
 }

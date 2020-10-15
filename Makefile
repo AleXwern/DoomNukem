@@ -6,7 +6,7 @@
 #    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/15 13:47:48 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/10/15 16:28:58 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SERVER	=	server-nukem
 OEXT	=	.o
 LEXT	= 	.a
 # Remember -Wall -Wextra -Werror -> -O2 inclusion is debatable since it was a thing back in 90s
-FLG		= 	-O2 -Wall -Wextra -Werror
+FLG		= 	-O2 -Wall -Wextra
 SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c door.c \
 			util.c menu.c menu2.c gfx_draw.c posteff.c defaults.c \
 			set_variables.c misc_alloc.c
@@ -28,7 +28,7 @@ EDTFILE =	editor.c render_editor.c render_editor2.c
 ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c window.c draw_more.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c render2.c render3.c \
-			slope_z.c part_dda.c slope_dda.c
+			slope_yz.c part_dda.c
 GRAFILE	=	gravity.c move.c move2.c collision.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
