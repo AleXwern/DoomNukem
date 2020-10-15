@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:23:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 12:23:49 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:24:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,18 @@ t_vector	cross_prd(t_vector v, t_vector u)
 	c.y = (v.z * u.x) - (v.x * u.z);
 	c.z = (v.x * u.y) - (v.y * u.x);
 	return (c);
+}
+
+void	intersect(t_vector *plane, t_vector *ray, t_vector *p)
+{
+	double	d;
+	double	t;
+
+	d = dot_prd(plane[0], (t_vector){.z = -plane[1].z, .y = -plane[1].y, .x = -plane[1].x});
+	t = -(d + dot_prd(ray[0], plane[1]) / dot_prd(ray[1], plane[1]));
+	*p = (t_vector){
+		.z = ray[0].z + t * ray[1].z,
+		.y = ray[0].y + t * ray[1].y,
+		.x = ray[0].x + t * ray[1].x,
+		};
 }

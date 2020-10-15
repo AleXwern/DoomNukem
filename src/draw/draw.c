@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 15:24:48 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:00:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void	render_floor(t_doom *dm)
 	dm->rayd1.x = dm->dir.x + dm->plane.x;
 	dm->rayd1.y = dm->dir.y + dm->plane.y;
 	dm->rowdist = dm->walldist;
-	if (dm->x == dm->winw / 2 - 1 && dm->y == dm->winh / 2 - 1)
-		printf("%f\n", dm->walldist);
 	dm->flstep.x = dm->rowdist * (dm->rayd1.x - dm->rayd0.x) / dm->winw;
 	dm->flstep.y = dm->rowdist * (dm->rayd1.y - dm->rayd0.y) / dm->winw;
 	dm->floor.x = (dm->pos.x + dm->rowdist * dm->rayd0.x)

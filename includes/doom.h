@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 16:05:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:23:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -556,6 +556,7 @@ uint32_t			color_shift(uint32_t color, double shift, t_doom *dm,
  						t_block blk);
  double				get_coll_down(t_block blk);
  void				gravity(t_doom *dm);
+ void				intersect(t_vector *plane, t_vector *ray, t_vector *p);
  void				key_release_menu(int key, t_doom *dm);
  void				key_state_editor(t_editor *le, t_doom *dm);
  void				key_state_game(t_doom *dm);
@@ -598,12 +599,12 @@ uint32_t			color_shift(uint32_t color, double shift, t_doom *dm,
  void				single_loop_y(t_doom *dm);
  void				single_loop_z(t_doom *dm);
  void				slide_door(t_doom *dm);
- void				slope_dda_xzn(t_doom *dm);
- void				slope_dda_xzp(t_doom *dm);
+ void				slope_dda_yzt(t_doom* dm, int side);
+ void				slope_dda_yzb(t_doom* dm, int side);
  void				sprite_set(t_doom *dm, int	 i);
  void				strafe(t_doom *dm);
  void				suffrocate(t_doom *dm, t_block blk, t_vector bpos);
- int					templen(char **temp);
+ int				templen(char **temp);
  void				validate_map(t_doom *dm, int i, int a, t_block blk);
  void				wall_stripe(t_doom *dm);
  void				wind_default(t_doom *dm);
