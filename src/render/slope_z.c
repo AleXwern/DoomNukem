@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_z.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 15:25:06 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 16:24:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		slope_dda_xzn(t_doom* dm)
 void		slope_dda_xzp(t_doom* dm)
 {
 	int side = dm->side;
-	
+
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
 	else if (dm->side == 1)

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/06 14:22:53 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:41:07 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	draw_hud(t_doom *dm)
 		draw_gfx(dm, dm->gfx[25], (int)(dm->winw * 0.5 - 25), (int)(dm->winh
 			* 0.5) - 25);
 	}
+	draw_hud2(dm);
 }
 
 void	draw_gun(t_doom *dm)

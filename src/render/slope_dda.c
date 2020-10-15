@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_dda.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:26:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 15:26:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 16:24:08 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int		cross_pln(t_vector *ray, t_vector *plane, t_vector *i, double s)
 	n = -dot_prd(plane[1], w);
 	if (fabs(d) < LIMN)
 	{
-        if (n == 0)
-            return 2;
-        else
-            return 0;
-    }
+		if (n == 0)
+			return 2;
+		else
+			return 0;
+	}
 	s = n / d;
 	if (s < 0 || s > 1)
 		return (0);

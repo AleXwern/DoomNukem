@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/14 13:43:45 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/15 13:47:48 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ SERVER	=	server-nukem
 OEXT	=	.o
 LEXT	= 	.a
 # Remember -Wall -Wextra -Werror -> -O2 inclusion is debatable since it was a thing back in 90s
-FLG		= 	-O2 -Wall -Wextra -Werror 
+FLG		= 	-O2 -Wall -Wextra -Werror
 SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c door.c \
 			util.c menu.c menu2.c gfx_draw.c posteff.c defaults.c \
 			set_variables.c misc_alloc.c
 KEYFILE =	key_editor.c key_editor_more.c key_game_hold.c key_game_more.c \
 			key_game_release.c key_in_game_menu.c key_main_menu.c key_state.c
-DRAWEXT =	draw_hud.c
+DRAWEXT =	draw_hud.c draw_hud2.c
 FILESYS =	fileformat.c fileformat2.c save_level.c
 EDTFILE =	editor.c render_editor.c render_editor2.c
 ANMFILE =	staireff.c

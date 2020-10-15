@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game_release.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:12:40 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/14 16:12:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 16:21:49 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int		key_release(int key, t_doom *dm)
 	}
 	if (dm->alive)
 		key_release_2(key, dm);
-	else
+	else if (!dm->alive && !dm->gamewon)
 	{
 		if (key == SPACE)
 		{
@@ -131,5 +131,7 @@ int		key_release(int key, t_doom *dm)
 			ft_bzero(&dm->key, sizeof(t_key));
 		}
 	}
+	else if (dm->gamewon && key == SPACE)
+		error_out(WINGAME, dm);
 	return (0);
 }

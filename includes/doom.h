@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 16:05:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 16:14:15 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,7 +283,7 @@ typedef struct		s_doom
 	t_gfx			*gfx;
 	t_sprite		spr[9];
 	t_sprite		prj[9];
-	t_sprite		obj[9];
+	t_sprite		obj[11];
 	uint32_t		gfram;
 	int				aswall;
 	int				dev;
@@ -431,9 +431,11 @@ typedef struct		s_doom
 	int				magazine;
 	int				hp;
 	int				alive;
+	int				gamewon;
 	int				keycard;
 	int				chestopened;
 	int				drawgunandkeycard;
+	int				money;
 
 	char			slidedoor;
 	t_block			*slideblock;
@@ -499,7 +501,6 @@ uint32_t			color_shift(uint32_t color, double shift, t_doom *dm,
  int					check_hor_coll(t_block blk, t_doom *dm, char dir);
  int					check_sprite_dist(t_doom *dm, double mov, int i);
  int					check_yx(char dir, t_block tblk, t_doom *dm);
- void				chest_object(t_doom *dm, int i, int y, int x);
  void				comp_gfx(t_doom *dm);
  void				comp_map(t_doom *dm);
  void				crouch(t_doom *dm);
@@ -520,9 +521,11 @@ uint32_t			color_shift(uint32_t color, double shift, t_doom *dm,
  void				draw_gun(t_doom *dm);
  void				draw_hp(t_doom *dm);
  void				draw_hud(t_doom *dm);
+ void				draw_hud2(t_doom *dm);
  void				draw_level_screen(t_doom *dm, t_editor *le, double x,
  						double y);
  void				draw_menu(t_doom *dm, int x, int y, int cur);
+ void				draw_object(t_doom *dm, int i, int y, int x);
  void				draw_objects(t_doom *dm, int y, int x, int i);
  void				draw_object_gfx(t_doom *dm, t_gfx gfx, int *yx,
  						double size);
