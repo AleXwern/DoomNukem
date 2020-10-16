@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 16:01:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 16:30:43 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -608,6 +608,10 @@ void				single_loop_x(t_doom *dm);
 void				single_loop_y(t_doom *dm);
 void				single_loop_z(t_doom *dm);
 void				slide_door(t_doom *dm);
+void				slope_dda_xyb(t_doom* dm, int side);
+void				slope_dda_xybr(t_doom* dm, int side);
+void				slope_dda_xyt(t_doom* dm, int side);
+void				slope_dda_xytr(t_doom* dm, int side);
 void				slope_dda_xzb(t_doom* dm, int side);
 void				slope_dda_xzbr(t_doom* dm, int side);
 void				slope_dda_xzt(t_doom* dm, int side);

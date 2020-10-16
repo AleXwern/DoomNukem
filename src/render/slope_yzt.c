@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:36:00 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:48:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static double	create_plane_yzt(t_vector rayd, t_vector rmap, t_doom *dm, int sid
 	};
 	ray[0] = (t_vector){.z = rmap.z - (int)rmap.z, .y = rmap.y - (int)rmap.y, .x = rmap.x - (int)rmap.x};
 	ray[1] = rayd;
-	if (side == 0)
+	if (dm->rayd.y > 0 || side == 0)
 		ray[0].y -= 1;
 	intersect(plane, ray, &point);
 	if (dm->x == 500 && dm->y == 360)
-		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.z);
+		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.y);
 	if (point.z >= 0 && point.z <= 1)
 		return (point.z);
 	return (1);

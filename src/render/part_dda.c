@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:56:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:11:30 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/16 15:03:07 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,10 @@ void	init_functions(void (*block[10])(t_doom*, double), void (*slope[12])(t_doom
 	slope[5] = slope_dda_xzb;
 	slope[6] = slope_dda_xztr;
 	slope[7] = slope_dda_xzbr;
-	/*
-	slope[8] = slope_dda_yxt;
-	slope[9] = slope_dda_yxb;
-	slope[10] = slope_dda_yxtr;
-	slope[11] = slope_dda_yxbr;
-	*/
+	slope[8] = slope_dda_xyt;
+	slope[9] = slope_dda_xyb;
+	slope[10] = slope_dda_xytr;
+	slope[11] = slope_dda_xybr;
 }
 
 /*
