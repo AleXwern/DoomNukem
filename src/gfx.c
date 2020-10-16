@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 13:40:56 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:32:53 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	comp_spritesheets(t_doom *dm, char *bpath)
 	dm->gfx[29] = read_bmp(ft_strjoin(bpath, "hud/inventory.bmp"), 0, 0);
 	dm->gfx[30] = read_bmp(ft_strjoin(bpath, "obj/keycard.bmp"), 0, 0);
 	dm->gfx[33] = read_bmp(ft_strjoin(bpath, "misc/alpha.bmp"), 0, 0);
-	dm->gfx[34] = read_bmp(ft_strjoin(bpath, "foe/foeF0.bmp"), 0, 0);
-	dm->gfx[35] = read_bmp(ft_strjoin(bpath, "foe/foeF1.bmp"), 0, 0);
+	dm->gfx[34] = read_bmp(ft_strjoin(bpath, "obj/money.bmp"), 0, 0);
+	dm->gfx[35] = read_bmp(ft_strjoin(bpath, "obj/plant.bmp"), 0, 0);
 	dm->gfx[36] = read_bmp(ft_strjoin(bpath, "obj/pistol.bmp"), 0, 0);
 	dm->gfx[37] = read_bmp(ft_strjoin(bpath, "obj/chest.bmp"), 0, 0);
 	dm->gfx[38] = read_bmp(ft_strjoin(bpath, "misc/goldore.bmp"), 0, 0);

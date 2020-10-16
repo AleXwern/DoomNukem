@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 12:33:26 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 16:20:14 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define T_ERROR	"There was a threading problem."
 # define OOPS		"This should never be shown. Everyone panic!"
 # define FINE		"Successfully exiting program."
+# define WINGAME	"You won the game!"
 # define WIN_ERROR	"Could not create a window."
 # define IMG_ERROR	"Could not create a image."
 # define MLX_ERROR	"Could not cleate MLX pointer."

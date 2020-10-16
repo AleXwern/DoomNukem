@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_yz.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/15 14:20:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/15 16:27:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ double	create_plane_yzt(t_vector rayd, t_vector rmap, t_doom *dm, int side)
 	return (1);
 }
 
-void		slope_dda_yzt(t_doom* dm, int side)
+void	slope_dda_yzt(t_doom* dm, int side)
 {
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
@@ -95,6 +95,8 @@ double	create_plane_yzb(t_vector rayd, t_vector rmap, t_doom *dm, int side)
 
 void		slope_dda_yzb(t_doom* dm, int side)
 {
+	int side = dm->side;//should this be here? I kept it just to make sure
+
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
 	else if (dm->side == 1)

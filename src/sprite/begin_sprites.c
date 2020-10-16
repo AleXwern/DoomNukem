@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:54:01 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/14 14:03:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/15 15:54:18 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,68 @@
 #include "../../includes/value.h"
 
 /*
-**	Chest
-**	Pistol
-**	Keycard
+**	Money 8
+**	Plant 9
+**	Plant 10
+*/
+
+void	obj_set3(t_doom *dm, int i)
+{
+	dm->obj[i].pos.z = 4.0;
+	dm->obj[i].pos.y = 5.0;
+	dm->obj[i].pos.x = 17.0;
+	dm->obj[i].gfx = 34;
+	dm->obj[i++].size = 1;
+	dm->obj[i].pos.z = 4.6;
+	dm->obj[i].pos.y = 23.0;
+	dm->obj[i].pos.x = 4.6;
+	dm->obj[i].gfx = 35;
+	dm->obj[i++].size = 2;
+	dm->obj[i].pos.z = 6.2;
+	dm->obj[i].pos.y = 3.6;
+	dm->obj[i].pos.x = 21.0;
+	dm->obj[i].gfx = 35;
+	dm->obj[i++].size = 3;
+
+}
+
+/*
+**	Plant 4
+**	Money 5
+**	Money 6
+**	Money 7
+*/
+
+void	obj_set2(t_doom *dm, int i)
+{
+	dm->obj[i].pos.z = 3.6;
+	dm->obj[i].pos.y = 15.0;
+	dm->obj[i].pos.x = 22.5;
+	dm->obj[i].gfx = 35;
+	dm->obj[i++].size = 2;
+	dm->obj[i].pos.z = 2.0;
+	dm->obj[i].pos.y = 3.5;
+	dm->obj[i].pos.x = 4.0;
+	dm->obj[i].gfx = 34;
+	dm->obj[i++].size = 1;
+	dm->obj[i].pos.z = 2.0;
+	dm->obj[i].pos.y = 3.5;
+	dm->obj[i].pos.x = 6.0;
+	dm->obj[i].gfx = 34;
+	dm->obj[i++].size = 1;
+	dm->obj[i].pos.z = 1.5;
+	dm->obj[i].pos.y = 5.5;
+	dm->obj[i].pos.x = 15.0;
+	dm->obj[i].gfx = 34;
+	dm->obj[i++].size = 1;
+	obj_set3(dm, i);
+}
+
+/*
+**	Chest 0
+**	Pistol 1
+**	Keycard 2
+**	Plant 3
 */
 
 void	obj_set(t_doom *dm, int i)
@@ -36,7 +95,13 @@ void	obj_set(t_doom *dm, int i)
 	dm->obj[i].pos.y = 2.8;
 	dm->obj[i].pos.x = 20.5;
 	dm->obj[i].gfx = 30;
-	dm->obj[i].size = 1;
+	dm->obj[i++].size = 1;
+	dm->obj[i].pos.z = 1.6;
+	dm->obj[i].pos.y = 10.0;
+	dm->obj[i].pos.x = 2.0;
+	dm->obj[i].gfx = 35;
+	dm->obj[i++].size = 2;
+	obj_set2(dm, i);
 }
 
 /*

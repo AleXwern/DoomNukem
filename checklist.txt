@@ -18,7 +18,6 @@ X The view follows the mouse smoothly, making it possible to spin around (a whol
 X Strafing is possible.
 X Interactions with walls and steps of a reasonable height should be managed properly.
 X The player can run, jump, fall, bend down and get up.
-TODO bend down and get up.
 X The player can fly or swim (same difference...).
 X The objects present may or may not block the passage, in proportion to their visual representation.
 X The items around can be picked up - or not, and supply an inventory.

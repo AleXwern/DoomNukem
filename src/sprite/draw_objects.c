@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:44:55 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/07 13:45:26 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/15 14:50:34 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 {
 	static double	spra;
 
-	while (++i < 3)
+	while (++i < 11)
 	{
 		spra = atan2(dm->obj[i].dir.y, dm->obj[i].dir.x);
 		spra_check(dm, spra);
@@ -72,12 +72,12 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 		y = dm->winh * ((dm->obj[i].dir.z - dm->min.z)
 			/ (dm->max.z - dm->min.z)) - ((dm->gfx[dm->obj[i].gfx].hgt
 			/ 2) * 2 / dm->obj[i].dist);
-		if (i == 0)
-			chest_object(dm, i, y, x);
-		else if ((i == 1 || i == 2) && dm->drawgunandkeycard)
+		if ((i == 1 || i == 2) && dm->drawgunandkeycard)
 			draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
 			(int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt,
 			dm->gfx[dm->obj[i].gfx].wid, 0, 0, i},
 			dm->obj[i].size / dm->obj[i].dist);
+		else
+			draw_object(dm, i, y, x);
 	}
 }

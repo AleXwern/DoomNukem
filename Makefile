@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/15 13:37:40 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/15 16:28:58 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c door.c \
 			set_variables.c misc_alloc.c
 KEYFILE =	key_editor.c key_editor_more.c key_game_hold.c key_game_more.c \
 			key_game_release.c key_in_game_menu.c key_main_menu.c key_state.c
-DRAWEXT =	draw_hud.c
+DRAWEXT =	draw_hud.c draw_hud2.c
 FILESYS =	fileformat.c fileformat2.c save_level.c
 EDTFILE =	editor.c render_editor.c render_editor2.c
 ANMFILE =	staireff.c
