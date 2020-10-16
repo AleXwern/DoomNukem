@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:16:37 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 16:26:29 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,16 @@ void	render(t_doom *dm)
 	draw_sprite(dm, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
-	printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
-	//if ((int)(dm->pos.z) == 7 && (int)(dm->pos.y) == 9 && (int)(dm->pos.x) == 1)
+	//printf("POS %f %f %f %d\n", dm->pos.z, dm->pos.y, dm->pos.x, dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b);
+
+	//make this a textbox when spawned. Can't move until space is pressed
+	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b == 7)
+	{
+		set_text(dm, "you have stolen top secret documents",
+		(int[3]){dm->winh / 2 - 70, dm->winw / 2 - 500, 16742400}, 1);
+		set_text(dm, "and need to escape the building",
+		(int[3]){dm->winh / 2 - 180, dm->winw / 2 - 480, 16742400}, 1);
+	}
 	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b == 0)
 		wingame(dm);
 	render2(dm);

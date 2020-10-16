@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:44:55 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/16 13:01:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/16 16:02:08 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,37 @@ void	draw_object_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 	}
 }
 
+/*
+**	chest width 197 height 197 per frame
+*/
+
+void	draw_object(t_doom *dm, int i, int y, int x)
+{
+	if (i == 0)
+	{
+		if (dm->chestopened)
+			dm->gfx[dm->obj[i].gfx].x = (dm->obj[i].frame / 8) * 196;
+		else
+			dm->gfx[dm->obj[i].gfx].x = 0;
+		draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
+			(int[7]){y, x, 197, 197, 0, 0, i}, 3 / dm->obj[i].dist);
+		if (dm->chestopened && dm->obj[i].frame < 47)
+			dm->obj[i].frame++;
+		else if (dm->chestopened && dm->obj[i].frame == 47)
+			dm->drawgunandkeycard = 1;
+	}
+	else
+		draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
+		(int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt,
+		dm->gfx[dm->obj[i].gfx].wid, 0, 0, i},
+		dm->obj[i].size / dm->obj[i].dist);
+}
+
 void	draw_objects(t_doom *dm, int y, int x, int i)
 {
 	static double	spra;
 
-	while (++i < 11)
+	while (++i < 12)
 	{
 		spra = atan2(dm->obj[i].dir.y, dm->obj[i].dir.x);
 		spra = spra_check(dm, spra);
@@ -77,7 +103,7 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 			(int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt,
 			dm->gfx[dm->obj[i].gfx].wid, 0, 0, i},
 			dm->obj[i].size / dm->obj[i].dist);
-		else
+		else if (i == 0 || i > 2)
 			draw_object(dm, i, y, x);
 	}
 }

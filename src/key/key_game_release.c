@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:12:40 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/16 12:28:09 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 15:48:10 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	key_release_5(int key, t_doom *dm)
 		dm->ani = 2;
 	}
 	if (key == SPACE && !dm->crouching)
-		dm->key.space = 3;
+		jump(dm);
 	if (key == KEY_E)
 		if (dm->invincible == 1)
 			dm->invincible++;
@@ -123,13 +123,10 @@ int		key_release(int key, t_doom *dm)
 	}
 	if (dm->alive)
 		key_release_2(key, dm);
-	else if (!dm->alive && !dm->gamewon)
+	else if (!dm->alive && !dm->gamewon && key == SPACE)
 	{
-		if (key == SPACE)
-		{
 			reset_position(dm);
 			ft_bzero(&dm->key, sizeof(t_key));
-		}
 	}
 	else if (dm->gamewon && (key == SPACE || key == ESC))
 		error_out(WINGAME, dm);

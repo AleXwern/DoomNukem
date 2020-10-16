@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:35:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/16 16:01:52 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,7 +283,7 @@ typedef struct		s_doom
 	t_gfx			*gfx;
 	t_sprite		spr[9];
 	t_sprite		prj[9];
-	t_sprite		obj[11];
+	t_sprite		obj[12];
 	uint32_t		gfram;
 	int				aswall;
 	int				dev;
@@ -459,6 +459,7 @@ typedef struct		s_doom
 	Mix_Chunk		*windowbrk;
 	Mix_Chunk		*doorsliding;
 	Mix_Chunk		*victory;
+	Mix_Chunk		*jump;
 }					t_doom;
 
 uint32_t			avg_color(uint32_t rcol, uint32_t col);
@@ -564,6 +565,7 @@ void				get_doortype(t_doom *dm, t_vector pos, t_vector door,
 double				get_coll_down(t_block blk);
 void				gravity(t_doom *dm);
 void				intersect(t_vector *plane, t_vector *ray, t_vector *p);
+void				jump(t_doom *dm);
 void				key_release_menu(int key, t_doom *dm);
 void				key_state_editor(t_editor *le, t_doom *dm);
 void				key_state_game(t_doom *dm);
