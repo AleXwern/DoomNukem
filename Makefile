@@ -6,11 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2020/10/16 14:16:36 by anystrom         ###   ########.fr        #
-=======
-#    Updated: 2020/10/16 12:44:35 by tbergkul         ###   ########.fr        #
->>>>>>> 2e73373ba670fa0b2b7fd83843b90ead1c808160
+#    Updated: 2020/10/16 14:37:40 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +28,8 @@ EDTFILE =	editor.c render_editor.c render_editor2.c
 ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c window.c draw_more.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c render2.c render3.c \
-<<<<<<< HEAD
-			part_dda.c slope_yzt.c slope_yzb.c slope_xzt.c slope_xzb.c
-=======
-			slope_yz.c part_dda.c wingame.c
->>>>>>> 2e73373ba670fa0b2b7fd83843b90ead1c808160
+			part_dda.c slope_yzt.c slope_yzb.c slope_xzt.c slope_xzb.c \
+			wingame.c
 GRAFILE	=	gravity.c move.c move2.c collision.c
 BMPFILE =	bmp_reader.c
 TXTFILE =	set_string.c
