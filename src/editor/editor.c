@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 15:04:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:15:58 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+/*
+** 0 - floor
+** 1 - light
+** 2 - plane type
+** 3 - block thickness
+** 4 - metadata
+*/
 void	defaults(t_editor *le, t_doom *dm)
 {
 	ft_bzero(le, sizeof(t_editor));
@@ -25,7 +32,7 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->options[4] = 0;
 	le->maxval[0] = dm->mxflr - 1;
 	le->maxval[1] = 15.0;
-	le->maxval[2] = 8.0;
+	le->maxval[2] = 14.0;
 	le->maxval[3] = 15.0;
 	le->maxval[4] = 8.0;
 	le->minval[0] = 0;

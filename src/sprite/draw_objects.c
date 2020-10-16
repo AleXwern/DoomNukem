@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:44:55 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/15 14:50:34 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 13:01:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 	while (++i < 11)
 	{
 		spra = atan2(dm->obj[i].dir.y, dm->obj[i].dir.x);
-		spra_check(dm, spra);
+		spra = spra_check(dm, spra);
 		dm->obj[i].dist = tri_pythagor(dm->pos, dm->obj[i].pos);
 		dm->obj[i].dir.z = (dm->obj[i].pos.z - dm->pos.z) / dm->obj[i].dist;
 		dm->obj[i].dir.y = (dm->obj[i].pos.y - dm->pos.y) / dm->obj[i].dist;

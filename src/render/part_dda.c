@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:56:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/15 13:19:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:11:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,31 @@ void	single_loop_x(t_doom* dm)
 	dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) - (int)dm->tmap.x;
 }
 
+void	init_functions(void (*block[10])(t_doom*, double), void (*slope[12])(t_doom*, int))
+{
+	ft_putendl("init funct");
+	block[0] = part_dda_zp;
+	block[1] = part_dda_zn;
+	block[2] = part_dda_yp;
+	block[3] = part_dda_yn;
+	block[4] = part_dda_xp;
+	block[5] = part_dda_xn;
+	slope[0] = slope_dda_yzt;
+	slope[1] = slope_dda_yzb;
+	slope[2] = slope_dda_yztr;
+	slope[3] = slope_dda_yzbr;
+	slope[4] = slope_dda_xzt;
+	slope[5] = slope_dda_xzb;
+	slope[6] = slope_dda_xztr;
+	slope[7] = slope_dda_xzbr;
+	/*
+	slope[8] = slope_dda_yxt;
+	slope[9] = slope_dda_yxb;
+	slope[10] = slope_dda_yxtr;
+	slope[11] = slope_dda_yxbr;
+	*/
+}
+
 /*
 **	PLANE TYPE
 **	0 - none
@@ -118,25 +143,17 @@ void	single_loop_x(t_doom* dm)
 */
 void	part_check(t_doom *dm)
 {
-	double	plane;
-	int		pt;
+	double		plane;
+	int			pt;
+	static void	(*block[6])(t_doom*, double);
+	static void	(*slope[12])(t_doom*, int);
 
+	if (block[0] == NULL)
+		init_functions(block, slope);
 	plane = (1 - dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pln / 15.0);
-	pt = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt;
-	if (pt == 1)
-		part_dda_zp(dm, plane);
-	else if (pt == 2)
-		part_dda_zn(dm, plane);
-	else if (pt == 3)
-		part_dda_yp(dm, plane);
-	else if (pt == 4)
-		part_dda_yn(dm, plane);
-	else if (pt == 5)
-		part_dda_xp(dm, plane);
-	else if (pt == 6)
-		part_dda_xn(dm, plane);
-	else if (pt == 7)
-		slope_dda_yzt(dm, dm->side);
+	pt = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt - 1;
+	if (pt >= 6)
+		slope[pt - 6](dm, dm->side);
 	else
-		slope_dda_yzb(dm, dm->side);
+		block[pt](dm, plane);
 }

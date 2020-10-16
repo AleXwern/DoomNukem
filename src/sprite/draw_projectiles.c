@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_projectiles.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:43:00 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/14 13:24:40 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 13:01:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_projectiles(t_doom *dm, int y, int x, int i)
 		else if (i > 3)
 			foe_shooting(dm, &dm->spr[i], &dm->prj[i]);
 		spra = atan2(dm->prj[i].dir.y, dm->prj[i].dir.x);
-		spra_check(dm, spra);
+		spra = spra_check(dm, spra);
 		dm->prj[i].dist = tri_pythagor(dm->pos, dm->prj[i].pos);
 		dm->prj[i].dir.z = (dm->prj[i].pos.z - dm->pos.z) / dm->prj[i].dist;
 		dm->prj[i].dir.y = (dm->prj[i].pos.y - dm->pos.y) / dm->prj[i].dist;

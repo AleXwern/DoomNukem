@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 12:52:58 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:57:19 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 		dm->spw.z = dm->flr + 0.5;
 		dm->area[dm->flr][y][x].b = 1;
 	}
-	if (dm->area[dm->flr][y][x].b > 8 || dm->area[dm->flr][y][x].b < 1)
+	if (dm->area[dm->flr][y][x].b > 8 || dm->area[dm->flr][y][x].b < 0)
 		dm->area[dm->flr][y][x].b = 2;
 	free_memory(temp);
 }

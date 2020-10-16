@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/15 16:20:14 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:13:56 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,12 @@
 # define FRONTS		0
 # define LEFTS		37
 # define RIGHTS		74
+# define BLK		7
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.
+** O_BINARY does nothing on UNIX system but it's necessary on Windows to tell the system
+** to read past 0x1a character (Control+Z, EoF on old systems)
 */
 #  define MUSIC		"Audio/Music/str4E.ogg"
 #  define IP		"10.13.1.1"
