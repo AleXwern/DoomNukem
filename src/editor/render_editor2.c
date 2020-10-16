@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 15:05:33 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/07 15:57:33 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:14:42 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_blk_select2(t_doom *dm, t_editor *le, int x, int y)
 void	draw_blk_select(t_doom *dm, t_editor *le, int x, int y)
 {
 	dm->blktx = 0;
-	dm->selectedblk = 1;
+	dm->selectedblk = 0;
 	while (x < dm->winw - 750)
 	{
 		y = -1;

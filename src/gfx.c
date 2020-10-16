@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/15 13:32:53 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 13:56:06 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	comp_foe(t_doom *dm, char *bpath)
 	dm->gfx[20] = read_bmp(ft_strjoin(bpath, "foe/foe5.bmp"), 0, 0);
 	dm->gfx[21] = read_bmp(ft_strjoin(bpath, "foe/foe6.bmp"), 0, 0);
 	dm->gfx[22] = read_bmp(ft_strjoin(bpath, "foe/foe7.bmp"), 0, 0);
-	dm->gfx[23] = read_bmp(ft_strjoin(bpath, "foe/foe8.bmp"), 0, 0);//not in use
+	dm->gfx[23] = read_bmp(ft_strjoin(bpath, "misc/sky.bmp"), 0, 0);
 	dm->gfx[24] = read_bmp(ft_strjoin(bpath, "foe/projectile.bmp"), 0, 0);
 	comp_spritesheets(dm, bpath);
 }
@@ -94,7 +94,7 @@ void	comp_gfx(t_doom *dm)
 	bpath = ft_strjoin(path, "gfx/");
 	if (!(dm->gfx = (t_gfx*)malloc(sizeof(t_gfx) * GFXCOUNT)))
 		error_out(MEM_ERROR, dm);
-	dm->gfx[0] = read_bmp(ft_strjoin(bpath, "misc/sky.bmp"), 0, 0);
+	dm->gfx[0] = read_bmp(ft_strjoin(bpath, "misc/end.bmp"), 0, 0);
 	dm->gfx[1] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,
 		"/floor.bmp", ""), 0, 0);
 	dm->gfx[2] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,

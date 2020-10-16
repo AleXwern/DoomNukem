@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/15 16:23:22 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:16:37 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,9 @@ void	render(t_doom *dm)
 	draw_sprite(dm, 0, 0);
 	draw_hud(dm);
 	pickupitem(dm);
-	//printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
-	if ((int)(dm->pos.z) == 7 && (int)(dm->pos.y) == 9 && (int)(dm->pos.x) == 1)
-	{
-		//Mix_PlayChannel(-1, dm->celebration, 0);//soundeffect here when winning game
-		set_text(dm, "you escaped with the stolen documents", (int[3]){dm->winh / 2 - 70,
-			dm->winw / 2 - 500, 65280}, 1);
-		set_text(dm, "job completed", (int[3]){dm->winh / 2 + 10,
-			dm->winw / 2 - 200, 65280}, 1);//0xf70e0e <= original color, now it is green
-		SDL_RenderPresent(dm->rend);
-		dm->alive = 0;
-		dm->gamewon = 1;
-	}
+	printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
+	//if ((int)(dm->pos.z) == 7 && (int)(dm->pos.y) == 9 && (int)(dm->pos.x) == 1)
+	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b == 0)
+		wingame(dm);
 	render2(dm);
 }
