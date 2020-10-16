@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_editor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 13:18:58 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:10:50 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	draw_level_screen(t_doom *dm, t_editor *le, double x, double y)
 		while (dm->x < dm->width)
 		{
 			blk = dm->area[dm->flr][dm->y][dm->x].b;
-			if (dm->area[dm->flr][dm->y][dm->x].b < 1)
-				dm->area[dm->flr][dm->y][dm->x].b = 5;
+			if (dm->area[dm->flr][dm->y][dm->x].b < 0)
+				dm->area[dm->flr][dm->y][dm->x].b = 2;
 			if (dm->area[dm->flr][dm->y][dm->x].b > 7)
 				dm->area[dm->flr][dm->y][dm->x].b = 2;
 			dm->tmpx = x;

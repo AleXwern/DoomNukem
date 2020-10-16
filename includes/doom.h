@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/15 16:28:43 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:44:54 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,6 +436,9 @@ typedef struct		s_doom
 	int				chestopened;
 	int				drawgunandkeycard;
 	int				money;
+	char			*moneytemp;
+	char			*moneytext;
+	int				victoryplayed;
 
 	char			slidedoor;
 	t_block			*slideblock;
@@ -455,6 +458,7 @@ typedef struct		s_doom
 	Mix_Chunk		*mondeath;
 	Mix_Chunk		*windowbrk;
 	Mix_Chunk		*doorsliding;
+	Mix_Chunk		*victory;
 }					t_doom;
 
 uint32_t			avg_color(uint32_t rcol, uint32_t col);
@@ -611,5 +615,6 @@ uint32_t			color_shift(uint32_t color, double shift, t_doom *dm,
  void				validate_map(t_doom *dm, int i, int a, t_block blk);
  void				wall_stripe(t_doom *dm);
  void				wind_default(t_doom *dm);
+ void				wingame(t_doom *dm);
 
 #endif

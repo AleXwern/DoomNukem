@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 15:41:08 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:13:26 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	check_area(t_editor *le, SDL_Event ev)
 			le->mslider = 1;
 		else if (ev.motion.x < 1500 && ev.motion.y < 485)
 		{
-			le->blk = ((ev.motion.x - 750) / 107) + 1;
+			le->blk = ((ev.motion.x - 750) / 107);//+ 1
 			le->mblock = 1;
 		}
 		if (le->blk > 7)

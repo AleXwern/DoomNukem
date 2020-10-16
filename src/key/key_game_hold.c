@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 15:55:41 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:23:06 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	key_hold2(int key, t_doom *dm)
 	if (key == KEY_TWO)
 		dm->key.two = 1;
 	if (key == KEY_SHIFT)
-		dm->movsp += 0.10;
+		dm->movsp += 0.15;
 }
 
 int		key_hold(int key, t_doom *dm)

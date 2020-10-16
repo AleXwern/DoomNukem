@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:54:01 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/15 15:54:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:48:08 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	obj_set2(t_doom *dm, int i)
 	dm->obj[i].pos.x = 6.0;
 	dm->obj[i].gfx = 34;
 	dm->obj[i++].size = 1;
-	dm->obj[i].pos.z = 1.5;
-	dm->obj[i].pos.y = 5.5;
-	dm->obj[i].pos.x = 15.0;
+	dm->obj[i].pos.z = 8.0;
+	dm->obj[i].pos.y = 13.5;
+	dm->obj[i].pos.x = 4.4;
 	dm->obj[i].gfx = 34;
 	dm->obj[i++].size = 1;
 	obj_set3(dm, i);

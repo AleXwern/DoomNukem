@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:12:40 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/15 16:21:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:28:09 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	key_release_4(int key, t_doom *dm)
 	if (key == KEY_J)
 		dm->hp += 1;
 	if (key == KEY_SHIFT)
-		dm->movsp -= 0.10;
+		dm->movsp -= 0.15;
 	if (key == KEY_L)
 	{
 		if (dm->invincible == 2)
@@ -107,7 +107,7 @@ void	key_release_2(int key, t_doom *dm)
 
 int		key_release(int key, t_doom *dm)
 {
-	if (key == ESC)
+	if (key == ESC && !dm->gamewon)
 	{
 		SDL_SetWindowResizable(dm->win, SDL_FALSE);
 		SDL_SetWindowSize(dm->win, WINX, WINY);
@@ -131,7 +131,7 @@ int		key_release(int key, t_doom *dm)
 			ft_bzero(&dm->key, sizeof(t_key));
 		}
 	}
-	else if (dm->gamewon && key == SPACE)
+	else if (dm->gamewon && (key == SPACE || key == ESC))
 		error_out(WINGAME, dm);
 	return (0);
 }

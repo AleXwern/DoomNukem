@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/15 16:27:44 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:04:56 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ double	create_plane_yzb(t_vector rayd, t_vector rmap, t_doom *dm, int side)
 	if (side == 1)
 		ray[0].y = 1;
 	intersect(plane, ray, &point);
-	//if (dm->x == 500 && dm->y == 360)
-	//	printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.z);
+	if (dm->x == 500 && dm->y == 360)
+		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.z);
 	if (point.z >= 0 && point.z <= 1)
 		return (point.z);
 	return (1);
@@ -95,7 +95,7 @@ double	create_plane_yzb(t_vector rayd, t_vector rmap, t_doom *dm, int side)
 
 void		slope_dda_yzb(t_doom* dm, int side)
 {
-	int side = dm->side;//should this be here? I kept it just to make sure
+	//int side = dm->side;//should this be here? I kept it just to make sure
 
 	if (dm->side == 0)
 		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;

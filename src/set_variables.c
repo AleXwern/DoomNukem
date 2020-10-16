@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/15 16:13:59 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:40:30 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	set_variables(t_doom *dm)
 	dm->plrhight = 0.6;
 	dm->money = 0;
 	dm->gamewon = 0;
+	dm->victoryplayed = 0;
+	dm->moneytext = NULL;
 }
 
 void	dev_status(t_doom *dm, char *av)

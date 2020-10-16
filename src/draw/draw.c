@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/15 13:00:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:18:22 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	draw_sky(t_doom *dm)
 	dm->sbox = 1080 * (1 - atan2(dm->dir.x, dm->dir.y) / M_PI);
 	dm->sboy = 360 * (dm->dir.z + 0.9);
 	if (dm->texbool)
-		dm->col = color_shift(dm->gfx[0].data[1080 * ((dm->y + dm->sboy) % 360)
+		dm->col = color_shift(dm->gfx[23].data[1080 * ((dm->y + dm->sboy) % 360)
 			+ (dm->x + dm->sbox) % 1080], 6, dm, 0);
 	else
 		dm->col = 0xff000000;
@@ -33,9 +33,9 @@ void	draw_floor(t_doom *dm)
 		dm->celly = (int)dm->floor.y;
 		dm->tx = (int)(128 * (dm->floor.x - dm->cellx)) & (128 - 1);
 		dm->ty = (int)(128 * (dm->floor.y - dm->celly)) & (128 - 1);
-		if ((dm->rayd.z < 0 && !dm->area[(int)dm->map.z +
-			1][(int)dm->map.y][(int)dm->map.x].b) || (dm->rayd.z > 0 &&
-			!dm->area[(int)dm->map.z - 1][(int)dm->map.y][(int)dm->map.x].b))
+		if ((dm->rayd.z < 0 && dm->area[(int)dm->map.z +
+			1][(int)dm->map.y][(int)dm->map.x].b == 5) || (dm->rayd.z > 0 &&
+			dm->area[(int)dm->map.z - 1][(int)dm->map.y][(int)dm->map.x].b == 5))
 			dm->col = color_shift(dm->gfx[5].data[128 * dm->ty + dm->tx],
 				dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw),
 				dm, 0);

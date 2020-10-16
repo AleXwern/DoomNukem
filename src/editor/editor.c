@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 15:04:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:24:54 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void	draw_slidertext(t_doom *dm, t_editor *le)
 	set_text(dm, le->opt[2], (int[3]){175, 1015, 0xE71313}, 0.8);
 	set_text(dm, le->opt[3], (int[3]){250, 970, 0xE71313}, 0.8);
 	set_text(dm, le->opt[4], (int[3]){325, 1075, 0xE71313}, 0.8);
-	set_text(dm, le->opt[5 + le->cur], (int[3]){550, 790, 0xE71313}, 1);
+	set_text(dm, le->opt[5 + le->cur], (int[3]){657, 790, 0xE71313}, 1);
 	if (le->cur == 4)
-		set_text(dm, le->opt[10], (int[3]){590, 790, 0xE71313}, 0.5);
+		set_text(dm, le->opt[10], (int[3]){697, 790, 0xE71313}, 0.5);
 }
 
 void	render_editor(t_doom *dm, t_editor *le)
 {
-	draw_bg(dm, dm->gfx[0]);
+	draw_bg(dm, dm->gfx[23]);//b_zero?
 	draw_level_screen(dm, le, 0, 0);
 	draw_editor_cursor(dm, le, dm->winw * 0.5, 0);
 	draw_sliders(dm, le, dm->winw * 0.5, 0);

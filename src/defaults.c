@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 17:07:04 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:29:48 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	reset_position(t_doom *dm)
 	dm->plane.y = 0.5 / ((double)dm->winh / (double)dm->winw);
 	dm->plane.z = 0.5;
 	dm->rotsp = 0.05;
-	dm->movsp = 0.0712;
+	dm->movsp = 0.07;//0.0712;why this specific number?
 	dm->camshift = 1.0 - (dm->dir.z * 2);
 	dm->texbool = 1;
 	dm->airbrn = 1;
