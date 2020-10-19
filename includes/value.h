@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 12:47:01 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 15:33:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 # define FRONTS		0
 # define LEFTS		37
 # define RIGHTS		74
-# define BLK		7
+# define BLK		8
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.
