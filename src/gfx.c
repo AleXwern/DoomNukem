@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 13:56:06 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 15:32:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,14 @@ void	comp_foe(t_doom *dm, char *bpath)
 void	comp_hud_gfx(t_doom *dm, char *bpath)
 {
 	dm->gfx[7] = read_bmp(ft_strjoin(bpath, "misc/spawn.bmp"), 0, 0);
-	dm->gfx[8] = read_bmp(ft_strjoin(bpath, "misc/handle.bmp"), 0, 0);
-	dm->gfx[9] = read_bmp(ft_strjoin(bpath, "hud/options.bmp"), 0, 0);
-	dm->gfx[10] = read_bmp(ft_strjoin(bpath, "foe/wyvern.bmp"), 0, 0);
-	dm->gfx[11] = read_bmp(ft_strjoin(bpath, "hud/btlmenu.bmp"), 0, 0);
-	dm->gfx[12] = read_bmp(ft_strjoin(bpath, "hud/btlsel.bmp"), 0, 0);
-	dm->gfx[13] = read_bmp(ft_strjoin(bpath, "hud/pcturn.bmp"), 0, 0);
-	dm->gfx[14] = read_bmp(ft_strjoin(bpath, "hud/pcsel.bmp"), 0, 0);
+	dm->gfx[8] = read_bmp(ft_quadjoin(bpath, (char*)&dm->tile,
+		"/warp.bmp", ""), 0, 0);
+	dm->gfx[9] = read_bmp(ft_strjoin(bpath, "foe/wyvern.bmp"), 0, 0); //NULL
+	dm->gfx[10] = read_bmp(ft_strjoin(bpath, "foe/wyvern.bmp"), 0, 0); //NULL
+	dm->gfx[11] = read_bmp(ft_strjoin(bpath, "foe/wyvern.bmp"), 0, 0); //NULL
+	dm->gfx[12] = read_bmp(ft_strjoin(bpath, "foe/wyvern.bmp"), 0, 0); //NULL
+	dm->gfx[13] = read_bmp(ft_strjoin(bpath, "foe/wyvern.bmp"), 0, 0); //NULL
+	dm->gfx[14] = read_bmp(ft_strjoin(bpath, "foe/wyvern.bmp"), 0, 0); //NULL
 	dm->gfx[15] = read_bmp(ft_strjoin(bpath, "hud/mainmenu.bmp"), 0, 0);
 	comp_foe(dm, bpath);
 }

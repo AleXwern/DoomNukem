@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vert.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:23:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/15 13:24:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:32:36 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,13 @@ t_vector	cross_prd(t_vector v, t_vector u)
 	return (c);
 }
 
-void	intersect(t_vector *plane, t_vector *ray, t_vector *p)
+void		intersect(t_vector *plane, t_vector *ray, t_vector *p)
 {
 	double	d;
 	double	t;
 
-	d = dot_prd(plane[0], (t_vector){.z = -plane[1].z, .y = -plane[1].y, .x = -plane[1].x});
+	d = dot_prd(plane[0], (t_vector){.z = -plane[1].z,
+		.y = -plane[1].y, .x = -plane[1].x});
 	t = -(d + dot_prd(ray[0], plane[1]) / dot_prd(ray[1], plane[1]));
 	*p = (t_vector){
 		.z = ray[0].z + t * ray[1].z,

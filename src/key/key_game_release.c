@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:12:40 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/16 12:28:09 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:29:23 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	key_release_5(int key, t_doom *dm)
 		dm->ani = 2;
 	}
 	if (key == SPACE && !dm->crouching)
-		dm->key.space = 3;
+		jump(dm);
 	if (key == KEY_E)
 		if (dm->invincible == 1)
 			dm->invincible++;
@@ -57,8 +57,6 @@ void	key_release_4(int key, t_doom *dm)
 	}
 	if (key == KEY_C && dm->crouching)
 		reset_crouching(dm);
-	if (key == KEY_B)//remove when crouching works
-		dm->pos.x -= 0.5;
 	key_release_5(key, dm);
 }
 
@@ -87,22 +85,27 @@ void	key_release_3(int key, t_doom *dm)
 
 void	key_release_2(int key, t_doom *dm)
 {
-	if (key == KEY_M)
-		dm->ismenu = dm->ismenu * dm->ismenu - 1;
-	if (dm->ismenu == -1)
-		dm->cycle = &options_menu;
-	else if (dm->ismenu == 0)
-		dm->cycle = &render;
-	if (dm->ismenu)
+	if (dm->gamestarted)
 	{
-		menu_keys(key, dm);
-		return ;
+		if (key == KEY_M)
+			dm->ismenu = dm->ismenu * dm->ismenu - 1;
+		if (dm->ismenu == -1)
+			dm->cycle = &options_menu;
+		else if (dm->ismenu == 0)
+			dm->cycle = &render;
+		if (dm->ismenu)
+		{
+			menu_keys(key, dm);
+			return ;
+		}
+		if (key == KEY_T)
+			dm->texbool = (dm->texbool * dm->texbool) - 1;
+		if (key == KEY_TRE)
+			interact(dm);
+		key_release_3(key, dm);
 	}
-	if (key == KEY_T)
-		dm->texbool = (dm->texbool * dm->texbool) - 1;
-	if (key == KEY_TRE)
-		interact(dm);
-	key_release_3(key, dm);
+	else if (!dm->gamestarted && key == SPACE)
+		dm->gamestarted = 1;
 }
 
 int		key_release(int key, t_doom *dm)
@@ -123,13 +126,10 @@ int		key_release(int key, t_doom *dm)
 	}
 	if (dm->alive)
 		key_release_2(key, dm);
-	else if (!dm->alive && !dm->gamewon)
+	else if (!dm->alive && !dm->gamewon && key == SPACE)
 	{
-		if (key == SPACE)
-		{
-			reset_position(dm);
-			ft_bzero(&dm->key, sizeof(t_key));
-		}
+		reset_position(dm);
+		ft_bzero(&dm->key, sizeof(t_key));
 	}
 	else if (dm->gamewon && (key == SPACE || key == ESC))
 		error_out(WINGAME, dm);

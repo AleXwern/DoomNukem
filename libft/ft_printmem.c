@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex.c                                        :+:      :+:    :+:   */
+/*   ft_printmem.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 14:44:52 by exam              #+#    #+#             */
-/*   Updated: 2020/10/19 16:02:13 by anystrom         ###   ########.fr       */
+/*   Created: 2020/10/19 16:00:08 by anystrom          #+#    #+#             */
+/*   Updated: 2020/10/19 16:04:14 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_puthex(unsigned int num)
+static void	gethex(unsigned int num)
 {
-	char			c;
+	char	c;
 
 	c = '0';
 	if (num > 15)
@@ -30,4 +30,13 @@ void	ft_puthex(unsigned int num)
 			c = 'a';
 	}
 	write(1, &c, 1);
+}
+
+void		ft_printmem(void *mem, size_t len)
+{
+	char	*str;
+	int		i;
+
+	str = (char*)malloc(sizeof(char) * len * 2);
+
 }

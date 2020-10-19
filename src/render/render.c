@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:46:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:50:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,10 @@ void	render2(t_doom *dm)
 	{
 		dm->alive = 0;
 		Mix_PlayChannel(-1, dm->death, 0);
-		set_text(dm, "you died\npress space", (int[3]){dm->winh / 2 - 26,
-			dm->winw / 2 - 210, 0xf70e0e}, 2);
+		set_text(dm, "you died", (int[3]){dm->winh / 2 - 46,
+			dm->winw / 2 - 250, 0xf70e0e}, 2);
+		set_text(dm, "press space", (int[3]){dm->winh / 2 + 30,
+			dm->winw / 2 - 310, 0xf70e0e}, 2);
 		SDL_RenderPresent(dm->rend);
 	}
 	if (dm->iframe == IFRAME)
@@ -116,14 +118,18 @@ void	render2(t_doom *dm)
 void	render(t_doom *dm)
 {
 	threads(dm);
-	if (dm->isoutline)
-		post_effects(dm);
-	draw_sprite(dm, 0, 0);
-	draw_hud(dm);
-	pickupitem(dm);
-	//printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
-	//if ((int)(dm->pos.z) == 7 && (int)(dm->pos.y) == 9 && (int)(dm->pos.x) == 1)
-	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b == 0)
-		wingame(dm);
-	render2(dm);
+	if (dm->gamestarted)
+	{
+		if (dm->isoutline)
+			post_effects(dm);
+		draw_sprite(dm, 0, 0);
+		draw_hud(dm);
+		pickupitem(dm);
+		//printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b == 0)
+			wingame(dm);
+		render2(dm);
+	}
+	else
+		gamestart(dm);
 }

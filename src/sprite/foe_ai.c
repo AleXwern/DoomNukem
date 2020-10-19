@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 13:50:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 16:06:06 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 14:12:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	foe_collision(t_doom *dm, t_sprite *spr, int i, int s)
 	while (++i < 9)
 	{
 		dist = tri_pythagor(spr->pos, dm->spr[i].pos);
-		if (dist < 1.2 && fabs(spr->pos.z - dm->spr[i].pos.z) < 1.3 && i != s)
+		if (dist < 0.9 && fabs(spr->pos.z - dm->spr[i].pos.z) < 1.3 && i != s)
 		{
 			npos.x -= spr->mov.x;
 			npos.y -= spr->mov.y;
@@ -111,7 +111,9 @@ void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 		spr->move = 's';
 	foe_move(dm, spr);
 	foe_collision(dm, spr, -1, i);
-	dist = spr->dist * (1.0 - ((fabs(dm->winw / 2.0) / (dm->winw / 2)) / 6));
+	dist = spr->dist * (1.0 - ((fabs(yx[1] - dm->winw / 2.0) / (dm->winw / 2)))); //Figure out formula
+	if (i < 2)
+		printf("%d dist %f mod %f\n", i, spr->dist, (1.0 - ((fabs(yx[1] - dm->winw / 2.0) / (dm->winw / 2)))));
 	draw_sprite_gfx(dm, dm->gfx[spr->gfx],
 		(int[7]){yx[0], yx[1], 37, 28, 0, 0, i}, spr->size / dist);
 }

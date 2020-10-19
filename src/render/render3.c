@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render2.c                                          :+:      :+:    :+:   */
+/*   render3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:01:50 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/07 16:09:41 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 14:41:21 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 void	get_ppos(t_doom *dm, t_block blk)
 {
-	if (dm->rayd.z < 0 && blk.pt == 2)
+	if (blk.pt == 0)
+		return;
+	else if (dm->rayd.z < 0 && blk.pt == 2)
 		dm->adj = 1;
 	else if (dm->rayd.z > 0 && blk.pt == 1)
 		dm->adj = 1;
@@ -68,8 +70,8 @@ void	dda_sys(t_doom *dm)
 		dm->blk = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x];
 		if (dm->blk.pt && !dm->adj && dm->blk.b > 1)
 			part_check(dm);
-		else if (dm->blk.b > 6 && !dm->adj)
-			dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
+		//else if (dm->blk.b > 6 && !dm->adj) 								//FS should handle these
+		//	dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
 		else if (dm->blk.b > 1 && !dm->adj)
 			dm->hit = 1;
 		dda_sys2(dm);

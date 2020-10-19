@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/14 15:15:45 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:20:39 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	foe_shooting2(t_doom *dm, t_sprite *prj)
 {
 	if (prj->move == 'm' && prj->dist < 0.6)
 	{
-		if (!dm->iframe && dm->invincible != 4)
+		if (!dm->iframe && dm->invincible != 4 && dm->alive)
 		{
 			dm->hp -= 1;
 			dm->iframe = 50;
@@ -132,7 +132,4 @@ void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
 			ft_bzero(prj, sizeof(t_sprite));
 	}
 	foe_shooting2(dm, prj);
-	/*if (prj->move == 'm' && dm->area[(int)prj->pos.z][(int)prj->pos.y]
-		[(int)prj->pos.x].b > 1)
-		ft_bzero(prj, sizeof(t_sprite));*/
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_editor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:13:26 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 15:05:21 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ void	check_area(t_editor *le, SDL_Event ev)
 			le->marea = 1;
 		else if (ev.motion.x < 1500 && ev.motion.y < 375)
 			le->mslider = 1;
-		else if (ev.motion.x < 1500 && ev.motion.y < 485)
+		else if (ev.motion.x < 1500 && ev.motion.y < 592)
 		{
-			le->blk = ((ev.motion.x - 750) / 107);//+ 1
+			le->blk = ((ev.motion.x - 750) / 107);
+			if (ev.motion.y > 485)
+				le->blk += 7;
 			le->mblock = 1;
 		}
-		if (le->blk > 7)
-			le->blk = 7;
+		if (le->blk > BLK)
+			le->blk = BLK;
 	}
 	else if (ev.motion.x >= 0 && ev.motion.y >= 0 && ev.button.button == 3)
 		le->mcopy = 1;

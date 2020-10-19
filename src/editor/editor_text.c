@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex.c                                        :+:      :+:    :+:   */
+/*   editor_text.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 14:44:52 by exam              #+#    #+#             */
-/*   Updated: 2020/10/19 16:02:13 by anystrom         ###   ########.fr       */
+/*   Created: 2020/10/19 15:41:12 by anystrom          #+#    #+#             */
+/*   Updated: 2020/10/19 15:42:20 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/doom.h"
+#include "../../includes/value.h"
 
-void	ft_puthex(unsigned int num)
+void	vsd(void)
 {
-	char			c;
-
-	c = '0';
-	if (num > 15)
-	{
-		ft_puthex(num / 16);
-		num = num % 16;
-	}
-	while (num > 0)
-	{
-		num--;
-		c++;
-		if (c == ':')
-			c = 'a';
-	}
-	write(1, &c, 1);
+	return;
 }

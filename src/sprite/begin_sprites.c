@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:54:01 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/16 12:48:08 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:22:00 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,49 @@
 
 /*
 **	Money 8
-**	Plant 9
-**	Plant 10
+**	Money 9
+**	Money 10
+**	Money 11
 */
 
 void	obj_set3(t_doom *dm, int i)
 {
-	dm->obj[i].pos.z = 4.0;
-	dm->obj[i].pos.y = 5.0;
-	dm->obj[i].pos.x = 17.0;
+	dm->obj[i].pos.z = 2.0;
+	dm->obj[i].pos.y = 3.5;
+	dm->obj[i].pos.x = 13.5;
 	dm->obj[i].gfx = 34;
 	dm->obj[i++].size = 1;
+	dm->obj[i].pos.z = 2.0;
+	dm->obj[i].pos.y = 8.5;
+	dm->obj[i].pos.x = 18.5;
+	dm->obj[i].gfx = 34;
+	dm->obj[i++].size = 1;
+	dm->obj[i].pos.z = 4.0;
+	dm->obj[i].pos.y = 3.8;
+	dm->obj[i].pos.x = 23.0;
+	dm->obj[i].gfx = 34;
+	dm->obj[i++].size = 1;
+	dm->obj[i].pos.z = 8.0;
+	dm->obj[i].pos.y = 8.5;
+	dm->obj[i].pos.x = 10.5;
+	dm->obj[i].gfx = 34;
+	dm->obj[i++].size = 1;
+}
+
+/*
+**	Plant 4
+**	Plant 5
+**	Plant 6
+**	Plant 7
+*/
+
+void	obj_set2(t_doom *dm, int i)
+{
+	dm->obj[i].pos.z = 3.6;
+	dm->obj[i].pos.y = 15.0;
+	dm->obj[i].pos.x = 22.5;
+	dm->obj[i].gfx = 35;
+	dm->obj[i++].size = 2;
 	dm->obj[i].pos.z = 4.6;
 	dm->obj[i].pos.y = 23.0;
 	dm->obj[i].pos.x = 4.6;
@@ -36,38 +68,11 @@ void	obj_set3(t_doom *dm, int i)
 	dm->obj[i].pos.x = 21.0;
 	dm->obj[i].gfx = 35;
 	dm->obj[i++].size = 3;
-
-}
-
-/*
-**	Plant 4
-**	Money 5
-**	Money 6
-**	Money 7
-*/
-
-void	obj_set2(t_doom *dm, int i)
-{
-	dm->obj[i].pos.z = 3.6;
-	dm->obj[i].pos.y = 15.0;
-	dm->obj[i].pos.x = 22.5;
+	dm->obj[i].pos.z = 7.6;
+	dm->obj[i].pos.y = 19.4;
+	dm->obj[i].pos.x = 3.7;
 	dm->obj[i].gfx = 35;
 	dm->obj[i++].size = 2;
-	dm->obj[i].pos.z = 2.0;
-	dm->obj[i].pos.y = 3.5;
-	dm->obj[i].pos.x = 4.0;
-	dm->obj[i].gfx = 34;
-	dm->obj[i++].size = 1;
-	dm->obj[i].pos.z = 2.0;
-	dm->obj[i].pos.y = 3.5;
-	dm->obj[i].pos.x = 6.0;
-	dm->obj[i].gfx = 34;
-	dm->obj[i++].size = 1;
-	dm->obj[i].pos.z = 8.0;
-	dm->obj[i].pos.y = 13.5;
-	dm->obj[i].pos.x = 4.4;
-	dm->obj[i].gfx = 34;
-	dm->obj[i++].size = 1;
 	obj_set3(dm, i);
 }
 
@@ -80,20 +85,20 @@ void	obj_set2(t_doom *dm, int i)
 
 void	obj_set(t_doom *dm, int i)
 {
-	dm->obj[i].pos.z = 7.5;
-	dm->obj[i].pos.y = 4.5;
-	dm->obj[i].pos.x = 20.5;
+	dm->obj[i].pos.z = 3.5;
+	dm->obj[i].pos.y = 3.1;
+	dm->obj[i].pos.x = 17.5;
 	dm->obj[i].gfx = 37;
 	dm->obj[i].frame = 0;
 	dm->obj[i++].size = 17;
-	dm->obj[i].pos.z = 8.0;
-	dm->obj[i].pos.y = 4.5;
-	dm->obj[i].pos.x = 20.5;
+	dm->obj[i].pos.z = 4.0;
+	dm->obj[i].pos.y = 3.3;
+	dm->obj[i].pos.x = 17.5;
 	dm->obj[i].gfx = 36;
 	dm->obj[i++].size = 1;
-	dm->obj[i].pos.z = 8.0;
-	dm->obj[i].pos.y = 2.8;
-	dm->obj[i].pos.x = 20.5;
+	dm->obj[i].pos.z = 3.8;
+	dm->obj[i].pos.y = 4.0;
+	dm->obj[i].pos.x = 17.5;
 	dm->obj[i].gfx = 30;
 	dm->obj[i++].size = 1;
 	dm->obj[i].pos.z = 1.6;
@@ -111,17 +116,17 @@ void	obj_set(t_doom *dm, int i)
 
 void	sprite_set2(t_doom *dm, int i, int sprite)
 {
-	dm->spr[i].pos.z = 7.4;
-	dm->spr[i].pos.y = 12.4;
+	dm->spr[i].pos.z = 6.4;
+	dm->spr[i].pos.y = 10.4;
 	dm->spr[i++].pos.x = 17.4;
-	dm->spr[i].pos.z = 7.4;
-	dm->spr[i].pos.y = 12.4;
-	dm->spr[i].pos.x = 20.4;
+	dm->spr[i].pos.z = 6.4;
+	dm->spr[i].pos.y = 9.4;
+	dm->spr[i].pos.x = 16.4;
 	while (i > 3)
 	{
 		dm->spr[i].hp = 2;
 		dm->spr[i].gfx = sprite--;
-		dm->spr[i--].size = 25;
+		dm->spr[i--].size = 15;
 	}
 	obj_set(dm, 0);
 }
@@ -135,13 +140,13 @@ void	sprite_set2(t_doom *dm, int i, int sprite)
 void	sprite_set(t_doom *dm, int i)
 {
 	dm->spr[i].pos.z = 7.4;
-	dm->spr[i].pos.y = 12.4;
-	dm->spr[i++].pos.x = 8.4;
-	dm->spr[i].pos.z = 7.4;
-	dm->spr[i].pos.y = 12.4;
-	dm->spr[i++].pos.x = 11.4;
-	dm->spr[i].pos.z = 7.4;
-	dm->spr[i].pos.y = 12.4;
-	dm->spr[i++].pos.x = 14.4;
+	dm->spr[i].pos.y = 13.4;
+	dm->spr[i++].pos.x = 4.5;
+	dm->spr[i].pos.z = 4.4;
+	dm->spr[i].pos.y = 20.7;
+	dm->spr[i++].pos.x = 3.2;
+	dm->spr[i].pos.z = 6.4;
+	dm->spr[i].pos.y = 4.4;
+	dm->spr[i++].pos.x = 6.4;
 	sprite_set2(dm, i, 20);
 }

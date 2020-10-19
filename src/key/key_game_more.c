@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:42:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/14 15:29:31 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/16 15:48:54 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,10 @@ int		move(t_doom *dm)
 			dm->key.space--;
 	}
 	return (0);
+}
+
+void	jump(t_doom *dm)
+{
+	dm->key.space = 3;
+	Mix_PlayChannel(-1, dm->jump, 0);
 }

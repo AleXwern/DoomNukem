@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 15:02:42 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:45:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,16 @@
 #  include "SDL_net.h"
 #  include "SDL_mixer.h"
 #  include <windows.h>
+
 //#  include <share.h>
 //#  include <sys/types.h>
 //#  include <sys/stat.h>
 //#  include <io.h>
 //#  include <string.h>
-#  define main			wmain
-#  define close			_close
-#  define open			_open
-#  define write			_write
+#  define main		wmain
+#  define close		_close
+#  define open		_open
+#  define write		_write
 # elif __APPLE__
 
 /*
@@ -283,7 +284,7 @@ typedef struct		s_doom
 	t_gfx			*gfx;
 	t_sprite		spr[9];
 	t_sprite		prj[9];
-	t_sprite		obj[11];
+	t_sprite		obj[12];
 	uint32_t		gfram;
 	int				aswall;
 	int				dev;
@@ -431,6 +432,7 @@ typedef struct		s_doom
 	int				magazine;
 	int				hp;
 	int				alive;
+	int				gamestarted;
 	int				gamewon;
 	int				keycard;
 	int				chestopened;
@@ -459,14 +461,16 @@ typedef struct		s_doom
 	Mix_Chunk		*windowbrk;
 	Mix_Chunk		*doorsliding;
 	Mix_Chunk		*victory;
+	Mix_Chunk		*jump;
 }					t_doom;
 
 uint32_t			avg_color(uint32_t rcol, uint32_t col);
 uint32_t			color_shift(uint32_t color, double shift, t_doom *dm,
- 						uint32_t ret);
+						uint32_t ret);
 uint32_t			rl_color(int lgt, uint32_t col);
 
-double				create_plane_yz(t_vector rayd, t_vector rmap, t_doom *dm, int side);
+double				create_plane_yz(t_vector rayd, t_vector rmap, t_doom *dm,
+						int side);
 double				dot_prd(t_vector v, t_vector u);
 double				spra_check(t_doom *dm, double spra);
 double				tri_pythagor(t_vector f, t_vector s);
@@ -480,7 +484,7 @@ int					get_x(int pc);
 int					get_y(int pc);
 int					interact(t_doom *dm);
 int					key_hold(int key, t_doom *dm);
-int					key_release(int	 key, t_doom *dm);
+int					key_release(int key, t_doom *dm);
 int					light_map(t_vector map, int side, t_block ***area);
 int					get_blocklight(t_doom *dm, t_vector pos);
 int					load_level(t_editor *le, t_doom *dm);
@@ -498,7 +502,7 @@ t_img				init_image(t_doom *dm);
 t_vector			cross_prd(t_vector v, t_vector u);
 t_vector			oper_vect(t_vector v, t_vector u, char o);
 
-void				ai_shooting(t_doom *dm, int	 i);
+void				ai_shooting(t_doom *dm, int i);
 void				alloc_vram(t_doom *dm);
 void				cam_udy(t_doom *dm);
 void				check_area(t_editor *le, SDL_Event ev);
@@ -540,7 +544,7 @@ void				draw_projectiles(t_doom *dm, int y, int x, int i);
 void				draw_scaled_gfx(t_doom *dm, t_gfx gfx, int *yx,
 					double size);
 void				draw_screen(t_editor *le, t_doom *dm, int x, int y);
-int						draw_screen_more(t_editor *le, t_doom *dm, int x, int y);
+int					draw_screen_more(t_editor *le, t_doom *dm, int x, int y);
 void				draw_sky(t_doom *dm);
 void				draw_sliders(t_doom *dm, t_editor *le, int x, int y);
 void				draw_sprite(t_doom *dm, int y, int x);
@@ -559,11 +563,13 @@ void				free_map(t_doom *dm, int f, int y);
 void				free_memory(char **arr);
 void				free_vram(t_doom *dm);
 void				game_loop(t_doom *dm);
+void				gamestart(t_doom *dm);
 void				get_doortype(t_doom *dm, t_vector pos, t_vector door,
 					t_block blk);
 double				get_coll_down(t_block blk);
 void				gravity(t_doom *dm);
 void				intersect(t_vector *plane, t_vector *ray, t_vector *p);
+void				jump(t_doom *dm);
 void				key_release_menu(int key, t_doom *dm);
 void				key_state_editor(t_editor *le, t_doom *dm);
 void				key_state_game(t_doom *dm);
@@ -606,18 +612,18 @@ void				single_loop_x(t_doom *dm);
 void				single_loop_y(t_doom *dm);
 void				single_loop_z(t_doom *dm);
 void				slide_door(t_doom *dm);
-void				slope_dda_xyb(t_doom* dm, int side);
-void				slope_dda_xybr(t_doom* dm, int side);
-void				slope_dda_xyt(t_doom* dm, int side);
-void				slope_dda_xytr(t_doom* dm, int side);
-void				slope_dda_xzb(t_doom* dm, int side);
-void				slope_dda_xzbr(t_doom* dm, int side);
-void				slope_dda_xzt(t_doom* dm, int side);
-void				slope_dda_xztr(t_doom* dm, int side);
-void				slope_dda_yzb(t_doom* dm, int side);
-void				slope_dda_yzbr(t_doom* dm, int side);
-void				slope_dda_yzt(t_doom* dm, int side);
-void				slope_dda_yztr(t_doom* dm, int side);
+void				slope_dda_xyb(t_doom *dm, int side);
+void				slope_dda_xybr(t_doom *dm, int side);
+void				slope_dda_xyt(t_doom *dm, int side);
+void				slope_dda_xytr(t_doom *dm, int side);
+void				slope_dda_xzb(t_doom *dm, int side);
+void				slope_dda_xzbr(t_doom *dm, int side);
+void				slope_dda_xzt(t_doom *dm, int side);
+void				slope_dda_xztr(t_doom *dm, int side);
+void				slope_dda_yzb(t_doom *dm, int side);
+void				slope_dda_yzbr(t_doom *dm, int side);
+void				slope_dda_yzt(t_doom *dm, int side);
+void				slope_dda_yztr(t_doom *dm, int side);
 void				sprite_set(t_doom *dm, int i);
 void				strafe(t_doom *dm);
 void				suffrocate(t_doom *dm, t_block blk, t_vector bpos);
