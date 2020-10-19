@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/15 13:41:07 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 15:51:52 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	draw_gun(t_doom *dm)
 	if (dm->shooting)
 	{
 		dm->frm++;
-		if (dm->ani == 1 && dm->frm == 2)
+		if (dm->ani == 1 && dm->frm == 1)
 			Mix_PlayChannel(-1, dm->gunshot, 0);
-		if (dm->frm >= 3)
+		if (dm->frm >= 2)
 		{
 			if (dm->ani == 5)
 			{
@@ -76,7 +76,7 @@ void	reloading_gun(t_doom *dm)
 	dm->frm++;
 	if (dm->ani == 2 && dm->frm == 2)
 		Mix_PlayChannel(-1, dm->reload, 0);
-	if (dm->frm == 5)
+	if (dm->frm >= 2)
 	{
 		if (dm->ani == 11)
 		{

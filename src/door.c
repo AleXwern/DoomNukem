@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:25:58 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/07 13:28:06 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 15:53:01 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	slide_door(t_doom *dm)
 	{
 		dm->slideblock->pln = dm->doorani;
 		dm->doorfrm++;
-		if (dm->doorfrm == 4)
+		if (dm->doorfrm == 2)
 		{
 			dm->doorani--;
 			dm->doorfrm = 0;
@@ -47,7 +47,7 @@ void	slide_door(t_doom *dm)
 	{
 		dm->slideblock->pln = dm->doorani;
 		dm->doorfrm++;
-		if (dm->doorfrm == 4)
+		if (dm->doorfrm == 2)
 		{
 			dm->doorani++;
 			dm->doorfrm = 0;

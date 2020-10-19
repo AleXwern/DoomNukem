@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 15:39:10 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 16:06:22 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ typedef struct		s_editor
 	Sint8			options[5];
 	double			maxval[5];
 	Sint8			minval[5];
-	char			*opt[11];
+	char			*opt[12];
 	SDL_Event		ev;
 	char			marea;
 	char			mslider;

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 15:48:05 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 16:06:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	opt_text(t_editor *le)
 	le->opt[8] = "thicker to the right";
 	le->opt[9] = "paintings";
 	le->opt[10] = "1 w  2 n  3 e  4 s  5 keyr  6 keyg  7 heal  8 kill";
+	le->opt[11] = "nd  nu  su  sd  wd  wu  eu  ed  cnw  csw  cse  cne";
+	//full zu zd yn ys xw xe nd nu su sd wd wu eu ed cnw csw cse cne
 }
 
 void	draw_slidertext(t_doom *dm, t_editor *le)
@@ -71,7 +73,9 @@ void	draw_slidertext(t_doom *dm, t_editor *le)
 	set_text(dm, ft_strfjoin(le->opt[4], ft_itoa(le->options[4])),
 		(int[3]){325, 1075, 0xE71313}, 0.8);
 	set_text(dm, le->opt[5 + le->cur], (int[3]){657, 790, 0xE71313}, 1);
-	if (le->cur == 4)
+	if (le->cur == 2)
+		set_text(dm, le->opt[11], (int[3]){720, 790, 0xE71313}, 0.5);
+	else if (le->cur == 4)
 		set_text(dm, le->opt[10], (int[3]){697, 790, 0xE71313}, 0.5);
 }
 
@@ -95,12 +99,12 @@ void	editor_main(t_doom *dm)
 	defaults(le, dm);
 	opt_text(le);
 	SDL_SetWindowSize(dm->win, 1500, 750);
-	printf("Dim %d %d\n", dm->width, dm->height);
+	printf("Dim %d %d\n", dm->width, dm->height);//delete when done
 	while (!le->quit)
 	{
 		key_state_editor(le, dm);
 		render_editor(dm, le);
-		dm->fps++;
+		//dm->fps++;
 	}
 	dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 1;
 	SDL_SetWindowSize(dm->win, WINX, WINY);
