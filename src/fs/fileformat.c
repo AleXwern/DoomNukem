@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:36:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:03:45 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	fileformat(int fd, t_doom *dm, int y)
 	while (get_next_line(fd, &gnl) == 1)
 	{
 		if (y > 25)
-			break;
+			break ;
 		temp = ft_strsplit(gnl, ' ');
 		free(gnl);
 		if (get_next_matrix(dm, temp, 0, y) == 0)

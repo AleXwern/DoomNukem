@@ -6,12 +6,16 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 15:58:24 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:38:32 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
+
+/*
+**	system("leaks doom-nukem");
+*/
 
 void	error_out(char *msg, t_doom *dm)
 {
@@ -21,7 +25,6 @@ void	error_out(char *msg, t_doom *dm)
 	SDL_WaitThread(dm->fpsthread, NULL);
 	SDLNet_Quit();
 	SDL_Quit();
-	//system("leaks doom-nukem");
 	exit(0);
 }
 

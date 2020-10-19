@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 15:03:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:34:40 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 ** 3 - block thickness
 ** 4 - metadata
 */
+
 void	defaults(t_editor *le, t_doom *dm)
 {
 	ft_bzero(le, sizeof(t_editor));
@@ -71,7 +72,7 @@ void	draw_slidertext(t_doom *dm, t_editor *le)
 
 void	render_editor(t_doom *dm, t_editor *le)
 {
-	draw_bg(dm, dm->gfx[23]);//b_zero?
+	draw_bg(dm, dm->gfx[23]);
 	draw_level_screen(dm, le, 0, 0);
 	draw_editor_cursor(dm, le, dm->winw * 0.5, 0);
 	draw_sliders(dm, le, dm->winw * 0.5, 0);

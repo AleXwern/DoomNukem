@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 12:23:06 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:23:59 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void	key_hold2(int key, t_doom *dm)
 {
+	if (key == RIGHT)
+		dm->key.right = 1;
 	if (key == KEY_O)
 	{
 		dm->shift++;
@@ -39,28 +41,29 @@ void	key_hold2(int key, t_doom *dm)
 
 int		key_hold(int key, t_doom *dm)
 {
-	if (dm->ismenu)
+	if (dm->gamestarted)
 	{
-		menu_keys_hold(key, dm);
-		return (0);
+		if (dm->ismenu)
+		{
+			menu_keys_hold(key, dm);
+			return (0);
+		}
+		if (key == KEY_A)
+			dm->key.a = 1;
+		if (key == KEY_D)
+			dm->key.d = 1;
+		if (key == KEY_W)
+			dm->key.w = 1;
+		if (key == KEY_S)
+			dm->key.s = 1;
+		if (key == UP)
+			dm->key.up = 1;
+		if (key == DOWN)
+			dm->key.down = 1;
+		if (key == LEFT)
+			dm->key.left = 1;
+		key_hold2(key, dm);
 	}
-	if (key == KEY_A)
-		dm->key.a = 1;
-	if (key == KEY_D)
-		dm->key.d = 1;
-	if (key == KEY_W)
-		dm->key.w = 1;
-	if (key == KEY_S)
-		dm->key.s = 1;
-	if (key == UP)
-		dm->key.up = 1;
-	if (key == DOWN)
-		dm->key.down = 1;
-	if (key == LEFT)
-		dm->key.left = 1;
-	if (key == RIGHT)
-		dm->key.right = 1;
-	key_hold2(key, dm);
 	return (0);
 }
 

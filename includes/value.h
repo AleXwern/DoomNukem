@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:13:56 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:47:01 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.
-** O_BINARY does nothing on UNIX system but it's necessary on Windows to tell the system
-** to read past 0x1a character (Control+Z, EoF on old systems)
+** O_BINARY does nothing on UNIX system but it's necessary on Windows to
+** tell the system to read past 0x1a character
+** (Control+Z, EoF on old systems)
 */
 #  define MUSIC		"Audio/Music/str4E.ogg"
 #  define IP		"10.13.1.1"
@@ -170,8 +171,9 @@
 
 /*
 ** Colors
-** DARKEN colors are to be used as (color >> X) & DARKEN[X] where X is the value on definition name.
-** 32-bit colors have alpha channel but we are going full retro feeling and using magenta as
+** DARKEN colors are to be used as (color >> X) & DARKEN[X] where X is
+** the value on definition name. 32-bit colors have alpha channel but
+** we are going full retro feeling and using magenta as
 ** color-to-be-ignored value.
 */
 # define COLOR_RED		16711680
