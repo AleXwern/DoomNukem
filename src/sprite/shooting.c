@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/19 12:20:39 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 15:52:07 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	check_hit(t_doom *dm, int i, int x)
 
 void	player_shooting(t_doom *dm, int i)
 {
-	if (dm->shooting && dm->ani == 1 && dm->frm == 2)
+	if (dm->shooting && dm->ani == 1 && dm->frm == 1)
 	{
 		dm->prj[i].gfx = 24;
 		dm->prj[i].dir = dm->dir;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/16 15:03:59 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/19 15:25:26 by tbergkul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SERVER	=	server-nukem
 OEXT	=	.o
 LEXT	= 	.a
 # Remember -Wall -Wextra -Werror -> -O2 inclusion is debatable since it was a thing back in 90s
-FLG		= 	-O2 -Wall -Wextra
+FLG		= 	-Wall -Wextra
 SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c door.c \
 			util.c menu.c menu2.c gfx_draw.c posteff.c defaults.c \
 			set_variables.c misc_alloc.c

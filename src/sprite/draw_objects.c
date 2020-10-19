@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:44:55 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/19 12:18:59 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:29:07 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 		spra = atan2(dm->obj[i].dir.y, dm->obj[i].dir.x);
 		spra = spra_check(dm, spra);
 		dm->obj[i].dist = tri_pythagor(dm->pos, dm->obj[i].pos);
-		if (dm->obj[i].dist < 0.8)
+		if (dm->obj[i].dist < 0.5)
 			continue;
 		dm->obj[i].dir.z = (dm->obj[i].pos.z - dm->pos.z) / dm->obj[i].dist;
 		dm->obj[i].dir.y = (dm->obj[i].pos.y - dm->pos.y) / dm->obj[i].dist;
