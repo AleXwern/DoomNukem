@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:34:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 14:46:16 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/20 16:08:10 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_gfx		memcpy_gfx(t_gfx chunk, int *pos, int *size)
 	gfx.hgt = size[0];
 	gfx.bpp = 32;
 	gfx.pitch = gfx.wid * (gfx.bpp / 8);
+	gfx.x = 0;
+	gfx.y = 0;
 	gfx.data = (Uint32*)ft_memalloc(gfx.pitch * gfx.hgt);
 	i = 0;
 	while (i < gfx.hgt)
