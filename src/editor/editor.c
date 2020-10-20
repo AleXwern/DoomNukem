@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 16:06:18 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/20 12:56:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,11 @@ void	editor_main(t_doom *dm)
 	defaults(le, dm);
 	opt_text(le);
 	SDL_SetWindowSize(dm->win, 1500, 750);
-	printf("Dim %d %d\n", dm->width, dm->height);//delete when done
 	while (!le->quit)
 	{
 		key_state_editor(le, dm);
 		render_editor(dm, le);
-		//dm->fps++;
+		dm->fps++;
 	}
 	dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 1;
 	SDL_SetWindowSize(dm->win, WINX, WINY);

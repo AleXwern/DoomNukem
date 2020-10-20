@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 16:06:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:07:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	threads2(t_doom *dm, int *x)
 void	threads(t_doom *dm)
 {
 	static int	x;
-	static int	i;
 
 	if (dm->trx < 1)
 		dm->trx = 1;
@@ -74,13 +73,6 @@ void	threads(t_doom *dm)
 			SDL_CreateThread(renthread, "Thread", (void*)&dm->data_r[x]);
 		x++;
 	}
-	if (i >= 0 && dm->netstat)
-	{
-		if (send_pos(dm))
-			recv_pos(dm);
-		i = 0;
-	}
-	i++;
 	threads2(dm, &x);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 12:38:32 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/20 13:31:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	error_out(char *msg, t_doom *dm)
 {
 	ft_putendl(msg);
 	dm->killthread = 1;
+	if (dm->dev)
+		ft_printmem(dm, sizeof(t_doom));
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_WaitThread(dm->fpsthread, NULL);
 	SDLNet_Quit();

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 13:20:23 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:58:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	menu_keys_hold_more(t_doom *dm)
 
 void	menu_keys_hold(int key, t_doom *dm)
 {
-	if (key == RIGHT && dm->cur == 11)
+	if (key == RIGHT && dm->cur == 11 && !dm->netstat)
 		dm->netstat = connect_server(dm);
-	else if (key == LEFT && dm->cur == 11)
+	else if (key == LEFT && dm->cur == 11 && dm->netstat)
 	{
 		SDLNet_TCP_Close(dm->sock);
 		dm->netstat = 0;
@@ -57,9 +57,9 @@ void	menu_keys_hold(int key, t_doom *dm)
 	menu_keys_hold_more(dm);
 }
 
-void	menu_keys_more(t_doom *dm)
+void	menu_keys_more(t_doom *dm, int key)
 {
-	if (dm->cur == 8)
+	if (dm->cur == 8 && (key == LEFT || key == RIGHT))
 	{
 		if (dm->tile < 1)
 			dm->tile = 1;
@@ -89,8 +89,8 @@ void	menu_keys(int key, t_doom *dm)
 	if (dm->cur > OP)
 		dm->cur = 0;
 	if (dm->minopt > dm->cur)
-		dm->minopt = 0;
+		dm->minopt = dm->cur;
 	if (dm->cur - dm->minopt > 9)
 		dm->minopt = dm->cur - 9;
-	menu_keys_more(dm);
+	menu_keys_more(dm, key);
 }
