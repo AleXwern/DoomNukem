@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   staireff.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 14:40:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/08/14 15:07:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/20 13:09:28 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	curt_down(t_doom *dm)
 				ft_memcpy(dm->img.data + (dm->winw * ry), dm->img.data +
 					(dm->winw * ry), sizeof(Uint32) * dm->winw);
 		}
-		y += 30;
+		y += 60;
 		SDL_RenderPresent(dm->rend);
 	}
 }
@@ -81,7 +81,7 @@ void	curt_up(t_doom *dm)
 				ft_memcpy(dm->img.data + (dm->winw * ry), dm->img.data +
 					(dm->winw * ry), sizeof(Uint32) * dm->winw - 1);
 		}
-		y -= 30;
+		y -= 60;
 		SDL_RenderPresent(dm->rend);
 	}
 }

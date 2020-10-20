@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:44:55 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/19 16:06:08 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/20 13:04:19 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ void	draw_object(t_doom *dm, int i, int y, int x)
 	if (i == 0)
 	{
 		if (dm->chestopened)
-			dm->gfx[dm->obj[i].gfx].x = (dm->obj[i].frame / 8) * 196;
+			dm->gfx[dm->obj[i].gfx].x = (dm->obj[i].frame / 4) * 196;
 		else
 			dm->gfx[dm->obj[i].gfx].x = 0;
 		draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
 			(int[7]){y, x, 197, 197, 0, 0, i}, 3 / dm->obj[i].dist);
-		if (dm->chestopened && dm->obj[i].frame < 47)
+		if (dm->chestopened && dm->obj[i].frame < 23)
 			dm->obj[i].frame++;
-		else if (dm->chestopened && dm->obj[i].frame == 47)
+		else if (dm->chestopened && dm->obj[i].frame == 23)
 			dm->drawgunandkeycard = 1;
 	}
 	else
