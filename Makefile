@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/19 16:06:29 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/20 15:14:04 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ SERVER	=	server-nukem
 OEXT	=	.o
 LEXT	= 	.a
 # Remember -Wall -Wextra -Werror -> -O2 inclusion is debatable since it was a thing back in 90s
-FLG		= 	-Wall -Wextra
-SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c door.c \
+FLG		= 	-Wall -Wextra -g
+SRCFILE =	doom.c loop.c camera.c main_menu.c interact.c door.c \
 			util.c menu.c menu2.c gfx_draw.c posteff.c defaults.c \
 			set_variables.c misc_alloc.c
 KEYFILE =	key_editor.c key_editor_more.c key_game_hold.c key_game_more.c \
@@ -31,7 +31,7 @@ RNDFILE =	plane_z.c plane_y.c plane_x.c render.c render2.c render3.c \
 			part_dda.c slope_yzt.c slope_yzb.c slope_xzt.c slope_xzb.c \
 			slope_xyt.c slope_xyb.c wingame.c
 GRAFILE	=	gravity.c move.c move2.c collision.c
-BMPFILE =	bmp_reader.c
+BMPFILE =	bmp_reader.c gfx.c gfx_chunck.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
 SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c \
@@ -122,6 +122,9 @@ fclean: clean
 
 run: all
 	./doom-nukem
+
+rerun: re
+	./doom-nukem -debug
 
 $(SERVER): $(OBJSRV) $(LIBFT)
 	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJSRV) $(LIBFT)

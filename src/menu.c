@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:03:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 17:07:22 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:11:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,6 @@ void	options_menu(t_doom *dm)
 	draw_bars(dm, 0, -1, -1);
 	menu_text(dm, dm->minopt, -1);
 	SDL_RenderPresent(dm->rend);
-	if (i >= 3 && dm->netstat)
-	{
-		if (send_pos(dm))
-			recv_pos(dm);
-		i = 0;
-	}
 	i++;
 	dm->fps++;
 }

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 16:06:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:03:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -498,6 +498,7 @@ int					send_pos(t_doom *dm);
 int					tex_check(t_doom *dm);
 int					x_press(t_doom *dm);
 
+t_gfx				memcpy_gfx(t_gfx chunck, int *pos, int *size);
 t_gfx				read_bmp(char *file, int fd, int bread);
 t_img				init_image(t_doom *dm);
 t_vector			cross_prd(t_vector v, t_vector u);

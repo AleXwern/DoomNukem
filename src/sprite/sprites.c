@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 14:09:05 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:04:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 
 	while (++i < 9)
 	{
-		if (i == dm->id || !dm->spr[i].gfx)
+		if (i == dm->id || dm->spr[i].gfx < 16 || dm->spr[i].gfx > 22)
 			continue;
 		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x);
 		spra = spra_check(dm, spra);
