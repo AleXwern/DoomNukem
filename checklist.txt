@@ -44,5 +44,6 @@ going to need for the game: the level’s design, textures and gameplay elements
 One file per level is accepted, but it must be self-sufficient. The doom-nukem binary
 and the chosen level file must be self-sufficient.
 
-- Keeping editor open for too long will make computer slow and program will crash
-- Scale sprites and objects with screen size. Make max and min window size so that this would "automatically" get fixed/be less noticable?
+* Sprites should not move inside the wall when the player looks to the side.
+* Inclined planes
+* Every gfx into one file(?)

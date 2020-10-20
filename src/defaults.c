@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 12:38:59 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/20 12:40:42 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	resize_window(t_doom *dm)
 {
 	dm->winw = dm->event.window.data1;
 	dm->winh = dm->event.window.data2;
-	if (dm->winw < 360 || dm->winh < 244)
+	if (dm->winw < 720 || dm->winh < 480)
 	{
-		SDL_SetWindowSize(dm->win, 360, 244);
-		dm->winw = 360;
-		dm->winh = 244;
+		SDL_SetWindowSize(dm->win, 720, 480);
+		dm->winw = 720;
+		dm->winh = 480;
 	}
 	dm->img = init_image(dm);
 	if (!(dm->rend = SDL_GetRenderer(dm->win)))
@@ -56,7 +56,7 @@ void	reset_position(t_doom *dm)
 	dm->plane.y = 0.5 / ((double)dm->winh / (double)dm->winw);
 	dm->plane.z = 0.5;
 	dm->rotsp = 0.05;
-	dm->movsp = 0.07;//0.0712;why this specific number?
+	dm->movsp = 0.07;
 	dm->camshift = 1.0 - (dm->dir.z * 2);
 	dm->texbool = 1;
 	dm->airbrn = 1;
