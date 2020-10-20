@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 11:28:25 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:21:07 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@
 ** (Control+Z, EoF on old systems)
 */
 #  define MUSIC		"Audio/Music/str4E.ogg"
-#  define IP		"10.13.1.3"//"10.13.1.1"
+#  define IP		"10.13.1.1"//"10.13.1.3"
 #  define O_BINARY	0x8000
 # elif _WIN64
 /*

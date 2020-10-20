@@ -46,4 +46,3 @@ and the chosen level file must be self-sufficient.
 
 * Sprites should not move inside the wall when the player looks to the side.
 * Inclined planes
-* Every gfx into one file(?)
