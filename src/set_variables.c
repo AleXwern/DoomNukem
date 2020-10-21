@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/21 14:05:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:14:38 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,10 @@
 
 void	set_variables(t_doom *dm)
 {
-	dm->chestopened = 0;
-	dm->drawgunandkeycard = 0;
-	dm->gun = 1;
-	dm->shooting = 0;
-	dm->reloading = 0;
-	dm->ani = 0;
-	dm->frm = 0;
-	dm->keycard = 1;
+	dm->gun = 1;//remove in final version
+	dm->keycard = 1;//remove in final version
 	dm->slidedoor = 'x';
-	dm->doorani = 0;
-	dm->doorfrm = 0;
-	dm->uncrouch = 0;
 	dm->plrhight = 0.6;
-	dm->money = 0;
-	dm->gamestarted = 0;
-	dm->gamewon = 0;
-	dm->victoryplayed = 0;
 	dm->moneytext = NULL;
 }
 
@@ -43,4 +30,6 @@ void	dev_status(t_doom *dm, char *av)
 	dm->invincible = 4;
 	dm->isgravity = 1;
 	dm->jetpack = 1;
+	dm->gun = 1;
+	dm->keycard = 1;
 }

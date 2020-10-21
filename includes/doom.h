@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 15:54:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:14:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -632,7 +632,7 @@ void				slope_dda_yzt(t_doom *dm, int side);
 void				slope_dda_yztr(t_doom *dm, int side);
 void				sprite_set(t_doom *dm, int i);
 void				strafe(t_doom *dm);
-void				suffrocate(t_doom *dm, t_block blk, t_vector bpos);
+void				suffocate(t_doom *dm, t_block blk, t_vector bpos);
 int					templen(char **temp);
 void				validate_map(t_doom *dm, int i, int a, t_block blk);
 void				wall_stripe(t_doom *dm);

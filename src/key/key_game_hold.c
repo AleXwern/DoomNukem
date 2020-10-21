@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 12:23:59 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:59:43 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	crouch(t_doom *dm)
 	dm->uncrouch = 0;
 	dm->movsp -= 0.03;
 	dm->plrhight = 0.4;
+	dm->pos.z += 0.2;
 	dm->airbrn = 1;
 }
 
@@ -82,5 +83,6 @@ void	reset_crouching(t_doom *dm)
 	dm->uncrouch = 0;
 	dm->movsp += 0.03;
 	dm->plrhight = 0.6;
+	dm->pos.z -= 0.2;
 	dm->airbrn = 1;
 }

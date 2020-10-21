@@ -19,15 +19,17 @@ Game
 2. WS - Move front/back
 3. AD - Strafe left/right
 4. Space - Jump
-5. T - Turn textures on and off
-6. R - Resets position and values as if you just opened the program (obs)
-7. 12 - Jetpack up/down
-8. Mouse R - Interact with an object before you
-9. L - Set block oulines on/off
-10. M - Open/close options menu
-11. Mouse left - Shoot with gun if you have one
-12. Mouse right - Interact with an object before you
-13. Mouse middle - (De)activate mouse focus
+5. C - Crouch
+6. Shift - Sprint
+7. T - Turn textures on and off
+8. R - Reload the gun if you have one
+9. 1 and 2 - Jetpack down/up
+10. L - Set block oulines on/off
+11. M - Open/close options menu
+12. Mouse left - Shoot with gun if you have one
+13. Mouse right - Interact with an object in front of you
+14. Mouse middle - (De)activate mouse focus
+15. Secret - Invincibility
 
 Menus (main/game/editor menus)
 1. Arrow up/down - Scroll options
