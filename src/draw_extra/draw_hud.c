@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/19 15:51:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:53:15 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void	draw_hud(t_doom *dm)
 		draw_gfx(dm, dm->gfx[25], (int)(dm->winw * 0.5 - 25), (int)(dm->winh
 			* 0.5) - 25);
 	}
+	if (dm->jetpack)
+		draw_pgfx_sc(dm, dm->gfx[9], (int[6]){(dm->winh - 83), 230, 350, 200,
+			0, 0}, 0.2);
 	draw_hud2(dm);
 }
 

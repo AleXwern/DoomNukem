@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_text.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:41:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 15:42:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 12:02:20 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 
 void	vsd(void)
 {
-	return;
+	return ;
 }

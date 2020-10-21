@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 13:31:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:34:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	init_audio(t_doom *dm)
 	dm->music = Mix_LoadMUS(MUSIC);
 	dm->reload = Mix_LoadWAV("Audio/SoundEffects/reload.wav");
 	dm->gunshot = Mix_LoadWAV("Audio/SoundEffects/gunshot.wav");
-	dm->jetpack = Mix_LoadWAV("Audio/SoundEffects/jetpack.wav");
+	dm->jetpacksound = Mix_LoadWAV("Audio/SoundEffects/jetpack.wav");
 	dm->doorsound = Mix_LoadWAV("Audio/SoundEffects/door.wav");
 	dm->teleport = Mix_LoadWAV("Audio/SoundEffects/teleport.wav");
 	dm->doorknob = Mix_LoadWAV("Audio/SoundEffects/doorknob.wav");

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   gfx_chunck.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:34:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 16:08:10 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 12:01:11 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-t_gfx		memcpy_gfx(t_gfx chunk, int *pos, int *size)
+t_gfx	memcpy_gfx(t_gfx chunk, int *pos, int *size)
 {
 	t_gfx	gfx;
 	int		i;

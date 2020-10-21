@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 14:03:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:34:37 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ typedef struct		s_doom
 	t_gfx			*gfx;
 	t_sprite		spr[9];
 	t_sprite		prj[9];
-	t_sprite		obj[12];
+	t_sprite		obj[13];
 	uint32_t		gfram;
 	int				aswall;
 	int				dev;
@@ -438,6 +438,7 @@ typedef struct		s_doom
 	int				keycard;
 	int				chestopened;
 	int				drawgunandkeycard;
+	int				jetpack;
 	int				money;
 	char			*moneytemp;
 	char			*moneytext;
@@ -452,7 +453,7 @@ typedef struct		s_doom
 	Mix_Music		*music;
 	Mix_Chunk		*reload;
 	Mix_Chunk		*gunshot;
-	Mix_Chunk		*jetpack;
+	Mix_Chunk		*jetpacksound;
 	Mix_Chunk		*doorsound;
 	Mix_Chunk		*doorknob;
 	Mix_Chunk		*teleport;

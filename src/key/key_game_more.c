@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:42:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/16 15:48:54 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:38:45 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	jetpack(t_doom *dm)
 	}
 	if (dm->key.two)
 	{
-		Mix_PlayChannel(-1, dm->jetpack, 0);
+		Mix_PlayChannel(-1, dm->jetpacksound, 0);
 		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)]
 			[(int)dm->pos.x].b <= 1 && dm->pos.z > 1)
 			dm->pos.z -= 0.05 * (30.0 / dm->buffer / dm->prefps);
@@ -74,7 +74,7 @@ int		move(t_doom *dm)
 		if ((dm->key.up || dm->key.down || dm->key.left || dm->key.right)
 			&& !dm->isoptions)
 			cam_udy(dm);
-		if ((dm->key.one || dm->key.two) && !dm->isoptions)
+		if ((dm->key.one || dm->key.two) && !dm->isoptions && dm->jetpack)
 			jetpack(dm);
 		gravity(dm);
 		if ((dm->key.space) && !dm->isoptions && !dm->airbrn)

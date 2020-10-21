@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 15:21:07 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 12:08:55 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,11 @@
 ** O_BINARY does nothing on UNIX system but it's necessary on Windows to
 ** tell the system to read past 0x1a character
 ** (Control+Z, EoF on old systems)
+** "10.13.1.1"	Alex computer
+** "10.13.1.3"	Teds computer
 */
 #  define MUSIC		"Audio/Music/str4E.ogg"
-#  define IP		"10.13.1.1"//"10.13.1.3"
+#  define IP		"10.13.1.1"
 #  define O_BINARY	0x8000
 # elif _WIN64
 /*

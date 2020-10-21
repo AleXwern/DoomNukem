@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:24:25 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 10:03:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:28:32 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	pickupitem2(t_doom *dm)
 	{
 		dm->money++;
 		ft_bzero(&dm->obj[11], sizeof(t_sprite));
+	}
+	else if (dm->obj[12].dist < 1.5)
+	{
+		dm->jetpack = 1;
+		ft_bzero(&dm->obj[12], sizeof(t_sprite));
 	}
 }
 

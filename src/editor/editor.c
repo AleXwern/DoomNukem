@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 15:18:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 12:02:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ void	defaults(t_editor *le, t_doom *dm)
 	le->minval[4] = 0;
 }
 
+/*
+**	full zu zd yn ys xw xe nd nu su sd wd wu eu ed cnw csw cse cne
+*/
+
 void	opt_text(t_editor *le)
 {
 	le->opt[0] = "floor ";
@@ -57,7 +61,6 @@ void	opt_text(t_editor *le)
 	le->opt[9] = "paintings";
 	le->opt[10] = "1 w  2 n  3 e  4 s  5 keyr  6 keyg  7 heal  8 kill";
 	le->opt[11] = "nd  nu  su  sd  wd  wu  eu  ed  cnw  csw  cse  cne";
-	//full zu zd yn ys xw xe nd nu su sd wd wu eu ed cnw csw cse cne
 }
 
 void	draw_slidertext(t_doom *dm, t_editor *le)

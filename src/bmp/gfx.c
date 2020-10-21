@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 16:11:00 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 12:00:25 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void		comp_spritesheets(t_doom *dm, t_gfx pack, char *bpath)
-{
-	/*//dm->gfx[25] = read_bmp(ft_strjoin(bpath, "hud/crosshair.bmp"), 0, 0);
+/*
+//dm->gfx[25] = read_bmp(ft_strjoin(bpath, "hud/crosshair.bmp"), 0, 0);
 	dm->gfx[27] = read_bmp(ft_strjoin(bpath, "hud/gun.bmp"), 0, 0);
 	//dm->gfx[28] = read_bmp(ft_strjoin(bpath, "hud/health.bmp"), 0, 0);
 	//dm->gfx[29] = read_bmp(ft_strjoin(bpath, "hud/inventory.bmp"), 0, 0);
@@ -29,8 +28,29 @@ void		comp_spritesheets(t_doom *dm, t_gfx pack, char *bpath)
 	dm->gfx[39] = read_bmp(ft_strjoin(bpath, "misc/handlerr.bmp"), 0, 0);
 	dm->gfx[40] = read_bmp(ft_strjoin(bpath, "misc/handlerl.bmp"), 0, 0);
 	dm->gfx[41] = read_bmp(ft_strjoin(bpath, "misc/handlegr.bmp"), 0, 0);
-	dm->gfx[42] = read_bmp(ft_strjoin(bpath, "misc/handlegl.bmp"), 0, 0);*/
-	//NEW ONES
+	dm->gfx[42] = read_bmp(ft_strjoin(bpath, "misc/handlegl.bmp"), 0, 0);
+*/
+
+/*
+**	Crosshair 25
+**	GunAnimation 27
+**	Health 28
+**	Inventory 29
+**	Keycard 30
+**	Alpha 33
+**	Money 34
+**	Plant 35
+**	Pistol 36
+**	Chest 37
+**	Goldore 38
+**	HandleRR 39
+**	HandleRL 40
+**	HandleGR 41
+**	HandleGL 42
+*/
+
+void		comp_spritesheets(t_doom *dm, t_gfx pack)
+{
 	dm->gfx[25] = memcpy_gfx(pack, (int[2]){0, 784}, (int[2]){50, 50});
 	dm->gfx[27] = memcpy_gfx(pack, (int[2]){148, 0}, (int[2]){160, 2880});
 	dm->gfx[28] = memcpy_gfx(pack, (int[2]){0, 834}, (int[2]){60, 122});
@@ -42,10 +62,10 @@ void		comp_spritesheets(t_doom *dm, t_gfx pack, char *bpath)
 	dm->gfx[36] = memcpy_gfx(pack, (int[2]){309, 2321}, (int[2]){272, 380});
 	dm->gfx[37] = memcpy_gfx(pack, (int[2]){668, 1080}, (int[2]){198, 1180});
 	dm->gfx[38] = memcpy_gfx(pack, (int[2]){0, 1623}, (int[2]){128, 128});
-	dm->gfx[39] = read_bmp(ft_strjoin(bpath, "misc/handlerr.bmp"), 0, 0);
-	dm->gfx[40] = read_bmp(ft_strjoin(bpath, "misc/handlerl.bmp"), 0, 0);
-	dm->gfx[41] = read_bmp(ft_strjoin(bpath, "misc/handlegr.bmp"), 0, 0);
-	dm->gfx[42] = read_bmp(ft_strjoin(bpath, "misc/handlegl.bmp"), 0, 0);
+	dm->gfx[39] = memcpy_gfx(pack, (int[2]){0, 2139}, (int[2]){128, 128});
+	dm->gfx[40] = memcpy_gfx(pack, (int[2]){0, 2010}, (int[2]){128, 128});
+	dm->gfx[41] = memcpy_gfx(pack, (int[2]){0, 1881}, (int[2]){128, 128});
+	dm->gfx[42] = memcpy_gfx(pack, (int[2]){0, 1752}, (int[2]){128, 128});
 }
 
 /*
@@ -56,9 +76,11 @@ void		comp_spritesheets(t_doom *dm, t_gfx pack, char *bpath)
 **	woman 20
 **	greenguy 21
 **	brownguy 22
+**	Sky 23
+**	Projectile 24
 */
 
-void		comp_foe(t_doom *dm, t_gfx pack, char *bpath)
+void		comp_foe(t_doom *dm, t_gfx pack)
 {
 	dm->gfx[16] = memcpy_gfx(pack, (int[2]){0, 0}, (int[2]){148, 112});
 	dm->gfx[17] = memcpy_gfx(pack, (int[2]){0, 112}, (int[2]){148, 112});
@@ -68,25 +90,32 @@ void		comp_foe(t_doom *dm, t_gfx pack, char *bpath)
 	dm->gfx[21] = memcpy_gfx(pack, (int[2]){0, 560}, (int[2]){148, 112});
 	dm->gfx[22] = memcpy_gfx(pack, (int[2]){0, 672}, (int[2]){148, 112});
 	dm->gfx[23] = memcpy_gfx(pack, (int[2]){308, 1080}, (int[2]){360, 1080});
-	dm->gfx[24] = memcpy_gfx(pack, (int[2]){61, 785}, (int[2]){52, 52}); //ammo has issues
-	comp_spritesheets(dm, pack, bpath);
+	dm->gfx[24] = memcpy_gfx(pack, (int[2]){0, 2669}, (int[2]){52, 52});
+	comp_spritesheets(dm, pack);
 }
+
+/*
+**	End 0
+**	Spawn 7
+**	Jetpack 9
+**	MainMenu 15
+*/
 
 void		comp_hud_gfx(t_doom *dm, char *bpath)
 {
 	t_gfx	pack;
 
 	pack = read_bmp(ft_strjoin(bpath, "gfxpack.bmp"), 0, 0);
-	dm->gfx[0] = memcpy_gfx(pack, (int[2]){0, 1366}, (int[2]){128, 128}); //end
-	dm->gfx[7] = memcpy_gfx(pack, (int[2]){0, 1494}, (int[2]){128, 128}); //spawn
-	dm->gfx[9] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
+	dm->gfx[0] = memcpy_gfx(pack, (int[2]){0, 1366}, (int[2]){128, 128});
+	dm->gfx[7] = memcpy_gfx(pack, (int[2]){0, 1494}, (int[2]){128, 128});
+	dm->gfx[9] = memcpy_gfx(pack, (int[2]){581, 2260}, (int[2]){350, 200});
 	dm->gfx[10] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
 	dm->gfx[11] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
 	dm->gfx[12] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
 	dm->gfx[13] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
 	dm->gfx[14] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
 	dm->gfx[15] = memcpy_gfx(pack, (int[2]){308, 0}, (int[2]){720, 1080});
-	comp_foe(dm, pack, bpath);
+	comp_foe(dm, pack);
 	free(pack.data);
 }
 

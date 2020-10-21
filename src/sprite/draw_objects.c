@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:44:55 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/20 13:04:19 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:24:50 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 {
 	double	spra;
 
-	while (++i < 12)
+	while (++i < 13)
 	{
 		spra = atan2(dm->obj[i].dir.y, dm->obj[i].dir.x);
 		spra = spra_check(dm, spra);
@@ -100,13 +100,7 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 		y = dm->winh * ((dm->obj[i].dir.z - dm->min.z)
 			/ (dm->max.z - dm->min.z)) - ((dm->gfx[dm->obj[i].gfx].hgt
 			/ 2) * 2 / dm->obj[i].dist);
-		//printf("i = %d   x = %d   y = %d\n", i, x, y);
-		if ((i == 1 || i == 2) && dm->drawgunandkeycard)
-			draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
-			(int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt,
-			dm->gfx[dm->obj[i].gfx].wid, 0, 0, i},
-			dm->obj[i].size / dm->obj[i].dist);
-		else if (i == 0 || i > 2)
+		if (((i == 1 || i == 2) && dm->drawgunandkeycard) || (i == 0 || i > 2))
 			draw_object(dm, i, y, x);
 	}
 }
