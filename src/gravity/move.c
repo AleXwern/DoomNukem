@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 16:09:19 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 16:09:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:49:56 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,10 @@ int		check_hor_coll(t_block blk, t_doom *dm, char dir)
 		return (0);
 	else if (blk.pt == 2)
 		return (check_hor_coll2(blk, dm, 0, 0));
-	else
+	else if (blk.pt < 7)
 		return (check_part_walls(dir, blk, dm));
+	else
+		return (slope_coll(blk, dm, dir));
 	return (0);
 }
 

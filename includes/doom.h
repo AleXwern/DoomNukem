@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 11:34:37 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 15:54:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -474,6 +474,7 @@ uint32_t			rl_color(int lgt, uint32_t col);
 double				create_plane_yz(t_vector rayd, t_vector rmap, t_doom *dm,
 						int side);
 double				dot_prd(t_vector v, t_vector u);
+double				get_coll_down(t_block blk, t_vector pos);
 double				spra_check(t_doom *dm, double spra);
 double				tri_pythagor(t_vector f, t_vector s);
 
@@ -496,6 +497,7 @@ int					move_lr(t_doom *dm);
 int					renthread(void *ptr);
 int					save_file(t_doom *dm, int fd, char *file, int i);
 int					send_pos(t_doom *dm);
+int					slope_coll(t_block blk, t_doom *dm, char dir);
 int					tex_check(t_doom *dm);
 int					x_press(t_doom *dm);
 
@@ -514,6 +516,7 @@ int					check_sprite_dist(t_doom *dm, double mov, int i);
 int					check_yx(char dir, t_block tblk, t_doom *dm);
 void				comp_gfx(t_doom *dm);
 void				comp_map(t_doom *dm);
+void				comp_texpack(t_doom *dm);
 void				crouch(t_doom *dm);
 void				curt_down(t_doom *dm);
 void				curt_up(t_doom *dm);
@@ -521,6 +524,7 @@ void				dda_prep(t_doom *dm);
 void				dda_sys(t_doom *dm);
 void				demodraw_sprite(t_doom *dm);
 void				destroy_gfx(t_doom *dm, int i);
+void				destroy_texpack(t_doom *dm);
 void				dev_status(t_doom *dm, char *av);
 void				doom_default(t_doom *dm);
 void				draw_ammo(t_doom *dm);
@@ -569,7 +573,6 @@ void				game_loop(t_doom *dm);
 void				gamestart(t_doom *dm);
 void				get_doortype(t_doom *dm, t_vector pos, t_vector door,
 					t_block blk);
-double				get_coll_down(t_block blk);
 void				gravity(t_doom *dm);
 void				intersect(t_vector *plane, t_vector *ray, t_vector *p);
 void				jump(t_doom *dm);

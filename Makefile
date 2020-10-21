@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/21 12:04:33 by tbergkul         ###   ########.fr        #
+#    Updated: 2020/10/21 14:48:18 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ COLFILE	=	draw.c draw_utils.c window.c draw_more.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c render2.c render3.c \
 			part_dda.c slope_yzt.c slope_yzb.c slope_xzt.c slope_xzb.c \
 			slope_xyt.c slope_xyb.c wingame.c
-GRAFILE	=	gravity.c move.c move2.c collision.c
+GRAFILE	=	gravity.c move.c move2.c collision.c slope_coll.c
 BMPFILE =	bmp_reader.c gfx.c gfx_chunck.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c

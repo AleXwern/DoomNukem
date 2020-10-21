@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/21 11:36:58 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:05:04 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	set_variables(t_doom *dm)
 	dm->ani = 0;
 	dm->frm = 0;
 	dm->keycard = 1;
-	dm->jetpack = 0;
 	dm->slidedoor = 'x';
 	dm->doorani = 0;
 	dm->doorfrm = 0;

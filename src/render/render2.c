@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:21:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/20 15:18:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 13:59:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,20 +98,15 @@ void	renthread2(t_doom *dm)
 		dm->dm->min = dm->rayd;
 	else if (dm->x == dm->winw - 1 && dm->y == dm->winh - 1)
 		dm->dm->max = dm->rayd;
-	if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2 && dm->hit != 2)
-		dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
+	if (dm->hit == 2)
+		draw_sky(dm);
+	else if (dm->hit == 3)
+		dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
+	else if (dm->side == 2 || dm->side == 5)
+		render_floor(dm);
 	else
-	{
-		if (dm->hit == 2)
-			draw_sky(dm);
-		else if (dm->hit == 3)
-			dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
-		else if (dm->side == 2 || dm->side == 5)
-			render_floor(dm);
-		else
-			wall_stripe(dm);
-		if (dm->iframe > DFRAME)
-			dm->img.data[dm->winw * dm->y + dm->x] =
-				avg_color(dm->col, 0xffff0000);
-	}
+		wall_stripe(dm);
+	if (dm->iframe > DFRAME)
+		dm->img.data[dm->winw * dm->y + dm->x] =
+			avg_color(dm->col, 0xffff0000);
 }

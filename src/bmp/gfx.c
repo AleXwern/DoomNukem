@@ -3,33 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 12:00:25 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 13:28:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
-/*
-//dm->gfx[25] = read_bmp(ft_strjoin(bpath, "hud/crosshair.bmp"), 0, 0);
-	dm->gfx[27] = read_bmp(ft_strjoin(bpath, "hud/gun.bmp"), 0, 0);
-	//dm->gfx[28] = read_bmp(ft_strjoin(bpath, "hud/health.bmp"), 0, 0);
-	//dm->gfx[29] = read_bmp(ft_strjoin(bpath, "hud/inventory.bmp"), 0, 0);
-	dm->gfx[30] = read_bmp(ft_strjoin(bpath, "obj/keycard.bmp"), 0, 0);
-	//dm->gfx[33] = read_bmp(ft_strjoin(bpath, "misc/alpha.bmp"), 0, 0);
-	dm->gfx[34] = read_bmp(ft_strjoin(bpath, "obj/money.bmp"), 0, 0);
-	//dm->gfx[35] = read_bmp(ft_strjoin(bpath, "obj/plant.bmp"), 0, 0);
-	//dm->gfx[36] = read_bmp(ft_strjoin(bpath, "obj/pistol.bmp"), 0, 0);
-	//dm->gfx[37] = read_bmp(ft_strjoin(bpath, "obj/chest.bmp"), 0, 0);
-	//dm->gfx[38] = read_bmp(ft_strjoin(bpath, "misc/goldore.bmp"), 0, 0);
-	dm->gfx[39] = read_bmp(ft_strjoin(bpath, "misc/handlerr.bmp"), 0, 0);
-	dm->gfx[40] = read_bmp(ft_strjoin(bpath, "misc/handlerl.bmp"), 0, 0);
-	dm->gfx[41] = read_bmp(ft_strjoin(bpath, "misc/handlegr.bmp"), 0, 0);
-	dm->gfx[42] = read_bmp(ft_strjoin(bpath, "misc/handlegl.bmp"), 0, 0);
-*/
 
 /*
 **	Crosshair 25
@@ -101,19 +83,16 @@ void		comp_foe(t_doom *dm, t_gfx pack)
 **	MainMenu 15
 */
 
-void		comp_hud_gfx(t_doom *dm, char *bpath)
+void		comp_hud_gfx(t_doom *dm, t_gfx pack)
 {
-	t_gfx	pack;
-
-	pack = read_bmp(ft_strjoin(bpath, "gfxpack.bmp"), 0, 0);
 	dm->gfx[0] = memcpy_gfx(pack, (int[2]){0, 1366}, (int[2]){128, 128});
 	dm->gfx[7] = memcpy_gfx(pack, (int[2]){0, 1494}, (int[2]){128, 128});
 	dm->gfx[9] = memcpy_gfx(pack, (int[2]){581, 2260}, (int[2]){350, 200});
-	dm->gfx[10] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
+	/*dm->gfx[10] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
 	dm->gfx[11] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
 	dm->gfx[12] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
 	dm->gfx[13] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
-	dm->gfx[14] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
+	dm->gfx[14] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL*/
 	dm->gfx[15] = memcpy_gfx(pack, (int[2]){308, 0}, (int[2]){720, 1080});
 	comp_foe(dm, pack);
 	free(pack.data);
@@ -125,12 +104,28 @@ void		comp_gfx(t_doom *dm)
 	char	*path;
 	t_gfx	pack;
 
+	path = SDL_GetBasePath();
+	bpath = ft_strjoin(path, "gfx/gfxpack.bmp");
+	pack = read_bmp(bpath, 0, 0);
+	SDL_free(path);
+	if (pack.data == NULL)
+		error_out(GFX_ERROR, dm);
+	if (!(dm->gfx = (t_gfx*)ft_memalloc(sizeof(t_gfx) * GFXCOUNT)))
+		error_out(MEM_ERROR, dm);
+	comp_texpack(dm);
+	comp_hud_gfx(dm, pack);
+}
+
+void		comp_texpack(t_doom *dm)
+{
+	char	*path;
+	t_gfx	pack;
+
 	dm->tile += 48;
 	path = SDL_GetBasePath();
-	bpath = ft_strjoin(path, "gfx/");
-	if (!(dm->gfx = (t_gfx*)malloc(sizeof(t_gfx) * GFXCOUNT)))
-		error_out(MEM_ERROR, dm);
-	pack = read_bmp(ft_quadjoin(bpath, "tex", (char*)&dm->tile, ".bmp"), 0, 0);
+	pack = read_bmp(ft_quadjoin(path, "gfx/tex", (char*)&dm->tile, ".bmp"), 0, 0);
+	if (pack.data == NULL)
+		error_out(GFX_ERROR, dm);
 	dm->gfx[1] = memcpy_gfx(pack, (int[2]){0, 256}, (int[2]){128, 128});
 	dm->gfx[2] = memcpy_gfx(pack, (int[2]){0, 0}, (int[2]){128, 128});
 	dm->gfx[3] = memcpy_gfx(pack, (int[2]){128, 0}, (int[2]){128, 128});
@@ -139,8 +134,6 @@ void		comp_gfx(t_doom *dm)
 	dm->gfx[6] = memcpy_gfx(pack, (int[2]){128, 128}, (int[2]){128, 128});
 	dm->gfx[8] = memcpy_gfx(pack, (int[2]){0, 384}, (int[2]){128, 128});
 	free(pack.data);
-	comp_hud_gfx(dm, bpath);
 	dm->tile -= 48;
 	SDL_free(path);
-	free(bpath);
 }

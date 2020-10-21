@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game_more.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:42:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/21 11:38:45 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:02:51 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int		move(t_doom *dm)
 		if ((dm->key.up || dm->key.down || dm->key.left || dm->key.right)
 			&& !dm->isoptions)
 			cam_udy(dm);
-		if ((dm->key.one || dm->key.two) && !dm->isoptions && dm->jetpack)
+		if ((dm->key.one || dm->key.two) && !dm->isoptions &&
+				(dm->jetpack || dm->isgravity))
 			jetpack(dm);
 		gravity(dm);
 		if ((dm->key.space) && !dm->isoptions && !dm->airbrn)

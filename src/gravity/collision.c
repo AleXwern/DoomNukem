@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 12:43:48 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 14:23:07 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:07:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-double	get_coll_down(t_block blk)
+double	get_coll_down(t_block blk, t_vector pos)
 {
 	if (blk.pt <= 1)
 		return (0);
 	else if (blk.pt == 2)
 		return (1 - blk.pln / 15.0);
+	else if (blk.pt == 11)
+		return ((pos.y - (int)pos.y));
 	return (0);
 }
 

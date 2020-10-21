@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:20:26 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 15:30:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 13:18:56 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,24 @@ void	destroy_gfx(t_doom *dm, int i)
 {
 	while (++i < dm->gfxcount)
 	{
-		if (dm->gfx[i].wid > 0)
+		if (dm->gfx[i].data != NULL)
 			free(dm->gfx[i].data);
 	}
 	free(dm->gfx);
+}
+
+void	destroy_texpack(t_doom *dm)
+{
+	int		i;
+
+	i = 0;
+	while (++i <= BLK)
+	{
+		if (i == 7)
+			continue;
+		if (dm->gfx[i].data != NULL)
+			free(dm->gfx[i].data);
+	}
 }
 
 t_img		init_image(t_doom *dm)

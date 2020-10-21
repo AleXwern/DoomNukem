@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:56:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 15:03:07 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:43:35 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	single_loop_x(t_doom* dm)
 
 void	init_functions(void (*block[10])(t_doom*, double), void (*slope[12])(t_doom*, int))
 {
-	ft_putendl("init funct");
 	block[0] = part_dda_zp;
 	block[1] = part_dda_zn;
 	block[2] = part_dda_yp;
@@ -116,13 +115,13 @@ void	init_functions(void (*block[10])(t_doom*, double), void (*slope[12])(t_doom
 	block[4] = part_dda_xp;
 	block[5] = part_dda_xn;
 	slope[0] = slope_dda_yzt;
-	slope[1] = slope_dda_yzb;
-	slope[2] = slope_dda_yztr;
-	slope[3] = slope_dda_yzbr;
-	slope[4] = slope_dda_xzt;
-	slope[5] = slope_dda_xzb;
-	slope[6] = slope_dda_xztr;
-	slope[7] = slope_dda_xzbr;
+	slope[1] = slope_dda_yzbr;
+	slope[2] = slope_dda_xzt;
+	slope[3] = slope_dda_xzbr;
+	slope[4] = slope_dda_yzb;
+	slope[5] = slope_dda_yztr;
+	slope[6] = slope_dda_xzb;
+	slope[7] = slope_dda_xztr;
 	slope[8] = slope_dda_xyt;
 	slope[9] = slope_dda_xyb;
 	slope[10] = slope_dda_xytr;
@@ -146,7 +145,7 @@ void	part_check(t_doom *dm)
 	static void	(*block[6])(t_doom*, double);
 	static void	(*slope[12])(t_doom*, int);
 
-	if (block[0] == NULL)
+	if (slope[11] == NULL)
 		init_functions(block, slope);
 	plane = (1 - dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pln / 15.0);
 	pt = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt - 1;
@@ -154,4 +153,7 @@ void	part_check(t_doom *dm)
 		slope[pt - 6](dm, dm->side);
 	else
 		block[pt](dm, plane);
+	if (dm->map.z < 0 || dm->map.y < 0 || dm->map.x < 0
+			|| dm->map.z >= 9 || dm->map.y >= 25 || dm->map.x >= 25)
+		dm->hit = 2;
 }

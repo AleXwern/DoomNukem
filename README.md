@@ -41,6 +41,7 @@ Editor
 3. Mouse right - Copy block data to current "pencil"
 
 # Connecting to server
-1. In-game open menu (M)
+1. Start game and in-game open menu (M)
 2. "Connect" -> Right to connect, left to disconnect
 3. If you exit the game, go to main menu or the server doesn't exist you'll be disconnected automatically.
+4. Server IP by default is HIVE c3r1p1 but you can change it in the includes/values.h -> #define IP (find the one that fits your OS)

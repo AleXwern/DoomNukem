@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 14:58:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 13:19:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	menu_keys_hold_more(t_doom *dm)
 	{
 		if (dm->tile < 1)
 			dm->tile = 1;
-		destroy_gfx(dm, -1);
-		comp_gfx(dm);
+		destroy_texpack(dm);
+		comp_texpack(dm);
 	}
 	else if (dm->cur == 9)
 	{
