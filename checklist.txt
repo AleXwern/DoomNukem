@@ -39,10 +39,11 @@ activated by a command line option, or it can be a separate binary. It can be us
 to completely define a level: the areas and the differences in height between them,
 the textures, the actions and interactions, etc.
 
-* Just like in the original games, you must pack in a single file all the elements you’re
+X Just like in the original games, you must pack in a single file all the elements you’re
 going to need for the game: the level’s design, textures and gameplay elements.
 One file per level is accepted, but it must be self-sufficient. The doom-nukem binary
 and the chosen level file must be self-sufficient.
 
 * Sprites should not move inside the wall when the player looks to the side.
 * Inclined planes
+* Collision not working with inclined planes and between two horizontal planes
