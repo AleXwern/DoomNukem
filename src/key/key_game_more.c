@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game_more.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:42:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/21 16:14:48 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/22 11:49:50 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		move(t_doom *dm)
 			dm->gravity.z = -0.45 * (30.0 / dm->buffer / dm->prefps);
 		}
 		if (!dm->airbrn && !dm->iframe)
-			suffrocate(dm, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y]
+			suffocate(dm, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y]
 			[(int)dm->pos.x], (t_vector){.z = dm->pos.z - (int)dm->pos.z,
 			.y = dm->pos.y - (int)dm->pos.y, .x = dm->pos.x - (int)dm->pos.x});
 		if (dm->key.space > 0)

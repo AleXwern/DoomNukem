@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/20 12:48:37 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 13:43:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/22 14:10:07 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		light_map(t_vector map, int side, t_block ***area)
 		lgt = area[(int)map.z][(int)map.y][(int)map.x - 1].lgt;
 	else if (side == 1)
 		lgt = area[(int)map.z][(int)map.y - 1][(int)map.x].lgt;
-	else if (side == 2)
+	else if (side == 2 && map.z != 0)
 		lgt = area[(int)map.z - 1][(int)map.y][(int)map.x].lgt;
 	else if (side == 3)
 		lgt = area[(int)map.z][(int)map.y][(int)map.x + 1].lgt;
