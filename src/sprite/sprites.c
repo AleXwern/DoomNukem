@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 16:05:57 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/23 14:27:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,11 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 
 	while (++i < 9)
 	{
-		if (i == dm->id || !dm->spr[i].gfx)
+		if (i == dm->id || dm->spr[i].dead)
 			continue;
-		spra = atan2(dm->spr[i].dir.y, dm->spr[i].dir.x);
-		spra = spra_check(dm, spra);
-		//printf("Spr %d dir %f\n", i, spra / M_PI * 180);
+		spra = spra_check(dm, atan2(dm->spr[i].dir.y, dm->spr[i].dir.x));
 		dm->spr[i].dist = tri_pythagor(dm->pos, dm->spr[i].pos) - 0.2;
-		if (dm->spr[i].dist < 0.8)
+		if (dm->spr[i].dist < 0.4)
 			continue;
 		dm->spr[i].dir.z = (dm->spr[i].pos.z - dm->pos.z) / dm->spr[i].dist;
 		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;

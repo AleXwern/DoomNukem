@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_string.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 12:27:40 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/05 12:54:52 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/23 14:06:19 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,34 @@ void	set_text(t_doom *dm, char *str, int *xy, double size)
 		xy[1] += 27 * size;
 		i++;
 	}
+}
+
+void	set_ftext(t_doom *dm, char *str, int *xy, double size)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 'a' && str[i] <= 'z')
+		{
+			dm->gfx[33].x = (str[i] - 97) * 27;
+			draw_text(dm, dm->gfx[33], (int[7]){xy[0], xy[1], 26, 27,
+				0, 0, xy[2]}, size);
+		}
+		else if (str[i] >= '0' && str[i] <= '9')
+		{
+			dm->gfx[33].x = 727 + (str[i] - 48) * 27;
+			draw_text(dm, dm->gfx[33], (int[7]){xy[0], xy[1], 26, 27,
+				0, 0, xy[2]}, size);
+		}
+		else if (str[i] == '\n')
+		{
+			xy[0] += 28 * size;
+			xy[1] -= 27 * (i + 1) * size;
+		}
+		xy[1] += 27 * size;
+		i++;
+	}
+	free(str);
 }

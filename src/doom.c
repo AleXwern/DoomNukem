@@ -6,22 +6,27 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 15:58:24 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:34:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
+/*
+**	system("leaks doom-nukem");
+*/
+
 void	error_out(char *msg, t_doom *dm)
 {
 	ft_putendl(msg);
 	dm->killthread = 1;
+	if (dm->dev)
+		ft_printmem(dm, sizeof(t_doom));
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_WaitThread(dm->fpsthread, NULL);
 	SDLNet_Quit();
 	SDL_Quit();
-	//system("leaks doom-nukem");
 	exit(0);
 }
 
@@ -46,7 +51,7 @@ void	init_audio(t_doom *dm)
 	dm->music = Mix_LoadMUS(MUSIC);
 	dm->reload = Mix_LoadWAV("Audio/SoundEffects/reload.wav");
 	dm->gunshot = Mix_LoadWAV("Audio/SoundEffects/gunshot.wav");
-	dm->jetpack = Mix_LoadWAV("Audio/SoundEffects/jetpack.wav");
+	dm->jetpacksound = Mix_LoadWAV("Audio/SoundEffects/jetpack.wav");
 	dm->doorsound = Mix_LoadWAV("Audio/SoundEffects/door.wav");
 	dm->teleport = Mix_LoadWAV("Audio/SoundEffects/teleport.wav");
 	dm->doorknob = Mix_LoadWAV("Audio/SoundEffects/doorknob.wav");

@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/16 16:28:02 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/20 10:38:59 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	check_hit(t_doom *dm, int i, int x)
 
 void	player_shooting(t_doom *dm, int i)
 {
-	if (dm->shooting && dm->ani == 1 && dm->frm == 2)
+	if (dm->shooting && dm->ani == 1 && dm->frm == 1)
 	{
 		dm->prj[i].gfx = 24;
 		dm->prj[i].dir = dm->dir;
@@ -109,8 +109,8 @@ void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
 {
 	if (spr->move == 's')
 	{
-		prj->mov = (t_vector){.z = spr->dir.z * -0.2,
-			.y = spr->dir.y * -0.2, .x = spr->dir.x * -0.2};
+		prj->mov = (t_vector){.z = spr->dir.z * -0.3,
+			.y = spr->dir.y * -0.3, .x = spr->dir.x * -0.3};
 		prj->pos.z = spr->pos.z + (prj->mov.z * 2);
 		prj->pos.y = spr->pos.y + (prj->mov.y * 2);
 		prj->pos.x = spr->pos.x + (prj->mov.x * 2);
@@ -132,7 +132,4 @@ void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
 			ft_bzero(prj, sizeof(t_sprite));
 	}
 	foe_shooting2(dm, prj);
-	/*if (prj->move == 'm' && dm->area[(int)prj->pos.z][(int)prj->pos.y]
-		[(int)prj->pos.x].b > 1)
-		ft_bzero(prj, sizeof(t_sprite));*/
 }

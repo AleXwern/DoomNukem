@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:24:42 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/14 16:05:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 14:10:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		check_sprite_dist(t_doom *dm, double mov, int i)
 	{
 		if (!dm->spr[i].gfx)
 			dm->spr[i].dist = 0;
-		if (dm->spr[i].dist < 1.2 && fabs(dm->pos.z - dm->spr[i].pos.z) < 1)
+		if (dm->spr[i].dist < 0.9 && fabs(dm->pos.z - dm->spr[i].pos.z) < 1)
 		{
 			npos.x -= dm->spr[i].dir.x * mov;
 			npos.y -= dm->spr[i].dir.y * mov;

@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/16 15:03:59 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/23 15:19:18 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,22 +16,22 @@ SERVER	=	server-nukem
 OEXT	=	.o
 LEXT	= 	.a
 # Remember -Wall -Wextra -Werror -> -O2 inclusion is debatable since it was a thing back in 90s
-FLG		= 	-O2 -Wall -Wextra
-SRCFILE =	doom.c gfx.c loop.c camera.c main_menu.c interact.c door.c \
+FLG		= 	-Wall -Wextra -g
+SRCFILE =	doom.c loop.c camera.c main_menu.c interact.c door.c \
 			util.c menu.c menu2.c gfx_draw.c posteff.c defaults.c \
 			set_variables.c misc_alloc.c
 KEYFILE =	key_editor.c key_editor_more.c key_game_hold.c key_game_more.c \
 			key_game_release.c key_in_game_menu.c key_main_menu.c key_state.c
 DRAWEXT =	draw_hud.c draw_hud2.c
-FILESYS =	fileformat.c fileformat2.c save_level.c
-EDTFILE =	editor.c render_editor.c render_editor2.c
+FILESYS =	fileformat.c fileformat2.c save_level.c spriteformat.c
+EDTFILE =	editor_default.c editor.c render_editor.c render_editor2.c spriteobj.c
 ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c window.c draw_more.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c render2.c render3.c \
 			part_dda.c slope_yzt.c slope_yzb.c slope_xzt.c slope_xzb.c \
 			slope_xyt.c slope_xyb.c wingame.c
-GRAFILE	=	gravity.c move.c move2.c collision.c
-BMPFILE =	bmp_reader.c
+GRAFILE	=	gravity.c move.c move2.c collision.c slope_coll.c
+BMPFILE =	bmp_reader.c gfx.c gfx_chunck.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
 SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c \
@@ -122,6 +122,9 @@ fclean: clean
 
 run: all
 	./doom-nukem
+
+rerun: re
+	./doom-nukem -debug
 
 $(SERVER): $(OBJSRV) $(LIBFT)
 	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJSRV) $(LIBFT)

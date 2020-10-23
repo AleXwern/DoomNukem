@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 16:30:37 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:14:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	threads2(t_doom *dm, int *x)
 void	threads(t_doom *dm)
 {
 	static int	x;
-	static int	i;
 
 	if (dm->trx < 1)
 		dm->trx = 1;
@@ -74,13 +73,6 @@ void	threads(t_doom *dm)
 			SDL_CreateThread(renthread, "Thread", (void*)&dm->data_r[x]);
 		x++;
 	}
-	if (i >= 0 && dm->netstat)
-	{
-		if (send_pos(dm))
-			recv_pos(dm);
-		i = 0;
-	}
-	i++;
 	threads2(dm, &x);
 }
 
@@ -93,8 +85,10 @@ void	render2(t_doom *dm)
 	{
 		dm->alive = 0;
 		Mix_PlayChannel(-1, dm->death, 0);
-		set_text(dm, "you died\npress space", (int[3]){dm->winh / 2 - 26,
-			dm->winw / 2 - 210, 0xf70e0e}, 2);
+		set_text(dm, "you died", (int[3]){dm->winh / 2 - 46,
+			dm->winw / 2 - 250, 0xf70e0e}, 2);
+		set_text(dm, "press space", (int[3]){dm->winh / 2 + 30,
+			dm->winw / 2 - 310, 0xf70e0e}, 2);
 		SDL_RenderPresent(dm->rend);
 	}
 	if (dm->iframe == IFRAME)
@@ -116,22 +110,18 @@ void	render2(t_doom *dm)
 void	render(t_doom *dm)
 {
 	threads(dm);
-	if (dm->isoutline)
-		post_effects(dm);
-	draw_sprite(dm, 0, 0);
-	draw_hud(dm);
-	pickupitem(dm);
-	//printf("POS %f %f %f %d\n", dm->pos.z, dm->pos.y, dm->pos.x, dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b);
-
-	//make this a textbox when spawned. Can't move until space is pressed
-	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b == 7)
+	if (dm->gamestarted)
 	{
-		set_text(dm, "you have stolen top secret documents",
-		(int[3]){dm->winh / 2 - 70, dm->winw / 2 - 500, 16742400}, 1);
-		set_text(dm, "and need to escape the building",
-		(int[3]){dm->winh / 2 - 180, dm->winw / 2 - 480, 16742400}, 1);
+		if (dm->isoutline)
+			post_effects(dm);
+		draw_sprite(dm, 0, 0);
+		draw_hud(dm);
+		pickupitem(dm);
+		//printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
+		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b == 0)
+			wingame(dm);
+		render2(dm);
 	}
-	if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b == 0)
-		wingame(dm);
-	render2(dm);
+	else
+		gamestart(dm);
 }

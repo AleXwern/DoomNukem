@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:25:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/07 16:50:54 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:41:30 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@
 ** Key here is pragma pack which packs the struct so that we can read the file
 ** straight into the struct and not lose data BUT at the expense of code
 ** exploding in size.
-** BMP reading is only ever used at the start of the program and in the instances
-** where chooses to change texture pack so I'll justify the usage here.
+** BMP reading is only ever used at the start of the program and in the
+** instances where chooses to change texture pack so I'll justify the
+** usage here.
 */
-typedef uint16_t t_word;
-typedef uint32_t t_dword;
+
+typedef uint16_t	t_word;
+typedef uint32_t	t_dword;
 
 # pragma pack(push, 1)
 

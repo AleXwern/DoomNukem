@@ -1,29 +1,35 @@
-gfx/X/sky		1080x360
-gfx/X/floor		128x128
-gfx/X/wall		128x128
-gfx/X/stairu		128x128
-gfx/X/staird		128x128
-gfx/X/door		128x128
-gfx/X/warp		128x128
-gfx/X/battlebg		1080x720
+gfx				start(y,x)	size(y,x)
+Charizard		0,0			148,112
+Pokemontrainer	0,112		148,112
+Dragon			0,224		148,112
+Aggron			0,336		148,112
+Woman			0,448		148,112
+Greenguy		0,560		148,112
+Brownguy		0,672		148,112
+Crosshair		0,784		50,50
+Health			0,834		60,122
+Inventory		0,956		120,410
+End				0,1366		128,128
+Spawn			0,1494		128,128
+Goldore			0,1623		128,128
+HandleGL		0,1752		128,128
+HandleGR		0,1881		128,128
+HandleRL		0,2010		128,128
+HandleRR		0,2139		128,128
+Keycard			0,2268		140,200
+Money			0,2469		103,200
+Projectile		0,2669		52,52
 
-*HUD*
-gfx/hud/btlmenu		221x312
-gfx/hud/btlsel		221x312
-gfx/hud/enemyhp		94x40
-gfx/hud/notifdown	441x57
-gfx/hud/notifup		441x57
-gfx/hud/pcsel		354x95
-gfx/hud/pcturn		354x95
-gfx/hud/score		314x57
 
-*FOE*
-gfx/hud/foe0		519x300	dragon
-gfx/hud/foe1		270x375	stalker
-gfx/hud/foe2		138x288	deer
-gfx/hud/foe3		564x396	wyvern**
-gfx/hud/foe4		504x342	bird
-gfx/hud/foe5		516x342	manta
-gfx/hud/foe6		448x340 drake
-gfx/hud/foe7		345x280	brute
-gfx/hud/foe8		300x348	hunter
+GunAnimation	148,0		160,2880
+
+
+MainMenu		308,0		720,1080
+Sky				308,1080	360,1080
+Icon			308,2160	160,160
+Pistol			309,2321	272,380
+Plant			309,2702	292,150
+
+Chest			668,1080	198,1180
+Alpha			867,1081	27,997
+Jetpack			581,2260	350,200

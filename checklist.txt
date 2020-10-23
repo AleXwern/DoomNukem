@@ -2,7 +2,7 @@ New graphic features:
 X You can look up and down.
 X The areas you go through don’t have a fixed shape, for example the rooms can have any number of walls in all possible directions.
 X The floor and ceiling have adjustable heights, which means different areas will not be at the same height - and you’ll have to manage that smoothly.
-• The floor and ceiling may not be horizontal but inclined planes.
+/ The floor and ceiling may not be horizontal but inclined planes.
 X The floors and ceilings have textures.
 X There can be a sky instead of a ceiling.
 X Walls can be partially transparent, unveiling the room behind.
@@ -27,8 +27,8 @@ X Actions can alter all the elements of the game, all the shapes, all the proper
 X The 2 previous points obviously mean that your game must contain animations, various devices like door opening systems, keys and ways to use them, elevators and secret passages.
 X Specific characters and / or objects can have their own actions, reactions and interactions in the universe.
 X To mimic the Doom and Duke Nukem universes, projectiles can be fired and interact with the background, the objects, the characters, even the player itself.
-• There is a story with a mission, a goal to reach, a target (save the earth, get rich,... even something very simple, check out Doom).
-• There is a beginning and an end for each level.
+X There is a story with a mission, a goal to reach, a target (save the earth, get rich,... even something very simple, check out Doom).
+X There is a beginning and an end for each level.
 X There are sound effects.
 X There’s music.
 
@@ -43,3 +43,8 @@ X Just like in the original games, you must pack in a single file all the elemen
 going to need for the game: the level’s design, textures and gameplay elements.
 One file per level is accepted, but it must be self-sufficient. The doom-nukem binary
 and the chosen level file must be self-sufficient.
+
+* Sprites should not move inside the wall when the player looks to the side.
+* Inclined planes
+* Collision not working with inclined planes
+* Collision not working between two horizontal planes

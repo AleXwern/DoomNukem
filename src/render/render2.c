@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:21:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/15 16:28:24 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 13:59:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	rc_init(t_doom *dm)
 	else
 		dm->walldist = (dm->map.z - dm->pos.z +
 			(1 - dm->stepz) * 0.5) / dm->rayd.z;
-	//if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-	//	printf("%.16f = (%f - %f + (1 - %d) * 0.5) / %.16f side is %d\n", dm->walldist, dm->map.z, dm->pos.z, dm->stepz, dm->rayd.z, dm->side);
 	if (dm->hit != 2 && dm->area[(int)dm->map.z]
 		[(int)dm->map.y][(int)dm->map.x].b == 6)
 		dm->wincol = 1;
@@ -71,9 +69,6 @@ void	rc_init(t_doom *dm)
 	dm->winarr[dm->winw * dm->y + dm->x] = 100;
 	if (dm->walldist < LIMN)
 		dm->walldist = dm->wallarr[dm->winw * (dm->y - 1) + dm->x];
-	//if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-	//	printf("%f\n", dm->walldist);
-	//dm->walldist += 0.01;
 }
 
 void	side_check(t_doom *dm)
@@ -103,20 +98,15 @@ void	renthread2(t_doom *dm)
 		dm->dm->min = dm->rayd;
 	else if (dm->x == dm->winw - 1 && dm->y == dm->winh - 1)
 		dm->dm->max = dm->rayd;
-	if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2 && dm->hit != 2)
-		dm->img.data[dm->winw * dm->y + dm->x] = 0xfff01111;
+	if (dm->hit == 2)
+		draw_sky(dm);
+	else if (dm->hit == 3)
+		dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
+	else if (dm->side == 2 || dm->side == 5)
+		render_floor(dm);
 	else
-	{
-		if (dm->hit == 2)
-			draw_sky(dm);
-		else if (dm->hit == 3)
-			dm->img.data[dm->winw * dm->y + dm->x] = 0xff000000;
-		else if (dm->side == 2 || dm->side == 5)
-			render_floor(dm);
-		else
-			wall_stripe(dm);
-		if (dm->iframe > DFRAME)
-			dm->img.data[dm->winw * dm->y + dm->x] =
-				avg_color(dm->col, 0xffff0000);
-	}
+		wall_stripe(dm);
+	if (dm->iframe > DFRAME)
+		dm->img.data[dm->winw * dm->y + dm->x] =
+			avg_color(dm->col, 0xffff0000);
 }

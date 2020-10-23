@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:36:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/23 15:17:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 		dm->spw.z = dm->flr + 0.5;
 		dm->area[dm->flr][y][x].b = 1;
 	}
-	if (dm->area[dm->flr][y][x].b > 8 || dm->area[dm->flr][y][x].b < 0)
+	if (dm->area[dm->flr][y][x].b > BLK || dm->area[dm->flr][y][x].b < 0)
 		dm->area[dm->flr][y][x].b = 2;
 	free_memory(temp);
 }
@@ -71,7 +71,7 @@ void	fileformat(int fd, t_doom *dm, int y)
 	while (get_next_line(fd, &gnl) == 1)
 	{
 		if (y > 25)
-			break;
+			break ;
 		temp = ft_strsplit(gnl, ' ');
 		free(gnl);
 		if (get_next_matrix(dm, temp, 0, y) == 0)
@@ -114,6 +114,7 @@ void	comp_map(t_doom *dm)
 		fileformat(fd, dm, 0);
 		dm->flr++;
 	}
+	comp_sprite(dm, -1, fd);
 	dm->height = 25;
 	close(fd);
 	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .pln = 15, .pt = 0});

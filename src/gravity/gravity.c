@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:18:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 16:07:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/22 14:12:09 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int		check_ver_coll(t_block blk, t_doom *dm)
 		return (1);
 	else if (blk.pt == 2)
 	{
-		hgt = (int)(dm->pos.z + dm->plrhight) + (1 - blk.pln / 15.0) - dm->plrhight;
+		hgt = (int)(dm->pos.z + dm->plrhight) +
+			(1 - blk.pln / 15.0) - dm->plrhight;
 		if (hgt > dm->pos.z + dm->gravity.z)
 			return (1);
 		return (0);
@@ -83,20 +84,23 @@ void	gravity2(t_doom *dm)
 {
 	dm->airbrn = 0;
 	dm->gravity.z = 0;
-	if (dm->pos.z - (int)dm->pos.z > (1 - dm->plrhight) && dm->area[(int)(dm->pos.z +
-			dm->plrhight)][(int)(dm->pos.y)][(int)dm->pos.x].pt == 2)
+	if (dm->pos.z - (int)dm->pos.z > (1 - dm->plrhight) &&
+			dm->area[(int)(dm->pos.z + dm->plrhight)][(int)(dm->pos.y)]
+			[(int)dm->pos.x].pt == 2)
 		dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
-		(dm->pos.z + dm->plrhight)][(int)(dm->pos.y)][(int)dm->pos.x]) + (1 - dm->plrhight);
+			(dm->pos.z + dm->plrhight)][(int)(dm->pos.y)]
+			[(int)dm->pos.x], dm->pos) + (1 - dm->plrhight);
 	else if (dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)]
-		[(int)dm->pos.x].pt == 2)
+			[(int)dm->pos.x].pt == 2)
 		dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
-		(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x]) - dm->plrhight;
+			(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x], dm->pos) - dm->plrhight;
 	else
 		dm->pos.z = (int)dm->pos.z + (1 - dm->plrhight);
 }
 
 void	gravity(t_doom *dm)
 {
+	//dm->airbrn = 0;
 	if (dm->key.two || dm->isgravity || dm->ismenu || !dm->airbrn)
 		return ;
 	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)

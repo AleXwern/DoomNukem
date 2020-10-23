@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:42:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/16 15:48:54 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/22 11:49:50 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	jetpack(t_doom *dm)
 	}
 	if (dm->key.two)
 	{
-		Mix_PlayChannel(-1, dm->jetpack, 0);
+		Mix_PlayChannel(-1, dm->jetpacksound, 0);
 		if (dm->area[(int)(dm->pos.z - 0.5)][(int)(dm->pos.y)]
 			[(int)dm->pos.x].b <= 1 && dm->pos.z > 1)
 			dm->pos.z -= 0.05 * (30.0 / dm->buffer / dm->prefps);
@@ -74,7 +74,8 @@ int		move(t_doom *dm)
 		if ((dm->key.up || dm->key.down || dm->key.left || dm->key.right)
 			&& !dm->isoptions)
 			cam_udy(dm);
-		if ((dm->key.one || dm->key.two) && !dm->isoptions)
+		if ((dm->key.one || dm->key.two) && !dm->isoptions &&
+				(dm->jetpack || dm->isgravity))
 			jetpack(dm);
 		gravity(dm);
 		if ((dm->key.space) && !dm->isoptions && !dm->airbrn)
@@ -83,7 +84,7 @@ int		move(t_doom *dm)
 			dm->gravity.z = -0.45 * (30.0 / dm->buffer / dm->prefps);
 		}
 		if (!dm->airbrn && !dm->iframe)
-			suffrocate(dm, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y]
+			suffocate(dm, dm->area[(int)(dm->pos.z - 0.1)][(int)dm->pos.y]
 			[(int)dm->pos.x], (t_vector){.z = dm->pos.z - (int)dm->pos.z,
 			.y = dm->pos.y - (int)dm->pos.y, .x = dm->pos.x - (int)dm->pos.x});
 		if (dm->key.space > 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_more.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:08:53 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/15 13:59:30 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 13:50:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ void	wall_stripe(t_doom *dm)
 			dm->wallx = (dm->pos.x + dm->walldist * dm->rayd.x);
 		dm->wallx -= floor(dm->wallx);
 		dm->texx = (int)(dm->wallx * 128.0);
-		if (dm->side == 0 && dm->rayd.x > 0)
+		if (dm->side == 0)
 			dm->texx = 128 - dm->texx - 1;
-		else if (dm->side == 1 && dm->rayd.y < 0)
+		else if (dm->side == 4)
 			dm->texx = 128 - dm->texx - 1;
 	}
 	else if (dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b != 2)

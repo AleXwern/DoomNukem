@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_editor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:13:26 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/23 15:05:05 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	draw_screen(t_editor *le, t_doom *dm, int x, int y)
 	x = dm->event.motion.x / 30;
 	if (le->marea && dm->event.motion.x < 750)
 	{
-		if (draw_screen_more(le, dm, x, y))
-			return ;
+		if (!le->tab)
+			draw_screen_more(le, dm, x, y);
+		else
+			set_sprite_tomap(le, dm, dm->event.motion.x, dm->event.motion.y);
 	}
 	else if (le->mcopy && dm->event.motion.x < 750)
 	{
@@ -51,7 +53,7 @@ void	draw_screen(t_editor *le, t_doom *dm, int x, int y)
 		set_slider(le, dm, x, y);
 }
 
-void	check_area(t_editor *le, SDL_Event ev)
+void	check_area(t_editor *le, t_doom *dm, SDL_Event ev)
 {
 	if (ev.motion.x >= 0 && ev.motion.y >= 0 && ev.button.button == 1)
 	{
@@ -59,13 +61,17 @@ void	check_area(t_editor *le, SDL_Event ev)
 			le->marea = 1;
 		else if (ev.motion.x < 1500 && ev.motion.y < 375)
 			le->mslider = 1;
-		else if (ev.motion.x < 1500 && ev.motion.y < 485)
+		else if (ev.motion.x < 1500 && ev.motion.y < 592 && le->tab == 0)
 		{
-			le->blk = ((ev.motion.x - 750) / 107);//+ 1
+			le->blk = ((ev.motion.x - 750) / 107);
+			if (ev.motion.y > 485)
+				le->blk += 7;
 			le->mblock = 1;
+			if (le->blk > BLK)
+				le->blk = BLK;
 		}
-		if (le->blk > 7)
-			le->blk = 7;
+		else if (ev.motion.x < 1500 && ev.motion.y < 592 && le->tab == 1)
+			grab_sprite(dm, le, ((ev.motion.x - 750) / 107) + 4);
 	}
 	else if (ev.motion.x >= 0 && ev.motion.y >= 0 && ev.button.button == 3)
 		le->mcopy = 1;
@@ -81,6 +87,12 @@ void	editor_key_release(Uint32 key, t_editor *le, t_doom *dm)
 		le->cur--;
 	else if (key == KEY_S)
 		save_file(dm, 0, "1s", -1);
+	else if (key == KEY_ONE)
+		le->tab = 0;
+	else if (key == KEY_TWO)
+		le->tab = 1;
+	if (key == KEY_ONE || key == KEY_TWO)
+		tab_change(le);
 	if (le->cur > 4)
 		le->cur = 0;
 	if (le->cur < 0)

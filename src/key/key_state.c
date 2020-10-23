@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/06 15:28:52 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/23 14:44:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	key_state_editor(t_editor *le, t_doom *dm)
 	if (SDL_PollEvent(&(dm->event)))
 	{
 		if (dm->event.type == SDL_MOUSEBUTTONDOWN)
-			check_area(le, dm->event);
+			check_area(le, dm, dm->event);
 		if (dm->event.type == SDL_MOUSEBUTTONUP)
 		{
 			le->marea = 0;
@@ -83,16 +83,15 @@ void	key_state_editor(t_editor *le, t_doom *dm)
 		}
 		if (dm->event.window.event == SDL_WINDOWEVENT_RESIZED ||
 			dm->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
-		{
-			SDL_SetWindowSize(dm->win, 1500, 750);
 			resize_window(dm);
-		}
 		if (dm->event.type == SDL_QUIT)
 			le->quit = 2;
 		if (dm->event.key.state == SDL_PRESSED)
 			editor_key_press(dm->event.key.keysym.scancode, le);
 		if (dm->event.key.state == SDL_RELEASED)
 			editor_key_release(dm->event.key.keysym.scancode, le, dm);
+		if (le->tab)
+			update_sprite(dm, le);
 	}
 	draw_screen(le, dm, 0, 0);
 }

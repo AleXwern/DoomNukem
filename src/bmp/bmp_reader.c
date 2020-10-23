@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:16:01 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 13:15:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/21 13:09:23 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ Uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 	char	*dummy;
 	char	*corr;
 
-	dummy = (char*)ft_memalloc(gfx.wid * gfx.hgt * 4);
-	corr = (char*)ft_memalloc(gfx.wid * gfx.hgt * (gfx.bpp / 8));
+	if (!(dummy = (char*)ft_memalloc(gfx.wid * gfx.hgt * 4)))
+		return (NULL);
+	if (!(corr = (char*)ft_memalloc(gfx.wid * gfx.hgt * (gfx.bpp / 8))))
+		return (NULL);
 	corr = read_pixdata(corr, fd, gfx, gfx.hgt);
 	while (i < gfx.wid * gfx.hgt * (gfx.bpp / 8))
 	{

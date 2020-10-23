@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interact.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/07 13:36:27 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/19 15:15:08 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		interact(t_doom *dm)
 		lab_move(dm, blk->b, tarpos);
 	else if (blk->b == 5 || blk->b == 0)
 		interact2(dm, blk);
-	else if (blk->b == 6)
+	else if (blk->b == 8)
 	{
 		Mix_PlayChannel(-1, dm->teleport, 0);
 		get_warpdest(dm, dm->pos, tarpos);

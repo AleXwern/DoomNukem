@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:48:35 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/15 13:41:07 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:05:04 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void	draw_hud(t_doom *dm)
 		draw_gfx(dm, dm->gfx[25], (int)(dm->winw * 0.5 - 25), (int)(dm->winh
 			* 0.5) - 25);
 	}
+	if (dm->jetpack)
+		draw_pgfx_sc(dm, dm->gfx[9], (int[6]){(dm->winh - 83), 230, 350, 200,
+			0, 0}, 0.2);
 	draw_hud2(dm);
 }
 
@@ -47,9 +50,9 @@ void	draw_gun(t_doom *dm)
 	if (dm->shooting)
 	{
 		dm->frm++;
-		if (dm->ani == 1 && dm->frm == 2)
+		if (dm->ani == 1 && dm->frm == 1)
 			Mix_PlayChannel(-1, dm->gunshot, 0);
-		if (dm->frm >= 3)
+		if (dm->frm >= 2)
 		{
 			if (dm->ani == 5)
 			{
@@ -76,7 +79,7 @@ void	reloading_gun(t_doom *dm)
 	dm->frm++;
 	if (dm->ani == 2 && dm->frm == 2)
 		Mix_PlayChannel(-1, dm->reload, 0);
-	if (dm->frm == 5)
+	if (dm->frm >= 2)
 	{
 		if (dm->ani == 11)
 		{

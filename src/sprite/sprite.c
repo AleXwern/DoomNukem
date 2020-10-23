@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:24:25 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 15:15:08 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:28:32 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,20 @@
 
 void	pickupitem2(t_doom *dm)
 {
-	if (dm->obj[7].dist < 1.5)
+	if (dm->obj[10].dist < 1.5)
 	{
 		dm->money++;
-		ft_bzero(&dm->obj[7], sizeof(t_sprite));
+		ft_bzero(&dm->obj[10], sizeof(t_sprite));
 	}
-	else if (dm->obj[8].dist < 1.5)
+	else if (dm->obj[11].dist < 1.5)
 	{
 		dm->money++;
-		ft_bzero(&dm->obj[8], sizeof(t_sprite));
+		ft_bzero(&dm->obj[11], sizeof(t_sprite));
+	}
+	else if (dm->obj[12].dist < 1.5)
+	{
+		dm->jetpack = 1;
+		ft_bzero(&dm->obj[12], sizeof(t_sprite));
 	}
 }
 
@@ -49,15 +54,15 @@ void	pickupitem(t_doom *dm)
 		dm->keycard = 1;
 		ft_bzero(&dm->obj[2], sizeof(t_sprite));
 	}
-	else if (dm->obj[5].dist < 1.5)
+	else if (dm->obj[8].dist < 1.5)
 	{
 		dm->money++;
-		ft_bzero(&dm->obj[5], sizeof(t_sprite));
+		ft_bzero(&dm->obj[8], sizeof(t_sprite));
 	}
-	else if (dm->obj[6].dist < 1.5)
+	else if (dm->obj[9].dist < 1.5)
 	{
 		dm->money++;
-		ft_bzero(&dm->obj[6], sizeof(t_sprite));
+		ft_bzero(&dm->obj[9], sizeof(t_sprite));
 	}
 	pickupitem2(dm);
 }

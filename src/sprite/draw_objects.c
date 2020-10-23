@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:44:55 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/16 16:02:08 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:24:50 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ void	draw_object(t_doom *dm, int i, int y, int x)
 	if (i == 0)
 	{
 		if (dm->chestopened)
-			dm->gfx[dm->obj[i].gfx].x = (dm->obj[i].frame / 8) * 196;
+			dm->gfx[dm->obj[i].gfx].x = (dm->obj[i].frame / 4) * 196;
 		else
 			dm->gfx[dm->obj[i].gfx].x = 0;
 		draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
 			(int[7]){y, x, 197, 197, 0, 0, i}, 3 / dm->obj[i].dist);
-		if (dm->chestopened && dm->obj[i].frame < 47)
+		if (dm->chestopened && dm->obj[i].frame < 23)
 			dm->obj[i].frame++;
-		else if (dm->chestopened && dm->obj[i].frame == 47)
+		else if (dm->chestopened && dm->obj[i].frame == 23)
 			dm->drawgunandkeycard = 1;
 	}
 	else
@@ -83,13 +83,15 @@ void	draw_object(t_doom *dm, int i, int y, int x)
 
 void	draw_objects(t_doom *dm, int y, int x, int i)
 {
-	static double	spra;
+	double	spra;
 
-	while (++i < 12)
+	while (++i < 13)
 	{
 		spra = atan2(dm->obj[i].dir.y, dm->obj[i].dir.x);
 		spra = spra_check(dm, spra);
 		dm->obj[i].dist = tri_pythagor(dm->pos, dm->obj[i].pos);
+		if (dm->obj[i].dist < 0.2)
+			continue;
 		dm->obj[i].dir.z = (dm->obj[i].pos.z - dm->pos.z) / dm->obj[i].dist;
 		dm->obj[i].dir.y = (dm->obj[i].pos.y - dm->pos.y) / dm->obj[i].dist;
 		dm->obj[i].dir.x = (dm->obj[i].pos.x - dm->pos.x) / dm->obj[i].dist;
@@ -98,12 +100,7 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 		y = dm->winh * ((dm->obj[i].dir.z - dm->min.z)
 			/ (dm->max.z - dm->min.z)) - ((dm->gfx[dm->obj[i].gfx].hgt
 			/ 2) * 2 / dm->obj[i].dist);
-		if ((i == 1 || i == 2) && dm->drawgunandkeycard)
-			draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
-			(int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt,
-			dm->gfx[dm->obj[i].gfx].wid, 0, 0, i},
-			dm->obj[i].size / dm->obj[i].dist);
-		else if (i == 0 || i > 2)
+		if (((i == 1 || i == 2) && dm->drawgunandkeycard) || (i == 0 || i > 2))
 			draw_object(dm, i, y, x);
 	}
 }
