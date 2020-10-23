@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 16:09:19 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 14:49:56 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/23 15:28:57 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int plnd)
 	if (hgt < 0.4 && hgt > -0.4)
 	{
 		plnd = abs(blk.pln - plnd);
-		if ((blk.b > 1 && blk.pt == 0) || (blk.pt == 1 && plnd < 11))
+		if ((blk.b > 1 && blk.pt == 0) || (blk.pt == 1 && plnd > 11))
 			return (0);
 		if (!dm->airbrn)
 			dm->pos.z += hgt;
