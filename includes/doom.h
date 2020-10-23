@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/22 12:59:09 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/23 15:17:30 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <math.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
+# include "value.h"
 # include <stdio.h>//remove when done
 
 # if _WIN64
@@ -178,6 +179,7 @@ typedef struct		s_editor
 	t_vector		end;
 	int				cur;
 	Uint8			blk;
+	Uint8			spr;
 	Sint8			options[5];
 	double			maxval[5];
 	Sint8			minval[5];
@@ -188,6 +190,7 @@ typedef struct		s_editor
 	char			mblock;
 	char			mcopy;
 	int				ylev;
+	int				tab;
 }					t_editor;
 
 /*
@@ -232,8 +235,10 @@ typedef struct		s_sprite
 	int				x;
 	int				y;
 	int				frame;
+	int				respawn;
 	t_vector		face;
 	char			move;
+	char			dead;
 }					t_sprite;
 
 /*
@@ -283,9 +288,9 @@ typedef struct		s_doom
 	int				killthread;
 	int				tile;
 	t_gfx			*gfx;
-	t_sprite		spr[9];
-	t_sprite		prj[9];
-	t_sprite		obj[13];
+	t_sprite		spr[SPR];
+	t_sprite		prj[SPR];
+	t_sprite		obj[OBJ];
 	uint32_t		gfram;
 	int				aswall;
 	int				dev;
@@ -510,12 +515,13 @@ t_vector			oper_vect(t_vector v, t_vector u, char o);
 void				ai_shooting(t_doom *dm, int i);
 void				alloc_vram(t_doom *dm);
 void				cam_udy(t_doom *dm);
-void				check_area(t_editor *le, SDL_Event ev);
+void				check_area(t_editor *le, t_doom *dm, SDL_Event ev);
 int					check_hor_coll(t_block blk, t_doom *dm, char dir);
 int					check_sprite_dist(t_doom *dm, double mov, int i);
 int					check_yx(char dir, t_block tblk, t_doom *dm);
 void				comp_gfx(t_doom *dm);
 void				comp_map(t_doom *dm);
+void				comp_sprite(t_doom *dm, int i, int fd);
 void				comp_texpack(t_doom *dm);
 void				crouch(t_doom *dm);
 void				curt_down(t_doom *dm);
@@ -537,6 +543,7 @@ void				draw_gun(t_doom *dm);
 void				draw_hp(t_doom *dm);
 void				draw_hud(t_doom *dm);
 void				draw_hud2(t_doom *dm);
+void				draw_layerspr(t_doom *dm, t_editor *le, int x, int y);
 void				draw_level_screen(t_doom *dm, t_editor *le, double x,
 					double y);
 void				draw_menu(t_doom *dm, int x, int y, int cur);
@@ -557,6 +564,8 @@ void				draw_sliders(t_doom *dm, t_editor *le, int x, int y);
 void				draw_sprite(t_doom *dm, int y, int x);
 void				draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx,
 					double size);
+void				draw_sprselect(t_doom *dm, t_editor *le, int x, int i);
+void				editor_defaults(t_editor *le, t_doom *dm);
 void				editor_key_press(uint32_t key, t_editor *le);
 void				editor_key_release(uint32_t key, t_editor *le, t_doom *dm);
 void				editor_main(t_doom *dm);
@@ -573,6 +582,7 @@ void				game_loop(t_doom *dm);
 void				gamestart(t_doom *dm);
 void				get_doortype(t_doom *dm, t_vector pos, t_vector door,
 					t_block blk);
+void				grab_sprite(t_doom *dm, t_editor *le, int spr);
 void				gravity(t_doom *dm);
 void				intersect(t_vector *plane, t_vector *ray, t_vector *p);
 void				jump(t_doom *dm);
@@ -611,6 +621,8 @@ void				reset_position(t_doom *dm);
 void				reset_window(t_doom *dm, uint8_t arg);
 void				resize_window(t_doom *dm);
 void				renthread2(t_doom *dm);
+void				set_ftext(t_doom *dm, char *str, int *xy, double size);
+void				set_sprite_tomap(t_editor *le, t_doom *dm, int x, int y);
 void				set_text(t_doom *dm, char *str, int *xy, double size);
 void				set_variables(t_doom *dm);
 void				side_check(t_doom *dm);
@@ -633,7 +645,9 @@ void				slope_dda_yztr(t_doom *dm, int side);
 void				sprite_set(t_doom *dm, int i);
 void				strafe(t_doom *dm);
 void				suffocate(t_doom *dm, t_block blk, t_vector bpos);
+void				tab_change(t_editor *le);
 int					templen(char **temp);
+void				update_sprite(t_doom *dm, t_editor *le);
 void				validate_map(t_doom *dm, int i, int a, t_block blk);
 void				wall_stripe(t_doom *dm);
 void				wind_default(t_doom *dm);

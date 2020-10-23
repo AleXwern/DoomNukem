@@ -41,6 +41,7 @@ Editor
 1. S - Save the map
 2. Mouse left - Change values (block and metadata)
 3. Mouse right - Copy block data to current "pencil"
+4. 12 - Change between block and sprite edit tabs
 
 # Connecting to server
 1. Start game and in-game open menu (M)

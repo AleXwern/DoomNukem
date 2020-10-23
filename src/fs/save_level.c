@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:19:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 13:18:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/23 15:47:14 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,26 @@ void	write_file(t_doom *dm, int fd, int x, int y)
 	}
 }
 
-void	write_sprite(t_doom *dm, int fd, int i)
+void	write_sprite(t_sprite *spr, int fd, int i, int len)
 {
-	while (++i < 9)
+	while (++i < len)
 	{
-		write_int(dm->spr[i].gfx, fd);
+		write_int(spr[i].gfx, fd);
 		write(fd, ",", 1);
-		write_int(dm->spr[i].size * 10, fd);
+		write_int(spr[i].dead, fd);
 		write(fd, ",", 1);
-		write_int(dm->spr[i].hp, fd);
+		write_int(spr[i].hp, fd);
 		write(fd, ",", 1);
-		write_int(dm->spr[i].pos.z * 10, fd);
+		write_int(spr[i].pos.z * 10, fd);
 		write(fd, ",", 1);
-		write_int(dm->spr[i].pos.y * 10, fd);
+		write_int(spr[i].pos.y * 10, fd);
 		write(fd, ",", 1);
-		write_int(dm->spr[i].pos.x * 10, fd);
+		write_int(spr[i].pos.x * 10, fd);
+		write(fd, ",", 1);
+		write_int(spr[i].respawn, fd);
 		write(fd, "\n", 1);
 	}
+	write(fd, "z\n", 2);
 }
 
 int		save_file(t_doom *dm, int fd, char *file, int i)
@@ -85,7 +88,8 @@ int		save_file(t_doom *dm, int fd, char *file, int i)
 		write_file(dm, fd, -1, -1);
 		write(fd, "z\n", 2);
 	}
-	write_sprite(dm, fd, -1);
+	write_sprite(dm->spr, fd, -1, SPR);
+	write_sprite(dm->obj, fd, -1, OBJ);
 	close(fd);
 	ft_putendl("Saving successful!");
 	return (1);

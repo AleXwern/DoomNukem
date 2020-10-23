@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 14:47:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/23 15:17:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	comp_map(t_doom *dm)
 		fileformat(fd, dm, 0);
 		dm->flr++;
 	}
+	comp_sprite(dm, -1, fd);
 	dm->height = 25;
 	close(fd);
 	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .pln = 15, .pt = 0});

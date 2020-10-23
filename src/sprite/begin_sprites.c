@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   begin_sprites.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:54:01 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/21 12:19:40 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/23 15:39:00 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void	sprite_set2(t_doom *dm, int i, int sprite)
 	dm->spr[i].pos.z = 6.4;
 	dm->spr[i].pos.y = 9.4;
 	dm->spr[i].pos.x = 16.4;
+	dm->spr[9].gfx = 16;
+	dm->spr[10].gfx = 17;
 	while (i > 3)
 	{
 		dm->spr[i].hp = 2;
@@ -145,7 +147,8 @@ void	sprite_set2(t_doom *dm, int i, int sprite)
 
 void	sprite_set(t_doom *dm, int i)
 {
-	dm->spr[i].pos.z = 7.4;
+	obj_set(dm, 0);
+	/*dm->spr[i].pos.z = 7.4;
 	dm->spr[i].pos.y = 13.4;
 	dm->spr[i++].pos.x = 4.5;
 	dm->spr[i].pos.z = 4.4;
@@ -154,5 +157,5 @@ void	sprite_set(t_doom *dm, int i)
 	dm->spr[i].pos.z = 6.4;
 	dm->spr[i].pos.y = 4.4;
 	dm->spr[i++].pos.x = 6.4;
-	sprite_set2(dm, i, 20);
+	sprite_set2(dm, i, 20);*/
 }
