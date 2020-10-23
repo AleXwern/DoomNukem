@@ -20,7 +20,9 @@
 **	Macros to fulfill spesific UNIX/Windows standards.
 **	Purely there so it's easier to work with multiple devices.
 */
-# define INT_MIN	-2147483648
+# ifndef INT_MIN
+#  define INT_MIN	-2147483647
+# endif
 # if _WIN64
 # define	read(X, Y, Z)	_read(X, Y, Z)
 # define	write(X, Y, Z)	_write(X, Y, Z)
