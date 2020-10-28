@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:19:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 15:47:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:59:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void	write_sprite(t_sprite *spr, int fd, int i, int len)
 	{
 		write_int(spr[i].gfx, fd);
 		write(fd, ",", 1);
-		write_int(spr[i].dead, fd);
+		if (len == SPR)
+			write_int(spr[i].dead, fd);
+		else
+			write_int(0, fd);
 		write(fd, ",", 1);
 		write_int(spr[i].hp, fd);
 		write(fd, ",", 1);

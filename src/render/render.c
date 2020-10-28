@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 16:14:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 15:06:29 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	render(t_doom *dm)
 	{
 		if (dm->isoutline)
 			post_effects(dm);
-		draw_sprite(dm, 0, 0);
+		draw_sprite(dm, 0, 0, -1);
 		draw_hud(dm);
 		pickupitem(dm);
 		//printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
