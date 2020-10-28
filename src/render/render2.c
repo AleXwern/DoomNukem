@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:21:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/21 13:59:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:15:06 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	rc_init(t_doom *dm)
 		dm->wincol = 1;
 	dm->window[dm->winw * dm->y + dm->x] = 0xffffffff;
 	dm->winarr[dm->winw * dm->y + dm->x] = 100;
-	if (dm->walldist < LIMN)
-		dm->walldist = dm->wallarr[dm->winw * (dm->y - 1) + dm->x];
+	//if (dm->walldist < LIMN)
+	//	dm->walldist = dm->wallarr[dm->winw * (dm->y - 1) + dm->x];
 }
 
 void	side_check(t_doom *dm)

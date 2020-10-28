@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 15:39:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:15:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	doom_default(t_doom *dm)
 	dm->prefps = 30;
 	dm->buffer = BUFFER;
 	set_variables(dm);
-	sprite_set(dm, 4);
+	//sprite_set(dm, 4);
 	dm->owinh = dm->winh;
 	dm->owinw = dm->winw;
 	wind_default(dm);

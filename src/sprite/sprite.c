@@ -3,66 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:24:25 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 11:28:32 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:43:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	pickupitem2(t_doom *dm)
-{
-	if (dm->obj[10].dist < 1.5)
-	{
-		dm->money++;
-		ft_bzero(&dm->obj[10], sizeof(t_sprite));
-	}
-	else if (dm->obj[11].dist < 1.5)
-	{
-		dm->money++;
-		ft_bzero(&dm->obj[11], sizeof(t_sprite));
-	}
-	else if (dm->obj[12].dist < 1.5)
-	{
-		dm->jetpack = 1;
-		ft_bzero(&dm->obj[12], sizeof(t_sprite));
-	}
-}
-
 /*
-**	chest
-**	pistol
-**	keycard
-**	money
-**	money
+**	Keycard 30 --
+**	Jetpack 9 --
+**	Money 34 --
+**	Plant 35 --
+**	Pistol 36 --
+**	Chest 37 --
 */
 
 void	pickupitem(t_doom *dm)
 {
-	if (dm->obj[0].dist < 2.5 && !dm->chestopened)
-		dm->chestopened = 1;
-	else if (dm->obj[1].dist < 1.5)
+	int	i;
+
+	i = -1;
+	while (++i < OBJ)
 	{
-		dm->gun = 1;
-		ft_bzero(&dm->obj[1], sizeof(t_sprite));
+		if (dm->obj[i].gfx == 35 || dm->obj[i].dist >= 2.5 ||
+			dm->obj[i].dead)
+			continue;
+		else if (dm->obj[i].gfx == 37 && dm->obj[i].dist < 2.5)
+			dm->chestopened = 1;
+		else if (dm->obj[i].dist < 1.5)
+		{
+			if (dm->obj[i].gfx == 36)
+				dm->gun = 1;
+			else if (dm->obj[i].gfx == 34)
+				dm->money++;
+			else if (dm->obj[i].gfx == 30)
+				dm->keycard = 1;
+			else
+				dm->jetpack = 1;
+			dm->obj[i].dead = 1;
+		}
 	}
-	else if (dm->obj[2].dist < 1.5)
-	{
-		dm->keycard = 1;
-		ft_bzero(&dm->obj[2], sizeof(t_sprite));
-	}
-	else if (dm->obj[8].dist < 1.5)
-	{
-		dm->money++;
-		ft_bzero(&dm->obj[8], sizeof(t_sprite));
-	}
-	else if (dm->obj[9].dist < 1.5)
-	{
-		dm->money++;
-		ft_bzero(&dm->obj[9], sizeof(t_sprite));
-	}
-	pickupitem2(dm);
 }

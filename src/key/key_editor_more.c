@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:34:11 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/23 15:11:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 15:10:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,82 @@ int		draw_screen_more(t_editor *le, t_doom *dm, int x, int y)
 
 void	set_sprite_tomap(t_editor *le, t_doom *dm, int x, int y)
 {
-	if (x < 14)
-		x = 14;
-	else if (x > 738)
-		x = 738;
-	if (y < 18)
-		y = 18;
-	else if (y > 738)
-		y = 738;
-	dm->spr[le->spr].pos.z = le->options[0] + 0.5;
-	dm->spr[le->spr].pos.y = (y / 750.0) * 25;
-	dm->spr[le->spr].pos.x = (x / 750.0) * 25;
+	if (x < 20)
+		x = 20;
+	else if (x > 730)
+		x = 730;
+	if (y < 20)
+		y = 20;
+	else if (y > 730)
+		y = 730;
+	if (le->spr < 11)
+	{
+		dm->spr[le->spr].pos.z = le->options[0] + 0.5;
+		dm->spr[le->spr].pos.y = (y / 750.0) * 25;
+		dm->spr[le->spr].pos.x = (x / 750.0) * 25;
+	}
+	else
+	{
+		if (le->options[1] >= 3)
+			dm->obj[le->spr - 11].pos.z = le->options[0] + 0.9;
+		else
+			dm->obj[le->spr - 11].pos.z = le->options[0] + 0.5;
+		dm->obj[le->spr - 11].pos.y = (y / 750.0) * 25;
+		dm->obj[le->spr - 11].pos.x = (x / 750.0) * 25;
+	}
 }
 
 void	update_sprite(t_doom *dm, t_editor *le)
 {
-	dm->spr[le->spr].gfx = le->options[1] + 16;
-	dm->spr[le->spr].respawn = le->options[2];
-	dm->spr[le->spr].hp = le->options[3];
-	dm->spr[le->spr].dead = le->options[4];
+	if (le->spr < 11)
+	{
+		dm->spr[le->spr].gfx = le->options[1] + 16;
+		dm->spr[le->spr].respawn = le->options[2] * TIMERMOD;
+		dm->spr[le->spr].hp = le->options[3];
+		dm->spr[le->spr].dead = le->options[4];
+	}
+	else
+	{
+		dm->obj[le->spr - 11].gfx = set_objsmallsprite(le->options[1]);
+		dm->obj[le->spr - 11].dead = 0;
+	}
 }
 
-void	grab_sprite(t_doom *dm, t_editor *le, int spr)
+void	grab_sprite(t_doom *dm, t_editor *le, int spr, int cury)
 {
-	if (spr >= SPR)
-		spr = SPR - 1;
+	if (cury < 483)
+		spr = ((spr - 750) / 107) + 4;
+	else
+		spr = ((spr - 750) / 57) + 11;
+	if (spr >= SPR + OBJ)
+		spr = SPR + OBJ - 1;
 	le->spr = spr;
-	le->options[1] = dm->spr[spr].gfx - 16;
-	le->options[2] = dm->spr[spr].respawn;
-	le->options[3] = dm->spr[spr].hp;
-	le->options[4] = dm->spr[spr].dead;
+	if (spr < 11)
+	{
+		le->options[1] = dm->spr[spr].gfx - 16;
+		le->options[2] = dm->spr[spr].respawn / TIMERMOD;
+		le->options[3] = dm->spr[spr].hp;
+		le->options[4] = dm->spr[spr].dead;
+	}
+	else
+		le->options[1] = get_objsmallsprite(dm->obj[le->spr - 11].gfx);
+	
+}
+
+void	get_sprite(t_doom *dm, t_editor *le)
+{
+	if (le->spr < 11)
+	{
+		le->options[1] = dm->spr[le->spr].gfx - 16;
+		le->options[2] = dm->spr[le->spr].respawn;
+		le->options[3] = dm->spr[le->spr].hp;
+		le->options[4] = dm->spr[le->spr].dead;
+	}
+	else
+	{
+		le->options[1] = get_objsmallsprite(dm->obj[le->spr - 11].gfx);
+		le->options[2] = dm->obj[le->spr - 11].respawn;
+		le->options[3] = dm->obj[le->spr - 11].hp;
+		le->options[4] = dm->obj[le->spr - 11].dead;
+	}
 }

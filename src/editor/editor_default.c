@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:41:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 14:40:30 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 15:03:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	tab_change(t_editor *le)
 	else
 	{
 		le->maxval[1] = 6.0;
-		le->maxval[2] = 20.0;
+		le->maxval[2] = 30.0;
 		le->maxval[3] = 5.0;
 		le->maxval[4] = 1.0;
 		le->minval[1] = 0;

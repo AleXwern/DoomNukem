@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 13:28:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 12:18:21 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ void		comp_foe(t_doom *dm, t_gfx pack)
 **	End 0
 **	Spawn 7
 **	Jetpack 9
+**
+**
+**
+**
+**
 **	MainMenu 15
 */
 
@@ -88,11 +93,7 @@ void		comp_hud_gfx(t_doom *dm, t_gfx pack)
 	dm->gfx[0] = memcpy_gfx(pack, (int[2]){0, 1366}, (int[2]){128, 128});
 	dm->gfx[7] = memcpy_gfx(pack, (int[2]){0, 1494}, (int[2]){128, 128});
 	dm->gfx[9] = memcpy_gfx(pack, (int[2]){581, 2260}, (int[2]){350, 200});
-	/*dm->gfx[10] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
-	dm->gfx[11] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
-	dm->gfx[12] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
-	dm->gfx[13] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL
-	dm->gfx[14] = read_bmp(ft_strjoin(bpath, "foe/wyvern1.bmp"), 0, 0); //NULL*/
+	dm->gfx[10] = memcpy_gfx(pack, (int[2]){895, 1081}, (int[2]){57, 342}); //smallicons
 	dm->gfx[15] = memcpy_gfx(pack, (int[2]){308, 0}, (int[2]){720, 1080});
 	comp_foe(dm, pack);
 	free(pack.data);

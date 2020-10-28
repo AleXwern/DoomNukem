@@ -6,14 +6,14 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 14:20:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 15:33:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 16:19:36 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-t_sprite		set_sprite(char **arr, int i, int len)
+t_sprite		set_sprite(char **arr, int len)
 {
 	t_sprite	spr;
 
@@ -31,6 +31,9 @@ t_sprite		set_sprite(char **arr, int i, int len)
 	spr.pos.y = ft_atoi(arr[4]) / 10.0;
 	spr.pos.x = ft_atoi(arr[5]) / 10.0;
 	spr.respawn = ft_atoi(arr[6]);
+	spr.size = 1;
+	if (spr.gfx == 35)
+		spr.size = 2;
 	free_memory(arr);
 	return (spr);
 }
@@ -42,12 +45,24 @@ void			comp_sprite(t_doom *dm, int i, int fd)
 
 	while (++i < SPR)
 	{
-		if (get_next_line(fd, &gnl) < 1)
-			ft_putendl(gnl);
-		else
+		dm->spr[i].gfx = 16;
+		if (get_next_line(fd, &gnl) == 1)
 		{
 			arr = ft_strsplit(gnl, ',');
-			dm->spr[i] = set_sprite(arr, -1, 0);
+			dm->spr[i] = set_sprite(arr, 0);
+			free(gnl);
+		}
+	}
+	if (get_next_line(fd, &gnl) == 1)
+		free(gnl);
+	i = -1;
+	while (++i < OBJ)
+	{
+		if (get_next_line(fd, &gnl) == 1)
+		{
+			arr = ft_strsplit(gnl, ',');
+			dm->obj[i] = set_sprite(arr, 0);
+			free(gnl);
 		}
 	}
 }

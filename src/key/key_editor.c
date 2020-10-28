@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 15:05:05 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:00:16 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ void	check_area(t_editor *le, t_doom *dm, SDL_Event ev)
 			if (le->blk > BLK)
 				le->blk = BLK;
 		}
-		else if (ev.motion.x < 1500 && ev.motion.y < 592 && le->tab == 1)
-			grab_sprite(dm, le, ((ev.motion.x - 750) / 107) + 4);
+		else if (ev.motion.x < 1500 && ev.motion.y < 545 && le->tab == 1)
+			grab_sprite(dm, le, ev.motion.x, ev.motion.y);
 	}
-	else if (ev.motion.x >= 0 && ev.motion.y >= 0 && ev.button.button == 3)
+	else if (ev.motion.x >= 0 && ev.motion.y >= 0 && ev.button.button == 3
+			&& le->tab == 0)
 		le->mcopy = 1;
 }
 
@@ -90,7 +91,10 @@ void	editor_key_release(Uint32 key, t_editor *le, t_doom *dm)
 	else if (key == KEY_ONE)
 		le->tab = 0;
 	else if (key == KEY_TWO)
+	{
 		le->tab = 1;
+		get_sprite(dm, le);
+	}
 	if (key == KEY_ONE || key == KEY_TWO)
 		tab_change(le);
 	if (le->cur > 4)
