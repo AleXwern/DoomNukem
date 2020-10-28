@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 14:44:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 16:09:19 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	key_state_menu(t_doom *dm)
 	if (SDL_PollEvent(&(dm->event)))
 	{
 		if (dm->event.type == SDL_QUIT ||
-			dm->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+			(dm->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE &&
+			!dm->credits))
 			error_out(FINE, dm);
 		if (dm->event.window.event == SDL_WINDOWEVENT_RESIZED
 			|| dm->event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
@@ -94,4 +95,18 @@ void	key_state_editor(t_editor *le, t_doom *dm)
 			update_sprite(dm, le);
 	}
 	draw_screen(le, dm, 0, 0);
+}
+
+void	key_credits(t_doom *dm)
+{
+	if (SDL_PollEvent(&(dm->event)))
+	{
+		if (dm->event.type == SDL_QUIT)
+			error_out(FINE, dm);
+		if (dm->event.key.state == SDL_RELEASED &&
+			dm->event.key.keysym.scancode == ESC)
+		{
+			dm->credits = 0;
+		}
+	}
 }

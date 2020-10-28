@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 15:17:30 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:30:18 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ typedef struct		s_doom
 	void			(*keyck)(struct s_doom*);
 	char			*syssmg[2];
 	uint32_t		iframe;
+	int				credits;
 	int				cur;
 	int				sel;
 	int				plr;
@@ -586,6 +587,7 @@ void				grab_sprite(t_doom *dm, t_editor *le, int spr);
 void				gravity(t_doom *dm);
 void				intersect(t_vector *plane, t_vector *ray, t_vector *p);
 void				jump(t_doom *dm);
+void				key_credits(t_doom *dm);
 void				key_release_menu(int key, t_doom *dm);
 void				key_state_editor(t_editor *le, t_doom *dm);
 void				key_state_game(t_doom *dm);
