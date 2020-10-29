@@ -20,11 +20,16 @@
 
 typedef struct	s_server
 {
-	TCPsocket	server;
+	/*TCPsocket	server;
 	TCPsocket	client[MAXPLAYER];
 	IPaddress	ip;
-	IPaddress	*remoteip[MAXPLAYER];
+	IPaddress	*remoteip[MAXPLAYER];*/
+	t_socket	*server;
+	t_socket	*client[MAXPLAYER];
+	t_ip		ip;
+	t_ip		*remoteip[MAXPLAYER];
 	t_chunk		data;
+	t_libax		*ax;
 	char		alive[MAXPLAYER];
 	int			timeout[MAXPLAYER];
 	int			maxidle;

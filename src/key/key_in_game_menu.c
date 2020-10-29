@@ -39,7 +39,8 @@ void	menu_keys_hold(int key, t_doom *dm)
 		dm->netstat = connect_server(dm);
 	else if (key == LEFT && dm->cur == 11 && dm->netstat)
 	{
-		SDLNet_TCP_Close(dm->sock);
+		//SDLNet_TCP_Close(dm->sock);
+		ax_close(dm->sock);
 		dm->netstat = 0;
 	}
 	else if (key == LEFT && dm->cur != 11)

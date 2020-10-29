@@ -24,6 +24,7 @@
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 # include "value.h"
+# include "../libax/libax.h"
 # include <stdio.h>//remove when done
 
 # if _WIN64
@@ -272,8 +273,11 @@ typedef struct		s_doom
 	t_img			img;
 	SDL_Event		event;
 	SDL_Thread		**threads;
-	IPaddress		ip;
-	TCPsocket		sock;
+//	IPaddress		ip;
+//	TCPsocket		sock;
+	t_libax			*ax;
+	t_ip			ip;
+	t_socket		*sock;
 	int				netstat;
 	int				person;
 	struct s_doom	*data_r;

@@ -120,7 +120,8 @@ int		key_release(int key, t_doom *dm)
 		SDL_SetRelativeMouseMode(SDL_FALSE);
 		dm->mousemovement = 0;
 		if (dm->netstat)
-			SDLNet_TCP_Close(dm->sock);
+			ax_close(dm->sock);
+			//SDLNet_TCP_Close(dm->sock);
 		dm->netstat = 0;
 		return (1);
 	}

@@ -96,7 +96,8 @@ int		main(int ac, char **av)
 		error_out(SDL_ERROR, dm);
 	if (ac >= 2)
 		dev_status(dm, av[1]);
-	SDLNet_Init();
+	//SDLNet_Init();
+	dm->ax = ax_init();
 	dm->tile = 4;
 	dm->mxflr = 9;
 	if (!(dm->win = SDL_CreateWindow("DoomNukem", SDL_WINDOWPOS_UNDEFINED,

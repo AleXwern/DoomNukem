@@ -14,15 +14,22 @@
 
 void	kill_extra(t_server *srv)
 {
-	TCPsocket	ksock;
-	IPaddress	*kip;
+	//TCPsocket	ksock;
+	//IPaddress	*kip;
+	t_socket	*ksock;
+	t_ip		kip;
 
-	if (!(ksock = SDLNet_TCP_Accept(srv->server)))
+	/*if (!(ksock = SDLNet_TCP_Accept(srv->server)))
 		return ;
 	if (!(kip = SDLNet_TCP_GetPeerAddress(ksock)))
-		return ;
+		return ;*/
+	if (!(ksock = ax_accept(srv->server, srv->ax)))
+		return;
+	//if (!(kip = SDLNet_TCP_GetPeerAddress(ksock)))
+	//	return;
 	ft_putendl("Killed extra connection");
-	SDLNet_TCP_Close(ksock);
+	//SDLNet_TCP_Close(ksock);
+	ax_close(ksock);
 }
 
 void	check_args(t_server *srv, char *av)

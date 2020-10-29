@@ -18,9 +18,11 @@ int				connect_server(t_doom *dm)
 	if (dm->netstat)
 		return (1);
 	ft_putendl("Starting client...");
-	if (SDLNet_ResolveHost(&dm->ip, IP, 9999) == -1)
+	//if (SDLNet_ResolveHost(&dm->ip, IP, 9999) == -1)
+	if (ax_resolvehost(&dm->ip, IP, 9999) == -1)
 		return (0);
-	if (!(dm->sock = SDLNet_TCP_Open(&dm->ip)))
+	//if (!(dm->sock = SDLNet_TCP_Open(&dm->ip)))
+	if (!(dm->sock = ax_open(&dm->ip, dm->ax)))
 		return (0);
 	ft_putendl("Client started successfully!");
 	return (1);
@@ -34,7 +36,8 @@ int				send_pos(t_doom *dm)
 
 	data = (t_bulk){.dir = dm->dir, .pos = dm->pos, .hp = dm->hp,
 					.gfx = dm->person + 16, .prj = dm->prj[dm->id].pos};
-	sent = SDLNet_TCP_Send(dm->sock, &data, sizeof(t_bulk));
+	//sent = SDLNet_TCP_Send(dm->sock, &data, sizeof(t_bulk));
+	sent = ax_send(dm->sock, &data, sizeof(t_bulk));
 	if (sent < (int)sizeof(t_bulk))
 		buffer++;
 	else
@@ -44,7 +47,8 @@ int				send_pos(t_doom *dm)
 		ft_putendl(CON_ERROR);
 		dm->netstat = 0;
 		buffer = 0;
-		SDLNet_TCP_Close(dm->sock);
+		//SDLNet_TCP_Close(dm->sock);
+		ax_close(dm->sock);
 		return (0);
 	}
 	return (1);
@@ -56,12 +60,13 @@ void			recv_pos(t_doom *dm)
 	int			recv;
 	int			i;
 
-	recv = SDLNet_TCP_Recv(dm->sock, &data, sizeof(t_chunk));
+	//recv = SDLNet_TCP_Recv(dm->sock, &data, sizeof(t_chunk));
+	recv = ax_recv(dm->sock, &data, sizeof(t_chunk), 0);
 	i = -1;
 	if (data.id > 3 || data.id < 0)
 		return ;
 	dm->id = data.id;
-	while (++i < 5)
+	while (++i < 4)
 	{
 		if (i != data.id)
 		{
