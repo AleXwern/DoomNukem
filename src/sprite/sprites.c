@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 14:27:41 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 15:40:21 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 {
 	double	spra;
 
-	while (++i < 9)
+	while (++i < SPR)
 	{
 		if (i == dm->id || dm->spr[i].dead)
 			continue;
@@ -100,9 +100,9 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 		dm->spr[i].dir.y = (dm->spr[i].pos.y - dm->pos.y) / dm->spr[i].dist;
 		dm->spr[i].dir.x = (dm->spr[i].pos.x - dm->pos.x) / dm->spr[i].dist;
 		x = dm->winw * ((spra - dm->mina) / (dm->maxa - dm->mina)) -
-			14 * dm->spr[i].size / dm->spr[i].dist;
+			14 * SPRSIZE / dm->spr[i].dist;
 		y = dm->winh * ((dm->spr[i].dir.z - dm->min.z) / (dm->max.z -
-			dm->min.z)) - 18 * dm->spr[i].size / dm->spr[i].dist;
+			dm->min.z)) - 18 * SPRSIZE / dm->spr[i].dist;
 		if (i > 3)
 			foe_ai(dm, &dm->spr[i], (int[2]){y, x}, i);
 		else
@@ -110,12 +110,24 @@ void	draw_sprites(t_doom *dm, int y, int x, int i)
 	}
 }
 
-void	draw_sprite(t_doom *dm, int y, int x)
+void	draw_sprite(t_doom *dm, int y, int x, int i)
 {
 	dm->mina = atan2(dm->min.y, dm->min.x);
 	dm->maxa = atan2(dm->max.y, dm->max.x);
 	if (dm->maxa < dm->mina)
 		dm->maxa += M_PI * 2;
+	while (++i < SPR)
+	{
+		if (!dm->spr[i].dead || !dm->spr[i].respawn)
+			continue;
+		dm->spr[i].timer++;
+		if (dm->spr[i].timer >= dm->spr[i].respawn)
+		{
+			dm->spr[i].dead = 0;
+			dm->spr[i].timer = 0;
+			dm->spr[i].hp = 2;
+		}
+	}
 	draw_objects(dm, y, x, -1);
 	draw_sprites(dm, y, x, -1);
 	draw_projectiles(dm, y, x, -1);

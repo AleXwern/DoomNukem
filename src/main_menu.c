@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 13:23:46 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 13:22:32 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 16:26:15 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ void	bg_render(t_doom *dm)
 void	main_menu(t_doom *dm)
 {
 	bg_render(dm);
-	draw_main_menu(dm, 0, 0, dm->sel);
-	SDL_RenderPresent(dm->rend);
+	if (dm->credits)
+		set_text(dm, "credits shown here",
+			(int[3]){dm->winh / 2 - 100, dm->winw / 2 - 380, 16711680}, 1);
+	else
+		draw_main_menu(dm, 0, 0, dm->sel);
 	mouse_move(1, 0, dm);
 	dm->keyck(dm);
+	SDL_RenderPresent(dm->rend);
 }

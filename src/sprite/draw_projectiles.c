@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:43:00 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/16 13:01:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 16:06:05 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,17 @@ void	draw_projectiles(t_doom *dm, int y, int x, int i)
 {
 	static double	spra;
 
-	while (++i < 9)
+	while (++i < SPR)
 	{
 		if (i < 4)
 			player_shooting(dm, dm->id);
 		else if (i > 3)
 			foe_shooting(dm, &dm->spr[i], &dm->prj[i]);
+		if (dm->prj[i].dead)
+			continue;
+		dm->prj[i].dist = tri_pythagor(dm->pos, dm->prj[i].pos);
 		spra = atan2(dm->prj[i].dir.y, dm->prj[i].dir.x);
 		spra = spra_check(dm, spra);
-		dm->prj[i].dist = tri_pythagor(dm->pos, dm->prj[i].pos);
 		dm->prj[i].dir.z = (dm->prj[i].pos.z - dm->pos.z) / dm->prj[i].dist;
 		dm->prj[i].dir.y = (dm->prj[i].pos.y - dm->pos.y) / dm->prj[i].dist;
 		dm->prj[i].dir.x = (dm->prj[i].pos.x - dm->pos.x) / dm->prj[i].dist;
@@ -72,6 +74,6 @@ void	draw_projectiles(t_doom *dm, int y, int x, int i)
 		y = dm->winh * ((dm->prj[i].dir.z - dm->min.z) / (dm->max.z -
 			dm->min.z)) - 104 / dm->prj[i].dist;
 		draw_projectile_gfx(dm, dm->gfx[24],
-			(int[7]){y, x, 1000, 1000, 0, 0, i}, 4 / dm->prj[i].dist);
+			(int[7]){y, x, 1000, 1000, 0, 0, i}, PRJSIZE / dm->prj[i].dist);
 	}
 }

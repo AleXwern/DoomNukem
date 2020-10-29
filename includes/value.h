@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 13:42:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 16:11:14 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@
 # define BLK		8
 # define SPR		11
 # define OBJ		13
+# define TIMERMOD	60
+# define SPRSIZE	17
+# define PRJSIZE	4
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.

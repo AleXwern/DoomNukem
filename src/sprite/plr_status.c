@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plr_status.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 12:51:22 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/20 12:31:28 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/28 15:37:53 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	plr_status(t_doom *dm, t_sprite *spr, int *yx, int i)
 	plr_dir(dm, &dm->spr[i], 0);
 	dist = spr->dist;
 	//if (yx[1] >= 0 && yx[1] < dm->winw)
-	dist *= 1.0 - ((fabs(dm->winw / 2.0 - yx[1]) / (dm->winw / 2)) / 4);
-	if (i < 2)
-		printf("%d dist %f mod %f\n", i, dist, (1.0 - ((fabs(dm->winw / 2.0 - yx[1]) / (dm->winw / 2)) / 4)));
+	//dist *= 1.0 - ((fabs(dm->winw / 2.0 - yx[1]) / (dm->winw / 2)) / 4);
+	//if (i < 2)
+	//	printf("%d dist %f mod %f\n", i, dist, (1.0 - ((fabs(dm->winw / 2.0 - yx[1]) / (dm->winw / 2)) / 4)));
 	draw_sprite_gfx(dm, dm->gfx[spr->gfx],
-		(int[7]){yx[0], yx[1], 37, 28, 0, 0, i}, spr->size / dist);
+		(int[7]){yx[0], yx[1], 37, 28, 0, 0, i}, SPRSIZE / spr->dist);
 }

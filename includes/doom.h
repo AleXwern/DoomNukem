@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 15:17:30 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 16:27:02 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ typedef struct		s_sprite
 	int				y;
 	int				frame;
 	int				respawn;
+	int				timer;
 	t_vector		face;
 	char			move;
 	char			dead;
@@ -309,6 +310,7 @@ typedef struct		s_doom
 	void			(*keyck)(struct s_doom*);
 	char			*syssmg[2];
 	uint32_t		iframe;
+	int				credits;
 	int				cur;
 	int				sel;
 	int				plr;
@@ -492,6 +494,7 @@ int					connect_server(t_doom *dm);
 int					foe_ismoving(t_sprite *spr);
 int					fps_capper(void *ptr);
 int					fps_counter(void *ptr);
+int					get_objsmallsprite(int gfx);
 int					get_x(int pc);
 int					get_y(int pc);
 int					interact(t_doom *dm);
@@ -506,6 +509,7 @@ int					move_lr(t_doom *dm);
 int					renthread(void *ptr);
 int					save_file(t_doom *dm, int fd, char *file, int i);
 int					send_pos(t_doom *dm);
+int					set_objsmallsprite(int gfx);
 int					slope_coll(t_block blk, t_doom *dm, char dir);
 int					tex_check(t_doom *dm);
 int					x_press(t_doom *dm);
@@ -565,7 +569,7 @@ void				draw_screen(t_editor *le, t_doom *dm, int x, int y);
 int					draw_screen_more(t_editor *le, t_doom *dm, int x, int y);
 void				draw_sky(t_doom *dm);
 void				draw_sliders(t_doom *dm, t_editor *le, int x, int y);
-void				draw_sprite(t_doom *dm, int y, int x);
+void				draw_sprite(t_doom *dm, int y, int x, int i);
 void				draw_sprite_gfx(t_doom *dm, t_gfx gfx, int *yx,
 					double size);
 void				draw_sprselect(t_doom *dm, t_editor *le, int x, int i);
@@ -586,10 +590,12 @@ void				game_loop(t_doom *dm);
 void				gamestart(t_doom *dm);
 void				get_doortype(t_doom *dm, t_vector pos, t_vector door,
 					t_block blk);
-void				grab_sprite(t_doom *dm, t_editor *le, int spr);
+void				get_sprite(t_doom *dm, t_editor *le);
+void				grab_sprite(t_doom *dm, t_editor *le, int spr, int cury);
 void				gravity(t_doom *dm);
 void				intersect(t_vector *plane, t_vector *ray, t_vector *p);
 void				jump(t_doom *dm);
+void				key_credits(t_doom *dm);
 void				key_release_menu(int key, t_doom *dm);
 void				key_state_editor(t_editor *le, t_doom *dm);
 void				key_state_game(t_doom *dm);

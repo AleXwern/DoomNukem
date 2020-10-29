@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 15:39:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/28 16:27:12 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	wind_default(t_doom *dm)
 {
 	dm->shift = 15;
 	dm->crouching = 0;
+	dm->credits = 0;
 	dm->mousemovement = 0;
 	dm->fps = 0;
 	dm->plane.x = dm->plane.x * ((double)dm->owinh / (double)dm->owinw);
@@ -74,7 +75,7 @@ void	doom_default(t_doom *dm)
 	dm->prefps = 30;
 	dm->buffer = BUFFER;
 	set_variables(dm);
-	sprite_set(dm, 4);
+	//sprite_set(dm, 4);
 	dm->owinh = dm->winh;
 	dm->owinw = dm->winw;
 	wind_default(dm);

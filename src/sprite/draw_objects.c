@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:44:55 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/21 11:24:50 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:53:40 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	draw_object_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 
 void	draw_object(t_doom *dm, int i, int y, int x)
 {
-	if (i == 0)
+	if (dm->obj[i].gfx == 37)
 	{
 		if (dm->chestopened)
 			dm->gfx[dm->obj[i].gfx].x = (dm->obj[i].frame / 4) * 196;
@@ -90,7 +90,7 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 		spra = atan2(dm->obj[i].dir.y, dm->obj[i].dir.x);
 		spra = spra_check(dm, spra);
 		dm->obj[i].dist = tri_pythagor(dm->pos, dm->obj[i].pos);
-		if (dm->obj[i].dist < 0.2)
+		if (dm->obj[i].dist < 0.2 || dm->obj[i].dead)
 			continue;
 		dm->obj[i].dir.z = (dm->obj[i].pos.z - dm->pos.z) / dm->obj[i].dist;
 		dm->obj[i].dir.y = (dm->obj[i].pos.y - dm->pos.y) / dm->obj[i].dist;
@@ -100,7 +100,6 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 		y = dm->winh * ((dm->obj[i].dir.z - dm->min.z)
 			/ (dm->max.z - dm->min.z)) - ((dm->gfx[dm->obj[i].gfx].hgt
 			/ 2) * 2 / dm->obj[i].dist);
-		if (((i == 1 || i == 2) && dm->drawgunandkeycard) || (i == 0 || i > 2))
-			draw_object(dm, i, y, x);
+		draw_object(dm, i, y, x);
 	}
 }
