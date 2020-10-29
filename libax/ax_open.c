@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:57:00 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/29 11:27:39 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/29 13:40:51 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ t_socket		*ax_open(t_ip *ip, t_libax *ax)
 	t_socket			*sock;
 	struct sockaddr_in	addr;
 
-	sock = (t_socket*)ft_memalloc(sizeof(t_socket));
+	if (!(sock = (t_socket*)ft_memalloc(sizeof(t_socket))))
+		return (NULL);
 	ft_bzero(&addr, sizeof(addr));
 	sock->channel = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock->channel == INVALID_SOCKET)
@@ -56,6 +57,8 @@ t_socket		*ax_open(t_ip *ip, t_libax *ax)
 #ifdef WIN32
 		ax->mode = 1;
 		ioctlsocket(sock->channel, FIONBIO, &ax->mode);
+#elif O_NONBLOCK
+		fcntl(sock->channel, F_SETFL, O_NONBLOCK);
 #endif
 		sock->flag = 1;
 	}
@@ -77,16 +80,18 @@ t_socket		*ax_accept(t_socket *srv, t_libax *ax)
 	if (!srv->flag)
 		return (NULL);
 	srv->ready = 0;
-	//ft_bzero(&sock, sizeof(t_socket));
-	sock = (t_socket*)ft_memalloc(sizeof(t_socket));
+	if (!(sock = (t_socket*)ft_memalloc(sizeof(t_socket))))
+		return (NULL);
 	socklen = sizeof(addr);
 	sock->channel = accept(srv->channel, (struct sockaddr*)&addr, &socklen);
-	//ft_putnbrln(sock.channel);
 	if (sock->channel == INVALID_SOCKET)
 		return (ax_close(sock));
 #ifdef WIN32
 	ax->mode = 0;
 	ioctlsocket(sock->channel, FIONBIO, &ax->mode);
+#elif O_NONBLOCK
+	ax->flag = fcntl(sock->channel, F_GETFL, 0);
+	fcntl(sock->channel, F_SETFL, ax->flag & ~O_NONBLOCK);
 #endif
 	ax->accepted++;
 	sock->remote.host = addr.sin_addr.s_addr;

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 12:18:21 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/29 14:22:49 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 **	GunAnimation 27
 **	Health 28
 **	Inventory 29
-**	Keycard 30
+**	Keycard 30 --
 **	Alpha 33
-**	Money 34
-**	Plant 35
-**	Pistol 36
-**	Chest 37
+**	Money 34 --
+**	Plant 35 --
+**	Pistol 36 --
+**	Chest 37 --
 **	Goldore 38
 **	HandleRR 39
 **	HandleRL 40
@@ -79,7 +79,7 @@ void		comp_foe(t_doom *dm, t_gfx pack)
 /*
 **	End 0
 **	Spawn 7
-**	Jetpack 9
+**	Jetpack 9 --
 **
 **
 **
