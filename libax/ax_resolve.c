@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ax_resolve.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 21:26:52 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/23 21:26:52 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:37:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libax.h"
 
-int			arrlen(char *host, int len)
+int			arrlen(const char *host, int len)
 {
 	int		i;
 	int		ret;
@@ -58,12 +58,16 @@ int			ax_resolvehost(t_ip *ip, const char *host, t_uint16 port)
 		ip->host = INADDR_ANY;
 	else
 	{
-		//ip->host = get_addr(host, 0, -1);
+#ifdef _WIN64
 		if (inet_pton(AF_INET, host, &ip->host) != 1)
 			err = -1;
+#else
+		ip->host = inet_addr(host);
+		if (ip->host == INADDR_NONE)
+			err = -1;
+#endif
 	}
 	ip->port = (port << 8) | (port >> 8);
-	//ip->port = port;
 	printf("RESOLVE: %08x %d\nGiven IP %s %d\n", ip->host, ip->port, host, port);
 	return (err);
 }

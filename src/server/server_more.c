@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:14:39 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/14 13:43:15 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:44:49 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	kill_extra(t_server *srv)
 	//TCPsocket	ksock;
 	//IPaddress	*kip;
 	t_socket	*ksock;
-	t_ip		kip;
+	//t_ip		kip;
 
 	/*if (!(ksock = SDLNet_TCP_Accept(srv->server)))
 		return ;

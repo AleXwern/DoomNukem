@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ax_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:57:00 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/23 19:57:00 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:27:39 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_socket		*ax_open(t_ip *ip, t_libax *ax)
 		addr.sin_family = AF_INET;
 		addr.sin_addr.s_addr = ip->host;
 		addr.sin_port = ip->port;
-		if (connect(sock->channel, &addr, sizeof(addr)) == SOCKET_ERROR)
+		if (connect(sock->channel, (struct sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR)
 			return (ax_close(sock));
 	}
 	else //local
@@ -49,7 +49,7 @@ t_socket		*ax_open(t_ip *ip, t_libax *ax)
 #ifndef WIN32
         setsockopt(sock->channel, SOL_SOCKET, SO_REUSEADDR, (char*)&ax->dm, sizeof(int));
 #endif
-		if (bind(sock->channel, &addr, sizeof(addr)) == SOCKET_ERROR)
+		if (bind(sock->channel, (struct sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR)
 			return (ax_close(sock));
 		if (listen(sock->channel, 5) == SOCKET_ERROR)
 			return (ax_close(sock));
@@ -80,7 +80,7 @@ t_socket		*ax_accept(t_socket *srv, t_libax *ax)
 	//ft_bzero(&sock, sizeof(t_socket));
 	sock = (t_socket*)ft_memalloc(sizeof(t_socket));
 	socklen = sizeof(addr);
-	sock->channel = accept(srv->channel, &addr, &socklen);
+	sock->channel = accept(srv->channel, (struct sockaddr*)&addr, &socklen);
 	//ft_putnbrln(sock.channel);
 	if (sock->channel == INVALID_SOCKET)
 		return (ax_close(sock));
@@ -88,6 +88,7 @@ t_socket		*ax_accept(t_socket *srv, t_libax *ax)
 	ax->mode = 0;
 	ioctlsocket(sock->channel, FIONBIO, &ax->mode);
 #endif
+	ax->accepted++;
 	sock->remote.host = addr.sin_addr.s_addr;
     sock->remote.port = addr.sin_port;
 	return (sock);

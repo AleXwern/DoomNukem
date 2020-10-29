@@ -6,7 +6,7 @@
 #    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/28 12:31:07 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/29 11:43:47 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC		=	$(addprefix ./src/,$(SRCFILE)) \
 SRCSRV	=	$(addprefix ./src/server/,$(SRVFILE))
 OBJSRV	=	$(addprefix ./obj/server/,$(SRVFILE:.c=$(OEXT)))
 LIBFT	=	$(addprefix ./obj/libft,$(LEXT))
+LIBAX	=	$(addprefix ./obj/libax,$(LEXT))
 OBJS	=	$(SRC:.c=$(OEXT))
 OBJ		=	$(addprefix ./obj/,$(SRCFILE:.c=$(OEXT))) \
 			$(addprefix ./obj/key/,$(KEYFILE:.c=$(OEXT))) \
@@ -93,14 +94,18 @@ $(LIBFT):
 	@echo Compiling Libft libraries.
 	@make -C ./libft
 
+$(LIBAX):
+	@echo Compiling Libax libraries.
+	@make -C ./libax
+
 -include $(DEPNS)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
 	@echo "Compiling DoomNukem -> $(RED)$@$(STOP)"
 	@gcc -g $(OBJFRAME) $(FLG) -MMD $(INCL) -o $@ -c $<
 
-$(NAME): $(OBJ) $(LIBFT)
-	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT)
+$(NAME): $(OBJ) $(LIBFT) $(LIBAX)
+	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(NAME) $(OBJ) $(LIBFT) $(LIBAX)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
 	@Rez -a icon.rsrc -o $(NAME)
 	@SetFile -a C $(NAME)
@@ -115,6 +120,7 @@ clean:
 	@/bin/rm -f $(DEPNS)
 	@echo Removing Libft libraries.
 	@make -C ./libft fclean
+	@make -C ./libax fclean
 
 fclean: clean
 	@echo Removing binaries.
@@ -128,7 +134,7 @@ rerun: re
 	./doom-nukem -debug
 
 $(SERVER): $(OBJSRV) $(LIBFT)
-	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJSRV) $(LIBFT)
+	@gcc $(FRAMEWORK) $(FLG) $(INCL) -o $(SERVER) $(OBJSRV) $(LIBFT) $(LIBAX)
 	@echo "read 'icns' (-16455) \"gfx/icon.icns\";" >> icon.rsrc
 	@Rez -a icon.rsrc -o $(SERVER)
 	@SetFile -a C $(SERVER)

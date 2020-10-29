@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libax.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:12:37 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/23 19:12:37 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:35:04 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@
 #  pragma comment (lib, "Mswsock.lib")
 #  pragma comment (lib, "AdvApi32.lib")
 #  include <iphlpapi.h>
+#  define EINTR				WSAEINTR
+# else
+#  include <sys/socket.h>
+#  include <sys/types.h>
+#  include <netinet/tcp.h>
+#  include <sys/socket.h>
+#  include <net/if.h>
+#  include <netdb.h>
+#  include <errno.h>
+#  include <arpa/inet.h>
+#  define INVALID_SOCKET	-1
+#  define SOCKET_ERROR		-1
+#  define closesocket		close
 # endif
 #include <stdio.h> //remove
 /*
@@ -79,11 +92,13 @@ typedef struct			s_libax
 	short				id;
 	int					dm;
 	unsigned long		mode;
+	int					accepted;
 # if _WIN64
 	WORD				ver;
 	WSADATA				wsa;
 # elif __APPLE__
-	void				(*handler)(int)
+	void				(*handler)(int);
+	int					dummy;
 # endif
 }						t_libax;
 #endif

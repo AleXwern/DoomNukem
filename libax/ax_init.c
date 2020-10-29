@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ax_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 20:16:19 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/23 20:16:19 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:41:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ t_libax		*ax_init(void)
 
 	ax = (t_libax*)ft_memalloc(sizeof(t_libax));
 #ifdef _WIN64
-		ax->ver = MAKEWORD(2, 2);
-		if (WSAStartup(MAKEWORD(2, 2), &ax->wsa))
-			return (NULL);
+	ax->ver = MAKEWORD(2, 2);
+	if (WSAStartup(MAKEWORD(2, 2), &ax->wsa))
+		return (NULL);
+#else
+	ax->handler = signal(SIGPIPE, SIG_IGN);
+	if (ax->handler != SIG_DFL)
+		signal(SIGPIPE, ax->handler);
 #endif
 	ax->id = AXID;
 	ax->dm = 1;
-	return (&ax);
+	return (ax);
 }
 
 void		ax_shutdown(t_libax *ax)
@@ -36,7 +40,14 @@ void		ax_shutdown(t_libax *ax)
 #ifdef _WIN64
 	if (WSACleanup() == SOCKET_ERROR)
 		if (WSAGetLastError() == WSAEINPROGRESS)
+		{
+			WSACAncelBlockingCall();
 			WSACleanup();
+		}
+#else
+	ax->handler = signal(SIGPIPE, SIG_DFL);
+	if (ax->handler != SIG_IGN)
+		signal(SIGPIPE, ax->handler);
 #endif
 	ft_bzero(ax, sizeof(t_libax));
 }
