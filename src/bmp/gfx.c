@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 13:47:42 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:35:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		comp_hud_gfx(t_doom *dm, t_gfx pack)
 	dm->gfx[0] = memcpy_gfx(pack, (int[2]){0, 1366}, (int[2]){128, 128});
 	dm->gfx[7] = memcpy_gfx(pack, (int[2]){0, 1494}, (int[2]){128, 128});
 	dm->gfx[9] = memcpy_gfx(pack, (int[2]){581, 2260}, (int[2]){350, 200});
-	dm->gfx[10] = memcpy_gfx(pack, (int[2]){895, 1081}, (int[2]){57, 342}); //smallicons
+	dm->gfx[10] = memcpy_gfx(pack, (int[2]){895, 1081}, (int[2]){57, 342});
 	dm->gfx[15] = memcpy_gfx(pack, (int[2]){308, 0}, (int[2]){720, 1080});
 	comp_foe(dm, pack);
 	free(pack.data);

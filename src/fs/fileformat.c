@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fileformat.c                                       :+:      :+:    :+:   */
+/*   floorformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 14:17:33 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:51:22 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
+//todo crash
+//fill empty block information
+//general check different situations
+//check value ranges
 void	comp_block(t_doom *dm, char **temp, int x, int y)
 {
 	dm->area[dm->flr][y][x].b = ft_atoi(temp[0]);
@@ -28,17 +31,12 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 		dm->area[dm->flr][y][x].b = 1;
 	}
 	if (dm->area[dm->flr][y][x].b > BLK || dm->area[dm->flr][y][x].b < 0)
-		dm->area[dm->flr][y][x].b = 2;
+		dm->area[dm->flr][y][x].b = 2; //change to check all values
 	free_memory(temp);
 }
 
-int		get_next_matrix(t_doom *dm, char **temp, int x, int y)
+int		rowformat(t_doom *dm, char **temp, int x, int y)
 {
-	int		wid;
-
-	wid = templen(temp);
-	if (wid < 4)
-		return (0);
 	if (temp[0][0] == 'z')
 		return (0);
 	if (!(dm->area[dm->flr][y] = (t_block*)ft_memalloc(sizeof(t_block) * 25)))
@@ -63,7 +61,7 @@ void	fill_area(t_doom *dm, int y, int x)
 	dm->height = y;
 }
 
-void	fileformat(int fd, t_doom *dm, int y)
+void	floorformat(int fd, t_doom *dm, int y)
 {
 	char	**temp;
 	char	*gnl;
@@ -74,7 +72,7 @@ void	fileformat(int fd, t_doom *dm, int y)
 			break ;
 		temp = ft_strsplit(gnl, ' ');
 		free(gnl);
-		if (get_next_matrix(dm, temp, 0, y) == 0)
+		if (rowformat(dm, temp, 0, y) == 0)
 		{
 			free_memory(temp);
 			break ;
@@ -111,7 +109,7 @@ void	comp_map(t_doom *dm)
 		if (!(dm->area[dm->flr] = (t_block**)ft_memalloc(sizeof(t_block*)
 			* 25)))
 			error_out(MEM_ERROR, dm);
-		fileformat(fd, dm, 0);
+		floorformat(fd, dm, 0);
 		dm->flr++;
 	}
 	comp_sprite(dm, -1, fd);

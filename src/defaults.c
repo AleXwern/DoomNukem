@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 13:39:04 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:35:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ void	doom_default(t_doom *dm)
 	dm->cycle = &main_menu;
 	dm->keyck = &key_state_menu;
 	dm->ismenu = 0;
-	dm->trx = ((dm->winw / 100) * (dm->winh / 100)) / 2 + 1;
-	dm->trx = 20;
+	dm->trx = THREADS;
 	dm->camshift = 1.0f;
 	dm->fpscap = 60;
 	dm->dm = dm;

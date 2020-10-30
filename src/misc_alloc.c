@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:20:26 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 14:05:18 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:35:35 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_img	init_image(t_doom *dm)
 	if (!(image.tex = SDL_GetWindowSurface(dm->win)))
 		error_out(WIN_ERROR, dm);
 	image.img = SDL_CreateTextureFromSurface(dm->rend, image.tex);
-	image.data = (Uint32*)image.tex->pixels;
+	image.data = (t_uint32*)image.tex->pixels;
 	dm->winb = 1;
 	dm->winh = image.tex->h;
 	dm->winw = image.tex->w;
