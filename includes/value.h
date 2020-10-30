@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 16:11:14 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:20:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,13 @@
 # define NET_ERROR	"Could not start SDLNet."
 # define CON_ERROR	"There was an issue with server connection!"
 
-# define HIT_OPP	" dealt damage to "
-# define CHA_OPP	" charged at "
-# define HEAL_OPP	" healed "
-# define DEF_OPP	" defended"
-# define LOST_HP	"Damage dealt: "
-# define GET_HP		"Damage healed: "
-# define DEF_HP		"'s damage taken will be reduced"
-
 /*
 ** Static values.
 */
 # define WINX		1080
 # define WINY		720
 # define GFXCOUNT	43
-# define THREADS	6
+# define THREADS	20
 # define BUFFER		6
 # define LIM		0.999999
 # define LIMN		0.000001
@@ -81,6 +73,8 @@
 # define TIMERMOD	60
 # define SPRSIZE	17
 # define PRJSIZE	4
+# define BOUNDXY	25
+# define BOUNDZ		9
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 16:27:12 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:43:13 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ void	doom_default(t_doom *dm)
 	dm->cycle = &main_menu;
 	dm->keyck = &key_state_menu;
 	dm->ismenu = 0;
-	dm->trx = ((dm->winw / 100) * (dm->winh / 100)) / 2 + 1;
-	dm->trx = 20;
+	dm->trx = THREADS;
 	dm->camshift = 1.0f;
 	dm->fpscap = 60;
 	dm->dm = dm;

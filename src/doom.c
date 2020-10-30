@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 11:34:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:33:50 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	error_out(char *msg, t_doom *dm)
 		ft_printmem(dm, sizeof(t_doom));
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	SDL_WaitThread(dm->fpsthread, NULL);
-	SDLNet_Quit();
+	//SDLNet_Quit();
 	SDL_Quit();
 	exit(0);
 }
@@ -89,14 +89,12 @@ int		main(int ac, char **av)
 {
 	t_doom	*dm;
 
-	if (!(dm = (t_doom*)malloc(sizeof(t_doom))))
+	if (!(dm = (t_doom*)ft_memalloc(sizeof(t_doom))))
 		error_out(DOOM_ERROR, dm);
-	ft_bzero(dm, sizeof(t_doom));
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		error_out(SDL_ERROR, dm);
 	if (ac >= 2)
 		dev_status(dm, av[1]);
-	//SDLNet_Init();
 	dm->ax = ax_init();
 	dm->tile = 4;
 	dm->mxflr = 9;

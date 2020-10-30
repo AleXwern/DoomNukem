@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:01:50 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/19 14:41:21 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:13:28 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void	dda_sys(t_doom *dm)
 		dm->blk = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x];
 		if (dm->blk.pt && !dm->adj && dm->blk.b > 1)
 			part_check(dm);
-		//else if (dm->blk.b > 6 && !dm->adj) 								//FS should handle these
-		//	dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].b = 1;
 		else if (dm->blk.b > 1 && !dm->adj)
 			dm->hit = 1;
 		dda_sys2(dm);

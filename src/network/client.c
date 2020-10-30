@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 14:59:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 13:13:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:22:49 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ int				connect_server(t_doom *dm)
 	if (dm->netstat)
 		return (1);
 	ft_putendl("Starting client...");
-	//if (SDLNet_ResolveHost(&dm->ip, IP, 9999) == -1)
 	if (ax_resolvehost(&dm->ip, IP, 9999) == -1)
 		return (0);
-	//if (!(dm->sock = SDLNet_TCP_Open(&dm->ip)))
 	if (!(dm->sock = ax_open(&dm->ip, dm->ax)))
 		return (0);
 	ft_putendl("Client started successfully!");
@@ -36,7 +34,6 @@ int				send_pos(t_doom *dm)
 
 	data = (t_bulk){.dir = dm->dir, .pos = dm->pos, .hp = dm->hp,
 					.gfx = dm->person + 16, .prj = dm->prj[dm->id].pos};
-	//sent = SDLNet_TCP_Send(dm->sock, &data, sizeof(t_bulk));
 	sent = ax_send(dm->sock, &data, sizeof(t_bulk));
 	if (sent < (int)sizeof(t_bulk))
 		buffer++;
@@ -46,8 +43,8 @@ int				send_pos(t_doom *dm)
 	{
 		ft_putendl(CON_ERROR);
 		dm->netstat = 0;
+		ft_bzero(dm->spr, 4 * sizeof(t_sprite));
 		buffer = 0;
-		//SDLNet_TCP_Close(dm->sock);
 		ax_close(dm->sock);
 		return (0);
 	}
@@ -60,10 +57,9 @@ void			recv_pos(t_doom *dm)
 	int			recv;
 	int			i;
 
-	//recv = SDLNet_TCP_Recv(dm->sock, &data, sizeof(t_chunk));
 	recv = ax_recv(dm->sock, &data, sizeof(t_chunk), 0);
 	i = -1;
-	if (data.id > 3 || data.id < 0)
+	if (data.id > 3 || data.id < 0 || recv != (int)sizeof(t_chunk))
 		return ;
 	dm->id = data.id;
 	while (++i < 4)

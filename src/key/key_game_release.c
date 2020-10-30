@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game_release.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:12:40 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/22 13:40:39 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:43:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ int		key_release(int key, t_doom *dm)
 		dm->mousemovement = 0;
 		if (dm->netstat)
 			ax_close(dm->sock);
-			//SDLNet_TCP_Close(dm->sock);
 		dm->netstat = 0;
 		return (1);
 	}

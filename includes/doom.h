@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/29 13:34:06 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:13:54 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 */
 
 #  include "../frameworks/SDL2.framework/Headers/SDL.h"
-#  include "../frameworks/SDL2_net.framework/Headers/SDL_net.h"
+//#  include "../frameworks/SDL2_net.framework/Headers/SDL_net.h"
 #  include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 # endif
 
@@ -152,7 +152,7 @@ typedef struct		s_img
 {
 	SDL_Surface		*tex;
 	SDL_Texture		*img;
-	uint32_t		*data;
+	t_uint32		*data;
 }					t_img;
 
 typedef struct		s_gfx
@@ -214,12 +214,11 @@ typedef struct		s_editor
 
 typedef struct		s_block
 {
-	Uint8			b;
-	Uint8			lgt;
-	Uint8			pt;
-	Uint8			pln;
-	Uint8			meta;
-	Uint8			hp;
+	t_uint8			b;
+	t_uint8			lgt;
+	t_uint8			pt;
+	t_uint8			pln;
+	t_uint8			meta;
 }					t_block;
 
 typedef struct		s_sprite
