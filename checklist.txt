@@ -48,3 +48,4 @@ and the chosen level file must be self-sufficient.
 * Inclined planes
 * Collision not working with inclined planes
 * Collision not working between two horizontal planes
+X Credits page

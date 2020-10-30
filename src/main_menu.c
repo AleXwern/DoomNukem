@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 13:23:46 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 16:26:15 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:01:42 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,30 @@ void	bg_render(t_doom *dm)
 	dm->fps++;
 }
 
+void	credits(t_doom *dm)
+{
+	dm->creds -= 3;
+	if (dm->creds > 0)
+		set_text(dm, "made by",
+			(int[3]){dm->creds, dm->winw / 2 - 380, COLOR_GREEN}, 1);
+	if (dm->creds > -100)
+		set_text(dm, "alex nystrom      anystrom",
+			(int[3]){dm->creds + 100, dm->winw / 2 - 380, COLOR_GREEN}, 1);
+	if (dm->creds > -180)
+		set_text(dm, "ted bergkulla     tbergkul",
+			(int[3]){dm->creds + 180, dm->winw / 2 - 380, COLOR_GREEN}, 1);
+	if (dm->creds > -260)
+		set_text(dm, "visa keinanen     vkeinane",
+			(int[3]){dm->creds + 260, dm->winw / 2 - 380, COLOR_GREEN}, 1);
+	if (dm->creds <= -260)
+		dm->creds = dm->winh;
+}
+
 void	main_menu(t_doom *dm)
 {
 	bg_render(dm);
 	if (dm->credits)
-		set_text(dm, "credits shown here",
-			(int[3]){dm->winh / 2 - 100, dm->winw / 2 - 380, 16711680}, 1);
+		credits(dm);
 	else
 		draw_main_menu(dm, 0, 0, dm->sel);
 	mouse_move(1, 0, dm);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spriteobj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:29:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 12:51:41 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:49:28 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void	draw_layerspr(t_doom *dm, t_editor *le, int x, int y)
 			dm->gfx[dm->spr[i].gfx].x = 0;
 			x = (dm->spr[i].pos.x / 25 * 750) - 13;
 			y = (dm->spr[i].pos.y / 25 * 750) - 17;
-			draw_pgfx_sc(dm, dm->gfx[dm->spr[i].gfx], (int[6]){y, x, 34, 27, 0, 0}, 1);
+			draw_pgfx_sc(dm, dm->gfx[dm->spr[i].gfx],
+				(int[6]){y, x, 34, 27, 0, 0}, 1);
 		}
 	}
 	draw_layerobj(dm, le, x, y);

@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   slope_yzt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/16 14:48:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:11:05 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-static double	create_plane_yzt(t_vector rayd, t_vector rmap, t_doom *dm, int side)
+static double	create_plane_yzt(t_vector rayd, t_vector rmap,
+	t_doom *dm, int side)
 {
 	t_vector	plane[2];
 	t_vector	point;
@@ -25,7 +26,8 @@ static double	create_plane_yzt(t_vector rayd, t_vector rmap, t_doom *dm, int sid
 	plane[1] = (t_vector){
 		.z = 1, .y = 1, .x = 0
 	};
-	ray[0] = (t_vector){.z = rmap.z - (int)rmap.z, .y = rmap.y - (int)rmap.y, .x = rmap.x - (int)rmap.x};
+	ray[0] = (t_vector){.z = rmap.z - (int)rmap.z, .y = rmap.y - (int)rmap.y,
+		.x = rmap.x - (int)rmap.x};
 	ray[1] = rayd;
 	if (dm->rayd.y > 0 || side == 0)
 		ray[0].y -= 1;
@@ -37,16 +39,8 @@ static double	create_plane_yzt(t_vector rayd, t_vector rmap, t_doom *dm, int sid
 	return (1);
 }
 
-void	slope_dda_yzt(t_doom* dm, int side)
+void			slope_dda_yzt_more(t_doom *dm, int side)
 {
-	if (dm->side == 0)
-		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
-	else if (dm->side == 1)
-		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
-	else
-		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	if (dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->map.y <= 1 - (dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->map.z))
-		dm->hit = 1;
 	if (dm->hit != 1)
 	{
 		dm->rmap1.z = dm->pos.z + (dm->rayd.z * dm->walldist);
@@ -56,12 +50,13 @@ void	slope_dda_yzt(t_doom* dm, int side)
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
 		//if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 		//	printf("2MAP %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
-		if ((dm->rmap2.z < 1 - dm->rmap2.y || dm->rmap2.z > LIM || dm->rmap2.y >= LIM)
-			&& dm->rmap2.z > LIMN && dm->rmap2.y > LIMN)
+		if ((dm->rmap2.z < 1 - dm->rmap2.y || dm->rmap2.z > LIM ||
+			dm->rmap2.y >= LIM) && dm->rmap2.z > LIMN && dm->rmap2.y > LIMN)
 		{
 			dm->stepz = 1;
 			dm->sided.z += dm->deltad.z;
-			dm->map.z += dm->stepz * create_plane_yzt(dm->rayd, dm->rmap1, dm, side);
+			dm->map.z += dm->stepz *
+				create_plane_yzt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
 			dm->hithalf++;
@@ -69,16 +64,25 @@ void	slope_dda_yzt(t_doom* dm, int side)
 	}
 }
 
-void	slope_dda_yztr(t_doom* dm, int side)
+void			slope_dda_yzt(t_doom *dm, int side)
 {
 	if (dm->side == 0)
-		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
+		dm->walldist = (dm->map.x - dm->pos.x +
+			(1 - dm->stepx) * 0.5) / dm->rayd.x;
 	else if (dm->side == 1)
-		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
+		dm->walldist = (dm->map.y - dm->pos.y +
+			(1 - dm->stepy) * 0.5) / dm->rayd.y;
 	else
-		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	if (dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->map.y >= 1 - (dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->map.z))
+		dm->walldist = (dm->map.z - dm->pos.z +
+			(1 - dm->stepz) * 0.5) / dm->rayd.z;
+	if (dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->map.y <=
+		1 - (dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->map.z))
 		dm->hit = 1;
+	slope_dda_yzt_more(dm, side);
+}
+
+void			slope_dda_yztr_more(t_doom *dm, int side)
+{
 	if (dm->hit != 1)
 	{
 		dm->rmap1.z = dm->pos.z + (dm->rayd.z * dm->walldist);
@@ -88,15 +92,33 @@ void	slope_dda_yztr(t_doom* dm, int side)
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			printf("YZTR %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
-		if ((dm->rmap2.z > 1 - dm->rmap2.y || dm->rmap2.z < LIMN || dm->rmap2.y <= LIMN)
-			&& dm->rmap2.z < LIM && dm->rmap2.y < LIM)
+		if ((dm->rmap2.z > 1 - dm->rmap2.y || dm->rmap2.z < LIMN ||
+			dm->rmap2.y <= LIMN) && dm->rmap2.z < LIM && dm->rmap2.y < LIM)
 		{
 			dm->stepz = 1;
 			dm->sided.z += dm->deltad.z;
-			dm->map.z += dm->stepz * create_plane_yzt(dm->rayd, dm->rmap1, dm, side);
+			dm->map.z += dm->stepz *
+				create_plane_yzt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
 			dm->hithalf++;
 		}
 	}
+}
+
+void			slope_dda_yztr(t_doom *dm, int side)
+{
+	if (dm->side == 0)
+		dm->walldist = (dm->map.x - dm->pos.x +
+			(1 - dm->stepx) * 0.5) / dm->rayd.x;
+	else if (dm->side == 1)
+		dm->walldist = (dm->map.y - dm->pos.y +
+			(1 - dm->stepy) * 0.5) / dm->rayd.y;
+	else
+		dm->walldist = (dm->map.z - dm->pos.z +
+			(1 - dm->stepz) * 0.5) / dm->rayd.z;
+	if (dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->map.y >=
+		1 - (dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->map.z))
+		dm->hit = 1;
+	slope_dda_yztr_more(dm, side);
 }

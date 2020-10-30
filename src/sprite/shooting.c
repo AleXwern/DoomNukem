@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shooting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/28 16:06:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:44:16 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,8 @@ void	foe_shooting(t_doom *dm, t_sprite *spr, t_sprite *prj)
 		prj->dead = 0;
 		prj->mov = (t_vector){.z = spr->dir.z * -0.3,
 			.y = spr->dir.y * -0.3, .x = spr->dir.x * -0.3};
-		prj->pos.z = spr->pos.z + (prj->mov.z * 2);
-		prj->pos.y = spr->pos.y + (prj->mov.y * 2);
-		prj->pos.x = spr->pos.x + (prj->mov.x * 2);
+		prj->pos = (t_vector){.z = spr->pos.z + (prj->mov.z * 2),
+		.y = spr->pos.y + (prj->mov.y * 2), .x = spr->pos.x + (prj->mov.x * 2)};
 		prj->dist = tri_pythagor(dm->pos, prj->pos);
 	}
 	if (!prj->dead)

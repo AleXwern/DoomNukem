@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 15:06:29 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:22:09 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	render2(t_doom *dm)
 **		dm->pos.z, dm->pos.y, dm->pos.x,
 **		dm->dir.z, dm->dir.y, dm->dir.x,
 **		dm->plane.z, dm->plane.y, dm->plane.x);
+**	printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
 */
 
 void	render(t_doom *dm)
@@ -117,7 +118,6 @@ void	render(t_doom *dm)
 		draw_sprite(dm, 0, 0, -1);
 		draw_hud(dm);
 		pickupitem(dm);
-		//printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
 		if (dm->area[(int)dm->pos.z][(int)dm->pos.y][(int)dm->pos.x].b == 0)
 			wingame(dm);
 		render2(dm);

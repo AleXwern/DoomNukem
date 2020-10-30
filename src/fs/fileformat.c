@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 13:41:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:17:33 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	comp_map(t_doom *dm)
 	while (dm->flr < dm->mxflr)
 	{
 		if (!(dm->area[dm->flr] = (t_block**)ft_memalloc(sizeof(t_block*)
-				* 25)))
+			* 25)))
 			error_out(MEM_ERROR, dm);
 		fileformat(fd, dm, 0);
 		dm->flr++;

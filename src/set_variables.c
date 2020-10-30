@@ -3,20 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   set_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/21 16:14:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:13:54 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
+/*
+**	remove gun and keycard in function below
+*/
+
 void	set_variables(t_doom *dm)
 {
-	dm->gun = 1;//remove in final version
-	dm->keycard = 1;//remove in final version
+	dm->gun = 1;
+	dm->keycard = 1;
+	dm->creds = dm->winh;
 	dm->slidedoor = 'x';
 	dm->plrhight = 0.6;
 	dm->moneytext = NULL;

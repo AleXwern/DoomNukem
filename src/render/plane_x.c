@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane_x.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:24:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/09/30 13:41:47 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:40:19 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,8 @@ void	part_dda_xn(t_doom *dm, double plane)
 	}
 }
 
-void	part_dda_xp(t_doom *dm, double plane)
+void	part_dda_xp_more(t_doom *dm, double plane)
 {
-	if (dm->side == 0)
-		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5)
-			/ dm->rayd.x;
-	else if (dm->side == 1)
-		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5)
-			/ dm->rayd.y;
-	else
-		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5)
-			/ dm->rayd.z;
-	if (dm->pos.x + (dm->rayd.x * dm->walldist) - (int)dm->map.x <= (1 - plane))
-		dm->hit = 1;
 	if (dm->rayd.x < 0 && dm->hit != 1)
 	{
 		dm->rmap1.z = dm->pos.z + (dm->rayd.z * dm->walldist);
@@ -70,4 +59,20 @@ void	part_dda_xp(t_doom *dm, double plane)
 		dm->hithalf++;
 		dm->texshift.x = 1;
 	}
+}
+
+void	part_dda_xp(t_doom *dm, double plane)
+{
+	if (dm->side == 0)
+		dm->walldist = (dm->map.x - dm->pos.x + (1 - dm->stepx) * 0.5)
+			/ dm->rayd.x;
+	else if (dm->side == 1)
+		dm->walldist = (dm->map.y - dm->pos.y + (1 - dm->stepy) * 0.5)
+			/ dm->rayd.y;
+	else
+		dm->walldist = (dm->map.z - dm->pos.z + (1 - dm->stepz) * 0.5)
+			/ dm->rayd.z;
+	if (dm->pos.x + (dm->rayd.x * dm->walldist) - (int)dm->map.x <= (1 - plane))
+		dm->hit = 1;
+	part_dda_xp_more(dm, plane);
 }

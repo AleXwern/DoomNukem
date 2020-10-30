@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_more.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:14:39 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/29 11:44:49 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:12:41 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	kill_extra(t_server *srv)
 	if (!(kip = SDLNet_TCP_GetPeerAddress(ksock)))
 		return ;*/
 	if (!(ksock = ax_accept(srv->server, srv->ax)))
-		return;
+		return ;
 	//if (!(kip = SDLNet_TCP_GetPeerAddress(ksock)))
 	//	return;
 	ft_putendl("Killed extra connection");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_editor_more.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:34:11 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/28 15:10:13 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:56:03 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	grab_sprite(t_doom *dm, t_editor *le, int spr, int cury)
 	}
 	else
 		le->options[1] = get_objsmallsprite(dm->obj[le->spr - 11].gfx);
-	
 }
 
 void	get_sprite(t_doom *dm, t_editor *le)

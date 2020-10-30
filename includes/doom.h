@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/29 13:34:06 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:38:19 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,7 @@ typedef struct		s_doom
 	char			*syssmg[2];
 	uint32_t		iframe;
 	int				credits;
+	int				creds;
 	int				cur;
 	int				sel;
 	int				plr;
@@ -512,7 +513,6 @@ int					send_pos(t_doom *dm);
 int					set_objsmallsprite(int gfx);
 int					slope_coll(t_block blk, t_doom *dm, char dir);
 int					tex_check(t_doom *dm);
-int					x_press(t_doom *dm);
 
 t_gfx				memcpy_gfx(t_gfx chunck, int *pos, int *size);
 t_gfx				read_bmp(char *file, int fd, int bread);
@@ -595,7 +595,6 @@ void				grab_sprite(t_doom *dm, t_editor *le, int spr, int cury);
 void				gravity(t_doom *dm);
 void				intersect(t_vector *plane, t_vector *ray, t_vector *p);
 void				jump(t_doom *dm);
-void				key_credits(t_doom *dm);
 void				key_release_menu(int key, t_doom *dm);
 void				key_state_editor(t_editor *le, t_doom *dm);
 void				key_state_game(t_doom *dm);
@@ -637,8 +636,11 @@ void				set_text(t_doom *dm, char *str, int *xy, double size);
 void				set_variables(t_doom *dm);
 void				side_check(t_doom *dm);
 void				single_loop_x(t_doom *dm);
+void				single_loop_x_more(t_doom *dm);
 void				single_loop_y(t_doom *dm);
+void				single_loop_y_more(t_doom *dm);
 void				single_loop_z(t_doom *dm);
+void				single_loop_z_more(t_doom *dm);
 void				slide_door(t_doom *dm);
 void				slope_dda_xyb(t_doom *dm, int side);
 void				slope_dda_xybr(t_doom *dm, int side);
@@ -652,7 +654,6 @@ void				slope_dda_yzb(t_doom *dm, int side);
 void				slope_dda_yzbr(t_doom *dm, int side);
 void				slope_dda_yzt(t_doom *dm, int side);
 void				slope_dda_yztr(t_doom *dm, int side);
-void				sprite_set(t_doom *dm, int i);
 void				strafe(t_doom *dm);
 void				suffocate(t_doom *dm, t_block blk, t_vector bpos);
 void				tab_change(t_editor *le);

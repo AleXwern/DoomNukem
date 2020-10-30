@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   misc_alloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:20:26 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 13:18:56 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:05:18 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	destroy_texpack(t_doom *dm)
 	}
 }
 
-t_img		init_image(t_doom *dm)
+t_img	init_image(t_doom *dm)
 {
 	t_img	image;
 
