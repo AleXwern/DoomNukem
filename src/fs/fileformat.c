@@ -18,11 +18,16 @@
 //check value ranges
 void	comp_block(t_doom *dm, char **temp, int x, int y)
 {
-	dm->area[dm->flr][y][x].b = ft_atoi(temp[0]);
-	dm->area[dm->flr][y][x].lgt = ft_atoi(temp[1]);
-	dm->area[dm->flr][y][x].pt = ft_atoi(temp[2]);
-	dm->area[dm->flr][y][x].pln = ft_atoi(temp[3]);
-	dm->area[dm->flr][y][x].meta = ft_atoi(temp[4]);
+	if (is_block_info_present(temp))
+		fill_block(dm, x, y);
+	else
+	{
+		dm->area[dm->flr][y][x].b = ft_atoi(temp[0]);
+		dm->area[dm->flr][y][x].lgt = ft_atoi(temp[1]);
+		dm->area[dm->flr][y][x].pt = ft_atoi(temp[2]);
+		dm->area[dm->flr][y][x].pln = ft_atoi(temp[3]);
+		dm->area[dm->flr][y][x].meta = ft_atoi(temp[4]);
+	}
 	if (dm->area[dm->flr][y][x].b == 7)
 	{
 		dm->spw.x = x + 0.51;
@@ -30,8 +35,7 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 		dm->spw.z = dm->flr + 0.5;
 		dm->area[dm->flr][y][x].b = 1;
 	}
-	if (dm->area[dm->flr][y][x].b > BLK || dm->area[dm->flr][y][x].b < 0)
-		dm->area[dm->flr][y][x].b = 2; //change to check all values
+	force_validate_block(dm, x, y);
 	free_memory(temp);
 }
 
@@ -57,7 +61,7 @@ void	fill_area(t_doom *dm, int y, int x)
 	if (!(dm->area[dm->flr][y] = (t_block*)ft_memalloc(sizeof(t_block) * 25)))
 		error_out(MEM_ERROR, dm);
 	while (++x < 25)
-		dm->area[dm->flr][y][x].b = 2;
+		fill_block(dm, x, y);
 	dm->height = y;
 }
 
@@ -104,7 +108,7 @@ void	comp_map(t_doom *dm)
 	free(fpath);
 	if (fd == -1)
 		error_out(FLR_ERROR, dm);
-	while (dm->flr < dm->mxflr)
+	while (dm->flr < dm->mxflr)// If maxfloor shouldn't be modified in runtime, maybe change mxfloor to define
 	{
 		if (!(dm->area[dm->flr] = (t_block**)ft_memalloc(sizeof(t_block*)
 			* 25)))
