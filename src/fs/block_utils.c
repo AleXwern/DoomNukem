@@ -42,18 +42,20 @@ void	force_validate_block(t_doom *dm, int x, int y)
 {//Keep track if there comes more block types or anything different
 // because otherwise these rules will suffocate different blocks
 // Good idea would be defines to easily change limits to blocks
+//	Defines created as MAX[variablename] and MINPLN as that's the only one that needs to be at least 1
 	if (dm->area[dm->flr][y][x].b < 0 ||
-		dm->area[dm->flr][y][x].b > 8)
+		dm->area[dm->flr][y][x].b > MAXBLK)
 		dm->area[dm->flr][y][x].b = 2;
 	if (dm->area[dm->flr][y][x].lgt < 0 ||
-		dm->area[dm->flr][y][x].lgt > 15)
-		dm->area[dm->flr][y][x].lgt = 15;
+		dm->area[dm->flr][y][x].lgt > MAXLGT)
+		dm->area[dm->flr][y][x].lgt = MAXLGT;
 	if (dm->area[dm->flr][y][x].pt < 0 ||
-		dm->area[dm->flr][y][x].pt > 18)
+		dm->area[dm->flr][y][x].pt > MAXPT)
 		dm->area[dm->flr][y][x].pt = 0;
-	if (dm->area[dm->flr][y][x].pln < 0 ||
-		dm->area[dm->flr][y][x].pln > 15)
-		dm->area[dm->flr][y][x].pln = 15;
-	if (dm->area[dm->flr][y][x].meta != 0)
+	if (dm->area[dm->flr][y][x].pln < MINPLN ||
+		dm->area[dm->flr][y][x].pln > MAXPLN)
+		dm->area[dm->flr][y][x].pln = MAXPLN;
+	if (dm->area[dm->flr][y][x].meta < 0 ||
+		dm->area[dm->flr][y][x].meta > MAXMETA)
 		dm->area[dm->flr][y][x].meta = 0;
 }

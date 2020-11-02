@@ -40,9 +40,9 @@ int		light_map(t_vector map, int side, t_block ***area)
 t_uint32	rl_color(int lgt, t_uint32 col)
 {
 	double	mod;
-	Uint8	r;
-	Uint8	g;
-	Uint8	b;
+	t_uint8	r;
+	t_uint8	g;
+	t_uint8	b;
 
 	mod = lgt / 15.0;
 	r = ((col >> 16) & 0xff) * mod;
@@ -54,9 +54,9 @@ t_uint32	rl_color(int lgt, t_uint32 col)
 
 t_uint32	color_shift(t_uint32 color, double shift, t_doom *dm, t_uint32 ret)
 {
-	Uint8	r;
-	Uint8	g;
-	Uint8	b;
+	t_uint8	r;
+	t_uint8	g;
+	t_uint8	b;
 
 	if (dm->shift > 15 || dm->shift < 0)
 		dm->shift = 15;
@@ -73,9 +73,9 @@ t_uint32	color_shift(t_uint32 color, double shift, t_doom *dm, t_uint32 ret)
 
 t_uint32	avg_color(t_uint32 rcol, t_uint32 col)
 {
-	Uint8	r;
-	Uint8	g;
-	Uint8	b;
+	t_uint8	r;
+	t_uint8	g;
+	t_uint8	b;
 
 	r = ((col >> 16) & 0xff) * (((rcol >> 16) & 0xff) / 255.0);
 	g = ((col >> 8) & 0xff) * (((rcol >> 8) & 0xff) / 255.0);

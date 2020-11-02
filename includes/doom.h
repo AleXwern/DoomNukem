@@ -157,7 +157,7 @@ typedef struct		s_img
 
 typedef struct		s_gfx
 {
-	t_uint32			*data;
+	t_uint32		*data;
 	int				wid;
 	int				hgt;
 	int				bpp;
@@ -174,16 +174,16 @@ typedef struct		s_gfx
 
 typedef struct		s_editor
 {
-	Uint8			flr;
-	Uint8			quit;
+	t_uint8			flr;
+	t_uint8			quit;
 	t_vector		spawn;
 	t_vector		end;
 	int				cur;
-	Uint8			blk;
-	Uint8			spr;
-	Sint8			options[5];
+	t_uint8			blk;
+	t_uint8			spr;
+	char			options[5];
 	double			maxval[5];
-	Sint8			minval[5];
+	char			minval[5];
 	char			*opt[12];
 	SDL_Event		ev;
 	char			marea;

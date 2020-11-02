@@ -92,7 +92,7 @@ void	doom_default(t_doom *dm)
 	dm->fpschar = ft_strdup("30");
 }
 
-void	reset_window(t_doom *dm, Uint8 arg)
+void	reset_window(t_doom *dm, t_uint8 arg)
 {
 	if (arg)
 	{
