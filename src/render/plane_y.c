@@ -38,7 +38,6 @@ void	part_dda_yn(t_doom *dm, double plane)
 		dm->map.y += dm->stepy * plane;
 		dm->side = 1;
 		dm->hit = 1;
-		dm->hithalf++;
 	}
 }
 
@@ -56,7 +55,6 @@ void	part_dda_yp_more(t_doom *dm, double plane)
 		dm->map.y += dm->stepy * plane;
 		dm->side = 1;
 		dm->hit = 1;
-		dm->hithalf++;
 		dm->texshift.y = 1;
 	}
 }

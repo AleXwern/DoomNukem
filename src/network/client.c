@@ -39,7 +39,7 @@ int				send_pos(t_doom *dm)
 		buffer++;
 	else
 		buffer = 0;
-	if (buffer > 300)
+	if (buffer > TIMEOUT)
 	{
 		ft_putendl(CON_ERROR);
 		dm->netstat = 0;

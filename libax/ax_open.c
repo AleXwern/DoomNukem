@@ -60,7 +60,7 @@ t_socket		*ax_open(t_ip *ip, t_libax *ax)
 #elif O_NONBLOCK
 		fcntl(sock->channel, F_SETFL, O_NONBLOCK);
 #endif
-		sock->flag = 1;
+		sock->server = 1;
 	}
 	if (TCP_NODELAY)
 		setsockopt(sock->channel, IPPROTO_TCP, TCP_NODELAY, &ax->dm, sizeof(int));
@@ -77,9 +77,8 @@ t_socket		*ax_accept(t_socket *srv, t_libax *ax)
 	struct sockaddr_in	addr;
 	socklen_t			socklen;
 
-	if (!srv->flag)
+	if (!srv->server)
 		return (NULL);
-	srv->ready = 0;
 	if (!(sock = (t_socket*)ft_memalloc(sizeof(t_socket))))
 		return (NULL);
 	socklen = sizeof(addr);

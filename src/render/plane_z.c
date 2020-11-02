@@ -38,7 +38,6 @@ void	part_dda_zn(t_doom *dm, double plane)
 		dm->map.z += dm->stepz * plane;
 		dm->side = 2;
 		dm->hit = 1;
-		dm->hithalf++;
 	}
 }
 
@@ -56,7 +55,6 @@ void	part_dda_zp_more(t_doom *dm, double plane)
 		dm->map.z += dm->stepz * plane;
 		dm->side = 2;
 		dm->hit = 1;
-		dm->hithalf++;
 		dm->texshift.z = 1;
 	}
 }

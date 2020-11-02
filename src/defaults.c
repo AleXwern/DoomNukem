@@ -71,7 +71,6 @@ void	doom_default(t_doom *dm)
 	dm->flr = 0;
 	reset_position(dm);
 	dm->sbox = WINX / 2;
-	ft_putnbrln(dm->mxflr);
 	dm->prefps = 30;
 	dm->buffer = BUFFER;
 	set_variables(dm);

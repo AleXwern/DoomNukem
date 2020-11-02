@@ -75,6 +75,7 @@
 # define PRJSIZE	4
 # define BOUNDXY	25
 # define BOUNDZ		9
+# define TIMEOUT	100
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.

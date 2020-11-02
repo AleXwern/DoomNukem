@@ -16,7 +16,7 @@
 void	object_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 {
 	int		lgt;
-	Uint32	col;
+	t_uint32	col;
 
 	if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid &&
 		yx[0] + g[0] > -1 && yx[1] + g[1] > -1 &&

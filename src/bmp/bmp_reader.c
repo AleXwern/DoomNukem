@@ -14,7 +14,7 @@
 #include "../../includes/value.h"
 #include "../../includes/bmp.h"
 
-int		read_to_pixdata(t_bmphead bmp, uint32_t bread, int fd)
+int		read_to_pixdata(t_bmphead bmp, t_uint32 bread, int fd)
 {
 	int		toread;
 	char	dummy[2000];
@@ -34,7 +34,7 @@ int		read_to_pixdata(t_bmphead bmp, uint32_t bread, int fd)
 	return (1);
 }
 
-Uint32	*flip_arr(t_gfx gfx, char *corr)
+t_uint32	*flip_arr(t_gfx gfx, char *corr)
 {
 	int		y;
 	char	*dummy;
@@ -48,7 +48,7 @@ Uint32	*flip_arr(t_gfx gfx, char *corr)
 			corr + (gfx.wid * y * 4), gfx.wid * 4);
 	}
 	free(corr);
-	return ((Uint32*)dummy);
+	return ((t_uint32*)dummy);
 }
 
 char	*read_pixdata(char *corr, int fd, t_gfx gfx, int y)
@@ -68,7 +68,7 @@ char	*read_pixdata(char *corr, int fd, t_gfx gfx, int y)
 	return (corr);
 }
 
-Uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
+t_uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 {
 	char	*dummy;
 	char	*corr;
@@ -90,7 +90,7 @@ Uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 		b++;
 	}
 	free(corr);
-	return ((Uint32*)dummy);
+	return ((t_uint32*)dummy);
 }
 
 t_gfx	read_bmp(char *file, int fd, int bread)

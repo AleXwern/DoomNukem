@@ -78,7 +78,7 @@ void	check_area(t_editor *le, t_doom *dm, SDL_Event ev)
 		le->mcopy = 1;
 }
 
-void	editor_key_release(Uint32 key, t_editor *le, t_doom *dm)
+void	editor_key_release(t_uint32 key, t_editor *le, t_doom *dm)
 {
 	if (key == ESC)
 		le->quit = 1;
@@ -103,7 +103,7 @@ void	editor_key_release(Uint32 key, t_editor *le, t_doom *dm)
 		le->cur = 4;
 }
 
-void	editor_key_press(Uint32 key, t_editor *le)
+void	editor_key_press(t_uint32 key, t_editor *le)
 {
 	if (key == LEFT)
 		le->options[le->cur]--;

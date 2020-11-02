@@ -59,7 +59,6 @@ void			slope_dda_yzt_more(t_doom *dm, int side)
 				create_plane_yzt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
-			dm->hithalf++;
 		}
 	}
 }
@@ -101,7 +100,6 @@ void			slope_dda_yztr_more(t_doom *dm, int side)
 				create_plane_yzt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
-			dm->hithalf++;
 		}
 	}
 }

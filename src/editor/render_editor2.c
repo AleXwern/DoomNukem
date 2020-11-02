@@ -55,7 +55,7 @@ void	draw_blk_select(t_doom *dm, t_editor *le, int x, int y)
 
 void	draw_sliders2(t_doom *dm, int x, int y)
 {
-	Uint32	black;
+	t_uint32	black;
 
 	while ((++x + dm->sldrx) < dm->winw)
 	{

@@ -41,10 +41,7 @@ void		ax_shutdown(t_libax *ax)
 #ifdef _WIN64
 	if (WSACleanup() == SOCKET_ERROR)
 		if (WSAGetLastError() == WSAEINPROGRESS)
-		{
-			WSACAncelBlockingCall();
 			WSACleanup();
-		}
 #else
 	ax->handler = signal(SIGPIPE, SIG_DFL);
 	if (ax->handler != SIG_IGN)

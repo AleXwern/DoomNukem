@@ -13,7 +13,7 @@
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-void	draw_main_menu2(t_doom *dm, Uint32 col, Uint32 gy, Uint32 gx)
+void	draw_main_menu2(t_doom *dm, t_uint32 col, t_uint32 gy, t_uint32 gx)
 {
 	dm->img.data[dm->winw * gy + gx] = col;
 	if ((col & 0xfff) == 0xf00)
@@ -26,7 +26,7 @@ void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 {
 	int		gy;
 	int		gx;
-	Uint32	col;
+	t_uint32	col;
 
 	gy = -1;
 	while (++gy < dm->winh)
