@@ -22,7 +22,10 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 		fill_block(dm, x, y);
 	else
 	{
-		dm->area[dm->flr][y][x].b = ft_atoi(temp[0]);
+		if (*temp[0] < '0' || *temp[0] > '9')
+			dm->area[dm->flr][y][x].b = 2;
+		else//in case there are letters atoi returns 0 ugly fix
+			dm->area[dm->flr][y][x].b = ft_atoi(temp[0]);
 		dm->area[dm->flr][y][x].lgt = ft_atoi(temp[1]);
 		dm->area[dm->flr][y][x].pt = ft_atoi(temp[2]);
 		dm->area[dm->flr][y][x].pln = ft_atoi(temp[3]);
