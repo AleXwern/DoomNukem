@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_editor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 14:00:16 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/02 20:23:14 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	check_area(t_editor *le, t_doom *dm, SDL_Event ev)
 			if (ev.motion.y > 485)
 				le->blk += 7;
 			le->mblock = 1;
-			if (le->blk > BLK)
-				le->blk = BLK;
+			if (le->blk > MAXBLK)
+				le->blk = MAXBLK;
 		}
 		else if (ev.motion.x < 1500 && ev.motion.y < 545 && le->tab == 1)
 			grab_sprite(dm, le, ev.motion.x, ev.motion.y);

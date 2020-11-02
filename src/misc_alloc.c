@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   misc_alloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:20:26 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 15:35:35 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/02 20:21:42 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	destroy_texpack(t_doom *dm)
 	int		i;
 
 	i = 0;
-	while (++i <= BLK)
+	while (++i <= MAXBLK)
 	{
 		if (i == 7)
 			continue;
