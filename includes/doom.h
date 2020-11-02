@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 15:35:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/02 14:53:29 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ typedef struct		s_editor
 	int				tab;
 }					t_editor;
 
+//This could use update? maybe switch pln to bt if it is block thickness
 /*
 **	Datablock for well... blocks
 **	b	- blocktype (main texture and main function)
@@ -656,5 +657,8 @@ void				validate_map(t_doom *dm, int i, int a, t_block blk);
 void				wall_stripe(t_doom *dm);
 void				wind_default(t_doom *dm);
 void				wingame(t_doom *dm);
+int					is_block_info_present(char **tmp);
+void				fill_block(t_doom *dm, int x, int y);
+void				force_validate_block(t_doom *dm, int x, int y);
 
 #endif
