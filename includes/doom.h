@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/02 14:53:29 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/03 10:40:27 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ typedef struct		s_editor
 	int				cur;
 	t_uint8			blk;
 	t_uint8			spr;
-	char			options[5];
+	unsigned char	options[5];
 	double			maxval[5];
 	char			minval[5];
 	char			*opt[12];
