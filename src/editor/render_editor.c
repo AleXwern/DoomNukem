@@ -81,7 +81,7 @@ void	draw_level_screen(t_doom *dm, t_editor *le, double x, double y)
 			blk = dm->area[dm->flr][dm->y][dm->x].b;
 			if (dm->area[dm->flr][dm->y][dm->x].b < 0)
 				dm->area[dm->flr][dm->y][dm->x].b = 2;
-			if (dm->area[dm->flr][dm->y][dm->x].b > BLK)
+			if (dm->area[dm->flr][dm->y][dm->x].b > MAXBLK)
 				dm->area[dm->flr][dm->y][dm->x].b = 2;
 			dm->tmpx = x;
 			dm->tmpy = y;

@@ -32,7 +32,7 @@ void	draw_blk_select(t_doom *dm, t_editor *le, int x, int y)
 	dm->blktx = 0;
 	dm->selectedblk = 0;
 	le->ylev = 0;
-	while (dm->selectedblk <= BLK)
+	while (dm->selectedblk <= MAXBLK)
 	{
 		y = -1;
 		while (++y <= 107)

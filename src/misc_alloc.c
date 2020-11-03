@@ -28,7 +28,7 @@ void	destroy_texpack(t_doom *dm)
 	int		i;
 
 	i = 0;
-	while (++i <= BLK)
+	while (++i <= MAXBLK)
 	{
 		if (i == 7)
 			continue;

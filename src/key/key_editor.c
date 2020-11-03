@@ -67,8 +67,8 @@ void	check_area(t_editor *le, t_doom *dm, SDL_Event ev)
 			if (ev.motion.y > 485)
 				le->blk += 7;
 			le->mblock = 1;
-			if (le->blk > BLK)
-				le->blk = BLK;
+			if (le->blk > MAXBLK)
+				le->blk = MAXBLK;
 		}
 		else if (ev.motion.x < 1500 && ev.motion.y < 545 && le->tab == 1)
 			grab_sprite(dm, le, ev.motion.x, ev.motion.y);
