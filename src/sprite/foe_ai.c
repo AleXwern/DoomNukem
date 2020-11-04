@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 13:50:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 15:26:45 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:24:00 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ void	foe_move(t_doom *dm, t_sprite *spr)
 
 void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 {
-	double	dist;
-
 	foe_dir(dm, spr, 0);
 	foe_mode(dm, spr);
 	foe_passive_cycle(dm, spr, i - 4);
@@ -111,9 +109,9 @@ void	foe_ai(t_doom *dm, t_sprite *spr, int *yx, int i)
 		spr->move = 's';
 	foe_move(dm, spr);
 	foe_collision(dm, spr, -1, i);
-	//dist = spr->dist * (1.0 - ((fabs(yx[1] - dm->winw / 2.0) / (dm->winw / 2)))); //Figure out formula
-	//if (i < 2)
-		//printf("%d dist %f mod %f\n", i, spr->dist, (1.0 - ((fabs(yx[1] - dm->winw / 2.0) / (dm->winw / 2)))));
+	if (yx[1] >= -100 && yx[1] < dm->winw)
+		spr->dist *= 1.0 -
+			((fabs(dm->winw / 2.0 - yx[1]) / (dm->winw / 2)) / 4);
 	draw_sprite_gfx(dm, dm->gfx[spr->gfx],
 		(int[7]){yx[0], yx[1], 37, 28, 0, 0, i}, SPRSIZE / spr->dist);
 }

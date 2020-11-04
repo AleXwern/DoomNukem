@@ -44,8 +44,8 @@ going to need for the game: the level’s design, textures and gameplay elements
 One file per level is accepted, but it must be self-sufficient. The doom-nukem binary
 and the chosen level file must be self-sufficient.
 
-* Sprites should not move inside the wall when the player looks to the side.
-* Inclined planes
-* Collision not working with inclined planes
-* Collision not working between two horizontal planes
+X Sprites should not move inside the wall when the player looks to the side.
+X Inclined planes visual
+* Inclined planes sometimes have vertical lines drawn when drawing outlines
+* Inclined planes collision
 X Credits page
