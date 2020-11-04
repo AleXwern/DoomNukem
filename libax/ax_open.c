@@ -6,24 +6,25 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:57:00 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/29 13:40:51 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:28:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libax.h"
 
-void			*ax_close(t_socket *sock)
+void					*ax_close(t_socket *sock)
 {
 	if (sock)
 	{
 		if (sock->channel != INVALID_SOCKET)
 			closesocket(sock->channel);
 		free(sock);
+		sock = NULL;
 	}
 	return (NULL);
 }
 
-t_socket		*ax_open(t_ip *ip, t_libax *ax)
+t_socket				*ax_open(t_ip *ip, t_libax *ax)
 {
 	t_socket			*sock;
 	struct sockaddr_in	addr;
@@ -71,7 +72,7 @@ t_socket		*ax_open(t_ip *ip, t_libax *ax)
 	return (sock);
 }
 
-t_socket		*ax_accept(t_socket *srv, t_libax *ax)
+t_socket				*ax_accept(t_socket *srv, t_libax *ax)
 {
 	t_socket			*sock;
 	struct sockaddr_in	addr;

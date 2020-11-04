@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 20:16:19 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/29 13:38:56 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:26:15 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_libax		*ax_init(void)
 void		ax_shutdown(t_libax *ax)
 {
 	if (ax == NULL)
-		return;
+		return ;
 	else if (ax->id != AXID)
-		return;
+		return ;
 #ifdef _WIN64
 	if (WSACleanup() == SOCKET_ERROR)
 		if (WSAGetLastError() == WSAEINPROGRESS)

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 14:03:32 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/19 15:15:08 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 12:06:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	lab_move(t_doom *dm, int obj, t_vector stair)
 {
 	if (!get_stairdest(dm, (obj - 3.5) * 2, dm->pos, stair))
 		return ;
-	if ((int)dm->pos.z == dm->mxflr - 1 && (int)dm->pos.z == 0)
+	if ((int)dm->pos.z == MXFLR - 1 && (int)dm->pos.z == 0)
 		error_out(LAB_OUT, dm);
 }
 

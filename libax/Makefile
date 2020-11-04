@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/29 11:06:06 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/29 18:22:11 by AleXwern         ###   ########.fr        #
+#    Updated: 2020/11/04 14:17:37 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libax.a
 FLAG = -Wall -Wextra -Werror
-SRCS = ax_init.c ax_open.c ax_resolve.c ax_send.c
+SRCS = ax_init.c ax_open.c ax_resolve.c ax_send.c ax_printip.c
 OBJS = $(SRCS:.c=$(OEXT))
 INCLS = ./
 OBJFLD = ../obj/
@@ -26,7 +26,7 @@ all: $(NAME)
 
 %$(OEXT):%.c
 	@gcc $(FLAG) -I $(INCLS) -o $@ -c $<
-	@echo "Compiling Libft -> $(GREEN)$@$(STOP)"
+	@echo "Compiling Libax -> $(GREEN)$@$(STOP)"
 
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)

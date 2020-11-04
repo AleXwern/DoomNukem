@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 12:33:50 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 12:06:25 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int		main(int ac, char **av)
 		dev_status(dm, av[1]);
 	dm->ax = ax_init();
 	dm->tile = 4;
-	dm->mxflr = 9;
 	if (!(dm->win = SDL_CreateWindow("DoomNukem", SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED, WINX, WINY, 0)))
 		error_out(WIN_ERROR, dm);

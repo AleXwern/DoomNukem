@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libax.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:12:37 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/29 18:25:21 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:15:33 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 /*
 ** INCLUDES
-** 2 types of includes: Windows and UNIX. Both are there as I often work from home and
-** need the entire thing to work on my Windows PC.
+** 2 types of includes: Windows and UNIX. Both are there as I often work
+** from home and need the entire thing to work on my Windows PC.
 ** --WIN64--
 ** winsock2 and ws2tcpip are included for WIN network stuff and latter for
 ** TCP realted stuff.
@@ -42,9 +42,9 @@
 ** sys/types is included for variables that other functions need.
 ** netinet/tcp is included for TCP variables
 ** errno is included to break recv under certain conditions.
-** arpa/inet is used with IP resolving
-** sys/fcntl is used to open and close the filehandling related to rending/receiving
-** information
+** arpa/inet is defined for 'struct sockaddr_in' and IPPROTO_TCP.
+** sys/fcntl is used to open and close the filehandling related to
+** rending/receiving information
 ** INVALID_SOCKET and SOCKET_ERROR are defined on Windows and as the appropprate
 ** functions return -1 on UNIX we haave defined then as such
 ** Windows closes sockets with socketclose while UNIX with good 'ol close
@@ -64,14 +64,12 @@
 #  include <sys/socket.h>
 #  include <sys/types.h>
 #  include <netinet/tcp.h>
-//#  include <net/if.h>
-//#  include <netdb.h>
 #  include <errno.h>
 #  include <arpa/inet.h>
 #  include <sys/fcntl.h>
 #  define INVALID_SOCKET	-1
 #  define SOCKET_ERROR		-1
-#  define closesocket		close
+#  define closesocket		close //change closesocket to close for final version
 # endif
 # include <stdio.h> //remove
 
@@ -111,7 +109,7 @@ typedef unsigned int	t_uint32;
 typedef unsigned short	t_uint16;
 typedef unsigned char	t_uint8;
 # else
-#  error "System bit odd architechture. Stuff would break anyway."
+#  error "System is of odd architechture. Stuff would break anyway."
 # endif
 
 /*
@@ -132,31 +130,39 @@ typedef struct			s_socket
 {
 	int					channel;
 	t_ip				remote;
-	t_ip				local;
 	int					server;
 }						t_socket;
 
+# if _WIN64
 typedef struct			s_libax
 {
 	short				id;
 	int					dm;
 	unsigned long		mode;
 	int					accepted;
-# if _WIN64
 	WORD				ver;
 	WSADATA				wsa;
+}						t_libax;
 # elif __APPLE__
+typedef struct			s_libax
+{
+	short				id;
+	int					dm;
+	unsigned long		mode;
+	int					accepted;
 	void				(*handler)(int);
 	int					flag;
-# endif
 }						t_libax;
-#endif
+# endif
 
 t_libax		*ax_init(void);
-t_socket	*ax_accept(t_socket* srv, t_libax* ax);
+t_socket	*ax_accept(t_socket *srv, t_libax *ax);
 t_socket	*ax_open(t_ip *ip, t_libax *ax);
-int			ax_recv(t_socket *sock, void *data, int max, size_t maxattempt);
+int			ax_recv(t_socket *sock, void *data, int max);
 int			ax_resolvehost(t_ip *ip, const char *host, t_uint16 port);
 int			ax_send(t_socket *sock, const void *data, int len);
 void		*ax_close(t_socket *sock);
+void		ax_printip(t_ip ip);
+void		ax_printipln(t_ip ip);
 void		ax_shutdown(t_libax *ax);
+#endif

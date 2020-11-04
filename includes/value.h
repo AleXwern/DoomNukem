@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/04 16:03:35 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/04 16:07:01 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@
 # define BOUNDXY	25
 # define BOUNDZ		9
 # define TIMEOUT	100
+# define MXFLR		9
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.

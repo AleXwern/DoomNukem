@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:43:54 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 12:29:58 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:52:02 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	key_state_menu(t_doom *dm)
 	if (SDL_PollEvent(&(dm->event)))
 	{
 		if (dm->event.type == SDL_QUIT ||
-			(dm->event.key.keysym.scancode == SDL_SCANCODE_ESCAPE &&
+			(dm->event.key.keysym.scancode == ESC &&
 			!dm->credits))
 			error_out(FINE, dm);
 		if (dm->event.window.event == SDL_WINDOWEVENT_RESIZED
