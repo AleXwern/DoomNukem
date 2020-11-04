@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/03 10:40:27 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/04 15:50:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ typedef struct		s_bulk
 	t_vector		pos;
 	t_vector		dir;
 	t_vector		prj;
-	char			hp;
+	char			dead;
 	char			gfx;
 }					t_bulk;
 
@@ -296,6 +296,7 @@ typedef struct		s_doom
 	t_sprite		obj[OBJ];
 //	t_uint32		gfram;
 //	int				aswall;
+	char			flag;
 	int				dev;
 	int				gfxcount;
 	int				height;
@@ -322,7 +323,7 @@ typedef struct		s_doom
 	int				y;
 //	int				hold;
 	int				flr;
-	int				mxflr;
+//	int				mxflr;
 //	int				mapset;
 	t_block			***area;
 	t_block			blk;
@@ -411,7 +412,6 @@ typedef struct		s_doom
 	t_key			key;
 	double			plrhight;
 	int				crouching;
-	int				uncrouch; //This is only ever set to 0 in 2 places but not checked anywhere
 //	int				mouseprevx;
 //	int				mouseprevy;
 	int				*options[25];

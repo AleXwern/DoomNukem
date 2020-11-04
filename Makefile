@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/11/02 14:23:41 by vkeinane         ###   ########.fr        #
+#    Updated: 2020/11/04 14:30:28 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ SRCDIR	=	./src/
 INCL	=	-I ./SDL2 -I ./libft -I ./includes
 PWD		=	$(shell pwd)
 OBJFRAME =	-F ./frameworks
-FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -framework SDL2_net -Wl,-rpath $(PWD)/frameworks
+FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
 RED		=	\033[0;31m
 BLUE	=	\033[0;34m
 STOP	=	\033[0m

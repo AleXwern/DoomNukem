@@ -6,15 +6,15 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:45:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 15:45:47 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:20:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char*		ft_strfjoin(char* s1, char* s2)
+char		*ft_strfjoin(char *s1, char *s2)
 {
-	char*	array;
+	char	*array;
 	int		i;
 	int		a;
 

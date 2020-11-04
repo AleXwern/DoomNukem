@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:19:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 14:59:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 12:06:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		save_file(t_doom *dm, int fd, char *file, int i)
 		return (0);
 	}
 	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .pln = 15, .pt = 0});
-	while (++i < dm->mxflr)
+	while (++i < MXFLR)
 	{
 		dm->flr = i;
 		write_file(dm, fd, -1, -1);

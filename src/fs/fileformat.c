@@ -111,7 +111,7 @@ void	comp_map(t_doom *dm)
 	free(fpath);
 	if (fd == -1)
 		error_out(FLR_ERROR, dm);
-	while (dm->flr < dm->mxflr)// If maxfloor shouldn't be modified in runtime, maybe change mxfloor to define
+	while (dm->flr < MXFLR)// If maxfloor shouldn't be modified in runtime, maybe change mxfloor to define
 	{
 		if (!(dm->area[dm->flr] = (t_block**)ft_memalloc(sizeof(t_block*)
 			* 25)))

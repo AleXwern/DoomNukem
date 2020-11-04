@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 15:20:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 12:21:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@
 # define BOUNDXY	25
 # define BOUNDZ		9
 # define TIMEOUT	100
+# define MXFLR		9
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.

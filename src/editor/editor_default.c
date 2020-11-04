@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_default.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:41:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 13:19:46 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:41:18 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,10 @@ void	editor_defaults(t_editor *le, t_doom *dm)
 	dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 7;
 	le->blk = 2;
 	le->options[0] = 2;
-	le->maxval[0] = dm->mxflr - 1;
+	le->maxval[0] = MXFLR - 1;
 	le->minval[0] = 0;
+	le->options[1] = 15;
+	le->options[2] = 0;
 	le->spr = 4;
 	le->opt[0] = "floor           ";
 	le->opt[5] = "lower floor to the right";
