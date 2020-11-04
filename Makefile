@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/29 11:43:47 by anystrom         ###   ########.fr        #
+#    Updated: 2020/11/02 14:23:41 by vkeinane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,19 +23,19 @@ SRCFILE =	doom.c loop.c camera.c main_menu.c interact.c door.c \
 KEYFILE =	key_editor.c key_editor_more.c key_game_hold.c key_game_more.c \
 			key_game_release.c key_in_game_menu.c key_main_menu.c key_state.c
 DRAWEXT =	draw_hud.c draw_hud2.c
-FILESYS =	fileformat.c fileformat2.c save_level.c spriteformat.c
+FILESYS =	fileformat.c fileformat2.c save_level.c spriteformat.c block_utils.c
 EDTFILE =	editor_default.c editor.c render_editor.c render_editor2.c spriteobj.c \
 			objsel.c
 ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c window.c draw_more.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c render2.c render3.c \
-			part_dda.c slope_yzt.c slope_yzb.c slope_xzt.c slope_xzb.c \
+			part_dda.c part_dda_more.c slope_yzt.c slope_yzb.c slope_xzt.c slope_xzb.c \
 			slope_xyt.c slope_xyb.c wingame.c
 GRAFILE	=	gravity.c move.c move2.c collision.c slope_coll.c
 BMPFILE =	bmp_reader.c gfx.c gfx_chunck.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
-SPRFILE =	sprites.c begin_sprites.c shooting.c sprite.c \
+SPRFILE =	sprites.c shooting.c sprite.c \
 			foe_ai.c foe_passive.c foe_status.c plr_status.c \
 			draw_projectiles.c draw_objects.c
 CLIFILE =	client.c

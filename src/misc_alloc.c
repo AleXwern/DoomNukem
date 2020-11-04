@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   misc_alloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:20:26 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 13:14:56 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/02 20:21:42 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	destroy_texpack(t_doom *dm)
 	int		i;
 
 	i = 0;
-	while (++i <= BLK)
+	while (++i <= MAXBLK)
 	{
 		if (i == 7)
 			continue;
@@ -37,7 +37,7 @@ void	destroy_texpack(t_doom *dm)
 	}
 }
 
-t_img		init_image(t_doom *dm)
+t_img	init_image(t_doom *dm)
 {
 	t_img	image;
 
@@ -45,7 +45,6 @@ t_img		init_image(t_doom *dm)
 		error_out(WIN_ERROR, dm);
 	image.img = SDL_CreateTextureFromSurface(dm->rend, image.tex);
 	image.data = (t_uint32*)image.tex->pixels;
-	dm->winb = 1;
 	dm->winh = image.tex->h;
 	dm->winw = image.tex->w;
 	return (image);
@@ -76,7 +75,7 @@ void	alloc_vram(t_doom *dm)
 		error_out(MEM_ERROR, dm);
 	if (!(dm->data_r = (t_doom*)ft_memalloc(sizeof(t_doom) * dm->trx)))
 		error_out(MEM_ERROR, dm);
-	if (!(dm->window = (Uint32*)ft_memalloc(sizeof(Uint32) * dm->winw
+	if (!(dm->window = (t_uint32*)ft_memalloc(sizeof(t_uint32) * dm->winw
 			* dm->winh)))
 		error_out(MEM_ERROR, dm);
 }

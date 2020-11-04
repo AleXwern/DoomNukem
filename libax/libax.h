@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libax.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:12:37 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/29 14:21:57 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/29 18:25:21 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@
 
 /*
 ** Define few basic IP defines if they are not already defined.
-** TCP_NODELAY too to make ax_open return NULL if it's not defined
+** TCP_NODELAY to make ax_open return NULL if it's not defined
 */
 # ifndef INADDR_ANY
 #  define INADDR_ANY		0x00000000
@@ -97,7 +97,7 @@
 # define	AXID			0x4297
 
 
-# if _WIN64 || __x86_64__ || __ppc64__
+# if _WIN32 || _WIN64 || __x86_64__ || __ppc64__
 #  define ENV64BIT
 # endif
 
@@ -130,11 +130,10 @@ typedef struct			s_ip
 */
 typedef struct			s_socket
 {
-	int					ready;
 	int					channel;
 	t_ip				remote;
 	t_ip				local;
-	int					flag;
+	int					server;
 }						t_socket;
 
 typedef struct			s_libax

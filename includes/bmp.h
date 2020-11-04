@@ -31,8 +31,8 @@
 ** usage here.
 */
 
-typedef uint16_t	t_word;
-typedef uint32_t	t_dword;
+typedef t_uint16	t_word;
+typedef t_uint32	t_dword;
 
 # pragma pack(push, 1)
 

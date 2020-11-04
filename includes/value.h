@@ -67,7 +67,12 @@
 # define FRONTS		0
 # define LEFTS		37
 # define RIGHTS		74
-# define BLK		8
+# define MAXBLK		8
+# define MAXLGT		15
+# define MAXPT		18
+# define MAXPLN		15
+# define MINPLN		1
+# define MAXMETA	8
 # define SPR		11
 # define OBJ		13
 # define TIMERMOD	60
@@ -75,6 +80,7 @@
 # define PRJSIZE	4
 # define BOUNDXY	25
 # define BOUNDZ		9
+# define TIMEOUT	100
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.

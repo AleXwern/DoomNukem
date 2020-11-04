@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_default.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:41:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/28 15:03:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:19:46 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	opt_text(t_editor *le)
 	le->opt[8] = "thicker to the right";
 	le->opt[9] = "paintings";
 	le->opt[10] = "1 w  2 n  3 e  4 s  5 keyr  6 keyg  7 heal  8 kill";
-	le->opt[11] = "nd  nu  su  sd  wd  wu  eu  ed  cnw  csw  cse  cne";
+	le->opt[11] = "nd  sd  ed  wd  nu  su  eu  wu  cnw  csw  cse  cne";
 }
 
 void	spr_text(t_editor *le)

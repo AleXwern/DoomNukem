@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:18:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/22 14:12:09 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:49:16 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ void	gravity2(t_doom *dm)
 	else if (dm->area[(int)(dm->pos.z)][(int)(dm->pos.y)]
 			[(int)dm->pos.x].pt == 2)
 		dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
-			(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x], dm->pos) - dm->plrhight;
+			(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x],
+			dm->pos) - dm->plrhight;
 	else
 		dm->pos.z = (int)dm->pos.z + (1 - dm->plrhight);
 }
 
 void	gravity(t_doom *dm)
 {
-	//dm->airbrn = 0;
 	if (dm->key.two || dm->isgravity || dm->ismenu || !dm->airbrn)
 		return ;
 	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)

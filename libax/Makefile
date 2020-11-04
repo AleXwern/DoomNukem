@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
+#    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/29 11:06:06 by anystrom          #+#    #+#              #
-#    Updated: 2020/10/29 11:14:52 by anystrom         ###   ########.fr        #
+#    Updated: 2020/10/29 18:22:11 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libax.a
-FLAG = -Wall -Wextra
+FLAG = -Wall -Wextra -Werror
 SRCS = ax_init.c ax_open.c ax_resolve.c ax_send.c
 OBJS = $(SRCS:.c=$(OEXT))
 INCLS = ./

@@ -31,7 +31,7 @@ int			ax_send(t_socket *sock, const void *data, int len)
 	int		sent;
 	int		left;
 
-	if (sock->flag)
+	if (sock->server)
 		return (-1);
 	letter = (t_uint8*)data;
 	left = len;
@@ -46,8 +46,6 @@ int			ax_send(t_socket *sock, const void *data, int len)
 			letter += len;
 		}
 	}
-	ft_putstr("SENT ");
-	ft_putnbrln(sent);
 	return (sent);
 }
 
@@ -57,7 +55,7 @@ int			ax_recv(t_socket *sock, void *data, int max, size_t maxattempt)
 	size_t	attempt;
 	int		err;
 
-	if (sock->flag)
+	if (sock->server)
 		return (-1);
 	attempt = 0;
 	err = 0;
@@ -78,8 +76,5 @@ int			ax_recv(t_socket *sock, void *data, int max, size_t maxattempt)
 				break;
 		}
 	}
-	ft_putstr("RECV ");
-	ft_putnbrln(len);
-	sock->ready = 0;
 	return (len);
 }

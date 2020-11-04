@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   part_dda.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:56:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 14:43:35 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:37:32 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	single_loop_z(t_doom* dm)
+void	single_loop_z(t_doom *dm)
 {
 	dm->tmap = dm->map;
 	dm->tsided = dm->sided;
@@ -35,16 +35,10 @@ void	single_loop_z(t_doom* dm)
 		dm->tmap.z += dm->stepz;
 		dm->side = 2;
 	}
-	if (dm->side == 0)
-		dm->walldist = (dm->tmap.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
-	else if (dm->side == 1)
-		dm->walldist = (dm->tmap.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
-	else
-		dm->walldist = (dm->tmap.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	dm->rmap2.z = dm->pos.z + (dm->rayd.z * dm->walldist) - (int)dm->tmap.z;
+	single_loop_z_more(dm);
 }
 
-void	single_loop_y(t_doom* dm)
+void	single_loop_y(t_doom *dm)
 {
 	dm->tmap = dm->map;
 	dm->tsided = dm->sided;
@@ -66,16 +60,10 @@ void	single_loop_y(t_doom* dm)
 		dm->tmap.z += dm->stepz;
 		dm->side = 2;
 	}
-	if (dm->side == 0)
-		dm->walldist = (dm->tmap.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
-	else if (dm->side == 1)
-		dm->walldist = (dm->tmap.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
-	else
-		dm->walldist = (dm->tmap.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
+	single_loop_y_more(dm);
 }
 
-void	single_loop_x(t_doom* dm)
+void	single_loop_x(t_doom *dm)
 {
 	dm->tmap = dm->map;
 	dm->tsided = dm->sided;
@@ -97,16 +85,11 @@ void	single_loop_x(t_doom* dm)
 		dm->tmap.z += dm->stepz;
 		dm->side = 2;
 	}
-	if (dm->side == 0)
-		dm->walldist = (dm->tmap.x - dm->pos.x + (1 - dm->stepx) * 0.5) / dm->rayd.x;
-	else if (dm->side == 1)
-		dm->walldist = (dm->tmap.y - dm->pos.y + (1 - dm->stepy) * 0.5) / dm->rayd.y;
-	else
-		dm->walldist = (dm->tmap.z - dm->pos.z + (1 - dm->stepz) * 0.5) / dm->rayd.z;
-	dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) - (int)dm->tmap.x;
+	single_loop_x_more(dm);
 }
 
-void	init_functions(void (*block[10])(t_doom*, double), void (*slope[12])(t_doom*, int))
+void	init_functions(void (*block[10])(t_doom*, double),
+	void (*slope[12])(t_doom*, int))
 {
 	block[0] = part_dda_zp;
 	block[1] = part_dda_zn;
@@ -138,6 +121,7 @@ void	init_functions(void (*block[10])(t_doom*, double), void (*slope[12])(t_doom
 **	5 - X, filled W
 **	6 - X, filled E
 */
+
 void	part_check(t_doom *dm)
 {
 	double		plane;
@@ -147,7 +131,8 @@ void	part_check(t_doom *dm)
 
 	if (slope[11] == NULL)
 		init_functions(block, slope);
-	plane = (1 - dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pln / 15.0);
+	plane = (1 - dm->area[(int)dm->map.z][(int)dm->map.y]
+		[(int)dm->map.x].pln / 15.0);
 	pt = dm->area[(int)dm->map.z][(int)dm->map.y][(int)dm->map.x].pt - 1;
 	if (pt >= 6)
 		slope[pt - 6](dm, dm->side);

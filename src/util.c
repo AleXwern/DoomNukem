@@ -26,7 +26,7 @@ int		fps_capper(void *ptr)
 	return (1);
 }
 
-void	fps_counter2(t_doom *dm, Uint32 *i, Uint32 *fps)
+void	fps_counter2(t_doom *dm, t_uint32 *i, t_uint32 *fps)
 {
 	if (*i >= 10)
 		*i = 0;
@@ -41,9 +41,9 @@ void	fps_counter2(t_doom *dm, Uint32 *i, Uint32 *fps)
 int		fps_counter(void *ptr)
 {
 	t_doom	*dm;
-	Uint32	fpsarr[10];
-	Uint32	i;
-	Uint32	fps;
+	t_uint32	fpsarr[10];
+	t_uint32	i;
+	t_uint32	fps;
 
 	dm = (t_doom*)ptr;
 	i = 0;

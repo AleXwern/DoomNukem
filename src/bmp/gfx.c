@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:41:51 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 13:36:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:35:47 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ void		comp_texpack(t_doom *dm)
 
 	dm->tile += 48;
 	path = SDL_GetBasePath();
-	pack = read_bmp(ft_quadjoin(path, "gfx/tex", (char*)&dm->tile, ".bmp"), 0, 0);
+	pack = read_bmp(ft_quadjoin(path, "gfx/tex",
+		(char*)&dm->tile, ".bmp"), 0, 0);
 	if (pack.data == NULL)
 		error_out(GFX_ERROR, dm);
 	dm->gfx[1] = memcpy_gfx(pack, (int[2]){0, 256}, (int[2]){128, 128});

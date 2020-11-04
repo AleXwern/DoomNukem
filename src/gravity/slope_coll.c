@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   slope_coll.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:29:03 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 15:49:20 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 13:57:23 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
 /*
 ** 7  down	yz
 ** 8  down	-y-z
@@ -30,7 +31,10 @@
 int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 {
 	if (dir == 'y')
-		hgt = (dm->pos.z + 1 - ((dm->pos.y + dm->gravity.y) - (int)(dm->pos.y + dm->gravity.y))) - dm->pos.z;
+	{
+		hgt = (dm->pos.z + 1 - ((dm->pos.y + dm->gravity.y) -
+			(int)(dm->pos.y + dm->gravity.y))) - dm->pos.z;
+	}
 	else
 		hgt = (dm->pos.z + 1 - (dm->pos.y - (int)dm->pos.y)) - dm->pos.z;
 	printf("%f\n", hgt);

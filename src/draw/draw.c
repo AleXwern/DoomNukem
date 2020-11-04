@@ -63,12 +63,12 @@ void	render_floor(t_doom *dm)
 	dm->rayd0.y = dm->dir.y - dm->plane.y;
 	dm->rayd1.x = dm->dir.x + dm->plane.x;
 	dm->rayd1.y = dm->dir.y + dm->plane.y;
-	dm->rowdist = dm->walldist;
-	dm->flstep.x = dm->rowdist * (dm->rayd1.x - dm->rayd0.x) / dm->winw;
-	dm->flstep.y = dm->rowdist * (dm->rayd1.y - dm->rayd0.y) / dm->winw;
-	dm->floor.x = (dm->pos.x + dm->rowdist * dm->rayd0.x)
+//	dm->walldist = dm->walldist;
+	dm->flstep.x = dm->walldist * (dm->rayd1.x - dm->rayd0.x) / dm->winw;
+	dm->flstep.y = dm->walldist * (dm->rayd1.y - dm->rayd0.y) / dm->winw;
+	dm->floor.x = (dm->pos.x + dm->walldist * dm->rayd0.x)
 		+ (dm->flstep.x * dm->x);
-	dm->floor.y = (dm->pos.y + dm->rowdist * dm->rayd0.y)
+	dm->floor.y = (dm->pos.y + dm->walldist * dm->rayd0.y)
 		+ (dm->flstep.y * dm->x);
 	draw_floor(dm);
 	if (dm->wincol)

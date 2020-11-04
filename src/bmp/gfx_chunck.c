@@ -24,7 +24,7 @@ t_gfx	memcpy_gfx(t_gfx chunk, int *pos, int *size)
 	gfx.pitch = gfx.wid * (gfx.bpp / 8);
 	gfx.x = 0;
 	gfx.y = 0;
-	gfx.data = (Uint32*)ft_memalloc(gfx.pitch * gfx.hgt);
+	gfx.data = (t_uint32*)ft_memalloc(gfx.pitch * gfx.hgt);
 	i = 0;
 	while (i < gfx.hgt)
 	{

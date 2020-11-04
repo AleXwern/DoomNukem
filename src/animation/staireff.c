@@ -51,11 +51,11 @@ void	curt_down(t_doom *dm)
 		while (++ry < dm->winh)
 		{
 			if (ry < y)
-				ft_bzero(dm->img.data + (dm->winw * ry), sizeof(Uint32)
+				ft_bzero(dm->img.data + (dm->winw * ry), sizeof(t_uint32)
 					* dm->winw);
 			else
 				ft_memcpy(dm->img.data + (dm->winw * ry), dm->img.data +
-					(dm->winw * ry), sizeof(Uint32) * dm->winw);
+					(dm->winw * ry), sizeof(t_uint32) * dm->winw);
 		}
 		y += 60;
 		SDL_RenderPresent(dm->rend);
@@ -75,11 +75,11 @@ void	curt_up(t_doom *dm)
 		while (++ry < dm->winh)
 		{
 			if (ry < y)
-				ft_bzero(dm->img.data + (dm->winw * ry), sizeof(Uint32)
+				ft_bzero(dm->img.data + (dm->winw * ry), sizeof(t_uint32)
 					* dm->winw - 1);
 			else
 				ft_memcpy(dm->img.data + (dm->winw * ry), dm->img.data +
-					(dm->winw * ry), sizeof(Uint32) * dm->winw - 1);
+					(dm->winw * ry), sizeof(t_uint32) * dm->winw - 1);
 		}
 		y -= 60;
 		SDL_RenderPresent(dm->rend);

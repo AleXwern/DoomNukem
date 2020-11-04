@@ -28,7 +28,7 @@ void	draw_bars2(t_doom *dm, int y, int x)
 
 void	draw_bars(t_doom *dm, int y, int x, int pc)
 {
-	Uint32	color;
+	t_uint32	color;
 
 	while (++pc < 10 + dm->minopt)
 	{

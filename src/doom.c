@@ -108,6 +108,7 @@ int		main(int ac, char **av)
 	dm->spw = (t_vector){.x = 2.51, .y = 2.51, .z = 2.5};
 	comp_map(dm);
 	comp_gfx(dm);
+	ft_putnbrln(sizeof(t_doom));
 	setup(dm);
 	return (0);
 }

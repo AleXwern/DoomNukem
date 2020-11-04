@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_string.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 12:27:40 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 14:06:19 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:13:50 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void	set_text(t_doom *dm, char *str, int *xy, double size)
 
 void	set_ftext(t_doom *dm, char *str, int *xy, double size)
 {
-	int		i;
+	int	i;
 
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		if (str[i] >= 'a' && str[i] <= 'z')
 		{
@@ -99,7 +99,6 @@ void	set_ftext(t_doom *dm, char *str, int *xy, double size)
 			xy[1] -= 27 * (i + 1) * size;
 		}
 		xy[1] += 27 * size;
-		i++;
 	}
 	free(str);
 }

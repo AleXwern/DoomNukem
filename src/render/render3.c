@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:01:50 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/30 15:13:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:35:28 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	get_ppos(t_doom *dm, t_block blk)
 {
 	if (blk.pt == 0)
-		return;
+		return ;
 	else if (dm->rayd.z < 0 && blk.pt == 2)
 		dm->adj = 1;
 	else if (dm->rayd.z > 0 && blk.pt == 1)

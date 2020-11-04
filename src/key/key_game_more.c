@@ -6,18 +6,12 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:42:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/22 11:49:50 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:24:43 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
-int		x_press(t_doom *dm)
-{
-	error_out(FINE, dm);
-	return (0);
-}
 
 void	jetpack(t_doom *dm)
 {
@@ -63,20 +57,25 @@ int		mouse_move(int x, int y, t_doom *dm)
 	return (0);
 }
 
+void	move2(t_doom *dm)
+{
+	if ((dm->key.w || dm->key.s) && !dm->isoptions)
+		move_fb(dm);
+	if ((dm->key.a || dm->key.d) && !dm->isoptions)
+		strafe(dm);
+	if ((dm->key.up || dm->key.down || dm->key.left || dm->key.right)
+		&& !dm->isoptions)
+		cam_udy(dm);
+	if ((dm->key.one || dm->key.two) && !dm->isoptions &&
+			(dm->jetpack || dm->isgravity))
+		jetpack(dm);
+}
+
 int		move(t_doom *dm)
 {
 	if (dm->alive)
 	{
-		if ((dm->key.w || dm->key.s) && !dm->isoptions)
-			move_fb(dm);
-		if ((dm->key.a || dm->key.d) && !dm->isoptions)
-			strafe(dm);
-		if ((dm->key.up || dm->key.down || dm->key.left || dm->key.right)
-			&& !dm->isoptions)
-			cam_udy(dm);
-		if ((dm->key.one || dm->key.two) && !dm->isoptions &&
-				(dm->jetpack || dm->isgravity))
-			jetpack(dm);
+		move2(dm);
 		gravity(dm);
 		if ((dm->key.space) && !dm->isoptions && !dm->airbrn)
 		{
