@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_coll.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:29:03 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 13:57:23 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:06:24 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,35 @@
 ** 17		-x-y
 ** 18		-xy
 */
+
+int		xy_slope(t_block blk, t_doom *dm, double pos, char dir)
+{
+	t_vector	npos;
+	
+	if (dir == 'x')
+	{
+		npos.x = (dm->pos.x + dm->gravity.x) - (int)(dm->pos.x + dm->gravity.x);
+		npos.y = dm->pos.y - (int)dm->pos.y;
+	}
+	else
+	{
+		npos.x = dm->pos.x - (int)dm->pos.x;
+		npos.y = (dm->pos.y + dm->gravity.y) - (int)(dm->pos.y + dm->gravity.y);
+	}
+	if (blk.pt == 15)
+		if (npos.x + npos.y > 1)
+			return (1);
+	if (blk.pt == 17)
+		if (npos.x + npos.y < 1)
+			return (1);
+	if (blk.pt == 16)
+		if (npos.x > npos.y)
+			return (1);
+	if (blk.pt == 18)
+		if (npos.x < npos.y)
+			return (1);
+	return (0);
+}
 
 int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 {
@@ -53,5 +82,7 @@ int		slope_coll(t_block blk, t_doom *dm, char dir)
 		return (0);
 	if (blk.pt == 11)
 		return (zy_slope(blk, dm, 0, dir));
+	else if (blk.pt >= 15)
+		return (xy_slope(blk, dm, 0, dir));
 	return (0);
 }
