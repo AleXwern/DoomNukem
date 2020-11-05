@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:07:24 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 12:51:21 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:41:14 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ static double	create_plane_xzb(t_vector rayd, t_vector rmap,
 	if (side == 0 && dm->rayd.x < 0)
 		ray[0].x = 1;
 	intersect(plane, ray, &point);
-	// if (dm->x == 500 && dm->y == 360)
-		// printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.z);
+#ifdef PRINTSLOPE
+	if (dm->x == 500 && dm->y == 360)
+		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.z);
+#endif
 	if (point.z >= 0 && point.z <= 1)
 		return (point.z);
 	return (1);
@@ -49,8 +51,15 @@ void			slope_dda_xzb_more(t_doom *dm, int side)
 		single_loop_z(dm);
 		dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) -
 			(int)dm->tmap.x;
+<<<<<<< HEAD
 		// if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			// printf("XZBN %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.x);
+=======
+#ifdef PRINTSLOPE
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("XZBN %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.x);
+#endif
+>>>>>>> 4bd866daa252e0015646ccf78011d4b368bdc533
 		if ((dm->rmap2.z > dm->rmap2.x || dm->rmap2.z <= LIMN ||
 			dm->rmap2.x >= LIM) && dm->rmap2.z < LIM && dm->rmap2.x > LIMN)
 		{
@@ -91,8 +100,15 @@ void			slope_dda_xzbr_more(t_doom *dm, int side)
 		single_loop_z(dm);
 		dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) -
 			(int)dm->tmap.x;
+<<<<<<< HEAD
 		// if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			// printf("XZBR %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.x);
+=======
+#ifdef PRINTSLOPE
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("XZBR %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.x);
+#endif
+>>>>>>> 4bd866daa252e0015646ccf78011d4b368bdc533
 		if ((dm->rmap2.z < dm->rmap2.x || dm->rmap2.z >= LIM ||
 			dm->rmap2.x <= LIMN) && dm->rmap2.z > LIMN && dm->rmap2.x < LIM)
 		{

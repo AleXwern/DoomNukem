@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:01:50 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/30 15:35:28 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:11:09 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	get_ppos(t_doom *dm, t_block blk)
 		dm->adj = 1;
 	else if (dm->rayd.x < 0 && blk.pt == 6)
 		dm->adj = 1;
+	else if (blk.pt >= 15)
+		xy_wall_ppos(dm, blk, 0);
 }
 
 void	dda_sys2(t_doom *dm)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/04 16:07:01 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/05 13:50:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@
 # define BOUNDZ		9
 # define TIMEOUT	100
 # define MXFLR		9
+//# define PRINTSLOPE
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.

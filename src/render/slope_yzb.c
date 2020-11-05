@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 14:11:13 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:41:01 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ static double	create_plane_yzb(t_vector rayd, t_vector rmap,
 	if (side == 1 && dm->rayd.y < 0)
 		ray[0].y = 1;
 	intersect(plane, ray, &point);
-	// if (dm->x == 500 && dm->y == 360)
-		// printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.z);
+#ifdef PRINTSLOPE
+	if (dm->x == 500 && dm->y == 360)
+		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.z);
+#endif
 	if (point.z >= 0 && point.z <= 1)
 		return (point.z);
 	return (1);
@@ -48,8 +50,15 @@ void			slope_dda_yzb_more(t_doom *dm, int side)
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop_z(dm);
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
+<<<<<<< HEAD
 		// if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			// printf("2MAP %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
+=======
+#ifdef PRINTSLOPE
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("2MAP %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
+#endif
+>>>>>>> 4bd866daa252e0015646ccf78011d4b368bdc533
 		if ((dm->rmap2.z > dm->rmap2.y || dm->rmap2.z <= LIMN ||
 			dm->rmap2.y >= LIM) && dm->rmap2.z < LIM && dm->rmap2.y > LIMN)
 		{
@@ -89,8 +98,15 @@ void			slope_dda_yzbr_more(t_doom *dm, int side)
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop_z(dm);
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
+<<<<<<< HEAD
 		// if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
 			// printf("YZBR %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
+=======
+#ifdef PRINTSLOPE
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("YZBR %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
+#endif
+>>>>>>> 4bd866daa252e0015646ccf78011d4b368bdc533
 		if ((dm->rmap2.z < dm->rmap2.y || dm->rmap2.z >= LIM ||
 			dm->rmap2.y <= LIMN) && dm->rmap2.z > LIMN && dm->rmap2.y < LIM)
 		{
