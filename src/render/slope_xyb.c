@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_xyb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:57:24 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/04 15:55:05 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:51:40 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static double	create_plane_xyb(t_vector rayd, t_vector rmap,
 	else if (dm->rayd.x < 0 && side == 0)
 		ray[0].x = 1;
 	intersect(plane, ray, &point);
-	if (dm->x == 500 && dm->y == 360)
-		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.x);
+	// if (dm->x == 500 && dm->y == 360)
+		//printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.x);
 	if (point.y >= 0 && point.y <= 1)
 		return (point.y);
 	return (1);
@@ -50,8 +50,8 @@ void			slope_dda_xyb_more(t_doom *dm, int side)
 		dm->rmap1.x = dm->pos.x + (dm->rayd.x * dm->walldist);
 		single_loop_y(dm);
 		dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) - (int)dm->tmap.x;
-		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("XYBN %.16f < %.16f\n", dm->rmap2.y, dm->rmap2.x);
+		// if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			//printf("XYBN %.16f < %.16f\n", dm->rmap2.y, dm->rmap2.x);
 		if ((dm->rmap2.y > dm->rmap2.x || dm->rmap2.y <= LIMN ||
 			dm->rmap2.x >= LIM) && dm->rmap2.y < LIM && dm->rmap2.x > LIMN)
 		{
@@ -92,8 +92,8 @@ void			slope_dda_xybr_more(t_doom *dm, int side)
 		single_loop_y(dm);
 		dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) -
 			(int)dm->tmap.x;
-		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("XYBR %.16f < %.16f\n", dm->rmap2.y, dm->rmap2.x);
+		// if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			//printf("XYBR %.16f < %.16f\n", dm->rmap2.y, dm->rmap2.x);
 		if ((dm->rmap2.y < dm->rmap2.x || dm->rmap2.y >= LIM ||
 			dm->rmap2.x <= LIMN) && dm->rmap2.y > LIMN && dm->rmap2.x < LIM)
 		{

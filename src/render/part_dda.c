@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part_dda.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:56:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/04 15:56:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:27:36 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,10 @@ void	init_functions(void (*block[10])(t_doom*, double),
 	slope[5] = slope_dda_yztr;
 	slope[6] = slope_dda_xzb;
 	slope[7] = slope_dda_xztr;
-	slope[8] = slope_dda_xyt; //this
+	slope[8] = slope_dda_xyt;
 	slope[9] = slope_dda_xyb;
 	slope[10] = slope_dda_xytr;
-	slope[11] = slope_dda_xybr; //
+	slope[11] = slope_dda_xybr;
 }
 
 /*
