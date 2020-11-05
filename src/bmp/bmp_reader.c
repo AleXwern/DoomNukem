@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:16:01 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 13:09:23 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:16:17 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/value.h"
 #include "../../includes/bmp.h"
 
-int		read_to_pixdata(t_bmphead bmp, t_uint32 bread, int fd)
+int			read_to_pixdata(t_bmphead bmp, t_uint32 bread, int fd)
 {
 	int		toread;
 	char	dummy[2000];
@@ -51,7 +51,7 @@ t_uint32	*flip_arr(t_gfx gfx, char *corr)
 	return ((t_uint32*)dummy);
 }
 
-char	*read_pixdata(char *corr, int fd, t_gfx gfx, int y)
+char		*read_pixdata(char *corr, int fd, t_gfx gfx, int y)
 {
 	int		rd;
 	char	exc[4];
@@ -93,7 +93,7 @@ t_uint32	*xbit_to_32(t_gfx gfx, int fd, int i, int b)
 	return ((t_uint32*)dummy);
 }
 
-t_gfx	read_bmp(char *file, int fd, int bread)
+t_gfx		read_bmp(char *file, int fd, int bread)
 {
 	t_bmphead	bmp;
 	t_bmpinfo	head;

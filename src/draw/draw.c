@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 12:37:48 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:17:05 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	render_floor(t_doom *dm)
 	dm->rayd0.y = dm->dir.y - dm->plane.y;
 	dm->rayd1.x = dm->dir.x + dm->plane.x;
 	dm->rayd1.y = dm->dir.y + dm->plane.y;
-//	dm->walldist = dm->walldist;
 	dm->flstep.x = dm->walldist * (dm->rayd1.x - dm->rayd0.x) / dm->winw;
 	dm->flstep.y = dm->walldist * (dm->rayd1.y - dm->rayd0.y) / dm->winw;
 	dm->floor.x = (dm->pos.x + dm->walldist * dm->rayd0.x)

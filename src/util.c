@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/04 12:06:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:16:41 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	fps_counter2(t_doom *dm, t_uint32 *i, t_uint32 *fps)
 
 int		fps_counter(void *ptr)
 {
-	t_doom	*dm;
+	t_doom		*dm;
 	t_uint32	fpsarr[10];
 	t_uint32	i;
 	t_uint32	fps;
@@ -66,7 +66,7 @@ int		fps_counter(void *ptr)
 
 int		arr_len(char **arr)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (arr[i][0] != '\0')

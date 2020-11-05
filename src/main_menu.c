@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 13:23:46 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 13:01:42 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:22:20 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	draw_main_menu2(t_doom *dm, t_uint32 col, t_uint32 gy, t_uint32 gx)
 
 void	draw_main_menu(t_doom *dm, int x, int y, int cur)
 {
-	int		gy;
-	int		gx;
+	int			gy;
+	int			gx;
 	t_uint32	col;
 
 	gy = -1;

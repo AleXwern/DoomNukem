@@ -6,19 +6,19 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/20 12:48:37 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/22 14:10:07 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:17:24 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-int		get_blocklight(t_doom *dm, t_vector pos)
+int			get_blocklight(t_doom *dm, t_vector pos)
 {
 	return (dm->area[(int)pos.z][(int)pos.y][(int)pos.x].lgt);
 }
 
-int		light_map(t_vector map, int side, t_block ***area)
+int			light_map(t_vector map, int side, t_block ***area)
 {
 	int	lgt;
 

@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floorformat.c                                       :+:      :+:    :+:   */
+/*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 12:51:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:21:14 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
 //todo crash
 //fill empty block information
 //general check different situations
 //check value ranges
+
 void	comp_block(t_doom *dm, char **temp, int x, int y)
 {
 	if (is_block_info_present(temp))

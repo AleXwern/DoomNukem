@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 14:59:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/04 14:16:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:23:38 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-int				connect_server(t_doom *dm)
+int		connect_server(t_doom *dm)
 {
 	if (dm->netstat)
 		return (1);
@@ -26,14 +26,15 @@ int				connect_server(t_doom *dm)
 	return (1);
 }
 
-int				send_pos(t_doom *dm)
+int		send_pos(t_doom *dm)
 {
 	t_bulk		data;
 	int			sent;
 	static int	buffer;
 
-	data = (t_bulk){.dir = dm->dir, .pos = dm->pos, .dead = dm->prj[dm->id].dead,
-					.gfx = dm->person + 16, .prj = dm->prj[dm->id].pos};
+	data = (t_bulk){.dir = dm->dir, .pos = dm->pos,
+		.dead = dm->prj[dm->id].dead, .gfx = dm->person + 16,
+		.prj = dm->prj[dm->id].pos};
 	sent = ax_send(dm->sock, &data, sizeof(t_bulk));
 	if (sent < (int)sizeof(t_bulk))
 		buffer++;
@@ -51,11 +52,11 @@ int				send_pos(t_doom *dm)
 	return (1);
 }
 
-void			recv_pos(t_doom *dm)
+void	recv_pos(t_doom *dm)
 {
-	t_chunk		data;
-	int			recv;
-	int			i;
+	t_chunk	data;
+	int		recv;
+	int		i;
 
 	recv = ax_recv(dm->sock, &data, sizeof(t_chunk));
 	i = -1;
