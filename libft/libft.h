@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 11:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/19 16:15:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/10/24 14:27:59 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define	read(X, Y, Z)	_read(X, Y, Z)
 # define	write(X, Y, Z)	_write(X, Y, Z)
 #endif
+typedef unsigned char t_uint8;
 
 int		ft_abs(int num);
 int		ft_atoi(const char *str);

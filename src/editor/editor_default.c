@@ -101,6 +101,7 @@ void	editor_defaults(t_editor *le, t_doom *dm)
 	dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 7;
 	le->blk = 2;
 	le->options[0] = 2;
+	le->options[1] = 15;
 	le->maxval[0] = dm->mxflr - 1;
 	le->minval[0] = 0;
 	le->spr = 4;
