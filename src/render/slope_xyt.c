@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_xyt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:57:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 15:06:49 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/06 01:57:26 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,17 @@ static double	create_plane_xyt(t_vector rayd, t_vector rmap,
 	ray[0] = (t_vector){.z = rmap.z - (int)rmap.z, .y = rmap.y - (int)rmap.y,
 		.x = rmap.x - (int)rmap.x};
 	ray[1] = rayd;
+	if (dm->rayd.x > 0 && side == 0)
+		ray[0].x = -1;
+	else if (side)
+		ray[0].x -= 1;
+	if (side && dm->rayd.y < 0)
+		ray[0].y += 1;
 	intersect(plane, ray, &point);
-	if (dm->rayd.x < 0 && side == 1)
-		ray[0].y = 1;
-	/*if (dm->rayd.y < 0 && side == 0)
-		ray[0].y = -1;
-	else if (dm->rayd.x < 0 && side == 1)
-		ray[0].x = -1;*/
-	if (dm->x == 500 && dm->y == 360)
-		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.x);
+#ifdef PRINTSLOPE
+	if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+		printf("Cross point %f %f %f at %d\nRMAP %.16f %.16f %.16f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.x);
+#endif
 	if (point.y >= 0 && point.y <= 1)
 		return (point.y);
 	return (1);
@@ -53,8 +55,10 @@ void			slope_dda_xyt_more(t_doom *dm, int side)
 		single_loop_y(dm);
 		dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) -
 			(int)dm->tmap.x;
-		//if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-		//	printf("XZTN %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
+#ifdef PRINTSLOPE
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("XZTN %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
+#endif
 		if ((dm->rmap2.y < 1 - dm->rmap2.x || dm->rmap2.y > LIM ||
 			dm->rmap2.x >= LIM) && dm->rmap2.y > LIMN && dm->rmap2.x > LIMN)
 		{
@@ -64,6 +68,7 @@ void			slope_dda_xyt_more(t_doom *dm, int side)
 				create_plane_xyt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 1;
 			dm->hit = 1;
+			dm->flag = 1;
 		}
 	}
 }
@@ -95,8 +100,10 @@ void			slope_dda_xytr_more(t_doom *dm, int side)
 		single_loop_y(dm);
 		dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) -
 			(int)dm->tmap.x;
-		//if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-		//	printf("XZTR %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
+#ifdef PRINTSLOPE
+		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
+			printf("XZTR %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
+#endif
 		if ((dm->rmap2.y > 1 - dm->rmap2.x || dm->rmap2.y < LIMN ||
 			dm->rmap2.x <= LIMN) && dm->rmap2.y < LIM && dm->rmap2.x < LIM)
 		{

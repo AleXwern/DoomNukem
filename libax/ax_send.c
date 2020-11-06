@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:46:30 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/29 13:18:58 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:26:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,22 @@ int			ax_send(t_socket *sock, const void *data, int len)
 	return (sent);
 }
 
-int			ax_recv(t_socket *sock, void *data, int max, size_t maxattempt)
+int			ax_recv(t_socket *sock, void *data, int max)
 {
 	int		len;
-	size_t	attempt;
 	int		err;
 
 	if (sock->server)
 		return (-1);
-	attempt = 0;
 	err = 0;
 	WSASetLastError(err);
 	len = -42;
-	if (maxattempt > 0)
+	while (len == -42)
 	{
-		while (WSAGetLastError() == EINTR && attempt++ < maxattempt)
-			len = recv(sock->channel, (char*)data, max, 0);
-	}
-	else
-	{
-		while (len == -42)
-		{
-			len = recv(sock->channel, (char*)data, max, 0);
-			err = WSAGetLastError();
-			if (err == EINTR)
-				break;
-		}
+		len = recv(sock->channel, (char*)data, max, 0);
+		err = WSAGetLastError();
+		if (err == EINTR)
+			break ;
 	}
 	return (len);
 }

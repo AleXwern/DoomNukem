@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game_hold.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:07:30 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 14:59:43 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/04 12:09:37 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int		key_hold(int key, t_doom *dm)
 void	crouch(t_doom *dm)
 {
 	dm->crouching = 1;
-	dm->uncrouch = 0;
 	dm->movsp -= 0.03;
 	dm->plrhight = 0.4;
 	dm->pos.z += 0.2;
@@ -80,7 +79,6 @@ void	crouch(t_doom *dm)
 void	reset_crouching(t_doom *dm)
 {
 	dm->crouching = 0;
-	dm->uncrouch = 0;
 	dm->movsp += 0.03;
 	dm->plrhight = 0.6;
 	dm->pos.z -= 0.2;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 13:44:55 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/28 14:53:40 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:31:44 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	object_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 {
-	int		lgt;
+	int			lgt;
 	t_uint32	col;
 
 	if (yx[4] + gfx.y < gfx.hgt && yx[5] + gfx.x < gfx.wid &&
@@ -100,6 +100,9 @@ void	draw_objects(t_doom *dm, int y, int x, int i)
 		y = dm->winh * ((dm->obj[i].dir.z - dm->min.z)
 			/ (dm->max.z - dm->min.z)) - ((dm->gfx[dm->obj[i].gfx].hgt
 			/ 2) * 2 / dm->obj[i].dist);
+		if (x >= -100 && x < dm->winw)
+			dm->obj[i].dist *= 1.0 -
+				((fabs(dm->winw / 2.0 - x) / (dm->winw / 2)) / 5);
 		draw_object(dm, i, y, x);
 	}
 }

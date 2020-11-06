@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 12:00:00 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 15:35:44 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:48:12 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	doom_default(t_doom *dm)
 	dm->dm = dm;
 	alloc_vram(dm);
 	if (!(Mix_PlayingMusic()))
-		Mix_PlayMusic(dm->music, 0);
+		Mix_PlayMusic(dm->music, -1);
 	dm->volume = 64;
 	Mix_VolumeMusic(64);
 	dm->fpschar = ft_strdup("30");

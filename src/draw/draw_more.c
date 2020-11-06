@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:08:53 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/21 13:50:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 15:48:09 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,12 @@ void	wall_stripe(t_doom *dm)
 {
 	if (dm->texbool)
 	{
-		if (dm->side == 0 || dm->side == 1)
+		//if (dm->side == 0 || dm->side == 1)
 			dm->texnum = dm->area[(int)(dm->map.z)][(int)(dm->map.y)]
 				[(int)(dm->map.x)].b;
-		else
+		/*else
 			dm->texnum = dm->area[(int)ceil(dm->map.z)]
-				[(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].b;
+				[(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].b;*/
 		if (dm->side % 3 == 0)
 			dm->wallx = (dm->pos.y + dm->walldist * dm->rayd.y);
 		else

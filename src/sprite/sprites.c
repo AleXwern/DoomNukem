@@ -6,7 +6,7 @@
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/28 12:52:14 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 13:45:37 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:24:13 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	sprite_pixel(t_doom *dm, t_gfx gfx, int *yx, int *g)
 {
-	int		lgt;
+	int			lgt;
 	t_uint32	col;
 
 	if (yx[4] + gfx.y < gfx.hgt &&

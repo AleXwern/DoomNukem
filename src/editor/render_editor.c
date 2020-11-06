@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_editor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:43 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/02 20:23:30 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/04 12:05:49 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_block2(t_doom *dm, t_gfx blk, double gy, double gx)
 {
 	dm->blkcol = blk.data[(int)(blk.wid * (gy * (blk.hgt / (dm->winh
 		/ dm->height))) + gx * (blk.wid / (dm->winw / dm->width * 0.5)))];
-	if (dm->flr == dm->mxflr - 1 && dm->area[dm->flr][dm->y][dm->x].b == 1)
+	if (dm->flr == MXFLR - 1 && dm->area[dm->flr][dm->y][dm->x].b == 1)
 		dm->img.data[(int)(dm->winw * (dm->tmpy + gy) + (dm->tmpx + gx))] =
 			(dm->blkcol >> 1) & DARKEN;
 	else if (dm->area[dm->ckflr][dm->y][dm->x].b == 1 &&
@@ -56,8 +56,8 @@ void	draw_block(t_doom *dm, t_gfx blk)
 
 	gy = -1;
 	dm->ckflr = dm->flr + 1;
-	if (dm->ckflr >= dm->mxflr)
-		dm->ckflr = dm->mxflr - 1;
+	if (dm->ckflr >= MXFLR)
+		dm->ckflr = MXFLR - 1;
 	while (++gy < dm->winh / dm->height)
 	{
 		gx = -1;

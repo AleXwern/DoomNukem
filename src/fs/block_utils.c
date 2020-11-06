@@ -3,28 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   block_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:15:14 by vkeinane          #+#    #+#             */
-/*   Updated: 2020/11/02 21:05:10 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:25:51 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
- void	fill_block(t_doom *dm, int x, int y)
+void	fill_block(t_doom *dm, int x, int y)
 {
-		dm->area[dm->flr][y][x].b = 2;
-		dm->area[dm->flr][y][x].lgt = 15;
-		dm->area[dm->flr][y][x].pt = 0;
-		dm->area[dm->flr][y][x].pln = 15;
-		dm->area[dm->flr][y][x].meta = 0;
+	dm->area[dm->flr][y][x].b = 2;
+	dm->area[dm->flr][y][x].lgt = 15;
+	dm->area[dm->flr][y][x].pt = 0;
+	dm->area[dm->flr][y][x].pln = 15;
+	dm->area[dm->flr][y][x].meta = 0;
 }
 
+// This may change the block to nomrmalized stats if some stat is 0
+// I tried to look in the null variable but im not sure yet
+
 int		is_block_info_present(char **tmp)
-{// This may change the block to nomrmalized stats if some stat is 0
-// 	I tried to look in the null variable but im not sure yet
+{
 	int	i;
 
 	i = 0;
@@ -38,11 +40,13 @@ int		is_block_info_present(char **tmp)
 ** Check if block values are in acceptable limits and change them if not
 */
 
-void	force_validate_block(t_doom *dm, int x, int y)
-{//Keep track if there comes more block types or anything different
+// Keep track if there comes more block types or anything different
 // because otherwise these rules will suffocate different blocks
 // Good idea would be defines to easily change limits to blocks
-//	Defines created as MAX[variablename] and MINPLN as that's the only one that needs to be at least 1
+// Defines created as MAX[variablename] and MINPLN as that's the only one that needs to be at least 1
+
+void	force_validate_block(t_doom *dm, int x, int y)
+{
 	if (dm->area[dm->flr][y][x].b < 0 ||
 		dm->area[dm->flr][y][x].b > MAXBLK)
 		dm->area[dm->flr][y][x].b = 2;

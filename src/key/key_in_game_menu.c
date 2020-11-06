@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_in_game_menu.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 13:19:53 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:22:00 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	menu_keys_hold(int key, t_doom *dm)
 		dm->netstat = connect_server(dm);
 	else if (key == LEFT && dm->cur == 11 && dm->netstat)
 	{
-		//SDLNet_TCP_Close(dm->sock);
 		ax_close(dm->sock);
 		dm->netstat = 0;
 	}

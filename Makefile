@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+         #
+#    By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2020/11/02 14:23:41 by vkeinane         ###   ########.fr        #
+#    Updated: 2020/11/05 14:00:28 by anystrom         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ ANMFILE =	staireff.c
 COLFILE	=	draw.c draw_utils.c window.c draw_more.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c render2.c render3.c \
 			part_dda.c part_dda_more.c slope_yzt.c slope_yzb.c slope_xzt.c slope_xzb.c \
-			slope_xyt.c slope_xyb.c wingame.c
+			slope_xyt.c slope_xyb.c wingame.c wall_adjust.c
 GRAFILE	=	gravity.c move.c move2.c collision.c slope_coll.c
 BMPFILE =	bmp_reader.c gfx.c gfx_chunck.c
 TXTFILE =	set_string.c
@@ -81,7 +81,7 @@ SRCDIR	=	./src/
 INCL	=	-I ./SDL2 -I ./libft -I ./includes
 PWD		=	$(shell pwd)
 OBJFRAME =	-F ./frameworks
-FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -framework SDL2_net -Wl,-rpath $(PWD)/frameworks
+FRAMEWORK =	-F $(PWD)/frameworks -framework SDL2 -framework SDL2_mixer -Wl,-rpath $(PWD)/frameworks
 RED		=	\033[0;31m
 BLUE	=	\033[0;34m
 STOP	=	\033[0m

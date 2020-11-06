@@ -6,16 +6,16 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 21:26:52 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/10/29 11:37:41 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:06:26 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libax.h"
 
-int			arrlen(const char *host, int len)
+static int		arrlen(const char *host, int len)
 {
-	int		i;
-	int		ret;
+	int			i;
+	int			ret;
 
 	i = 0;
 	ret = 1;
@@ -28,10 +28,10 @@ int			arrlen(const char *host, int len)
 	return (ret);
 }
 
-t_uint32	get_addr(const char *host, t_uint32 ip, int i)
+static t_uint32	get_addr(const char *host, t_uint32 ip, int i)
 {
-	char	**arr;
-	int		len;
+	char		**arr;
+	int			len;
 
 	arr = ft_strsplit(host, '.');
 	len = arrlen(host, ft_strlen(host));
@@ -39,35 +39,31 @@ t_uint32	get_addr(const char *host, t_uint32 ip, int i)
 	{
 		while (++i < 4)
 		{
-			ip = (ip << 8) | ft_atoi(arr[i]);
+			ip = (ip << 8) | (ft_atoi(arr[3 - i]) & 0xff);
 		}
 	}
 	i = -1;
 	while (++i < len)
 		free(arr[i]);
 	free(arr);
+	if (len != 4)
+		return (INADDR_NONE);
 	return (ip);
 }
 
-int			ax_resolvehost(t_ip *ip, const char *host, t_uint16 port)
+int				ax_resolvehost(t_ip *ip, const char *host, t_uint16 port)
 {
-	int		err;
+	int			err;
 
 	err = 0;
 	if (host == NULL)
 		ip->host = INADDR_ANY;
 	else
 	{
-#ifdef _WIN64
-		if (inet_pton(AF_INET, host, &ip->host) != 1)
-			err = -1;
-#else
-		ip->host = inet_addr(host);
+		ip->host = get_addr(host, 0, -1);
 		if (ip->host == INADDR_NONE)
 			err = -1;
-#endif
 	}
 	ip->port = (port << 8) | (port >> 8);
-	printf("RESOLVE: %08x %d\nGiven IP %s %d\n", ip->host, ip->port, host, port);
 	return (err);
 }

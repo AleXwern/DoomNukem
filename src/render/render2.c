@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:21:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/28 14:15:06 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/04 15:58:11 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	rc_init(t_doom *dm)
 	else if (dm->side == 1)
 		dm->walldist = (dm->map.y - dm->pos.y +
 			(1 - dm->stepy) * 0.5) / dm->rayd.y;
+	else if (fabs(dm->map.z - dm->pos.z) < LIMN && dm->y > 0)
+		dm->walldist = dm->wallarr[dm->winw * (dm->y - 1) + dm->x];
 	else
 		dm->walldist = (dm->map.z - dm->pos.z +
 			(1 - dm->stepz) * 0.5) / dm->rayd.z;
@@ -67,8 +69,6 @@ void	rc_init(t_doom *dm)
 		dm->wincol = 1;
 	dm->window[dm->winw * dm->y + dm->x] = 0xffffffff;
 	dm->winarr[dm->winw * dm->y + dm->x] = 100;
-	//if (dm->walldist < LIMN)
-	//	dm->walldist = dm->wallarr[dm->winw * (dm->y - 1) + dm->x];
 }
 
 void	side_check(t_doom *dm)
@@ -85,8 +85,9 @@ void	side_check(t_doom *dm)
 		delta = dm->pos.y - dm->map.y;
 	else
 		delta = dm->pos.z - dm->map.z;
-	if (delta > 0)
+	if (delta > 0 || dm->flag)
 		dm->side += 3;
+	dm->flag = 0;
 }
 
 void	renthread2(t_doom *dm)

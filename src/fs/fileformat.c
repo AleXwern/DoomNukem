@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floorformat.c                                       :+:      :+:    :+:   */
+/*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 12:51:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/05 12:21:14 by tbergkul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
 //todo crash
 //fill empty block information
 //general check different situations
 //check value ranges
+
 void	comp_block(t_doom *dm, char **temp, int x, int y)
 {
 	if (is_block_info_present(temp))
@@ -111,7 +113,7 @@ void	comp_map(t_doom *dm)
 	free(fpath);
 	if (fd == -1)
 		error_out(FLR_ERROR, dm);
-	while (dm->flr < dm->mxflr)// If maxfloor shouldn't be modified in runtime, maybe change mxfloor to define
+	while (dm->flr < MXFLR)// If maxfloor shouldn't be modified in runtime, maybe change mxfloor to define
 	{
 		if (!(dm->area[dm->flr] = (t_block**)ft_memalloc(sizeof(t_block*)
 			* 25)))

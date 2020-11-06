@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/03 10:40:27 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/05 14:11:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@
 */
 
 #  include "../frameworks/SDL2.framework/Headers/SDL.h"
-//#  include "../frameworks/SDL2_net.framework/Headers/SDL_net.h"
 #  include "../frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h"
 # endif
 
@@ -255,7 +254,7 @@ typedef struct		s_bulk
 	t_vector		pos;
 	t_vector		dir;
 	t_vector		prj;
-	char			hp;
+	char			dead;
 	char			gfx;
 }					t_bulk;
 
@@ -282,8 +281,6 @@ typedef struct		s_doom
 	struct s_doom	*data_r;
 	struct s_doom	*dm;
 	int				id;
-//	int				*claimline;
-//	int				*done;
 	t_fpoint		*wallarr;
 	t_fpoint		*winarr;
 	int				*maparr;
@@ -294,8 +291,7 @@ typedef struct		s_doom
 	t_sprite		spr[SPR];
 	t_sprite		prj[SPR];
 	t_sprite		obj[OBJ];
-//	t_uint32		gfram;
-//	int				aswall;
+	char			flag;
 	int				dev;
 	int				gfxcount;
 	int				height;
@@ -306,24 +302,18 @@ typedef struct		s_doom
 	int				owinh;
 	void			(*cycle)(struct s_doom*);
 	void			(*keyck)(struct s_doom*);
-//	char			*syssmg[2];
 	t_uint32		iframe;
 	int				credits;
 	int				creds;
 	int				cur;
 	int				sel;
-//	int				plr;
-//	int				plrck;
 	int				adj;
 	int				wincol;
 	int				rcol;
 	int				lgt;
 	int				x;
 	int				y;
-//	int				hold;
 	int				flr;
-	int				mxflr;
-//	int				mapset;
 	t_block			***area;
 	t_block			blk;
 	t_uint32		blkcol;
@@ -335,12 +325,8 @@ typedef struct		s_doom
 	int				sldry;
 	int				sldrx;
 	t_uint32		sldrcol;
-//	int				winb;
 	int				texbool;
 	int				rng;
-//	int				fcomb;
-//	int				aggro;
-//	int				iscombat;
 	int				ismenu;
 	int				sy;
 	int				sx;
@@ -350,13 +336,9 @@ typedef struct		s_doom
 	int				stepy;
 	int				stepz;
 	int				hit;
-//	int				hithalf;
 	int				invincible;
-//	t_vector		hitpos;
 	int				side;
 	double			lineh;
-//	int				start;
-//	int				end;
 	int				texnum;
 	int				texx;
 	int				texy;
@@ -369,8 +351,6 @@ typedef struct		s_doom
 	int				tx;
 	int				ty;
 	int				tz;
-//	int				rotation;
-//	double			poszz;
 	int				airbrn;
 	t_vector		spw;
 	t_vector		pos;
@@ -393,27 +373,17 @@ typedef struct		s_doom
 	t_vector		flstep;
 	t_vector		floor;
 	t_ivector		texshift;
-//	t_vector		sprite;
-//	t_vector		transf;
 	t_vector		min;
 	t_vector		max;
 	double			mina;
 	double			maxa;
-//	int				drwspr;
-//	double			invdet;
 	double			walldist;
 	double			movsp;
 	double			rotsp;
-//	double			step;
 	double			wallx;
-//	double			texpos;
-//	int				isclick;
 	t_key			key;
 	double			plrhight;
 	int				crouching;
-	int				uncrouch; //This is only ever set to 0 in 2 places but not checked anywhere
-//	int				mouseprevx;
-//	int				mouseprevy;
 	int				*options[25];
 	double			maxvalue[25];
 	char			*optext[25];
@@ -480,7 +450,6 @@ t_uint32			color_shift(t_uint32 color, double shift, t_doom *dm,
 						t_uint32 ret);
 t_uint32			rl_color(int lgt, t_uint32 col);
 
-//double				create_plane_yz(t_vector rayd, t_vector rmap, t_doom *dm, int side);
 double				dot_prd(t_vector v, t_vector u);
 double				get_coll_down(t_block blk, t_vector pos);
 double				spra_check(t_doom *dm, double spra);
@@ -497,7 +466,6 @@ int					key_hold(int key, t_doom *dm);
 int					key_release(int key, t_doom *dm);
 int					light_map(t_vector map, int side, t_block ***area);
 int					get_blocklight(t_doom *dm, t_vector pos);
-//int					load_level(t_editor *le, t_doom *dm);
 int					mouse_move(int x, int y, t_doom *dm);
 int					move(t_doom *dm);
 int					move_lr(t_doom *dm);
@@ -512,9 +480,7 @@ t_gfx				memcpy_gfx(t_gfx chunck, int *pos, int *size);
 t_gfx				read_bmp(char *file, int fd, int bread);
 t_img				init_image(t_doom *dm);
 t_vector			cross_prd(t_vector v, t_vector u);
-//t_vector			oper_vect(t_vector v, t_vector u, char o);
 
-//void				ai_shooting(t_doom *dm, int i);
 void				alloc_vram(t_doom *dm);
 void				cam_udy(t_doom *dm);
 void				check_area(t_editor *le, t_doom *dm, SDL_Event ev);
@@ -530,7 +496,6 @@ void				curt_down(t_doom *dm);
 void				curt_up(t_doom *dm);
 void				dda_prep(t_doom *dm);
 void				dda_sys(t_doom *dm);
-//void				demodraw_sprite(t_doom *dm);
 void				destroy_gfx(t_doom *dm, int i);
 void				destroy_texpack(t_doom *dm);
 void				dev_status(t_doom *dm, char *av);
@@ -538,7 +503,6 @@ void				doom_default(t_doom *dm);
 void				draw_ammo(t_doom *dm);
 void				draw_bg(t_doom *dm, t_gfx gfx);
 void				draw_blk_select(t_doom *dm, t_editor *le, int x, int y);
-//void				draw_crosshair(t_doom *dm);
 void				draw_editor_cursor(t_doom *dm, t_editor *le, int x, int y);
 void				draw_gfx(t_doom *dm, t_gfx gfx, int x, int y);
 void				draw_gun(t_doom *dm);
@@ -597,8 +561,6 @@ void				lab_move(t_doom *dm, int obj, t_vector stair);
 void				main_menu(t_doom *dm);
 void				menu_keys(int key, t_doom *dm);
 void				menu_keys_hold(int key, t_doom *dm);
-//void				mouse_movex(int dir, t_doom *dm);
-//void				mouse_movey(int dir, t_doom *dm);
 void				move_fb(t_doom *dm);
 void				options_menu(t_doom *dm);
 void				options_menu_create(t_doom *dm);
@@ -612,7 +574,6 @@ void				part_dda_zp(t_doom *dm, double plane);
 void				pickupitem(t_doom *dm);
 void				player_shooting(t_doom *dm, int i);
 void				plr_status(t_doom *dm, t_sprite *spr, int *yx, int i);
-//void				pokemon_trainer(t_doom *dm, int y, int x, int i);
 void				post_effects(t_doom *dm);
 void				rc_init(t_doom *dm);
 void				recv_pos(t_doom *dm);
@@ -621,7 +582,6 @@ void				render(t_doom *dm);
 void				render_floor(t_doom *dm);
 void				reset_crouching(t_doom *dm);
 void				reset_position(t_doom *dm);
-//void				reset_window(t_doom *dm, uint8_t arg);
 void				resize_window(t_doom *dm);
 void				renthread2(t_doom *dm);
 void				set_ftext(t_doom *dm, char *str, int *xy, double size);
@@ -657,6 +617,7 @@ void				validate_map(t_doom *dm, int i, int a, t_block blk);
 void				wall_stripe(t_doom *dm);
 void				wind_default(t_doom *dm);
 void				wingame(t_doom *dm);
+void				xy_wall_ppos(t_doom *dm, t_block blk, int bbool);
 int					is_block_info_present(char **tmp);
 void				fill_block(t_doom *dm, int x, int y);
 void				force_validate_block(t_doom *dm, int x, int y);
