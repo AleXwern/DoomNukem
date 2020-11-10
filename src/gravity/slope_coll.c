@@ -59,7 +59,7 @@ int		xy_slope(t_block blk, t_doom *dm, double pos, char dir)
 
 int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 {
-	printf("blk.b = %d  blk.pt = %d  dir = %c\n", blk.b, blk.pt, dir);
+	//printf("blk.b = %d  blk.pt = %d  dir = %c\n", blk.b, blk.pt, dir);
 	if (blk.pt == 11)
 	{
 		if (dir == 'y')
@@ -96,11 +96,7 @@ int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
 				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
 	}
-	else
-	{
-		hgt = (dm->pos.z + 1 - (dm->pos.y - (int)dm->pos.y)) - dm->pos.z;
-	}
-	//printf("%f\n", hgt);
+	printf("hgt %f\n", hgt);
 	if (hgt < 0.4 && hgt > -0.4)
 	{
 		if (!dm->airbrn)
