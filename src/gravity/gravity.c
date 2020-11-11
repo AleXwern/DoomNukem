@@ -3,19 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:18:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/30 13:49:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:06:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
+int		ver_movetwo(t_block blk, t_doom* dm)
+{
+	t_vector	npos;
+
+	npos.y = dm->pos.y - (int)dm->pos.y;
+	npos.x = dm->pos.x - (int)dm->pos.x;
+	if (blk.pt == 15)
+		if (npos.x + npos.y > 1)
+			return (1);
+	if (blk.pt == 17)
+		if (npos.x + npos.y < 1)
+			return (1);
+	if (blk.pt == 16)
+		if (npos.x > npos.y)
+			return (1);
+	if (blk.pt == 18)
+		if (npos.x < npos.y)
+			return (1);
+	return (0);
+}
+
+//vertical walls
 int		ver_move(t_block blk, t_doom *dm)
 {
-	if (blk.pt == 3)
+	if (blk.pt >= 15)
+		return (ver_movetwo(blk, dm));
+	else if (blk.pt == 3)
 	{
 		if (dm->pos.y - (int)dm->pos.y > blk.pln / 15.0)
 			return (1);
@@ -38,6 +62,26 @@ int		ver_move(t_block blk, t_doom *dm)
 	return (0);
 }
 
+int		check_ver_slp(t_block blk, t_doom *dm, double hgt)
+{
+	if (blk.pt == 11)
+		hgt = (int)(dm->pos.z + dm->plrhight + 0.02) +
+			((dm->pos.y - (int)dm->pos.y)) - dm->plrhight;
+	else if (blk.pt == 12)
+		hgt = (int)(dm->pos.z + dm->plrhight + 0.02) +
+			(1 - (dm->pos.y - (int)dm->pos.y)) - dm->plrhight;
+	else if (blk.pt == 13)
+		hgt = (int)(dm->pos.z + dm->plrhight + 0.02) +
+			((dm->pos.x - (int)dm->pos.x)) - dm->plrhight;
+	else
+		hgt = (int)(dm->pos.z + dm->plrhight + 0.02) +
+			(1 - (dm->pos.x - (int)dm->pos.x)) - dm->plrhight;
+	printf("Gravityhgt %f > %f\n", hgt, dm->pos.z + dm->gravity.z);
+	if (hgt > dm->pos.z + dm->gravity.z)
+		return (1);
+	return (0);
+}
+
 int		check_ver_coll(t_block blk, t_doom *dm)
 {
 	double	hgt;
@@ -46,12 +90,15 @@ int		check_ver_coll(t_block blk, t_doom *dm)
 		return (1);
 	else if (blk.pt == 2)
 	{
-		hgt = (int)(dm->pos.z + dm->plrhight) +
+		hgt = (int)(dm->pos.z + dm->plrhight + 0.02) +
 			(1 - blk.pln / 15.0) - dm->plrhight;
+		printf("Gravityhgt %f > %f\n", hgt, dm->pos.z + dm->gravity.z);
 		if (hgt > dm->pos.z + dm->gravity.z)
 			return (1);
 		return (0);
 	}
+	else if (blk.pt >= 11 && blk.pt < 15)
+		return (check_ver_slp(blk, dm, 0));
 	else
 		return (ver_move(blk, dm));
 }
@@ -95,25 +142,25 @@ void	gravity2(t_doom *dm)
 		dm->pos.z = (int)dm->pos.z + get_coll_down(dm->area[(int)
 			(dm->pos.z)][(int)(dm->pos.y)][(int)dm->pos.x],
 			dm->pos) - dm->plrhight;
-	else
-		dm->pos.z = (int)dm->pos.z + (1 - dm->plrhight);
+	//else
+	//	dm->pos.z = (int)dm->pos.z + (1 - dm->plrhight); //This snaps player to ground
 }
 
 void	gravity(t_doom *dm)
 {
-	if (dm->key.two || dm->isgravity || dm->ismenu || !dm->airbrn)
+	if (dm->key.two || dm->isgravity || dm->ismenu)// || !dm->airbrn)
 		return ;
 	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)
 		dm->gravity.z /= fabs(dm->gravity.z);
 	if (dm->pos.z + dm->gravity.z < 0)
 		error_out(VOID_OVER, dm);
-	if (dm->gravity.z < 0)
+	if (dm->gravity.z < 0) //if we should move up (jumped)
 	{
 		if (check_ver_ucoll(dm->area[(int)(dm->pos.z + dm->gravity.z)]
 				[(int)(dm->pos.y)][(int)dm->pos.x], dm))
 			dm->pos.z += dm->gravity.z;
 	}
-	else if (check_ver_coll(dm->area[(int)(dm->pos.z + dm->plrhight)]
+	else if (check_ver_coll(dm->area[(int)(dm->pos.z + dm->plrhight + dm->gravity.z)]
 			[(int)(dm->pos.y)][(int)dm->pos.x], dm))
 		dm->pos.z += dm->gravity.z;
 	else

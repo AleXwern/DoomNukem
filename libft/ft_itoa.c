@@ -38,7 +38,7 @@ char			*ft_itoa(int n)
 
 	if (!(num = (char*)malloc(sizeof(char) * (ft_intsize(n) + 1))))
 		return (NULL);
-	if (n == INT_MIN)
+	if (n == INT_MIN - 1)
 	{
 		ft_strcpy(num, "-2147483648");
 		return (num);

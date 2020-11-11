@@ -2,7 +2,7 @@ New graphic features:
 X You can look up and down.
 X The areas you go through don’t have a fixed shape, for example the rooms can have any number of walls in all possible directions.
 X The floor and ceiling have adjustable heights, which means different areas will not be at the same height - and you’ll have to manage that smoothly.
-/ The floor and ceiling may not be horizontal but inclined planes.
+X The floor and ceiling may not be horizontal but inclined planes.
 X The floors and ceilings have textures.
 X There can be a sky instead of a ceiling.
 X Walls can be partially transparent, unveiling the room behind.
@@ -46,6 +46,8 @@ and the chosen level file must be self-sufficient.
 
 X Sprites should not move inside the wall when the player looks to the side.
 X Inclined planes visual
+* Vertical walls have 2-side drawing issue
 * Inclined planes sometimes have vertical lines drawn when drawing outlines
 * Inclined planes collision
+* 12 and 14 are "transparent" on side 2
 X Credits page

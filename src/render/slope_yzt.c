@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 13:03:19 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:48:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ static double	create_plane_yzt(t_vector rayd, t_vector rmap,
 	ray[1] = rayd;
 	if (dm->rayd.y > 0 || side == 0)
 		ray[0].y -= 1;
+	else if (dm->rayd.y < 0 && side == 2)
+		ray[0].y -= 1;
 	intersect(plane, ray, &point);
 #ifdef PRINTSLOPE
 	if (dm->x == 500 && dm->y == 360)
 		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.y);
-#endif	
+#endif
 	if (point.z >= 0 && point.z <= 1)
 		return (point.z);
 	return (1);
@@ -52,7 +54,7 @@ void			slope_dda_yzt_more(t_doom *dm, int side)
 		dm->rmap2.y = dm->pos.y + (dm->rayd.y * dm->walldist) - (int)dm->tmap.y;
 #ifdef PRINTSLOPE
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("2MAP %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
+			printf("YZTN %.16f < %.16f\n", dm->rmap2.z, dm->rmap2.y);
 #endif
 		if ((dm->rmap2.z < 1 - dm->rmap2.y || dm->rmap2.z > LIM ||
 			dm->rmap2.y >= LIM) && dm->rmap2.z > LIMN && dm->rmap2.y > LIMN)
@@ -63,6 +65,7 @@ void			slope_dda_yzt_more(t_doom *dm, int side)
 				create_plane_yzt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
+			dm->flag = 1;
 		}
 	}
 }
@@ -106,6 +109,7 @@ void			slope_dda_yztr_more(t_doom *dm, int side)
 				create_plane_yzt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
+			dm->flag = 2;
 		}
 	}
 }

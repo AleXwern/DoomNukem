@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 11:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/04 14:24:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 12:47:45 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,27 @@
 # ifndef INT_MIN
 #  define INT_MIN	-2147483647
 # endif
+# define WORD		32
 # ifdef _WIN64 //Remove for final version
 #  define read	_read
 #  define write	_write
+# endif
+
+# if _WIN32 || _WIN64 || __x86_64__ || __ppc64__
+#  define ENV64BIT
+# endif
+
+/*
+** Typedefine unsigned variable to more compact form based on
+** system architechture.
+** aka invoke compiler error if bad system.
+*/
+# ifdef ENV64BIT
+typedef unsigned int	t_uint32;
+typedef unsigned short	t_uint16;
+typedef unsigned char	t_uint8;
+# else
+#  error "System is of odd architechture. Stuff would break anyway."
 # endif
 
 int		ft_abs(int num);

@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 13:50:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 16:04:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@
 # define BOUNDZ		9
 # define TIMEOUT	100
 # define MXFLR		9
+# define MOVSP		0.02
 //# define PRINTSLOPE
 # ifdef __APPLE__
 /*

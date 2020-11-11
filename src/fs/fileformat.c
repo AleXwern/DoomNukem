@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 12:21:14 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/11 14:25:31 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 	{
 		dm->spw.x = x + 0.51;
 		dm->spw.y = y + 0.51;
-		dm->spw.z = dm->flr + 0.5;
+		dm->spw.z = dm->flr + 0.4;
 		dm->area[dm->flr][y][x].b = 1;
 	}
 	force_validate_block(dm, x, y);

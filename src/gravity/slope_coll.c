@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:29:03 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 14:06:24 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:04:48 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 int		xy_slope(t_block blk, t_doom *dm, double pos, char dir)
 {
 	t_vector	npos;
-	
+
 	if (dir == 'x')
 	{
 		npos.x = (dm->pos.x + dm->gravity.x) - (int)(dm->pos.x + dm->gravity.x);
@@ -59,15 +59,45 @@ int		xy_slope(t_block blk, t_doom *dm, double pos, char dir)
 
 int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 {
-	if (dir == 'y')
+	//printf("blk.b = %d  blk.pt = %d  dir = %c\n", blk.b, blk.pt, dir);
+	if (blk.pt == 11)
 	{
-		hgt = (dm->pos.z + 1 - ((dm->pos.y + dm->gravity.y) -
-			(int)(dm->pos.y + dm->gravity.y))) - dm->pos.z;
+		if (dir == 'y')
+			hgt = (dm->pos.z + 1 - ((dm->pos.y + dm->gravity.y) -
+				(int)(dm->pos.y + dm->gravity.y))) - dm->pos.z;
+		else
+			hgt = (dm->pos.z + 1 - ((dm->pos.y + dm->gravity.y) -
+				(int)(dm->pos.y + dm->gravity.y))) - dm->pos.z;
 	}
-	else
-		hgt = (dm->pos.z + 1 - (dm->pos.y - (int)dm->pos.y)) - dm->pos.z;
-	printf("%f\n", hgt);
-	if (hgt < 0.4 && hgt > -0.4)
+	else if (blk.pt == 12)
+	{
+		if (dir == 'y')
+			hgt = (dm->pos.z + ((dm->pos.x + dm->gravity.x) -
+				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
+		else
+			hgt = (dm->pos.z + ((dm->pos.x + dm->gravity.x) -
+				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
+	}
+	else if (blk.pt == 13)
+	{
+		if (dir == 'y')
+			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
+				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
+		else
+			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
+				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
+	}
+	else if (blk.pt == 14)
+	{
+		if (dir == 'y')
+			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
+				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
+		else
+			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
+				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
+	}
+	printf("hgt %f\n", hgt);
+	if (hgt < 0.45 && hgt > -0.45)
 	{
 		if (!dm->airbrn)
 			dm->pos.z -= hgt;
@@ -80,7 +110,7 @@ int		slope_coll(t_block blk, t_doom *dm, char dir)
 {
 	if (blk.pt < 11)
 		return (0);
-	if (blk.pt == 11)
+	if (blk.pt >= 11 && blk.pt <= 14)
 		return (zy_slope(blk, dm, 0, dir));
 	else if (blk.pt >= 15)
 		return (xy_slope(blk, dm, 0, dir));

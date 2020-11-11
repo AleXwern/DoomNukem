@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:12:37 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/11/04 14:15:33 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 12:47:46 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,24 +93,6 @@
 #  define TCP_NODELAY	0
 # endif
 # define	AXID			0x4297
-
-
-# if _WIN32 || _WIN64 || __x86_64__ || __ppc64__
-#  define ENV64BIT
-# endif
-
-/*
-** Typedefine unsigned variable to more compact form based on
-** system architechture.
-** aka invoke compiler error if bad system.
-*/
-# ifdef ENV64BIT
-typedef unsigned int	t_uint32;
-typedef unsigned short	t_uint16;
-typedef unsigned char	t_uint8;
-# else
-#  error "System is of odd architechture. Stuff would break anyway."
-# endif
 
 /*
 ** Self explanatory IP and port

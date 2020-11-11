@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:24:42 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/19 14:10:34 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:59:01 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	strafe2(t_doom *dm, double mov)
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y]
 		[(int)(dm->pos.x + dm->gravity.x)], dm, 'x'))
 		dm->pos.x += dm->gravity.x;
-	check_sprite_dist(dm, mov, -1);
+	check_sprite_dist(dm, mov, 3);
 	dm->airbrn = 1;
 }
 
