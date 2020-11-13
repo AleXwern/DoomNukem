@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:29:03 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/11 15:04:48 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 15:37:17 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,46 +61,24 @@ int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 {
 	//printf("blk.b = %d  blk.pt = %d  dir = %c\n", blk.b, blk.pt, dir);
 	if (blk.pt == 11)
-	{
-		if (dir == 'y')
-			hgt = (dm->pos.z + 1 - ((dm->pos.y + dm->gravity.y) -
-				(int)(dm->pos.y + dm->gravity.y))) - dm->pos.z;
-		else
-			hgt = (dm->pos.z + 1 - ((dm->pos.y + dm->gravity.y) -
-				(int)(dm->pos.y + dm->gravity.y))) - dm->pos.z;
-	}
+		hgt = 1 - ((dm->pos.y + dm->gravity.y) -
+			(int)(dm->pos.y + dm->gravity.y));
 	else if (blk.pt == 12)
-	{
-		if (dir == 'y')
-			hgt = (dm->pos.z + ((dm->pos.x + dm->gravity.x) -
-				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
-		else
-			hgt = (dm->pos.z + ((dm->pos.x + dm->gravity.x) -
-				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
-	}
+		hgt = (((dm->pos.y + dm->gravity.y) -
+			(int)(dm->pos.y + dm->gravity.y)));
 	else if (blk.pt == 13)
-	{
-		if (dir == 'y')
-			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
-				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
-		else
-			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
-				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
-	}
+		hgt = (1 - ((dm->pos.x + dm->gravity.x) -
+			(int)(dm->pos.x + dm->gravity.x)));
 	else if (blk.pt == 14)
+    	hgt = (((dm->pos.x + dm->gravity.x) -
+			(int)(dm->pos.x + dm->gravity.x)));
+	printf("hgt %f\n", (dm->pos.y - (int)dm->pos.y) - ((dm->pos.y + dm->gravity.y) - (int)(dm->pos.y + dm->gravity.y)));
+	//if (hgt < 0.45 && hgt > -0.45)
 	{
-		if (dir == 'y')
-			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
-				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
-		else
-			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
-				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
-	}
-	printf("hgt %f\n", hgt);
-	if (hgt < 0.45 && hgt > -0.45)
-	{
-		if (!dm->airbrn)
-			dm->pos.z -= hgt;
+		//if (!dm->airbrn)
+		//	dm->pos.z -= hgt;
+		dm->pos.z -= dm->pos.y - (int)dm->pos.y;
+		dm->pos.z += (dm->pos.y + dm->gravity.y) - (int)(dm->pos.y + dm->gravity.y);
 		return (1);
 	}
 	return (0);

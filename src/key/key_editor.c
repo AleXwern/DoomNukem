@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_editor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 14:50:10 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/02 20:23:14 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:13:00 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ void	editor_key_press(t_uint32 key, t_editor *le)
 		le->options[le->cur] = le->minval[le->cur];
 	if (le->options[le->cur] > le->maxval[le->cur])
 		le->options[le->cur] = le->maxval[le->cur];
-	if (le->options[le->cur] < le->minval[le->cur])
+	else if (le->options[le->cur] < le->minval[le->cur])
 		le->options[le->cur] = le->minval[le->cur];
 }

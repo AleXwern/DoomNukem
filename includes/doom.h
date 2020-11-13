@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/11 14:33:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:12:50 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ typedef struct		s_editor
 	int				cur;
 	t_uint8			blk;
 	t_uint8			spr;
-	unsigned char	options[5];
+	int				options[5];
 	double			maxval[5];
 	char			minval[5];
 	char			*opt[12];

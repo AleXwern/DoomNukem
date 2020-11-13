@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:18:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/11 15:06:32 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 15:28:42 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		check_ver_slp(t_block blk, t_doom *dm, double hgt)
 	else
 		hgt = (int)(dm->pos.z + dm->plrhight + 0.02) +
 			(1 - (dm->pos.x - (int)dm->pos.x)) - dm->plrhight;
-	printf("Gravityhgt %f > %f\n", hgt, dm->pos.z + dm->gravity.z);
+	//printf("Gravityhgt %f > %f\n", hgt, dm->pos.z + dm->gravity.z);
 	if (hgt > dm->pos.z + dm->gravity.z)
 		return (1);
 	return (0);
@@ -92,7 +92,7 @@ int		check_ver_coll(t_block blk, t_doom *dm)
 	{
 		hgt = (int)(dm->pos.z + dm->plrhight + 0.02) +
 			(1 - blk.pln / 15.0) - dm->plrhight;
-		printf("Gravityhgt %f > %f\n", hgt, dm->pos.z + dm->gravity.z);
+		//printf("Gravityhgt %f > %f\n", hgt, dm->pos.z + dm->gravity.z);
 		if (hgt > dm->pos.z + dm->gravity.z)
 			return (1);
 		return (0);

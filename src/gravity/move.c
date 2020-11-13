@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 16:09:19 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/11 15:58:55 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 16:16:22 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,16 @@ int		check_part_walls(char dir, t_block tblk, t_doom *dm)
 	return (0);
 }
 
-int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int plnd)
+int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int pln)
 {
-	hgt = ((int)dm->pos.z + (1 - blk.pln / 15.0) - dm->plrhight) - dm->pos.z;
-	plnd = blk.pln;
+	hgt = ((int)dm->truez + (1 - pln / 15.0)) - dm->truez;
 	blk = dm->area[(int)(dm->pos.z - 0.15)][(int)(dm->pos.y)]
 		[(int)(dm->pos.x)];
-	plnd = abs(blk.pln - plnd);
+	printf("step %f\n", hgt);
 	if (hgt < 0.4 && hgt > -0.4)
 	{
-		plnd = abs(blk.pln - plnd);
-		if ((blk.b > 1 && blk.pt == 0) || (blk.pt == 1 && plnd > 11))
-			return (0);
+		//if ((blk.b > 1 && blk.pt == 0) || (blk.pt == 1 && plnd > 11))
+		//	return (0);
 		if (!dm->airbrn)
 			dm->pos.z += hgt;
 		return (1);
@@ -79,14 +77,36 @@ int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int plnd)
 	return (0);
 }
 
+int		get_blockstack(t_doom *dm, t_block blk, char dir)
+{
+	int	pln;
+
+	if (blk.pt != 2)
+		pln = 15;
+	else
+		pln = blk.pln;
+	if (dir == 'y' && dm->truez > 1)
+		blk = dm->area[(int)dm->truez - 1][(int)(dm->pos.y + dm->gravity.y)][(int)dm->pos.x];
+	else if (dm->truez > 1)
+		blk = dm->area[(int)dm->truez - 1][(int)dm->pos.y][(int)(dm->pos.x + dm->gravity.x)];
+	if (blk.b > 1 && pln > 10)
+		pln = 15 + blk.pln;
+	return (pln);
+}
+
 int		check_hor_coll(t_block blk, t_doom *dm, char dir)
 {
-	if (blk.b <= 1 || (blk.pt == 1 && blk.pln < 6))
+	int	pln;
+
+	printf("data %d %d %d\n", blk.b, blk.pt, blk.pln);
+	pln = get_blockstack(dm, blk, dir);
+	if (blk.b <= 1)// || (blk.pt == 1 && blk.pln < 6))
 		return (1);
-	else if (!blk.pt)
-		return (0);
-	else if (blk.pt == 2)
-		return (check_hor_coll2(blk, dm, 0, 0));
+	//else if (!blk.pt)
+	//	return (0);
+	else if (dm->blk.pt == 2 ||
+		blk.pt == 2)
+		return (check_hor_coll2(blk, dm, 0, pln));
 	else if (blk.pt < 7)
 		return (check_part_walls(dir, blk, dm));
 	else
@@ -111,10 +131,10 @@ void	move_fb(t_doom *dm)
 		dm->gravity.x = -dm->dir.x * mov;
 		dm->gravity.y = -dm->dir.y * mov;
 	}
-	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y +
+	if (check_hor_coll(dm->area[(int)dm->truez][(int)(dm->pos.y +
 		dm->gravity.y)][(int)dm->pos.x], dm, 'y'))
 		dm->pos.y += dm->gravity.y;
-	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y]
+	if (check_hor_coll(dm->area[(int)dm->truez][(int)dm->pos.y]
 		[(int)(dm->pos.x + dm->gravity.x)], dm, 'x'))
 		dm->pos.x += dm->gravity.x;
 	check_sprite_dist(dm, mov, 3);

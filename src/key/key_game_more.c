@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game_more.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:42:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/30 14:24:43 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/13 15:57:51 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		mouse_move(int x, int y, t_doom *dm)
 
 void	move2(t_doom *dm)
 {
+	dm->truez = dm->pos.z + dm->plrhight;
 	if ((dm->key.w || dm->key.s) && !dm->isoptions)
 		move_fb(dm);
 	if ((dm->key.a || dm->key.d) && !dm->isoptions)
@@ -69,6 +70,7 @@ void	move2(t_doom *dm)
 	if ((dm->key.one || dm->key.two) && !dm->isoptions &&
 			(dm->jetpack || dm->isgravity))
 		jetpack(dm);
+	dm->blk = dm->area[(int)dm->truez][(int)dm->pos.y][(int)dm->pos.x];
 }
 
 int		move(t_doom *dm)

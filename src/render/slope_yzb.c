@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 14:54:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/11 15:53:17 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 14:18:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static double	create_plane_yzb(t_vector rayd, t_vector rmap,
 	ray[1] = rayd;
 	if (side == 1 && dm->rayd.y < 0)
 		ray[0].y = 1;
+	else if (side == 2 && dm->rayd.z < 0)
+		ray[0].z = 1;
 	intersect(plane, ray, &point);
 #ifdef PRINTSLOPE
 	if (dm->x == 500 && dm->y == 360)

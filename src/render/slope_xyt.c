@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:57:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/11 16:01:44 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:47:06 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ static double	create_plane_xyt(t_vector rayd, t_vector rmap,
 	t_vector	point;
 	t_vector	ray[2];
 
-	plane[0] = (t_vector){
-		.z = 0, .y = 0, .x = 0
-	};
-	plane[1] = (t_vector){
-		.z = 0, .y = 1, .x = 1
-	};
+	plane[0] = (t_vector){.z = 0, .y = 0, .x = 0};
+	plane[1] = (t_vector){.z = 0, .y = 1, .x = 1};
 	ray[0] = (t_vector){.z = rmap.z - (int)rmap.z, .y = rmap.y - (int)rmap.y,
 		.x = rmap.x - (int)rmap.x};
 	ray[1] = rayd;
@@ -33,7 +29,7 @@ static double	create_plane_xyt(t_vector rayd, t_vector rmap,
 		ray[0].x = -1;
 	else if (side)
 		ray[0].x -= 1;
-	if (side == 1 && dm->rayd.y < 0)
+	if (side == 1 && dm->rayd.y < 0 && ray[0].y < 0.5)
 		ray[0].y += 1;
 	intersect(plane, ray, &point);
 #ifdef PRINTSLOPE
