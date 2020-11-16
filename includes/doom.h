@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 14:11:27 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 14:33:27 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,6 +354,7 @@ typedef struct		s_doom
 	int				airbrn;
 	t_vector		spw;
 	t_vector		pos;
+	double			truez;
 	t_vector		gravity;
 	t_vector		fallsp;
 	t_vector		dir;
@@ -589,6 +590,7 @@ void				set_sprite_tomap(t_editor *le, t_doom *dm, int x, int y);
 void				set_text(t_doom *dm, char *str, int *xy, double size);
 void				set_variables(t_doom *dm);
 void				side_check(t_doom *dm);
+void				single_loop_neg(t_doom *dm);
 void				single_loop_x(t_doom *dm);
 void				single_loop_x_more(t_doom *dm);
 void				single_loop_y(t_doom *dm);

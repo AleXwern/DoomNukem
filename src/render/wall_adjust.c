@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 13:55:22 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 14:24:38 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 14:38:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,7 @@ void	xy_wall_ppos(t_doom *dm, t_block blk, int bbool)
 		bbool = 1;
 	else if (blk.pt == 18 && (dir < 45 || dir > 225))
 		bbool = 1;
-	if (bbool)
-	{
-		single_loop_x(dm);
-		dm->map = dm->tmap;
-		dm->sided = dm->tsided;
-	}
-	else
+	if (!bbool)
 	{
 		dm->adj = 1;
 		dm->map.x -= dm->stepx;
@@ -39,4 +33,7 @@ void	xy_wall_ppos(t_doom *dm, t_block blk, int bbool)
 		dm->sided.y -= dm->deltad.y;
 		dm->sided.x -= dm->deltad.x;
 	}
+	single_loop_x(dm);
+	dm->map = dm->tmap;
+	dm->sided = dm->tsided;
 }

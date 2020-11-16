@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_xyt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:57:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/06 01:57:26 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/11/11 16:01:44 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static double	create_plane_xyt(t_vector rayd, t_vector rmap,
 		ray[0].x = -1;
 	else if (side)
 		ray[0].x -= 1;
-	if (side && dm->rayd.y < 0)
+	if (side == 1 && dm->rayd.y < 0)
 		ray[0].y += 1;
 	intersect(plane, ray, &point);
 #ifdef PRINTSLOPE
@@ -57,7 +57,7 @@ void			slope_dda_xyt_more(t_doom *dm, int side)
 			(int)dm->tmap.x;
 #ifdef PRINTSLOPE
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("XZTN %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
+			printf("XYTN %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
 #endif
 		if ((dm->rmap2.y < 1 - dm->rmap2.x || dm->rmap2.y > LIM ||
 			dm->rmap2.x >= LIM) && dm->rmap2.y > LIMN && dm->rmap2.x > LIMN)
@@ -102,7 +102,7 @@ void			slope_dda_xytr_more(t_doom *dm, int side)
 			(int)dm->tmap.x;
 #ifdef PRINTSLOPE
 		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("XZTR %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
+			printf("XYTR %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
 #endif
 		if ((dm->rmap2.y > 1 - dm->rmap2.x || dm->rmap2.y < LIMN ||
 			dm->rmap2.x <= LIMN) && dm->rmap2.y < LIM && dm->rmap2.x < LIM)
@@ -113,6 +113,7 @@ void			slope_dda_xytr_more(t_doom *dm, int side)
 				create_plane_xyt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 1;
 			dm->hit = 1;
+			dm->flag = 2;
 		}
 	}
 }

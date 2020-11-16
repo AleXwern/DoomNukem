@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part_dda_more.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:33:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/30 14:38:21 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/11 14:37:31 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,20 @@ void	single_loop_x_more(t_doom *dm)
 		dm->walldist = (dm->tmap.z - dm->pos.z +
 			(1 - dm->stepz) * 0.5) / dm->rayd.z;
 	dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) - (int)dm->tmap.x;
+}
+
+void	single_loop_neg(t_doom *dm)
+{
+	dm->tmap = dm->map;
+	dm->tsided = dm->sided;
+	if (dm->sided.x > dm->sided.y)
+	{
+		dm->tsided.x -= dm->deltad.x;
+		dm->tmap.x -= dm->stepx;
+	}
+	else
+	{
+		dm->tsided.y -= dm->deltad.y;
+		dm->tmap.y -= dm->stepy;
+	}
 }

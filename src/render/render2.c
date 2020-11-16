@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 16:21:20 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/11/04 15:58:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:46:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	side_check(t_doom *dm)
 		delta = dm->pos.y - dm->map.y;
 	else
 		delta = dm->pos.z - dm->map.z;
-	if (delta > 0 || dm->flag)
+	if (dm->flag == 2)
+		dm->flag = 0;
+	else if (delta > 0 || dm->flag)
 		dm->side += 3;
 	dm->flag = 0;
 }

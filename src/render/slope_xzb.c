@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_xzb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:07:24 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/06 02:00:57 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:54:45 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static double	create_plane_xzb(t_vector rayd, t_vector rmap,
 	ray[1] = rayd;
 	if (side == 0 && dm->rayd.x < 0)
 		ray[0].x = 1;
+	else if (side == 2 && dm->rayd.z < 0)
+		ray[0].z += 1;
 	intersect(plane, ray, &point);
 #ifdef PRINTSLOPE
 	if (dm->x == 500 && dm->y == 360)
@@ -64,6 +66,7 @@ void			slope_dda_xzb_more(t_doom *dm, int side)
 				create_plane_xzb(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
+			dm->flag = 2;
 		}
 	}
 }
@@ -108,6 +111,7 @@ void			slope_dda_xzbr_more(t_doom *dm, int side)
 				create_plane_xzb(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
+			dm->flag = 1;
 		}
 	}
 }

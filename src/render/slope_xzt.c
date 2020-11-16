@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_xzt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:08:50 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/06 02:01:02 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:46:59 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,14 @@ static double	create_plane_xzt(t_vector rayd, t_vector rmap,
 	ray[1] = rayd;
 	if (dm->rayd.x > 0 || side == 1)
 		ray[0].x -= 1;
+	else if (dm->rayd.x < 0 && side == 2)
+		ray[0].x -= 1;
+	else if (dm->rayd.y < 0 && side == 2)
+		ray[0].y -= 1;
 	intersect(plane, ray, &point);
 #ifdef PRINTSLOPE
 	if (dm->x == 500 && dm->y == 360)
-		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.z);
+		printf("Cross point %f %f %f at %d\nRMAP %f %f %f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.x);
 #endif
 	if (point.z >= 0 && point.z <= 1)
 		return (point.z);
@@ -64,6 +68,7 @@ void			slope_dda_xzt_more(t_doom *dm, int side)
 				create_plane_xzt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
+			dm->flag = 1;
 		}
 	}
 }
@@ -108,6 +113,7 @@ void			slope_dda_xztr_more(t_doom *dm, int side)
 				create_plane_xzt(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 2;
 			dm->hit = 1;
+			dm->flag = 2;
 		}
 	}
 }

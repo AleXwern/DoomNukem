@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 16:09:19 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 12:40:01 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:58:55 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,6 @@ void	move_fb(t_doom *dm)
 	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y]
 		[(int)(dm->pos.x + dm->gravity.x)], dm, 'x'))
 		dm->pos.x += dm->gravity.x;
-	check_sprite_dist(dm, mov, -1);
+	check_sprite_dist(dm, mov, 3);
 	dm->airbrn = 1;
 }

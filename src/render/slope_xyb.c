@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_xyb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:57:24 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/06 02:00:51 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:59:49 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void			slope_dda_xyb_more(t_doom *dm, int side)
 				create_plane_xyb(dm->rayd, dm->rmap1, dm, side);
 			dm->side = 1;
 			dm->hit = 1;
+			dm->flag = 2;
 		}
 	}
 }

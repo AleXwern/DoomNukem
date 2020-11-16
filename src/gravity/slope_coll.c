@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_coll.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:29:03 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 14:41:44 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:04:48 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 	else if (blk.pt == 12)
 	{
 		if (dir == 'y')
-			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
+			hgt = (dm->pos.z + ((dm->pos.x + dm->gravity.x) -
 				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
 		else
-			hgt = (dm->pos.z + 1 - ((dm->pos.x + dm->gravity.x) -
+			hgt = (dm->pos.z + ((dm->pos.x + dm->gravity.x) -
 				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
 	}
 	else if (blk.pt == 13)
@@ -97,7 +97,7 @@ int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 				(int)(dm->pos.x + dm->gravity.x))) - dm->pos.z;
 	}
 	printf("hgt %f\n", hgt);
-	if (hgt < 0.4 && hgt > -0.4)
+	if (hgt < 0.45 && hgt > -0.45)
 	{
 		if (!dm->airbrn)
 			dm->pos.z -= hgt;
