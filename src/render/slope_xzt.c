@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:08:50 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/11 15:46:59 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:57:05 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ static double	create_plane_xzt(t_vector rayd, t_vector rmap,
 	t_vector	point;
 	t_vector	ray[2];
 
-	plane[0] = (t_vector){
-		.z = 0, .y = 0, .x = 0
-	};
-	plane[1] = (t_vector){
-		.z = 1, .y = 0, .x = 1
-	};
+	plane[0] = (t_vector){.z = 0, .y = 0, .x = 0};
+	plane[1] = (t_vector){.z = 1, .y = 0, .x = 1};
 	ray[0] = (t_vector){.z = rmap.z - (int)rmap.z, .y = rmap.y - (int)rmap.y,
 		.x = rmap.x - (int)rmap.x};
 	ray[1] = rayd;
@@ -35,6 +31,8 @@ static double	create_plane_xzt(t_vector rayd, t_vector rmap,
 		ray[0].x -= 1;
 	else if (dm->rayd.y < 0 && side == 2)
 		ray[0].y -= 1;
+	if (side == 2 && dm->rayd.z < 0)
+		ray[0].z = 1;
 	intersect(plane, ray, &point);
 #ifdef PRINTSLOPE
 	if (dm->x == 500 && dm->y == 360)

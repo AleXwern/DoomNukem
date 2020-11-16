@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:24:42 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/11/11 15:59:01 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 15:51:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int		check_yx(char dir, t_block tblk, t_doom *dm)
 
 void	strafe2(t_doom *dm, double mov)
 {
-	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)(dm->pos.y +
+	if (check_hor_coll(dm->area[(int)dm->truez][(int)(dm->pos.y +
 		dm->gravity.y)][(int)dm->pos.x], dm, 'y'))
 		dm->pos.y += dm->gravity.y;
-	if (check_hor_coll(dm->area[(int)dm->pos.z][(int)dm->pos.y]
+	if (check_hor_coll(dm->area[(int)dm->truez][(int)dm->pos.y]
 		[(int)(dm->pos.x + dm->gravity.x)], dm, 'x'))
 		dm->pos.x += dm->gravity.x;
 	check_sprite_dist(dm, mov, 3);

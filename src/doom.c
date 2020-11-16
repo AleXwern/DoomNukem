@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/04 12:06:25 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 15:59:16 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		main(int ac, char **av)
 		if (!(dm->rend = SDL_GetRenderer(dm->win)))
 			error_out(REN_ERROR, dm);
 	dm->img = init_image(dm);
-	dm->spw = (t_vector){.x = 2.51, .y = 2.51, .z = 2.5};
+	dm->spw = (t_vector){.x = 2.51, .y = 2.51, .z = 2.35};
 	comp_map(dm);
 	comp_gfx(dm);
 	ft_putnbrln(sizeof(t_doom));

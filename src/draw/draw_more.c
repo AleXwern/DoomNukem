@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:08:53 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/11/04 15:48:09 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:01:43 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	shift_door(t_doom *dm, double shift, t_block blk, int side)
 	else if (blk.pt == 2)
 		dm->texy += 128 * (blk.pln / 15.0);
 	else if ((blk.pt == 3 && side == 0) || (blk.pt == 4 && side == 3) ||
-			(blk.pt == 6 && side % 3 == 1))
+			(blk.pt == 6 && side == 1) || (blk.pt == 5 && side == 4))
 		dm->texx += 128 * (blk.pln / 15.0);
 	else if ((blk.pt == 3 && side == 3) || (blk.pt == 4 && side == 0) ||
-			(blk.pt == 5 && side % 3 == 1))
+			(blk.pt == 5 && side == 1) || (blk.pt == 6 && side == 4))
 		dm->texx += 128 * (1 - blk.pln / 15.0);
 	dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy + (int)shift) %
 		128) * 128 + dm->texx % 128], dm->walldist + fabs((double)(dm->x -
@@ -59,19 +59,19 @@ void	check_layer(t_doom *dm, double shift)
 		layer_draw(dm, shift, 38);
 	else if (dm->blk.meta == 5 && ((dm->side == 3 && dm->blk.pt == 3) ||
 		(dm->side == 0 && dm->blk.pt == 4) || (dm->side == 1 && dm->blk.pt == 5)
-		|| (dm->side == 4 && dm->blk.pt == 5)))
+		|| (dm->side == 4 && dm->blk.pt == 6)))
 		layer_draw(dm, shift, 39);
 	else if (dm->blk.meta == 5 && ((dm->side == 0 && dm->blk.pt == 3) ||
 		(dm->side == 3 && dm->blk.pt == 4) || (dm->side == 1 && dm->blk.pt == 6)
-		|| (dm->side == 4 && dm->blk.pt == 6)))
+		|| (dm->side == 4 && dm->blk.pt == 5)))
 		layer_draw(dm, shift, 40);
 	else if (dm->blk.meta == 6 && ((dm->side == 3 && dm->blk.pt == 3) ||
 		(dm->side == 0 && dm->blk.pt == 4) || (dm->side == 1 && dm->blk.pt == 5)
-		|| (dm->side == 4 && dm->blk.pt == 5)))
+		|| (dm->side == 4 && dm->blk.pt == 6)))
 		layer_draw(dm, shift, 41);
 	else if (dm->blk.meta == 6 && ((dm->side == 0 && dm->blk.pt == 3) ||
 		(dm->side == 3 && dm->blk.pt == 4) || (dm->side == 1 && dm->blk.pt == 6)
-		|| (dm->side == 4 && dm->blk.pt == 6)))
+		|| (dm->side == 4 && dm->blk.pt == 5)))
 		layer_draw(dm, shift, 42);
 	else
 		dm->col = color_shift(dm->gfx[dm->texnum].data[((dm->texy +
@@ -111,9 +111,9 @@ void	wall_stripe(t_doom *dm)
 		//if (dm->side == 0 || dm->side == 1)
 			dm->texnum = dm->area[(int)(dm->map.z)][(int)(dm->map.y)]
 				[(int)(dm->map.x)].b;
-		/*else
-			dm->texnum = dm->area[(int)ceil(dm->map.z)]
-				[(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].b;*/
+		//else
+		//	dm->texnum = dm->area[(int)ceil(dm->map.z)]
+		//		[(int)ceil(dm->map.y)][(int)ceil(dm->map.x)].b;
 		if (dm->side % 3 == 0)
 			dm->wallx = (dm->pos.y + dm->walldist * dm->rayd.y);
 		else

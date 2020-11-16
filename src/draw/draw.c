@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 12:17:05 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:27:41 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	draw_sky(t_doom *dm)
 	else
 		dm->col = 0xff000000;
 	dm->img.data[dm->winw * dm->y + dm->x] = dm->col;
+	dm->maparr[dm->winw * dm->y + dm->x] = -1;
 }
 
 void	draw_floor(t_doom *dm)

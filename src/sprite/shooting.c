@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shooting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 13:50:54 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/10/30 13:44:16 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/13 14:26:50 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	check_hit(t_doom *dm, int i, int x)
 				Mix_PlayChannel(-1, dm->mondeath, 0);
 				dm->prj[i].dead = 1;
 				dm->spr[x].dead = 1;
+				dm->money++;
 				return ;
 			}
 			else if (dm->spr[x].hp > 1)
