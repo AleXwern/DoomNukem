@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:28:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 12:16:41 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/18 15:00:34 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		fps_counter(void *ptr)
 		SDL_Delay(100);
 		if (dm->ismenu)
 			continue;
+		//ft_putnbrln(SDL_GetTicks());
 		free(dm->fpschar);
 		fps -= fpsarr[i];
 		fpsarr[i] = dm->fps;

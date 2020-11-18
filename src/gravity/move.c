@@ -6,7 +6,7 @@
 /*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 16:09:19 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/13 16:16:22 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/18 15:01:32 by anystrom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ int		get_blockstack(t_doom *dm, t_block blk, char dir)
 		pln = 15;
 	else
 		pln = blk.pln;
-	if (dir == 'y' && dm->truez > 1)
+	if (dir == 'y' && dm->truez >= 1)
 		blk = dm->area[(int)dm->truez - 1][(int)(dm->pos.y + dm->gravity.y)][(int)dm->pos.x];
-	else if (dm->truez > 1)
+	else if (dm->truez >= 1)
 		blk = dm->area[(int)dm->truez - 1][(int)dm->pos.y][(int)(dm->pos.x + dm->gravity.x)];
 	if (blk.b > 1 && pln > 10)
 		pln = 15 + blk.pln;
@@ -98,12 +98,12 @@ int		check_hor_coll(t_block blk, t_doom *dm, char dir)
 {
 	int	pln;
 
-	printf("data %d %d %d\n", blk.b, blk.pt, blk.pln);
+	printf("data %d %d %d %c\n", blk.b, blk.pt, blk.pln, dir);
 	pln = get_blockstack(dm, blk, dir);
 	if (blk.b <= 1)// || (blk.pt == 1 && blk.pln < 6))
 		return (1);
-	//else if (!blk.pt)
-	//	return (0);
+	//else if (blk.b == 2 && (blk.pt == 0 || pln > 14))
+	//	dm->pos.z -= 0.1;
 	else if (dm->blk.pt == 2 ||
 		blk.pt == 2)
 		return (check_hor_coll2(blk, dm, 0, pln));
