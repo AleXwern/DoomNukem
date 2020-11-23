@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/13 13:12:50 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/23 12:51:24 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,6 +420,7 @@ typedef struct		s_doom
 	int				drawgunandkeycard;
 	int				jetpack;
 	int				money;
+	int				datareadtype;// for filereading
 	char			*moneytemp;
 	char			*moneytext;
 	int				victoryplayed;
@@ -476,6 +477,7 @@ int					send_pos(t_doom *dm);
 int					set_objsmallsprite(int gfx);
 int					slope_coll(t_block blk, t_doom *dm, char dir);
 int					tex_check(t_doom *dm);
+int					datatype_check(t_doom *dm, char **tmp);
 
 t_gfx				memcpy_gfx(t_gfx chunck, int *pos, int *size);
 t_gfx				read_bmp(char *file, int fd, int bread);
@@ -483,6 +485,8 @@ t_img				init_image(t_doom *dm);
 t_vector			cross_prd(t_vector v, t_vector u);
 
 void				alloc_vram(t_doom *dm);
+void				fill_floor(t_doom *dm, int y);
+void				fill_area(t_doom *dm, int y, int x);
 void				cam_udy(t_doom *dm);
 void				check_area(t_editor *le, t_doom *dm, SDL_Event ev);
 int					check_hor_coll(t_block blk, t_doom *dm, char dir);
@@ -490,7 +494,7 @@ int					check_sprite_dist(t_doom *dm, double mov, int i);
 int					check_yx(char dir, t_block tblk, t_doom *dm);
 void				comp_gfx(t_doom *dm);
 void				comp_map(t_doom *dm);
-void				comp_sprite(t_doom *dm, int i, int fd);
+void				comp_sprite(t_doom *dm, int fd);
 void				comp_texpack(t_doom *dm);
 void				crouch(t_doom *dm);
 void				curt_down(t_doom *dm);

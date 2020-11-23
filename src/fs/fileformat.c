@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/13 15:58:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/23 12:50:45 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	comp_block(t_doom *dm, char **temp, int x, int y)
 	{
 		if (*temp[0] < '0' || *temp[0] > '9')
 			dm->area[dm->flr][y][x].b = 2;
-		else//in case there are letters atoi returns 0 ugly fix
+		else
 			dm->area[dm->flr][y][x].b = ft_atoi(temp[0]);
 		dm->area[dm->flr][y][x].lgt = ft_atoi(temp[1]);
 		dm->area[dm->flr][y][x].pt = ft_atoi(temp[2]);
@@ -48,6 +48,9 @@ int		rowformat(t_doom *dm, char **temp, int x, int y)
 {
 	if (temp[0][0] == 'z')
 		return (0);
+	if (temp[0][0] == 'S' || temp[0][0] == 'O')// to check if reading map or sprites or objects
+		if (datatype_check(dm, temp))
+			return (0);
 	if (!(dm->area[dm->flr][y] = (t_block*)ft_memalloc(sizeof(t_block) * 25)))
 		error_out(MEM_ERROR, dm);
 	while (temp[x] && x < 25)
@@ -104,10 +107,11 @@ void	comp_map(t_doom *dm)
 	char	*path;
 
 	dm->width = 25;
+	dm->datareadtype = BLOCK;
 	if (!(dm->area = (t_block***)ft_memalloc(sizeof(t_block**) * 9)))
 		error_out(MEM_ERROR, dm);
 	path = SDL_GetBasePath();
-	fpath = ft_strjoin(path, "map/1s");
+	fpath = ft_strjoin(path, "map/test");
 	fd = open(fpath, O_RDONLY);
 	SDL_free(path);
 	free(fpath);
@@ -118,10 +122,13 @@ void	comp_map(t_doom *dm)
 		if (!(dm->area[dm->flr] = (t_block**)ft_memalloc(sizeof(t_block*)
 			* 25)))
 			error_out(MEM_ERROR, dm);
-		floorformat(fd, dm, 0);
+		if (dm->datareadtype == BLOCK)
+			floorformat(fd, dm, 0);
+		else
+			fill_floor(dm, -1);
 		dm->flr++;
 	}
-	comp_sprite(dm, -1, fd);
+	comp_sprite(dm, fd);
 	dm->height = 25;
 	close(fd);
 	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .pln = 15, .pt = 0});

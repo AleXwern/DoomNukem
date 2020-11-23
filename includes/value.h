@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/13 15:35:43 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/11/18 13:58:01 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@
 # define LIMN		0.000001
 # define IFRAME		50
 # define DFRAME		35
+# define BLOCK      1//added these three
+# define SPRITE     2//added these three
+# define OBJECT     3//added these three
 # define PCOLL		0.2
 # define OP			12
 # define BACKS		111
