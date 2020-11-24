@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 14:20:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/23 15:07:11 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/24 10:09:19 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_sprite		set_sprite(char **arr, int len)
 	return (spr);
 }
 
-void			read_spriteinfo(t_doom *dm, int i, int fd)
+void			read_spriteinfo(t_doom *dm, int i, int fd, int *sprdone)
 {
 	char		*gnl;
 	char		**arr;
@@ -94,6 +94,7 @@ void			read_spriteinfo(t_doom *dm, int i, int fd)
 			if (dm->datareadtype != SPRITE)
 			{
 				dm->spr[i] = fill_spriteinfo();
+				printf("Rest of the sprites are autofilled cause no more spriteinfo in map\n");
 				free_memory(arr);
 			}
 			else
@@ -103,9 +104,10 @@ void			read_spriteinfo(t_doom *dm, int i, int fd)
 		else
 			dm->spr[i] = fill_spriteinfo();
 	}
+	sprdone = 1;
 }
 
-void			read_objectinfo(t_doom *dm, int i, int fd)
+void			read_objectinfo(t_doom *dm, int i, int fd, int *objdone)
 {
 	char		*gnl;
 	char		**arr;
@@ -134,32 +136,41 @@ void			read_objectinfo(t_doom *dm, int i, int fd)
 		else
 			dm->obj[i] = fill_objectinfo();
 	}
-	
+	objdone = 1;
 }
 
 //more cheks needed if object comes first and then sprites
 // also marker to know if sprites or objects has been added already
 // also whole fill of the sprites and objects if sprites or objecst lines are not found in the map
-void			comp_sprite(t_doom *dm, int fd)
+void			comp_sprite(t_doom *dm, int i, int fd)
 {
 	char		*gnl;
 	int			prev_datatype;
 	int			sprdone;
 	int			objdone;
 
+	sprdone = 0;
+	objdone = 0;
 	if (dm->datareadtype == SPRITE)
-		read_spriteinfo(dm, -1, fd);
+		read_spriteinfo(dm, -1, fd, &sprdone);
 	prev_datatype = dm->datareadtype;
 	if (dm->datareadtype == OBJECT)
-		read_objectinfo(dm, -1, fd);
+		read_objectinfo(dm, -1, fd, &objdone);
 	else if (get_next_line(fd, &gnl) == 1)
 	{
 		datatype_check(dm, &gnl);
 		free(gnl);
 		if (prev_datatype != dm->datareadtype && dm->datareadtype == OBJECT)
-			read_objectinfo(dm, -1, fd);
+			read_objectinfo(dm, -1, fd, &objdone);
 
 	}
+	if (!(sprdone))
+		while (++i < SPR)
+			dm->spr[i] = fill_spriteinfo();
+	i = -1;
+	if (!(objdone))
+		while (++i < OBJ)
+			dm->obj[i] = fill_objectinfo();
 //	if (dm->datareadtype == OBJECT)
 //		read_objectinfo(dm, -1, fd);
 //	while (++i < SPR )

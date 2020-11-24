@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/23 12:50:45 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/24 10:06:21 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	comp_map(t_doom *dm)
 			fill_floor(dm, -1);
 		dm->flr++;
 	}
-	comp_sprite(dm, fd);
+	comp_sprite(dm, -1, fd);
 	dm->height = 25;
 	close(fd);
 	validate_map(dm, -1, -1, (t_block){.b = 2, .lgt = 15, .pln = 15, .pt = 0});

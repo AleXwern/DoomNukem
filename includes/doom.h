@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/23 12:51:24 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/24 10:09:39 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -494,7 +494,7 @@ int					check_sprite_dist(t_doom *dm, double mov, int i);
 int					check_yx(char dir, t_block tblk, t_doom *dm);
 void				comp_gfx(t_doom *dm);
 void				comp_map(t_doom *dm);
-void				comp_sprite(t_doom *dm, int fd);
+void				comp_sprite(t_doom *dm, int i, int fd);
 void				comp_texpack(t_doom *dm);
 void				crouch(t_doom *dm);
 void				curt_down(t_doom *dm);
