@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   block_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:15:14 by vkeinane          #+#    #+#             */
-/*   Updated: 2020/11/05 12:25:51 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/11/19 11:37:37 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
+
+void	fill_floor(t_doom *dm, int y)
+{
+	while (++y < 25)
+		fill_area(dm, y, 0);
+}
 
 void	fill_block(t_doom *dm, int x, int y)
 {
