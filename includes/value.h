@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/18 13:58:01 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/11/30 13:12:56 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,14 @@
 # define MAXPLN		15
 # define MINPLN		1
 # define MAXMETA	8
+# define MAXGFX		37
+# define MINGFX		16
+# define MAXRESPAWN	3600
+# define MAXHP		15
+/*
+** Dead status is 0/1 boolean. Objects should be 0 at start.
+*/
+# define MAXDEAD	1
 # define SPR		11
 # define OBJ		13
 # define TIMERMOD	60
