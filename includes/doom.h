@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/24 10:09:39 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:12:54 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -627,5 +627,6 @@ void				xy_wall_ppos(t_doom *dm, t_block blk, int bbool);
 int					is_block_info_present(char **tmp);
 void				fill_block(t_doom *dm, int x, int y);
 void				force_validate_block(t_doom *dm, int x, int y);
+void				sprite_validation(t_sprite *spr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 14:20:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/24 10:09:19 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/03 10:59:18 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,16 @@ void			read_spriteinfo(t_doom *dm, int i, int fd, int *sprdone)
 				free_memory(arr);
 			}
 			else
+			{
 				dm->spr[i] = set_sprite(arr, 0);
+				sprite_validation(&dm->spr[i]);
+			}
 			free(gnl);
 		}
 		else
 			dm->spr[i] = fill_spriteinfo();
 	}
-	sprdone = 1;
+	*sprdone = 1;
 }
 
 void			read_objectinfo(t_doom *dm, int i, int fd, int *objdone)
@@ -130,13 +133,16 @@ void			read_objectinfo(t_doom *dm, int i, int fd, int *objdone)
 				dm->obj[i] = fill_objectinfo();
 			}
 			else
+			{
 				dm->obj[i] = set_sprite(arr, 0);
+				sprite_validation(&dm->obj[i]);
+			}
 			free(gnl);
 		}
 		else
 			dm->obj[i] = fill_objectinfo();
 	}
-	objdone = 1;
+	*objdone = 1;
 }
 
 //more cheks needed if object comes first and then sprites
@@ -162,7 +168,6 @@ void			comp_sprite(t_doom *dm, int i, int fd)
 		free(gnl);
 		if (prev_datatype != dm->datareadtype && dm->datareadtype == OBJECT)
 			read_objectinfo(dm, -1, fd, &objdone);
-
 	}
 	if (!(sprdone))
 		while (++i < SPR)
@@ -173,7 +178,7 @@ void			comp_sprite(t_doom *dm, int i, int fd)
 			dm->obj[i] = fill_objectinfo();
 //	if (dm->datareadtype == OBJECT)
 //		read_objectinfo(dm, -1, fd);
-//	while (++i < SPR )
+//	while (++i < SPR)
 //	{
 //		dm->spr[i].gfx = 16;
 //		if (get_next_line(fd, &gnl) == 1)
