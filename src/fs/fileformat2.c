@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fileformat2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 14:54:21 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/11/04 12:06:03 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/07 15:00:16 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,16 @@ int		templen(char **temp)
 	while (temp[i])
 		i++;
 	return (i);
+}
+
+int		save_init(char **path, char **bpath, char **file)
+{
+	int fd;
+
+	*bpath = SDL_GetBasePath();
+	*path = ft_quadjoin(*bpath, "map/", *file, "");
+	fd = open(*path, O_WRONLY | O_TRUNC);
+	free(*path);
+	SDL_free(*bpath);
+	return (fd);
 }

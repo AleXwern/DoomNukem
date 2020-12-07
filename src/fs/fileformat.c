@@ -6,17 +6,12 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:13:55 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/24 10:06:21 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/07 15:01:32 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
-//todo crash
-//fill empty block information
-//general check different situations
-//check value ranges
 
 void	comp_block(t_doom *dm, char **temp, int x, int y)
 {
@@ -48,7 +43,7 @@ int		rowformat(t_doom *dm, char **temp, int x, int y)
 {
 	if (temp[0][0] == 'z')
 		return (0);
-	if (temp[0][0] == 'S' || temp[0][0] == 'O')// to check if reading map or sprites or objects
+	if (temp[0][0] == 'S' || temp[0][0] == 'O')
 		if (datatype_check(dm, temp))
 			return (0);
 	if (!(dm->area[dm->flr][y] = (t_block*)ft_memalloc(sizeof(t_block) * 25)))
@@ -111,13 +106,13 @@ void	comp_map(t_doom *dm)
 	if (!(dm->area = (t_block***)ft_memalloc(sizeof(t_block**) * 9)))
 		error_out(MEM_ERROR, dm);
 	path = SDL_GetBasePath();
-	fpath = ft_strjoin(path, "map/test");
+	fpath = ft_strjoin(path, "map/1s");
 	fd = open(fpath, O_RDONLY);
 	SDL_free(path);
 	free(fpath);
 	if (fd == -1)
 		error_out(FLR_ERROR, dm);
-	while (dm->flr < MXFLR)// If maxfloor shouldn't be modified in runtime, maybe change mxfloor to define
+	while (dm->flr < MXFLR)
 	{
 		if (!(dm->area[dm->flr] = (t_block**)ft_memalloc(sizeof(t_block*)
 			* 25)))

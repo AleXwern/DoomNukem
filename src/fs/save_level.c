@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_level.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:19:27 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/04 12:06:11 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/07 14:59:02 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	write_sprite(t_sprite *spr, int fd, int i, int len)
 		write_int(spr[i].respawn, fd);
 		write(fd, "\n", 1);
 	}
-	write(fd, "z\n", 2);
+	if (len == SPR)
+		write(fd, "Object\n", 7);
+	else
+		write(fd, "end\n", 4);
 }
 
 int		save_file(t_doom *dm, int fd, char *file, int i)
@@ -74,11 +77,7 @@ int		save_file(t_doom *dm, int fd, char *file, int i)
 	char	*path;
 	char	*bpath;
 
-	bpath = SDL_GetBasePath();
-	path = ft_quadjoin(bpath, "map/", file, "");
-	fd = open(path, O_WRONLY | O_TRUNC);
-	free(path);
-	SDL_free(bpath);
+	fd = save_init(&path, &bpath, &file);
 	if (fd == -1)
 	{
 		ft_putendl("Error saving the map!");
@@ -89,7 +88,10 @@ int		save_file(t_doom *dm, int fd, char *file, int i)
 	{
 		dm->flr = i;
 		write_file(dm, fd, -1, -1);
-		write(fd, "z\n", 2);
+		if (i == MXFLR - 1)
+			write(fd, "Sprite\n", 7);
+		else
+			write(fd, "z\n", 2);
 	}
 	write_sprite(dm->spr, fd, -1, SPR);
 	write_sprite(dm->obj, fd, -1, OBJ);

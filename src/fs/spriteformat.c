@@ -6,18 +6,12 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 14:20:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/12/03 10:59:18 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/07 15:05:51 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
-
-// if all the info hasnt been filled in objects or sprites, add a condition
-// to fill the rest
-
-//chrashes with the gnl returning -1 so if no lines are in map :(
-
 
 t_sprite		fill_spriteinfo(void)
 {
@@ -72,86 +66,12 @@ t_sprite		set_sprite(char **arr, int len)
 	spr.size = 1;
 	if (spr.gfx == 35)
 		spr.size = 2;
-	free_memory(arr);
 	return (spr);
 }
 
-void			read_spriteinfo(t_doom *dm, int i, int fd, int *sprdone)
-{
-	char		*gnl;
-	char		**arr;
-
-	while (++i < SPR)
-	{
-		dm->spr[i].gfx = 16;
-		if (dm->datareadtype != SPRITE)
-			dm->spr[i] = fill_spriteinfo();
-		else if (get_next_line(fd, &gnl) == 1)
-		{
-			printf("Got a line in sprite %s\n", gnl);
-			arr = ft_strsplit(gnl, ',');
-			datatype_check(dm, arr);
-			if (dm->datareadtype != SPRITE)
-			{
-				dm->spr[i] = fill_spriteinfo();
-				printf("Rest of the sprites are autofilled cause no more spriteinfo in map\n");
-				free_memory(arr);
-			}
-			else
-			{
-				dm->spr[i] = set_sprite(arr, 0);
-				sprite_validation(&dm->spr[i]);
-			}
-			free(gnl);
-		}
-		else
-			dm->spr[i] = fill_spriteinfo();
-	}
-	*sprdone = 1;
-}
-
-void			read_objectinfo(t_doom *dm, int i, int fd, int *objdone)
-{
-	char		*gnl;
-	char		**arr;
-
-	while (++i < OBJ)
-	{
-		if (dm->datareadtype != OBJECT)
-		{
-			dm->obj[i] = fill_objectinfo();
-			printf("does it go to fill in obj\n");
-		}
-		else if (get_next_line(fd, &gnl) == 1)
-		{
-			printf("Got a line in obj %s\n", gnl);
-			arr = ft_strsplit(gnl, ',');
-			datatype_check(dm, arr);
-			if (dm->datareadtype != OBJECT)
-			{
-				printf("got to fill objectinfo");
-				dm->obj[i] = fill_objectinfo();
-			}
-			else
-			{
-				dm->obj[i] = set_sprite(arr, 0);
-				sprite_validation(&dm->obj[i]);
-			}
-			free(gnl);
-		}
-		else
-			dm->obj[i] = fill_objectinfo();
-	}
-	*objdone = 1;
-}
-
-//more cheks needed if object comes first and then sprites
-// also marker to know if sprites or objects has been added already
-// also whole fill of the sprites and objects if sprites or objecst lines are not found in the map
 void			comp_sprite(t_doom *dm, int i, int fd)
 {
 	char		*gnl;
-	int			prev_datatype;
 	int			sprdone;
 	int			objdone;
 
@@ -159,14 +79,13 @@ void			comp_sprite(t_doom *dm, int i, int fd)
 	objdone = 0;
 	if (dm->datareadtype == SPRITE)
 		read_spriteinfo(dm, -1, fd, &sprdone);
-	prev_datatype = dm->datareadtype;
 	if (dm->datareadtype == OBJECT)
 		read_objectinfo(dm, -1, fd, &objdone);
 	else if (get_next_line(fd, &gnl) == 1)
 	{
 		datatype_check(dm, &gnl);
 		free(gnl);
-		if (prev_datatype != dm->datareadtype && dm->datareadtype == OBJECT)
+		if (dm->datareadtype == OBJECT)
 			read_objectinfo(dm, -1, fd, &objdone);
 	}
 	if (!(sprdone))
@@ -176,29 +95,4 @@ void			comp_sprite(t_doom *dm, int i, int fd)
 	if (!(objdone))
 		while (++i < OBJ)
 			dm->obj[i] = fill_objectinfo();
-//	if (dm->datareadtype == OBJECT)
-//		read_objectinfo(dm, -1, fd);
-//	while (++i < SPR)
-//	{
-//		dm->spr[i].gfx = 16;
-//		if (get_next_line(fd, &gnl) == 1)
-//		{
-//			printf("Got a line %s\n", gnl);
-//			arr = ft_strsplit(gnl, ',');
-//			dm->spr[i] = set_sprite(arr, 0);
-//			free(gnl);
-//		}
-//	}
-//	if (get_next_line(fd, &gnl) == 1)
-//		free(gnl);
-//	i = -1;
-//	while (++i < OBJ)
-//	{
-//		if (get_next_line(fd, &gnl) == 1)
-//		{
-//			arr = ft_strsplit(gnl, ',');
-//			dm->obj[i] = set_sprite(arr, 0);
-//			free(gnl);
-//		}
-//	}
 }

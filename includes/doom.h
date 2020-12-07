@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/12/02 19:12:54 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/07 14:56:42 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -625,8 +625,14 @@ void				wind_default(t_doom *dm);
 void				wingame(t_doom *dm);
 void				xy_wall_ppos(t_doom *dm, t_block blk, int bbool);
 int					is_block_info_present(char **tmp);
+int					save_init(char **path, char **bpath, char **file);
 void				fill_block(t_doom *dm, int x, int y);
 void				force_validate_block(t_doom *dm, int x, int y);
 void				sprite_validation(t_sprite *spr);
+void				read_objectinfo(t_doom *dm, int i, int fd, int *objdone);
+void				read_spriteinfo(t_doom *dm, int i, int fd, int *sprdone);
+t_sprite			fill_spriteinfo(void);
+t_sprite			fill_objectinfo(void);
+t_sprite			set_sprite(char **arr, int len);
 
 #endif

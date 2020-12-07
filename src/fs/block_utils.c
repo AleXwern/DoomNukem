@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:15:14 by vkeinane          #+#    #+#             */
-/*   Updated: 2020/11/19 11:37:37 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/07 15:06:37 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ void	fill_block(t_doom *dm, int x, int y)
 	dm->area[dm->flr][y][x].meta = 0;
 }
 
-// This may change the block to nomrmalized stats if some stat is 0
-// I tried to look in the null variable but im not sure yet
-
 int		is_block_info_present(char **tmp)
 {
 	int	i;
@@ -45,11 +42,6 @@ int		is_block_info_present(char **tmp)
 /*
 ** Check if block values are in acceptable limits and change them if not
 */
-
-// Keep track if there comes more block types or anything different
-// because otherwise these rules will suffocate different blocks
-// Good idea would be defines to easily change limits to blocks
-// Defines created as MAX[variablename] and MINPLN as that's the only one that needs to be at least 1
 
 void	force_validate_block(t_doom *dm, int x, int y)
 {
