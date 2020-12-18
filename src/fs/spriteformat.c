@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 14:20:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/12/07 15:05:51 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/18 10:19:20 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_sprite		fill_spriteinfo(void)
 	ft_bzero(&spr, sizeof(t_sprite));
 	spr.gfx = 19;
 	spr.dead = 0;
-	spr.hp = 0;
+	spr.hp = 1;
 	spr.pos.z = 15 / 10;
 	spr.pos.y = 125 / 10;
 	spr.pos.x = 129 / 10;

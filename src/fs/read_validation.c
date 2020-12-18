@@ -6,33 +6,51 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 15:26:23 by vkeinane          #+#    #+#             */
-/*   Updated: 2020/12/07 15:04:52 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/18 10:23:09 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 #include "../../includes/value.h"
 
-void	sprite_validation(t_sprite *spr)
+void	pos_validation(t_sprite *spr)
 {
-	if (spr->gfx > MAXGFX || spr->gfx < MINGFX)
-		spr->gfx = MAXGFX;
-	if (spr->dead != 1 && spr->dead != 0)
-		spr->dead = 0;
-	if (spr->hp > MAXHP || spr->hp < 0)
-		spr->hp = 1;
-	if (spr->respawn > MAXRESPAWN || spr->respawn < 0)
-		spr->respawn = 0;
-	if (spr->gfx == 35 && spr->size != 2)
+	if (spr->gfx == 35)
 		spr->size = 2;
 	else
 		spr->size = 1;
-	if (spr->pos.z > 50 || spr->pos.z < 0)
-		spr->pos.z = 20 / 10;
-	if (spr->pos.x > 250 || spr->pos.x < 0)
-		spr->pos.x = 175 / 10;
-	if (spr->pos.y > 250 || spr->pos.y < 0)
-		spr->pos.y = 175 / 10;
+	if (spr->pos.z > 8.5 || spr->pos.z < 0.5)
+		spr->pos.z = 1.5;
+	if (spr->pos.x > 25.0 || spr->pos.x < 0)
+		spr->pos.x = 17.5;
+	if (spr->pos.y > 25.0 || spr->pos.y < 0)
+		spr->pos.y = 17.5;
+}
+
+void	sprite_validation(t_sprite *spr, int type)
+{
+	if (type == OBJECT)
+	{
+		if (!(spr->gfx >= 34 && spr->gfx <= 37) && spr->gfx != 30 \
+			&& spr->gfx != 9)
+			spr->gfx = 34;
+		if (spr->dead != 0)
+			spr->dead = 0;
+		if (spr->hp != 0)
+			spr->hp = 0;
+	}
+	else if (type == SPRITE)
+	{
+		if (spr->gfx > 22 || spr->gfx < 16)
+			spr->gfx = 16;
+		if (spr->dead != 1 && spr->dead != 0)
+			spr->dead = 0;
+		if (spr->hp > MAXHP || spr->hp < 0)
+			spr->hp = 1;
+	}
+	if (spr->respawn > MAXRESPAWN || spr->respawn < 0)
+		spr->respawn = 0;
+	pos_validation(spr);
 }
 
 int		datatype_check(t_doom *dm, char **tmp)
@@ -71,7 +89,7 @@ void	read_spriteinfo(t_doom *dm, int i, int fd, int *sprdone)
 			else
 			{
 				dm->spr[i] = set_sprite(arr, 0);
-				sprite_validation(&dm->spr[i]);
+				sprite_validation(&dm->spr[i], dm->datareadtype);
 			}
 			free_memory(arr);
 			free(gnl);
@@ -100,7 +118,7 @@ void	read_objectinfo(t_doom *dm, int i, int fd, int *objdone)
 			else
 			{
 				dm->obj[i] = set_sprite(arr, 0);
-				sprite_validation(&dm->obj[i]);
+				sprite_validation(&dm->obj[i], dm->datareadtype);
 			}
 			free_memory(arr);
 			free(gnl);
