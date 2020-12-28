@@ -32,7 +32,7 @@ int			light_map(t_vector map, int side, t_block ***area)
 		lgt = area[(int)map.z][(int)map.y][(int)map.x + 1].lgt;
 	else if (side == 4)
 		lgt = area[(int)map.z][(int)map.y + 1][(int)map.x].lgt;
-	else
+	else if (map.z < 8)
 		lgt = area[(int)map.z + 1][(int)map.y][(int)map.x].lgt;
 	return (lgt);
 }

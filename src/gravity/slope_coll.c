@@ -62,17 +62,17 @@ int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 	//printf("blk.b = %d  blk.pt = %d  dir = %c\n", blk.b, blk.pt, dir);
 	hgt = 0;
 	if (blk.pt == 11 && dir == 'y')
-		hgt = ((dm->pos.y + dm->gravity.y) - (int)(dm->pos.y + dm->gravity.y)) -
+		hgt = ((dm->pos.y + dm->gravity.y) - (int)(dm->pos.y)) -
 			(dm->pos.y - (int)dm->pos.y);
 	else if (blk.pt == 12 && dir == 'y')
-		hgt = (((dm->truez + dm->gravity.y) - (int)(dm->truez + dm->gravity.y)) -
+		hgt = (((dm->truez + dm->gravity.y) - (int)(dm->truez)) -
 			(dm->truez - (int)dm->truez)) * -1;
 	else if (blk.pt == 13 && dir == 'y')
-		hgt = 1 - ((dm->truez + dm->gravity.y) - (int)(dm->truez + dm->gravity.y)) -
-			(dm->truez - (int)dm->truez);
+		hgt = ((dm->pos.x + dm->gravity.x) - (int)(dm->pos.x)) -
+			(dm->pos.x - (int)dm->pos.x);
 	else if (blk.pt == 14)
-    	hgt = (((dm->pos.x + dm->gravity.x) -
-			(int)(dm->pos.x + dm->gravity.x)));
+		hgt = (((dm->truez + dm->gravity.x) - (int)(dm->truez)) -
+			(dm->truez - (int)dm->truez)) * -1;
 	//else if (dir == 'x')
 	//printf("hgt %f\n", (dm->pos.y - (int)dm->pos.y) - ((dm->pos.y + dm->gravity.y) - (int)(dm->pos.y + dm->gravity.y)));
 	printf("Thing %f %f %c\n", hgt, dm->truez, dir);
