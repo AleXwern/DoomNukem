@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:25:29 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 14:08:42 by tbergkul         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:40:14 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,6 @@ void	threads2(t_doom *dm, int *x)
 	}
 }
 
-/*
-**	if (dm->trx < 1)
-**		dm->trx = 1;
-**	//ft_bzero(dm->img.data, dm->winw * dm->winh); might want to use this
-**	while (x < dm->trx)
-**	{
-*/
-
 void	threads(t_doom *dm)
 {
 	static int	x;
@@ -99,14 +91,6 @@ void	render2(t_doom *dm)
 		dm->iframe--;
 	dm->fps++;
 }
-
-/*
-**	printf("Matrix:\nPOS %f %f %f\nDIR %f %f %f\nPLN %f %f %f\n",
-**		dm->pos.z, dm->pos.y, dm->pos.x,
-**		dm->dir.z, dm->dir.y, dm->dir.x,
-**		dm->plane.z, dm->plane.y, dm->plane.x);
-**	printf("POS %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
-*/
 
 void	render(t_doom *dm)
 {

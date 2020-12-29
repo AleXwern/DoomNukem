@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foe_passive.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 14:11:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/14 16:06:12 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:11:01 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 **	Passive
 **	'x' -stand still
 **	'm' -moving
-**	printf("%d Cycle %d of %d type %c\n", i, frm[i], cycle[i], spr->move);
 */
 
 void	foe_passive_cycle(t_doom *dm, t_sprite *spr, int i)

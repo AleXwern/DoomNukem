@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 14:15:14 by vkeinane          #+#    #+#             */
-/*   Updated: 2020/12/18 10:30:25 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:30:19 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ int		is_block_info_present(char **tmp)
 			return (1);
 	return (0);
 }
-
-/*
-** Check if block values are in acceptable limits and change them if not
-*/
 
 void	force_validate_block(t_doom *dm, int x, int y)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 16:09:19 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/18 15:01:32 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:49:00 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int pln)
 	hgt = ((int)dm->truez + (1 - pln / 15.0)) - dm->truez;
 	blk = dm->area[(int)(dm->pos.z - 0.15)][(int)(dm->pos.y)]
 		[(int)(dm->pos.x)];
-	printf("step %f\n", hgt);
 	if (hgt < 0.4 && hgt > -0.4)
 	{
 		//if ((blk.b > 1 && blk.pt == 0) || (blk.pt == 1 && plnd > 11))
@@ -98,7 +97,6 @@ int		check_hor_coll(t_block blk, t_doom *dm, char dir)
 {
 	int	pln;
 
-	printf("data %d %d %d %c\n", blk.b, blk.pt, blk.pln, dir);
 	pln = get_blockstack(dm, blk, dir);
 	if (blk.b <= 1)// || (blk.pt == 1 && blk.pln < 6))
 		return (1);

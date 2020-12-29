@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_coll.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:29:03 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/18 13:27:52 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:53:58 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int		xy_slope(t_block blk, t_doom *dm, double pos, char dir)
 
 int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 {
-	//printf("blk.b = %d  blk.pt = %d  dir = %c\n", blk.b, blk.pt, dir);
 	hgt = 0;
 	if (blk.pt == 11 && dir == 'y')
 		hgt = ((dm->pos.y + dm->gravity.y) - (int)(dm->pos.y)) -
@@ -74,8 +73,6 @@ int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 		hgt = (((dm->truez + dm->gravity.x) - (int)(dm->truez)) -
 			(dm->truez - (int)dm->truez)) * -1;
 	//else if (dir == 'x')
-	//printf("hgt %f\n", (dm->pos.y - (int)dm->pos.y) - ((dm->pos.y + dm->gravity.y) - (int)(dm->pos.y + dm->gravity.y)));
-	printf("Thing %f %f %c\n", hgt, dm->truez, dir);
 	if (hgt < 0.45 && hgt > -0.45)
 	{
 		//if (!dm->airbrn)

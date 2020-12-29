@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:18:33 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/18 12:19:58 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:48:27 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int		check_ver_slp(t_block blk, t_doom *dm, double hgt)
 	else
 		hgt = (int)(dm->pos.z + dm->plrhight + 0.02) +
 			(1 - (dm->pos.x - (int)dm->pos.x)) - dm->plrhight;
-	//printf("Gravityhgt %f > %f\n", hgt, dm->pos.z + dm->gravity.z);
 	if (hgt > dm->pos.z + dm->gravity.z)
 		return (1);
 	return (0);
@@ -92,7 +91,6 @@ int		check_ver_coll(t_block blk, t_doom *dm)
 	{
 		hgt = (int)(dm->pos.z + dm->plrhight + 0.02) +
 			(1 - blk.pln / 15.0) - dm->plrhight;
-		//printf("Gravityhgt %f > %f\n", hgt, dm->pos.z + dm->gravity.z);
 		if (hgt > dm->pos.z + dm->gravity.z)
 			return (1);
 		return (0);

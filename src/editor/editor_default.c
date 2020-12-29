@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   editor_default.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:41:12 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/06 01:54:41 by AleXwern         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:29:49 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
 /*
+**	Different block types below
 **	full zu zd yn ys xw xe nd nu su sd wd wu eu ed cnw csw cse cne
 */
 
