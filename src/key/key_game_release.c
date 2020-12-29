@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_game_release.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 16:12:40 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/11/18 12:16:36 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/29 10:23:42 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	key_release_5(int key, t_doom *dm)
 	}
 	if (key == KEY_D)
 		dm->key.d = 0;
-	if (key == KEY_Y)
-		printf("Pos %f %f %f\n", dm->pos.z, dm->pos.y, dm->pos.x);
 }
 
 void	key_release_4(int key, t_doom *dm)

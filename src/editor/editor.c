@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 15:09:57 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/23 14:41:04 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/29 10:42:23 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	editor_main(t_doom *dm)
 	if (!(le = (t_editor*)malloc(sizeof(t_editor))))
 		error_out(MEM_ERROR, dm);
 	editor_defaults(le, dm);
-	//opt_text(le);
 	SDL_SetWindowSize(dm->win, 1500, 750);
 	while (!le->quit)
 	{

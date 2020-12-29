@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 13:38:13 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/13 13:27:41 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/29 10:50:41 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,9 @@ void	draw_floor(t_doom *dm)
 		dm->celly = (int)dm->floor.y;
 		dm->tx = (int)(128 * (dm->floor.x - dm->cellx)) & (128 - 1);
 		dm->ty = (int)(128 * (dm->floor.y - dm->celly)) & (128 - 1);
-		//This seemed to be the source of the crash. What was this used for?
-/*		if ((dm->rayd.z < 0 && dm->area[(int)dm->map.z +
-			1][(int)dm->map.y][(int)dm->map.x].b == 5) || (dm->rayd.z > 0 &&
-			dm->area[(int)dm->map.z - 1][(int)dm->map.y]
-			[(int)dm->map.x].b == 5))
-			dm->col = color_shift(dm->gfx[5].data[128 * dm->ty + dm->tx],
-				dm->walldist + fabs((double)(dm->x - dm->winw / 2) / dm->winw),
-				dm, 0);
-		else*/
-			dm->col = color_shift(dm->gfx[dm->texnum].data[128 * dm->ty +
-				dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) /
-				dm->winw), dm, 0);
+		dm->col = color_shift(dm->gfx[dm->texnum].data[128 * dm->ty +
+			dm->tx], dm->walldist + fabs((double)(dm->x - dm->winw / 2) /
+			dm->winw), dm, 0);
 		dm->lgt = light_map(dm->map, dm->side, dm->area);
 		dm->col = rl_color(dm->lgt, dm->col);
 	}
