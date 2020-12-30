@@ -146,6 +146,22 @@ void	gravity2(t_doom *dm)
 	//	dm->pos.z = (int)dm->pos.z + (1 - dm->plrhight); //This snaps player to ground
 }
 
+int		gravity_slope(t_doom *dm)
+{
+	t_block	blk;
+
+	blk = dm->area[(int)(dm->truez + 1)][(int)(dm->pos.y)][(int)dm->pos.x];
+	if (blk.pt >= 11 && blk.pt <= 14)
+	{
+		if (dm->blk.pt != 2)
+			dm->pos.z += 0.1;
+		return (0);
+	}
+	if (dm->blk.pt >= 11 && dm->blk.pt <= 14)
+		return (0);
+	return (1);
+}
+
 void	gravity(t_doom *dm)
 {
 	if (dm->key.two || dm->isgravity || dm->ismenu)// || !dm->airbrn)
@@ -154,6 +170,8 @@ void	gravity(t_doom *dm)
 		dm->gravity.z /= fabs(dm->gravity.z);
 	if (dm->pos.z + dm->gravity.z < 0)
 		error_out(VOID_OVER, dm);
+	if (!gravity_slope(dm))
+		return;
 	if (dm->gravity.z < 0) //if we should move up (jumped)
 	{
 		if (check_ver_ucoll(dm->area[(int)(dm->pos.z + dm->gravity.z)]

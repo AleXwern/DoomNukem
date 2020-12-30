@@ -24,7 +24,7 @@ int		draw_screen_more(t_editor *le, t_doom *dm, int x, int y)
 		dm->area[(int)dm->spw.z][(int)dm->spw.y][(int)dm->spw.x].b = 1;
 		dm->spw.x = x + 0.51;
 		dm->spw.y = y + 0.51;
-		dm->spw.z = le->options[0] + 0.5;
+		dm->spw.z = le->options[0] + 0.35;
 	}
 	if (dm->area[le->options[0]][y][x].b != 7)
 	{

@@ -57,9 +57,31 @@ int		xy_slope(t_block blk, t_doom *dm, double pos, char dir)
 	return (0);
 }
 
+int		dircheck(t_block blk, t_doom* dm, char dir)
+{
+	if (dir == 'y')
+	{
+		if ((int)(dm->pos.y + dm->gravity.y) - (int)(dm->pos.y) == 0)
+			return (1);
+		if (blk.pt == 11 && dm->gravity.y < 0)
+			return (1);
+		if (blk.pt == 12 && dm->gravity.y > 0)
+			return (1);
+	}
+	else if (dir == 'x')
+	{
+		if ((int)(dm->pos.x + dm->gravity.x) - (int)(dm->pos.x) == 0)
+			return (1);
+		if (blk.pt == 13 && dm->gravity.x < 0)
+			return (1);
+		if (blk.pt == 14 && dm->gravity.x > 0)
+			return (1);
+	}
+	return (0);
+}
+
 int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 {
-	//printf("blk.b = %d  blk.pt = %d  dir = %c\n", blk.b, blk.pt, dir);
 	hgt = 0;
 	if (blk.pt == 11 && dir == 'y')
 		hgt = ((dm->pos.y + dm->gravity.y) - (int)(dm->pos.y)) -
@@ -73,13 +95,8 @@ int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 	else if (blk.pt == 14)
 		hgt = (((dm->truez + dm->gravity.x) - (int)(dm->truez)) -
 			(dm->truez - (int)dm->truez)) * -1;
-	//else if (dir == 'x')
-	//printf("hgt %f\n", (dm->pos.y - (int)dm->pos.y) - ((dm->pos.y + dm->gravity.y) - (int)(dm->pos.y + dm->gravity.y)));
-	printf("Thing %f %f %c\n", hgt, dm->truez, dir);
-	if (hgt < 0.45 && hgt > -0.45)
+	if (hgt < 0.45 && hgt > -0.45 && dircheck(blk, dm, dir))
 	{
-		//if (!dm->airbrn)
-		//	dm->pos.z -= hgt;
 		if (hgt < 0)
 			hgt -= 0.02;
 		dm->pos.z += hgt;
