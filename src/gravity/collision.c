@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 12:43:48 by anystrom          #+#    #+#             */
-/*   Updated: 2020/10/21 16:14:28 by anystrom         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:48:11 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,12 @@ double	get_coll_down(t_block blk, t_vector pos)
 	return (0);
 }
 
-/*
-**	printf("blk.b = %d  blk.pt = %d  blk.pln = %d  bpos.z = %f  bpos.y = %f  bpos.x = %f\n", blk.b, blk.pt, blk.pln, bpos.z, bpos.y, bpos.x);
-*/
-
 void	suffocate(t_doom *dm, t_block blk, t_vector bpos)
 {
 	if (blk.b <= 1)
 		return ;
 	// if (bpos.z < LIMN)
 	// 	bpos.z++;
-	//printf("check = %f  blk.b = %d  blk.pt = %d  blk.pln = %d  bpos.z = %f  bpos.y = %f  bpos.x = %f\n", (1 - (blk.pln / 15.0)), blk.b, blk.pt, blk.pln, bpos.z, bpos.y, bpos.x);
 	if (blk.pt == 0)
 		dm->iframe = IFRAME;
 	else if (blk.pt == 1 && bpos.z < blk.pln / 15.0)

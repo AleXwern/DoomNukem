@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:01:06 by anystrom          #+#    #+#             */
-/*   Updated: 2020/12/29 11:36:55 by vkeinane         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:27:17 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,6 @@ void	init_audio(t_doom *dm)
 	dm->victory = Mix_LoadWAV("Audio/SoundEffects/victory.wav");
 	dm->jump = Mix_LoadWAV("Audio/SoundEffects/jump.wav");
 }
-
-/*
-**if (dm->isfpscap && !dm->ismenu)
-**	capper = SDL_CreateThread(fps_capper, "FPS limiter", dm);
-**game_loop(dm);
-**if (dm->limit)
-**{
-**	SDL_WaitThread(capper, NULL);
-**	dm->limit = 0;
-**}
-*/
 
 void	setup(t_doom *dm)
 {
