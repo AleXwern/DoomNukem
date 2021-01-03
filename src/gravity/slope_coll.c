@@ -89,10 +89,10 @@ int		zy_slope(t_block blk, t_doom *dm, double hgt, char dir)
 	else if (blk.pt == 12 && dir == 'y')
 		hgt = (((dm->truez + dm->gravity.y) - (int)(dm->truez)) -
 			(dm->truez - (int)dm->truez)) * -1;
-	else if (blk.pt == 13 && dir == 'y')
+	else if (blk.pt == 13 && dir == 'x')
 		hgt = ((dm->pos.x + dm->gravity.x) - (int)(dm->pos.x)) -
 			(dm->pos.x - (int)dm->pos.x);
-	else if (blk.pt == 14)
+	else if (blk.pt == 14 && dir == 'x')
 		hgt = (((dm->truez + dm->gravity.x) - (int)(dm->truez)) -
 			(dm->truez - (int)dm->truez)) * -1;
 	if (hgt < 0.45 && hgt > -0.45 && dircheck(blk, dm, dir))

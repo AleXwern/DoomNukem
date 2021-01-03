@@ -17,7 +17,8 @@ void	get_ppos(t_doom *dm, t_block blk)
 {
 	if (blk.pt == 0)
 		return ;
-	else if (dm->rayd.z < 0 && blk.pt == 2)
+	else if (dm->rayd.z < 0 && (blk.pt == 2 ||
+		(dm->blk.pt >= 11 && dm->blk.pt <= 14)))
 		dm->adj = 1;
 	else if (dm->rayd.z > 0 && blk.pt == 1)
 		dm->adj = 1;

@@ -149,7 +149,8 @@ int		gravity_slope(t_doom *dm)
 	t_block	blk;
 
 	blk = dm->area[(int)(dm->truez + 1)][(int)(dm->pos.y)][(int)dm->pos.x];
-	if (blk.pt >= 11 && blk.pt <= 14)
+	if ((blk.pt >= 11 && blk.pt <= 14) && !(dm->blk.pt >= 11 && dm->blk.pt <= 14)
+		&& dm->blk.b != 2)
 	{
 		if (dm->blk.pt != 2)
 			dm->pos.z += 0.1;
