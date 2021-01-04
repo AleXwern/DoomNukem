@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_coll.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:29:03 by anystrom          #+#    #+#             */
-/*   Updated: 2021/01/04 15:40:36 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 15:57:44 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ int		slope_coll(t_block blk, t_doom *dm, char dir)
 	if (blk.pt >= 11 && blk.pt <= 14)
 		return (zy_slope(blk, dm, 0, dir));
 	else if (blk.pt >= 15)
-		return (xy_slope(blk, dm, 0, dir));
+		return (xy_slope(blk, dm, dir));
 	return (0);
 }
