@@ -6,7 +6,7 @@
 #    By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 12:41:01 by anystrom          #+#    #+#              #
-#    Updated: 2021/01/04 15:40:57 by AleXwern         ###   ########.fr        #
+#    Updated: 2021/01/04 16:22:39 by AleXwern         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ COLFILE	=	draw.c draw_utils.c window.c draw_more.c
 RNDFILE =	plane_z.c plane_y.c plane_x.c render.c render2.c render3.c \
 			part_dda.c part_dda_more.c slope_yzt.c slope_yzb.c slope_xzt.c slope_xzb.c \
 			slope_xyt.c slope_xyb.c wingame.c wall_adjust.c
-GRAFILE	=	gravity.c move.c move2.c collision.c slope_coll.c
+GRAFILE	=	gravity.c move.c move2.c collision.c slope_coll.c gravity2.c
 BMPFILE =	bmp_reader.c gfx.c gfx_chunck.c
 TXTFILE =	set_string.c
 MTHFILE =	vert.c
