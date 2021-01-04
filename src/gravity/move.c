@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 16:09:19 by anystrom          #+#    #+#             */
-/*   Updated: 2020/12/29 12:49:00 by vkeinane         ###   ########.fr       */
+/*   Updated: 2021/01/04 15:04:27 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int pln)
 		[(int)(dm->pos.x)];
 	if (hgt < 0.4 && hgt > -0.4)
 	{
-		//if ((blk.b > 1 && blk.pt == 0) || (blk.pt == 1 && plnd > 11))
-		//	return (0);
 		if (!dm->airbrn)
 			dm->pos.z += hgt;
 		return (1);
@@ -76,32 +74,13 @@ int		check_hor_coll2(t_block blk, t_doom *dm, double hgt, int pln)
 	return (0);
 }
 
-int		get_blockstack(t_doom *dm, t_block blk, char dir)
-{
-	int	pln;
-
-	if (blk.pt != 2)
-		pln = 15;
-	else
-		pln = blk.pln;
-	if (dir == 'y' && dm->truez >= 1)
-		blk = dm->area[(int)dm->truez - 1][(int)(dm->pos.y + dm->gravity.y)][(int)dm->pos.x];
-	else if (dm->truez >= 1)
-		blk = dm->area[(int)dm->truez - 1][(int)dm->pos.y][(int)(dm->pos.x + dm->gravity.x)];
-	if (blk.b > 1 && pln > 10)
-		pln = 15 + blk.pln;
-	return (pln);
-}
-
 int		check_hor_coll(t_block blk, t_doom *dm, char dir)
 {
 	int	pln;
 
 	pln = get_blockstack(dm, blk, dir);
-	if (blk.b <= 1)// || (blk.pt == 1 && blk.pln < 6))
+	if (blk.b <= 1)
 		return (1);
-	//else if (blk.b == 2 && (blk.pt == 0 || pln > 14))
-	//	dm->pos.z -= 0.1;
 	else if (dm->blk.pt == 2 ||
 		blk.pt == 2)
 		return (check_hor_coll2(blk, dm, 0, pln));

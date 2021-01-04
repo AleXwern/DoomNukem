@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 12:43:48 by anystrom          #+#    #+#             */
-/*   Updated: 2020/12/29 12:48:11 by vkeinane         ###   ########.fr       */
+/*   Updated: 2021/01/04 15:01:16 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	suffocate(t_doom *dm, t_block blk, t_vector bpos)
 {
 	if (blk.b <= 1)
 		return ;
-	// if (bpos.z < LIMN)
-	// 	bpos.z++;
 	if (blk.pt == 0)
 		dm->iframe = IFRAME;
 	else if (blk.pt == 1 && bpos.z < blk.pln / 15.0)
