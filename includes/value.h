@@ -111,7 +111,7 @@
 /*
 ** Missing some dll file so I'll just use the massive wav file for now.
 */
-#  define IP		"192.168.1.16"
+#  define IP		"192.168.1.17"
 #  define MUSIC		"Audio/Music/str4E.wav"
 # endif
 /*
