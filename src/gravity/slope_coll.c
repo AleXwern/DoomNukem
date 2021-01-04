@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_coll.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:29:03 by anystrom          #+#    #+#             */
-/*   Updated: 2021/01/04 14:06:03 by vkeinane         ###   ########.fr       */
+/*   Updated: 2021/01/04 15:40:36 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 ** 18		-xy
 */
 
-int		xy_slope(t_block blk, t_doom *dm, double pos, char dir)
+int		xy_slope(t_block blk, t_doom *dm, char dir)
 {
 	t_vector	npos;
 
