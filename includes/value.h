@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   value.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:24:47 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/30 13:12:56 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 12:39:51 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@
 # define LIMN		0.000001
 # define IFRAME		50
 # define DFRAME		35
-# define BLOCK      1//added these three
-# define SPRITE     2//added these three
-# define OBJECT     3//added these three
+# define BLOCK      1
+# define SPRITE     2
+# define OBJECT     3
 # define PCOLL		0.2
 # define OP			12
 # define BACKS		111
@@ -94,7 +94,6 @@
 # define TIMEOUT	100
 # define MXFLR		9
 # define MOVSP		0.02
-//# define PRINTSLOPE
 # ifdef __APPLE__
 /*
 ** Only include the OGG file in the final repo.

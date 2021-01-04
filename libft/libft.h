@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 11:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2021/01/04 13:18:38 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:28:40 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 ** aka invoke compiler error if bad system.
 */
 # ifdef ENV64BIT
+
 typedef unsigned int	t_uint32;
 typedef unsigned short	t_uint16;
 typedef unsigned char	t_uint8;

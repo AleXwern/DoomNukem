@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbergkul <tbergkul@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/20 12:48:37 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/05 12:17:24 by tbergkul         ###   ########.fr       */
+/*   Updated: 2021/01/04 12:51:35 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int			light_map(t_vector map, int side, t_block ***area)
 {
 	int	lgt;
 
+	lgt = 0;
 	if (side == 0)
 		lgt = area[(int)map.z][(int)map.y][(int)map.x - 1].lgt;
 	else if (side == 1)

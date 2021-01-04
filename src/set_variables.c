@@ -6,22 +6,15 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:28:48 by tbergkul          #+#    #+#             */
-/*   Updated: 2020/12/29 12:28:37 by vkeinane         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:16:57 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 #include "../includes/value.h"
 
-//norm error here to remove said things at the end
-/*
-**	remove gun and keycard in function below
-*/
-
 void	set_variables(t_doom *dm)
 {
-	dm->gun = 1;
-	dm->keycard = 1;
 	dm->creds = dm->winh;
 	dm->slidedoor = 'x';
 	dm->plrhight = 0.6;
