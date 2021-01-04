@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:46:30 by AleXwern          #+#    #+#             */
-/*   Updated: 2021/01/04 13:24:30 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:31:24 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int			ax_recv(t_socket *sock, void *data, int max)
 	if (sock->server)
 		return (-1);
 	err = 0;
-	WSASetLastError(err);
+	errno = err;
 	len = -42;
 	while (len == -42)
 	{
 		len = recv(sock->channel, (char*)data, max, 0);
-		err = WSAGetLastError();
+		err = errno;
 		if (err == EINTR)
 			break ;
 	}
