@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:12:37 by AleXwern          #+#    #+#             */
-/*   Updated: 2021/01/04 13:25:55 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:40:15 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@
 #  include <sys/fcntl.h>
 #  define INVALID_SOCKET	-1
 #  define SOCKET_ERROR		-1
-#  define closesocket		close
 # endif
 
 /*
@@ -98,40 +97,41 @@
 ** host is 32-bit integer that can store any IP
 ** host is 16-bit short integer that can store any port.
 */
-typedef struct			s_ip
+typedef struct				s_ip
 {
-	t_uint32			host;
-	t_uint16			port;
-}						t_ip;
+	t_uint32				host;
+	t_uint16				port;
+}							t_ip;
 
 /*
 ** TCP socket
 */
-typedef struct			s_socket
+typedef struct				s_socket
 {
-	int					channel;
-	t_ip				remote;
-	int					server;
-}						t_socket;
+	int						channel;
+	t_ip					remote;
+	int						server;
+}							t_socket;
 
-typedef struct			s_libax
+typedef struct				s_libax
 {
-	short				id;
-	int					dm;
-	unsigned long		mode;
-	int					accepted;
-	void				(*handler)(int);
-	int					flag;
-}						t_libax;
+	short					id;
+	int						dm;
+	unsigned long			mode;
+	int						accepted;
+	void					(*handler)(int);
+	int						flag;
+}							t_libax;
 
-t_libax		*ax_init(void);
-t_socket	*ax_accept(t_socket *srv, t_libax *ax);
-t_socket	*ax_open(t_ip *ip, t_libax *ax);
-int			ax_recv(t_socket *sock, void *data, int max);
-int			ax_resolvehost(t_ip *ip, const char *host, t_uint16 port);
-int			ax_send(t_socket *sock, const void *data, int len);
-void		*ax_close(t_socket *sock);
-void		ax_printip(t_ip ip);
-void		ax_printipln(t_ip ip);
-void		ax_shutdown(t_libax *ax);
+t_libax						*ax_init(void);
+t_socket					*ax_accept(t_socket *srv, t_libax *ax);
+t_socket					*ax_open(t_ip *ip, t_libax *ax);
+int							ax_recv(t_socket *sock, void *data, int max);
+int							ax_resolvehost(t_ip *ip, const char *host,
+								t_uint16 port);
+int							ax_send(t_socket *sock, const void *data, int len);
+void						*ax_close(t_socket *sock);
+void						ax_printip(t_ip ip);
+void						ax_printipln(t_ip ip);
+void						ax_shutdown(t_libax *ax);
 #endif

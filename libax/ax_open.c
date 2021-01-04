@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:57:00 by AleXwern          #+#    #+#             */
-/*   Updated: 2021/01/04 13:26:52 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:37:37 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void					*ax_close(t_socket *sock)
 struct sockaddr_in		remote_open(t_socket *sock, t_ip *ip)
 {
 	struct sockaddr_in	addr;
-	
+
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = ip->host;
 	addr.sin_port = ip->port;
@@ -43,7 +43,7 @@ struct sockaddr_in		remote_open(t_socket *sock, t_ip *ip)
 struct sockaddr_in		local_open(t_socket *sock, t_libax *ax, t_ip *ip)
 {
 	struct sockaddr_in	addr;
-	
+
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = INADDR_ANY;
 	addr.sin_port = ip->port;
@@ -110,6 +110,6 @@ t_socket				*ax_accept(t_socket *srv, t_libax *ax)
 	fcntl(sock->channel, F_SETFL, ax->flag & ~O_NONBLOCK);
 	ax->accepted++;
 	sock->remote.host = addr.sin_addr.s_addr;
-    sock->remote.port = addr.sin_port;
+	sock->remote.port = addr.sin_port;
 	return (sock);
 }
