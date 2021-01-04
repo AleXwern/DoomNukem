@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2021/01/04 13:56:06 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 15:38:12 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,6 +451,9 @@ int					connect_server(t_doom *dm);
 int					foe_ismoving(t_sprite *spr);
 int					fps_capper(void *ptr);
 int					fps_counter(void *ptr);
+int					ver_move(t_block blk, t_doom *dm);
+int					gravity_slope(t_doom *dm);
+int					get_blockstack(t_doom *dm, t_block blk, char dir);
 int					get_objsmallsprite(int gfx);
 int					interact(t_doom *dm);
 int					key_hold(int key, t_doom *dm);
