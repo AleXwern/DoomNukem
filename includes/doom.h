@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   doom.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/01/04 15:07:15 by AleXwern         ###   ########.fr       */
+=======
+/*   Updated: 2021/01/04 15:38:12 by vkeinane         ###   ########.fr       */
+>>>>>>> cbe3573451a5fcab48fd9276e31f997d227681b7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,6 +455,8 @@ int					connect_server(t_doom *dm);
 int					foe_ismoving(t_sprite *spr);
 int					fps_capper(void *ptr);
 int					fps_counter(void *ptr);
+int					ver_move(t_block blk, t_doom *dm);
+int					gravity_slope(t_doom *dm);
 int					get_blockstack(t_doom *dm, t_block blk, char dir);
 int					get_objsmallsprite(int gfx);
 int					gravity_slope(t_doom *dm);
@@ -469,7 +475,6 @@ int					set_objsmallsprite(int gfx);
 int					slope_coll(t_block blk, t_doom *dm, char dir);
 int					tex_check(t_doom *dm);
 int					datatype_check(t_doom *dm, char **tmp);
-int					ver_move(t_block blk, t_doom *dm);
 int					ver_movetwo(t_block blk, t_doom* dm);
 
 t_gfx				memcpy_gfx(t_gfx chunck, int *pos, int *size);
