@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_xyt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 14:57:39 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/13 13:47:06 by anystrom         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:35:33 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ static double	create_plane_xyt(t_vector rayd, t_vector rmap,
 	if (side == 1 && dm->rayd.y < 0 && ray[0].y < 0.5)
 		ray[0].y += 1;
 	intersect(plane, ray, &point);
-#ifdef PRINTSLOPE
-	if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-		printf("Cross point %f %f %f at %d\nRMAP %.16f %.16f %.16f and %f\n", point.z, point.y, point.x, side, ray[0].z, ray[0].y, ray[0].x, dm->rayd.x);
-#endif
 	if (point.y >= 0 && point.y <= 1)
 		return (point.y);
 	return (1);
@@ -51,10 +47,6 @@ void			slope_dda_xyt_more(t_doom *dm, int side)
 		single_loop_y(dm);
 		dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) -
 			(int)dm->tmap.x;
-#ifdef PRINTSLOPE
-		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("XYTN %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
-#endif
 		if ((dm->rmap2.y < 1 - dm->rmap2.x || dm->rmap2.y > LIM ||
 			dm->rmap2.x >= LIM) && dm->rmap2.y > LIMN && dm->rmap2.x > LIMN)
 		{
@@ -96,10 +88,6 @@ void			slope_dda_xytr_more(t_doom *dm, int side)
 		single_loop_y(dm);
 		dm->rmap2.x = dm->pos.x + (dm->rayd.x * dm->walldist) -
 			(int)dm->tmap.x;
-#ifdef PRINTSLOPE
-		if (dm->x == dm->winw / 2 && dm->y == dm->winh / 2)
-			printf("XYTR %.16f < %.16f\n", dm->rmap2.x, dm->rmap2.y);
-#endif
 		if ((dm->rmap2.y > 1 - dm->rmap2.x || dm->rmap2.y < LIMN ||
 			dm->rmap2.x <= LIMN) && dm->rmap2.y < LIM && dm->rmap2.x < LIM)
 		{
