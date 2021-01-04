@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_adjust.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 13:55:22 by anystrom          #+#    #+#             */
-/*   Updated: 2021/01/04 14:38:02 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:57:27 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		xy_wall_ppos(t_doom *dm, t_block blk, int bbool)
 {
 	double	dir;
-	
+
 	dir = atan2(dm->rayd.y, dm->rayd.x) / M_PI * 180 + 180;
 	if (blk.pt == 15 && dir > 135 && dir < 315)
 		bbool = 1;
