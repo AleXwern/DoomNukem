@@ -31,20 +31,20 @@ static char		*make_str(char *str, t_uint8 *cpy, size_t len)
 	while (i < len)
 	{
 		t = 0;
-		while (t < WORD)
+		while (t < WORDFT)
 		{
 			str[i + t] = gethex(cpy[j] >> 4);
 			str[i + t + 1] = gethex(cpy[j]);
 			j++;
 			t += 2;
-			if (t % WORD == 0)
+			if (t % WORDFT == 0)
 				str[i + t] = '\n';
-			if (t % WORD == WORD / 2)
+			if (t % WORDFT == WORDFT / 2)
 				str[i + t] = ' ';
-			if (t % WORD == 0 || t % WORD == WORD / 2)
+			if (t % WORDFT == 0 || t % WORDFT == WORDFT / 2)
 				i++;
 		}
-		i += WORD;
+		i += WORDFT;
 	}
 	return (str);
 }
