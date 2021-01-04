@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2021/01/04 15:53:11 by vkeinane         ###   ########.fr       */
+/*   Updated: 2021/01/04 16:28:00 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -471,7 +471,7 @@ int					set_objsmallsprite(int gfx);
 int					slope_coll(t_block blk, t_doom *dm, char dir);
 int					tex_check(t_doom *dm);
 int					datatype_check(t_doom *dm, char **tmp);
-int					ver_movetwo(t_block blk, t_doom* dm);
+int					ver_movetwo(t_block blk, t_doom *dm);
 
 t_gfx				memcpy_gfx(t_gfx chunck, int *pos, int *size);
 t_gfx				read_bmp(char *file, int fd, int bread);
