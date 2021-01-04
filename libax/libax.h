@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libax.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:12:37 by AleXwern          #+#    #+#             */
-/*   Updated: 2021/01/04 13:40:15 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:50:48 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@
 # ifndef TCP_NODELAY
 #  define TCP_NODELAY	0
 # endif
-# define	AXID			0x4297
+# define AXID				0x4297
 
 /*
 ** Self explanatory IP and port
