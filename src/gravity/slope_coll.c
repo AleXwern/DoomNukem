@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   slope_coll.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:29:03 by anystrom          #+#    #+#             */
-/*   Updated: 2020/12/30 12:51:32 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:06:03 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		xy_slope(t_block blk, t_doom *dm, double pos, char dir)
 	return (0);
 }
 
-int		dircheck(t_block blk, t_doom* dm, char dir)
+int		dircheck(t_block blk, t_doom *dm, char dir)
 {
 	if (dir == 'y')
 	{
