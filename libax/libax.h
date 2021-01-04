@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libax.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:12:37 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/11/11 12:47:46 by anystrom         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:25:55 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@
 #  include <sys/fcntl.h>
 #  define INVALID_SOCKET	-1
 #  define SOCKET_ERROR		-1
-#  define closesocket		close //change closesocket to close for final version
+#  define closesocket		close
 # endif
-# include <stdio.h> //remove
 
 /*
 ** Define few basic IP defines if they are not already defined.
@@ -115,17 +114,6 @@ typedef struct			s_socket
 	int					server;
 }						t_socket;
 
-# if _WIN64
-typedef struct			s_libax
-{
-	short				id;
-	int					dm;
-	unsigned long		mode;
-	int					accepted;
-	WORD				ver;
-	WSADATA				wsa;
-}						t_libax;
-# elif __APPLE__
 typedef struct			s_libax
 {
 	short				id;
@@ -135,7 +123,6 @@ typedef struct			s_libax
 	void				(*handler)(int);
 	int					flag;
 }						t_libax;
-# endif
 
 t_libax		*ax_init(void);
 t_socket	*ax_accept(t_socket *srv, t_libax *ax);

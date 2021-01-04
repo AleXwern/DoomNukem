@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ax_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 19:57:00 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/11/04 14:28:41 by anystrom         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:26:52 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,52 @@ void					*ax_close(t_socket *sock)
 	if (sock)
 	{
 		if (sock->channel != INVALID_SOCKET)
-			closesocket(sock->channel);
+			close(sock->channel);
 		free(sock);
 		sock = NULL;
 	}
 	return (NULL);
+}
+
+struct sockaddr_in		remote_open(t_socket *sock, t_ip *ip)
+{
+	struct sockaddr_in	addr;
+	
+	addr.sin_family = AF_INET;
+	addr.sin_addr.s_addr = ip->host;
+	addr.sin_port = ip->port;
+	if (connect(sock->channel, (struct sockaddr*)&addr,
+		sizeof(addr)) == SOCKET_ERROR)
+	{
+		sock = ax_close(sock);
+		return (addr);
+	}
+	return (addr);
+}
+
+struct sockaddr_in		local_open(t_socket *sock, t_libax *ax, t_ip *ip)
+{
+	struct sockaddr_in	addr;
+	
+	addr.sin_family = AF_INET;
+	addr.sin_addr.s_addr = INADDR_ANY;
+	addr.sin_port = ip->port;
+	setsockopt(sock->channel, SOL_SOCKET, SO_REUSEADDR,
+		(char*)&ax->dm, sizeof(int));
+	if (bind(sock->channel, (struct sockaddr*)&addr,
+		sizeof(addr)) == SOCKET_ERROR)
+	{
+		sock = ax_close(sock);
+		return (addr);
+	}
+	if (listen(sock->channel, 5) == SOCKET_ERROR)
+	{
+		sock = ax_close(sock);
+		return (addr);
+	}
+	fcntl(sock->channel, F_SETFL, O_NONBLOCK);
+	sock->server = 1;
+	return (addr);
 }
 
 t_socket				*ax_open(t_ip *ip, t_libax *ax)
@@ -35,36 +76,15 @@ t_socket				*ax_open(t_ip *ip, t_libax *ax)
 	sock->channel = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock->channel == INVALID_SOCKET)
 		return (ax_close(sock));
-	if ((ip->host != INADDR_ANY) && (ip->host != INADDR_NONE)) //remote
-	{
-		addr.sin_family = AF_INET;
-		addr.sin_addr.s_addr = ip->host;
-		addr.sin_port = ip->port;
-		if (connect(sock->channel, (struct sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR)
-			return (ax_close(sock));
-	}
-	else //local
-	{
-		addr.sin_family = AF_INET;
-		addr.sin_addr.s_addr = INADDR_ANY;
-		addr.sin_port = ip->port;
-#ifndef WIN32
-        setsockopt(sock->channel, SOL_SOCKET, SO_REUSEADDR, (char*)&ax->dm, sizeof(int));
-#endif
-		if (bind(sock->channel, (struct sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR)
-			return (ax_close(sock));
-		if (listen(sock->channel, 5) == SOCKET_ERROR)
-			return (ax_close(sock));
-#ifdef WIN32
-		ax->mode = 1;
-		ioctlsocket(sock->channel, FIONBIO, &ax->mode);
-#elif O_NONBLOCK
-		fcntl(sock->channel, F_SETFL, O_NONBLOCK);
-#endif
-		sock->server = 1;
-	}
+	if ((ip->host != INADDR_ANY) && (ip->host != INADDR_NONE))
+		addr = remote_open(sock, ip);
+	else
+		addr = local_open(sock, ax, ip);
+	if (!sock)
+		return (NULL);
 	if (TCP_NODELAY)
-		setsockopt(sock->channel, IPPROTO_TCP, TCP_NODELAY, &ax->dm, sizeof(int));
+		setsockopt(sock->channel, IPPROTO_TCP, TCP_NODELAY,
+			&ax->dm, sizeof(int));
 	else
 		return (ax_close(sock));
 	sock->remote.host = addr.sin_addr.s_addr;
@@ -86,13 +106,8 @@ t_socket				*ax_accept(t_socket *srv, t_libax *ax)
 	sock->channel = accept(srv->channel, (struct sockaddr*)&addr, &socklen);
 	if (sock->channel == INVALID_SOCKET)
 		return (ax_close(sock));
-#ifdef WIN32
-	ax->mode = 0;
-	ioctlsocket(sock->channel, FIONBIO, &ax->mode);
-#elif O_NONBLOCK
 	ax->flag = fcntl(sock->channel, F_GETFL, 0);
 	fcntl(sock->channel, F_SETFL, ax->flag & ~O_NONBLOCK);
-#endif
 	ax->accepted++;
 	sock->remote.host = addr.sin_addr.s_addr;
     sock->remote.port = addr.sin_port;

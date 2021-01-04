@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ax_send.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 13:46:30 by AleXwern          #+#    #+#             */
-/*   Updated: 2020/11/04 14:26:37 by anystrom         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:24:30 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libax.h"
-#ifndef _WIN64
-
-int			WSAGetLastError(void)
-{
-	return (errno);
-}
-
-void		WSASetLastError(int err)
-{
-	errno = err;
-}
-
-#endif
 
 int			ax_send(t_socket *sock, const void *data, int len)
 {
