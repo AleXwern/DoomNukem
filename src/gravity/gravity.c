@@ -6,7 +6,7 @@
 /*   By: AleXwern <AleXwern@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 12:18:33 by anystrom          #+#    #+#             */
-/*   Updated: 2021/01/04 15:07:24 by AleXwern         ###   ########.fr       */
+/*   Updated: 2021/01/04 15:26:26 by AleXwern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,22 +95,22 @@ void	gravity2(t_doom *dm)
 
 void	gravity(t_doom *dm)
 {
-	if (dm->key.two || dm->isgravity || dm->ismenu)// || !dm->airbrn)
+	if (dm->key.two || dm->isgravity || dm->ismenu)
 		return ;
 	if (dm->gravity.z >= 1.0 || dm->gravity.z <= -1.0)
 		dm->gravity.z /= fabs(dm->gravity.z);
 	if (dm->pos.z + dm->gravity.z < 0)
 		error_out(VOID_OVER, dm);
 	if (!gravity_slope(dm))
-		return;
-	if (dm->gravity.z < 0) //if we should move up (jumped)
+		return ;
+	if (dm->gravity.z < 0)
 	{
 		if (check_ver_ucoll(dm->area[(int)(dm->pos.z + dm->gravity.z)]
 				[(int)(dm->pos.y)][(int)dm->pos.x], dm))
 			dm->pos.z += dm->gravity.z;
 	}
-	else if (check_ver_coll(dm->area[(int)(dm->pos.z + dm->plrhight + dm->gravity.z)]
-			[(int)(dm->pos.y)][(int)dm->pos.x], dm))
+	else if (check_ver_coll(dm->area[(int)(dm->pos.z + dm->plrhight +
+		dm->gravity.z)][(int)(dm->pos.y)][(int)dm->pos.x], dm))
 		dm->pos.z += dm->gravity.z;
 	else
 		gravity2(dm);
