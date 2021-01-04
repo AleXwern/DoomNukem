@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anystrom <anystrom@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 11:50:15 by anystrom          #+#    #+#             */
-/*   Updated: 2020/11/11 12:47:45 by anystrom         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:13:46 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 ** aka invoke compiler error if bad system.
 */
 # ifdef ENV64BIT
+
 typedef unsigned int	t_uint32;
 typedef unsigned short	t_uint16;
 typedef unsigned char	t_uint8;

@@ -6,7 +6,7 @@
 /*   By: vkeinane <vkeinane@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:31:21 by anystrom          #+#    #+#             */
-/*   Updated: 2020/12/18 10:31:54 by vkeinane         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:03:50 by vkeinane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include "../libft/get_next_line.h"
 # include "value.h"
 # include "../libax/libax.h"
-# include <stdio.h>//remove when done
 
 # if _WIN64
 
@@ -40,11 +39,6 @@
 #  include "SDL_mixer.h"
 #  include <windows.h>
 
-//#  include <share.h>
-//#  include <sys/types.h>
-//#  include <sys/stat.h>
-//#  include <io.h>
-//#  include <string.h>
 #  define main		wmain
 #  define close		_close
 #  define open		_open
@@ -193,7 +187,6 @@ typedef struct		s_editor
 	int				tab;
 }					t_editor;
 
-//This could use update? maybe switch pln to bt if it is block thickness
 /*
 **	Datablock for well... blocks
 **	b	- blocktype (main texture and main function)
@@ -420,7 +413,7 @@ typedef struct		s_doom
 	int				drawgunandkeycard;
 	int				jetpack;
 	int				money;
-	int				datareadtype;// for filereading
+	int				datareadtype;
 	char			*moneytemp;
 	char			*moneytext;
 	int				victoryplayed;
