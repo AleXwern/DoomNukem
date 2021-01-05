@@ -42,7 +42,7 @@ void	pickupitem(t_doom *dm)
 				dm->money++;
 			else if (dm->obj[i].gfx == 30 && dm->drawgunandkeycard)
 				dm->keycard = 1;
-			else
+			else if (dm->obj[i].gfx == 9)
 				dm->jetpack = 1;
 			dm->obj[i].dead = 1;
 		}
