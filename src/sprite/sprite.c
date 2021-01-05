@@ -36,11 +36,11 @@ void	pickupitem(t_doom *dm)
 			dm->chestopened = 1;
 		else if (dm->obj[i].dist < 1.5)
 		{
-			if (dm->obj[i].gfx == 36)
+			if (dm->obj[i].gfx == 36 && dm->drawgunandkeycard)
 				dm->gun = 1;
 			else if (dm->obj[i].gfx == 34)
 				dm->money++;
-			else if (dm->obj[i].gfx == 30)
+			else if (dm->obj[i].gfx == 30 && dm->drawgunandkeycard)
 				dm->keycard = 1;
 			else
 				dm->jetpack = 1;

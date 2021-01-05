@@ -55,6 +55,19 @@ void	draw_object_gfx(t_doom *dm, t_gfx gfx, int *yx, double size)
 	}
 }
 
+void	draw_gunandkeycard(t_doom *dm, int i, int y, int x)
+{
+	if (dm->drawgunandkeycard)
+	{
+		draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
+			(int[7]) {
+			y, x, dm->gfx[dm->obj[i].gfx].hgt,
+				dm->gfx[dm->obj[i].gfx].wid, 0, 0, i
+		},
+			dm->obj[i].size / dm->obj[i].dist);
+	}
+}
+
 /*
 **	chest width 197 height 197 per frame
 */
@@ -68,12 +81,16 @@ void	draw_object(t_doom *dm, int i, int y, int x)
 		else
 			dm->gfx[dm->obj[i].gfx].x = 0;
 		draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
-			(int[7]){y, x, 197, 197, 0, 0, i}, 3 / dm->obj[i].dist);
+			(int[7]) {
+			y, x, 197, 197, 0, 0, i
+		}, 3 / dm->obj[i].dist);
 		if (dm->chestopened && dm->obj[i].frame < 23)
 			dm->obj[i].frame++;
 		else if (dm->chestopened && dm->obj[i].frame == 23)
 			dm->drawgunandkeycard = 1;
 	}
+	else if (dm->obj[i].gfx == 30 || dm->obj[i].gfx == 36)
+		draw_gunandkeycard(dm, i, y, x);
 	else
 		draw_object_gfx(dm, dm->gfx[dm->obj[i].gfx],
 		(int[7]){y, x, dm->gfx[dm->obj[i].gfx].hgt,
